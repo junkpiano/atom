@@ -1,0 +1,31 @@
+"*":
+  core:
+    customFileTypes:
+      "source.ini": [
+        ".hgrc"
+        ".buckconfig"
+        ".flowconfig"
+      ]
+      "source.json": [
+        "BUCK.autodeps"
+      ]
+      "source.python": [
+        "BUCK"
+      ]
+    disabledPackages: [
+      "tree-view"
+      "image-view"
+      "linter"
+    ]
+    telemetryConsent: "no"
+  editor:
+    fontSize: 15
+    softWrap: true
+    tabLength: 4
+    tabType: "soft"
+  "exception-reporting":
+    userId: "6010bc0c-acda-4d8d-8bb4-ea7c14a29dd1"
+  "markdown-preview":
+    useGitHubStyle: true
+  welcome:
+    showOnStartup: false
