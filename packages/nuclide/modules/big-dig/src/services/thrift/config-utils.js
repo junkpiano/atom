@@ -67,11 +67,19 @@ function convertToServerConfig(serviceConfig) {
     name: serviceConfig.name,
     remoteCommand: serviceConfig.remoteCommand,
     remoteCommandArgs: serviceConfig.remoteCommandArgs,
+<<<<<<< HEAD
     remotePort: serviceConfig.remotePort,
+=======
+    remoteConnection: serviceConfig.remoteConnection,
+>>>>>>> Update
     killOldThriftServerProcess: serviceConfig.killOldThriftServerProcess
   };
 }
 
 function genConfigId(config) {
+<<<<<<< HEAD
   return [config.name, config.remoteCommand, ...config.remoteCommandArgs, config.remotePort].join('#');
+=======
+  return [config.name, config.remoteCommand, ...config.remoteCommandArgs, config.remoteConnection.type, config.remoteConnection.type === 'tcp' ? config.remoteConnection.port : config.remoteConnection.path].join('#');
+>>>>>>> Update
 }

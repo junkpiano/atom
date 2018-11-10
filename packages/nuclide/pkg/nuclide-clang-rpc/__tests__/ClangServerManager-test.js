@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ClangServerManager() {
   const data = _interopRequireDefault(require("../lib/ClangServerManager"));
@@ -140,7 +144,12 @@ describe('ClangServerManager', () => {
 
     jest.spyOn(processModule, 'runCommand').mockImplementation((command, ...args) => {
       if (command === 'ps') {
+<<<<<<< HEAD
         return _RxMin.Observable.of(serverManager._servers.values().map(server => server.getPID()).filter(Boolean).map(pid => `${pid}\t1000`).join('\n'));
+=======
+        return _rxjsCompatUmdMin.Observable.of(serverManager._servers // $FlowFixMe Missing in typings
+        .values().map(server => server.getPID()).filter(Boolean).map(pid => `${pid}\t1000`).join('\n'));
+>>>>>>> Update
       }
 
       return runCommand(command, ...args);

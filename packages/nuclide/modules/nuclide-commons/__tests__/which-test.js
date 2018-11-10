@@ -10,7 +10,11 @@ function _which() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31,7 +35,11 @@ describe('which', () => {
   let runCommandReturn = '';
   beforeEach(() => {
     runCommandReturn = '';
+<<<<<<< HEAD
     runCommand = jest.spyOn(require("../process"), 'runCommand').mockImplementation(() => _RxMin.Observable.of(runCommandReturn));
+=======
+    runCommand = jest.spyOn(require("../process"), 'runCommand').mockImplementation(() => _rxjsCompatUmdMin.Observable.of(runCommandReturn));
+>>>>>>> Update
   });
   afterEach(() => {
     // $FlowFixMe

@@ -12,7 +12,11 @@ exports.observableErrorString = observableErrorString;
 exports.observableErrorUndefined = observableErrorUndefined;
 exports.observableErrorCode = observableErrorCode;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -59,7 +63,11 @@ function observableErrorCode(code) {
 }
 
 function createErrorObservable(error) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     observer.error(error);
   }).publish();
 }

@@ -3596,7 +3596,18 @@ Object.defineProperty(module.exports, "defs", {
           type: {
             kind: "string"
           },
+<<<<<<< HEAD
           optional: false
+=======
+          optional: true
+        }, {
+          name: "dataBuffer",
+          type: {
+            kind: "named",
+            name: "Buffer"
+          },
+          optional: true
+>>>>>>> Update
         }]
       }
     },
@@ -3920,6 +3931,24 @@ Object.defineProperty(module.exports, "defs", {
             },
             optional: false
           }, {
+<<<<<<< HEAD
+=======
+            name: "buttons",
+            type: {
+              kind: "array",
+              type: {
+                kind: "string"
+              }
+            },
+            optional: false
+          }, {
+            name: "id",
+            type: {
+              kind: "string"
+            },
+            optional: true
+          }, {
+>>>>>>> Update
             name: "shortMessage",
             type: {
               kind: "string"

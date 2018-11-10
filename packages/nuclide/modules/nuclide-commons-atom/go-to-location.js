@@ -17,7 +17,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -56,6 +60,7 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
  * // eslint-disable-next-line nuclide-internal/atom-apis
  */
 async function goToLocation(file, options) {
+<<<<<<< HEAD
   var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;
 
   const center_ = (_ref = options) != null ? _ref.center : _ref;
@@ -68,6 +73,17 @@ async function goToLocation(file, options) {
   const line = (_ref5 = options) != null ? _ref5.line : _ref5;
   const column = (_ref6 = options) != null ? _ref6.column : _ref6;
   const pending = (_ref7 = options) != null ? _ref7.pending : _ref7; // Prefer going to the current editor rather than the leftmost editor.
+=======
+  var _ref, _ref2, _ref3;
+
+  const center = (_ref = options === null || options === void 0 ? void 0 : options.center) !== null && _ref !== void 0 ? _ref : true;
+  const moveCursor = (_ref2 = options === null || options === void 0 ? void 0 : options.moveCursor) !== null && _ref2 !== void 0 ? _ref2 : true;
+  const activatePane = (_ref3 = options === null || options === void 0 ? void 0 : options.activatePane) !== null && _ref3 !== void 0 ? _ref3 : true;
+  const activateItem = options === null || options === void 0 ? void 0 : options.activateItem;
+  const line = options === null || options === void 0 ? void 0 : options.line;
+  const column = options === null || options === void 0 ? void 0 : options.column;
+  const pending = options === null || options === void 0 ? void 0 : options.pending; // Prefer going to the current editor rather than the leftmost editor.
+>>>>>>> Update
 
   const currentEditor = atom.workspace.getActiveTextEditor();
 
@@ -126,7 +142,11 @@ async function goToLocation(file, options) {
   }
 }
 
+<<<<<<< HEAD
 const goToLocationSubject = new _RxMin.Subject();
+=======
+const goToLocationSubject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
 // Scrolls to the given line/column at the given editor
 // broadcasts the editor instance on an observable (subject) available

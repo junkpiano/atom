@@ -46,7 +46,11 @@ describe('ConsoleView', () => {
       clearRecords: () => {},
       createPaste: null,
       currentExecutor: null,
+<<<<<<< HEAD
       displayableRecords: [],
+=======
+      records: [],
+>>>>>>> Update
       enableRegExpFilter: true,
       execute: () => {},
       executors: new Map(),
@@ -56,7 +60,10 @@ describe('ConsoleView', () => {
       getProvider: () => {},
       history: [],
       invalidFilterInput: false,
+<<<<<<< HEAD
       onDisplayableRecordHeightChange: () => {},
+=======
+>>>>>>> Update
       resetAllFilters: () => {},
       selectExecutor: () => {},
       selectSources: () => {},

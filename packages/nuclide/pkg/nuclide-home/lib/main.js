@@ -82,12 +82,20 @@ function _destroyItemWhere() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _electron = require("electron");
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../commons-node/passesGK"));
+=======
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -115,7 +123,11 @@ const SHOW_NUCLIDE_ONBOARDING_GATEKEEPER = 'nuclide_onboarding';
 class Activation {
   // A stream of all of the fragments. This is essentially the state of our panel.
   constructor(state) {
+<<<<<<< HEAD
     this._allHomeFragmentsStream = new _RxMin.BehaviorSubject(Immutable().Set());
+=======
+    this._allHomeFragmentsStream = new _rxjsCompatUmdMin.BehaviorSubject(Immutable().Set());
+>>>>>>> Update
     this._subscriptions = this._registerCommandAndOpener();
 
     this._considerDisplayingHome();

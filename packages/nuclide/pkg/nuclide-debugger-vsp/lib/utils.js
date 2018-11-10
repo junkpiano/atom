@@ -92,11 +92,26 @@ function getNativeAutoGenConfig(vsAdapterType) {
     defaultValue: '',
     visible: true
   };
+<<<<<<< HEAD
+=======
+  const stopOnEntry = {
+    name: 'pauseProgramOnEntry',
+    type: 'boolean',
+    description: 'If true, the debugger will stop the program at entry before starting execution.',
+    required: false,
+    defaultValue: false,
+    visible: true
+  };
+>>>>>>> Update
   const debugTypeMessage = `using ${vsAdapterType === _nuclideDebuggerCommon().VsAdapterTypes.NATIVE_GDB ? 'gdb' : 'lldb'}`;
   const autoGenLaunchConfig = {
     launch: true,
     vsAdapterType,
+<<<<<<< HEAD
     properties: [program, cwd, args, env, sourcePath, corePath],
+=======
+    properties: [program, cwd, args, env, sourcePath, stopOnEntry, corePath],
+>>>>>>> Update
     scriptPropertyName: 'program',
     cwdPropertyName: 'working directory',
     header: React.createElement("p", null, "Debug native programs ", debugTypeMessage, "."),

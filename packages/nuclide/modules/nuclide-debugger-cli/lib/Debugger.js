@@ -115,6 +115,19 @@ function _SourceFileCache() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _InfoCommand() {
+  const data = _interopRequireDefault(require("./InfoCommand"));
+
+  _InfoCommand = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../nuclide-commons/nuclideUri"));
 
@@ -135,6 +148,19 @@ function _OutCommand() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _ShowCapsCommand() {
+  const data = _interopRequireDefault(require("./ShowCapsCommand"));
+
+  _ShowCapsCommand = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _StepCommand() {
   const data = _interopRequireDefault(require("./StepCommand"));
 
@@ -263,7 +289,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 // program is gone and not coming back
 class Debugger {
   constructor(logger, con, preset, muteOutputCategories) {
+<<<<<<< HEAD
     this._capabilities = {};
+=======
+>>>>>>> Update
     this._threads = new (_ThreadCollection().default)();
     this._state = 'INITIALIZING';
     this._breakpoints = new (_BreakpointCollection().default)();
@@ -272,6 +301,10 @@ class Debugger {
     this._attached = false;
     this._configured = false;
     this._stoppedAtBreakpoint = null;
+<<<<<<< HEAD
+=======
+    this._disconnecting = false;
+>>>>>>> Update
     this._logger = logger;
     this._console = con;
     this._sourceFiles = new (_SourceFileCache().default)(this._getSourceByReference.bind(this));
@@ -296,6 +329,11 @@ class Debugger {
     dispatcher.registerCommand(new (_UpCommand().default)(this._console, this));
     dispatcher.registerCommand(new (_DownCommand().default)(this._console, this));
     dispatcher.registerCommand(new (_OutCommand().default)(this));
+<<<<<<< HEAD
+=======
+    dispatcher.registerCommand(new (_ShowCapsCommand().default)(this._console, this));
+    dispatcher.registerCommand(new (_InfoCommand().default)(this._console, this));
+>>>>>>> Update
   } // launch is for launching a process from scratch when we need a new
   // session
 
@@ -347,8 +385,12 @@ class Debugger {
 
       await session.launch(_adapter.adapter.transformLaunchArguments(adapter.launchArgs));
     } catch (err) {
+<<<<<<< HEAD
       process.stderr.write(`Failed to debug target: ${err.message}\r\n`);
       process.exit(0);
+=======
+      this._console.close(`Failed to debug target: ${err.message}\r\n`);
+>>>>>>> Update
     }
   }
 
@@ -382,12 +424,20 @@ class Debugger {
       filters: []
     });
 
+<<<<<<< HEAD
     if (Boolean(this._capabilities.supportsConfigurationDoneRequest)) {
       try {
         await session.configurationDone();
       } catch (err) {
         process.stderr.write(`Failed to debug target: ${err.message}\r\n`);
         process.exit(0);
+=======
+    if (Boolean(session.capabilities.supportsConfigurationDoneRequest)) {
+      try {
+        await session.configurationDone();
+      } catch (err) {
+        this._console.close(`Failed to debug target: ${err.message}\r\n`);
+>>>>>>> Update
       }
     }
 
@@ -452,6 +502,18 @@ class Debugger {
   }
 
   breakInto() {
+<<<<<<< HEAD
+=======
+    // this is mostly for hhvm. if things are slow and the user is seeing the
+    // 'factsdb is syncing slowly' message, take SIGINT to mean they want to
+    // exit the debugger as opposed to break into the target
+    if (!this._readyForEvaluations) {
+      this._console.close();
+
+      return;
+    }
+
+>>>>>>> Update
     if (this._adapter == null) {
       throw new Error('No adapter set up in breakInto()');
     }
@@ -505,6 +567,7 @@ class Debugger {
       throw new Error(`Thread #${tid} is not stopped.`);
     }
 
+<<<<<<< HEAD
     const {
       body: {
         stackFrames
@@ -514,6 +577,22 @@ class Debugger {
       levels
     });
     return stackFrames;
+=======
+    if (thread.getStackFrames().length < levels) {
+      const {
+        body: {
+          stackFrames
+        }
+      } = await this._ensureDebugSession().stackTrace({
+        threadId: tid,
+        startFrame: thread.getStackFrames().length,
+        levels: levels - thread.getStackFrames().length
+      });
+      thread.addStackFrames(stackFrames);
+    }
+
+    return thread.getStackFrames();
+>>>>>>> Update
   }
 
   async setSelectedStackFrame(thread, frameIndex) {
@@ -679,22 +758,42 @@ class Debugger {
   }
 
   supportsStoppedAtBreakpoint() {
+<<<<<<< HEAD
     return this._capabilities.supportsBreakpointIdOnStop === true;
+=======
+    const session = this._ensureDebugSession();
+
+    return Boolean(session.capabilities.supportsBreakpointIdOnStop);
+>>>>>>> Update
   }
 
   getStoppedAtBreakpoint() {
     return this._stoppedAtBreakpoint;
   }
 
+<<<<<<< HEAD
   async setSourceBreakpoint(path, line, once) {
     if (once && !this._breakpoints.supportsOnceState()) {
       throw new Error(`The ${this._adapter == null ? 'current' : this._adapter.type} debugger does not support one-shot breakpoints.`);
+=======
+  async setSourceBreakpoint(path, line, once, condition) {
+    if (once && !this._breakpoints.supportsOnceState()) {
+      throw new Error(`The ${this._adapter == null ? 'current' : this._adapter.type} debugger does not support one-shot breakpoints.`);
+    }
+
+    if (condition != null && !this._breakpoints.supportsConditional()) {
+      throw new Error(`The ${this._adapter == null ? 'current' : this._adapter.type} debugger does not support conditional breakpoints.`);
+>>>>>>> Update
     } // NB this call is allowed before the program is launched
 
 
     const session = this._ensureDebugSession(true);
 
+<<<<<<< HEAD
     const index = this._breakpoints.addSourceBreakpoint(path, line, once);
+=======
+    const index = this._breakpoints.addSourceBreakpoint(path, line, once, condition);
+>>>>>>> Update
 
     let message = 'Breakpoint pending until program starts.';
 
@@ -717,7 +816,12 @@ class Debugger {
         path
       },
       breakpoints: localBreakpoints.map(x => ({
+<<<<<<< HEAD
         line: x.line
+=======
+        line: x.line,
+        condition: x.condition
+>>>>>>> Update
       }))
     };
     const {
@@ -735,19 +839,37 @@ class Debugger {
     return breakpoint == null ? null : breakpoint[1];
   }
 
+<<<<<<< HEAD
   async setFunctionBreakpoint(func, once) {
     if (!Boolean(this._capabilities.supportsFunctionBreakpoints)) {
+=======
+  async setFunctionBreakpoint(func, once, condition) {
+    // NB this call is allowed before the program is launched
+    const session = this._ensureDebugSession(true);
+
+    if (!Boolean(session.capabilities.supportsFunctionBreakpoints)) {
+>>>>>>> Update
       throw new Error(`The ${this._adapter == null ? 'current' : this._adapter.type} debugger does not support function breakpoints.`);
     }
 
     if (once && !this._breakpoints.supportsOnceState()) {
       throw new Error(`The ${this._adapter == null ? 'current' : this._adapter.type} debugger does not support one-shot breakpoints.`);
+<<<<<<< HEAD
     } // NB this call is allowed before the program is launched
 
 
     const session = this._ensureDebugSession(true);
 
     const index = this._breakpoints.addFunctionBreakpoint(func, once);
+=======
+    }
+
+    if (condition != null && !this._breakpoints.supportsConditional()) {
+      throw new Error(`The ${this._adapter == null ? 'current' : this._adapter.type} debugger does not support conditional breakpoints.`);
+    }
+
+    const index = this._breakpoints.addFunctionBreakpoint(func, once, condition);
+>>>>>>> Update
 
     let message = 'Breakpoint pending until program starts.';
 
@@ -767,7 +889,12 @@ class Debugger {
 
     const request = {
       breakpoints: funcBreakpoints.map(bpt => ({
+<<<<<<< HEAD
         name: bpt.func
+=======
+        name: bpt.func,
+        condition: bpt.condition
+>>>>>>> Update
       }))
     };
     const response = await session.setFunctionBreakpoints(request);
@@ -921,6 +1048,7 @@ class Debugger {
     }
   }
 
+<<<<<<< HEAD
   async evaluateExpression(expression) {
     const session = this._ensureDebugSession(true);
 
@@ -930,6 +1058,23 @@ class Debugger {
     };
 
     if (this._state === 'RUNNING') {
+=======
+  async evaluateExpression(expression, isBlockOfCode) {
+    const session = this._ensureDebugSession(true);
+
+    const adapter = this._adapter;
+
+    if (!(adapter != null)) {
+      throw new Error("Invariant violation: \"adapter != null\"");
+    }
+
+    let args = {
+      expression: adapter.adapter.transformExpression(expression, isBlockOfCode),
+      context: 'repl'
+    };
+
+    if (this._state === 'STOPPED') {
+>>>>>>> Update
       const frame = await this.getCurrentStackFrame();
 
       if (frame != null) {
@@ -950,6 +1095,36 @@ class Debugger {
     return this._adapter.adapter.supportsCodeBlocks;
   }
 
+<<<<<<< HEAD
+=======
+  adapterCaps() {
+    const session = this._ensureDebugSession();
+
+    return session.capabilities;
+  }
+
+  info(object) {
+    const session = this._ensureDebugSession();
+
+    if (!Boolean(session.capabilities.supportsInfo)) {
+      throw new Error('This debug adapter does not support "info"');
+    }
+
+    let args = {
+      object
+    };
+    const threadId = this._threads.focusThreadId;
+
+    if (threadId != null) {
+      args = Object.assign({}, args, {
+        threadId
+      });
+    }
+
+    return session.info(args);
+  }
+
+>>>>>>> Update
   async createSession(adapter) {
     this._console.stopInput();
 
@@ -969,13 +1144,20 @@ class Debugger {
     const {
       body
     } = await this._debugSession.initialize({
+<<<<<<< HEAD
       adapterID: 'fbdbg',
+=======
+      adapterID: adapter.type,
+>>>>>>> Update
       pathFormat: 'path',
       linesStartAt1: true,
       columnsStartAt1: true,
       clientID: 'nuclide-cli'
     });
+<<<<<<< HEAD
     this._capabilities = {};
+=======
+>>>>>>> Update
 
     if (body != null) {
       // $FlowFixMe should be able to just assign here
@@ -993,6 +1175,13 @@ class Debugger {
     if (extraBody.supportsBreakpointIdOnStop) {
       this._breakpoints.enableOnceState();
     }
+<<<<<<< HEAD
+=======
+
+    if (extraBody.supportsConditionalBreakpoints) {
+      this._breakpoints.enableConditional();
+    }
+>>>>>>> Update
   }
 
   async _resetAllBreakpoints() {
@@ -1027,7 +1216,11 @@ class Debugger {
 
     const funcBreakpoints = this._breakpoints.getAllEnabledFunctionBreakpoints();
 
+<<<<<<< HEAD
     if (!Boolean(this._capabilities.supportsFunctionBreakpoints) || funcBreakpoints.length === 0) {
+=======
+    if (!Boolean(session.capabilities.supportsFunctionBreakpoints) || funcBreakpoints.length === 0) {
+>>>>>>> Update
       return;
     }
 
@@ -1084,6 +1277,11 @@ class Debugger {
 
   _initializeObservers() {
     const session = this._ensureDebugSession(true);
+<<<<<<< HEAD
+=======
+    /* eslint-disable nuclide-internal/unused-subscription */
+
+>>>>>>> Update
 
     session.observeInitializeEvents().subscribe(() => {
       try {
@@ -1107,16 +1305,37 @@ class Debugger {
     session.observeCustomEvents().subscribe(e => {
       if (e.event === 'readyForEvaluations') {
         this._onReadyForEvaluations();
+<<<<<<< HEAD
       }
     });
+=======
+      } else if (e.event === 'hhvmConnectionRefused' || e.event === 'hhvmConnectionDied') {
+        this._console.outputLine('Connection to debug server lost.');
+
+        this._console.close();
+      }
+    });
+    /* eslint-enable nuclide-internal/unused-subscription */
+>>>>>>> Update
   }
 
   async closeSession() {
     if (this._debugSession == null) {
       return;
+<<<<<<< HEAD
     }
 
     await this._debugSession.disconnect();
+=======
+    } // Note that we will always get the adapter exited event while
+    // in the disconnect call (it's implemented that way in VsDebugSession,
+    // not in the individual adapters.)
+
+
+    this._disconnecting = true;
+    await this._debugSession.disconnect();
+    this._disconnecting = false;
+>>>>>>> Update
     this._threads = new (_ThreadCollection().default)();
     this._debugSession = null;
     this._activeThread = null; // $TODO perf - there may be some value in not immediately flushing
@@ -1344,7 +1563,11 @@ class Debugger {
   _onAdapterExited(event) {
     // If we're initializing, this is expected - relaunch() is tearing down
     // the adapter to build a new one.
+<<<<<<< HEAD
     if (this._state === 'INITIALIZING') {
+=======
+    if (this._state === 'INITIALIZING' && this._disconnecting) {
+>>>>>>> Update
       return;
     }
 

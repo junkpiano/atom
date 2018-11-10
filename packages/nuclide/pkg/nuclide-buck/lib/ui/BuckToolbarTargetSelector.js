@@ -7,7 +7,11 @@ exports.default = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _Combobox() {
   const data = require("../../../nuclide-ui/Combobox");
@@ -87,10 +91,17 @@ class BuckToolbarTargetSelector extends React.Component {
       } = this.props.appState;
 
       if (buckRoot == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.throw(Error(NO_ACTIVE_PROJECT_ERROR));
       }
 
       return (0, _observable().concatLatest)(_RxMin.Observable.of(inputText.trim() === '' ? [] : [inputText]), _RxMin.Observable.fromPromise(this._getActiveOwners(buckRoot)), _RxMin.Observable.fromPromise(this._getAliases(buckRoot))).map(list => Array.from(new Set(list)));
+=======
+        return _rxjsCompatUmdMin.Observable.throw(Error(NO_ACTIVE_PROJECT_ERROR));
+      }
+
+      return (0, _observable().concatLatest)(_rxjsCompatUmdMin.Observable.of(inputText.trim() === '' ? [] : [inputText]), _rxjsCompatUmdMin.Observable.fromPromise(this._getActiveOwners(buckRoot)), _rxjsCompatUmdMin.Observable.fromPromise(this._getAliases(buckRoot))).map(list => Array.from(new Set(list)));
+>>>>>>> Update
     };
 
     this._handleBuildTargetChange = value => {

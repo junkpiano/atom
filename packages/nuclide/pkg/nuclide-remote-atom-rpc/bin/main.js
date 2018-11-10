@@ -126,6 +126,11 @@ async function main(argv) {
       /* rejectIfZeroConnections */
       true);
     } catch (error) {
+<<<<<<< HEAD
+=======
+      await (0, _errors().trackError)('atom', argv, error);
+
+>>>>>>> Update
       if (error instanceof _errors().FailedConnectionError) {
         // Note this does not throw: reportConnectionErrorAndExit()
         // does not return. However, we use throw to convince Flow
@@ -192,11 +197,20 @@ async function main(argv) {
           }
         }
       } catch (e) {
+<<<<<<< HEAD
+=======
+        // eslint-disable-next-line no-await-in-loop
+        await (0, _errors().trackError)('atom', argv, e);
+>>>>>>> Update
         (0, _errors().reportErrorAndExit)(e, _errors().EXIT_CODE_APPLICATION_ERROR);
       }
     }
   }
 
+<<<<<<< HEAD
+=======
+  await (0, _errors().trackSuccess)('atom', argv);
+>>>>>>> Update
   return _errors().EXIT_CODE_SUCCESS;
 }
 

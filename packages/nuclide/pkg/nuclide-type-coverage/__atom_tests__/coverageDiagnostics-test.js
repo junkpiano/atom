@@ -2,7 +2,11 @@
 
 var _atom = require("atom");
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _coverageDiagnostics() {
   const data = require("../lib/coverageDiagnostics");
@@ -37,8 +41,13 @@ describe('diagnosticProviderForResultStream', () => {
   beforeEach(() => {
     updates = [];
     invalidations = [];
+<<<<<<< HEAD
     inputResults = new _RxMin.Subject();
     isEnabledStream = new _RxMin.Subject();
+=======
+    inputResults = new _rxjsCompatUmdMin.Subject();
+    isEnabledStream = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     diagnosticProvider = (0, _coverageDiagnostics().diagnosticProviderForResultStream)(inputResults, isEnabledStream); // For now it's easy enough to stub out the editor but in the future it may be worthwhile to use
     // an action TextEditor object. We would need an actual fixture to open, though, since we rely
     // on the path being non-null (so `atom.workspace.open()` would not be sufficient).

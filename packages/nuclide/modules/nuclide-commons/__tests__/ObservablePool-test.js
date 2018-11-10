@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ObservablePool() {
   const data = _interopRequireDefault(require("../ObservablePool"));
@@ -39,6 +43,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 describe('ObservablePool', () => {
   it('limits the concurrency of observable values with cancellation', () => {
     const pool = new (_ObservablePool().default)(2);
+<<<<<<< HEAD
     const subject1 = new _RxMin.Subject();
     const spy1 = jest.fn().mockReturnValue(subject1);
     const req1 = pool.schedule(spy1);
@@ -48,6 +53,17 @@ describe('ObservablePool', () => {
     const subject3 = new _RxMin.Subject();
     const spy3 = jest.fn().mockReturnValue(subject3);
     const req3 = pool.schedule(_RxMin.Observable.defer(spy3)); // Nothing should happen until subscription.
+=======
+    const subject1 = new _rxjsCompatUmdMin.Subject();
+    const spy1 = jest.fn().mockReturnValue(subject1);
+    const req1 = pool.schedule(spy1);
+    const subject2 = new _rxjsCompatUmdMin.Subject();
+    const spy2 = jest.fn().mockReturnValue(subject2);
+    const req2 = pool.schedule(spy2);
+    const subject3 = new _rxjsCompatUmdMin.Subject();
+    const spy3 = jest.fn().mockReturnValue(subject3);
+    const req3 = pool.schedule(_rxjsCompatUmdMin.Observable.defer(spy3)); // Nothing should happen until subscription.
+>>>>>>> Update
 
     expect(spy1).not.toHaveBeenCalled();
     expect(spy2).not.toHaveBeenCalled();

@@ -215,6 +215,46 @@ module.exports = _client => {
       });
     }
 
+<<<<<<< HEAD
+=======
+    getClipboardContents() {
+      return _client.callRemoteMethod(_client.marshal(this, {
+        kind: "named",
+        location: {
+          type: "source",
+          fileName: "rpc-types.js",
+          line: 47
+        },
+        name: "AtomCommands"
+      }), "getClipboardContents", "promise", _client.marshalArguments(Array.from(arguments), [])).then(value => {
+        return _client.unmarshal(value, {
+          kind: "string"
+        });
+      });
+    }
+
+    setClipboardContents(arg0) {
+      return _client.callRemoteMethod(_client.marshal(this, {
+        kind: "named",
+        location: {
+          type: "source",
+          fileName: "rpc-types.js",
+          line: 47
+        },
+        name: "AtomCommands"
+      }), "setClipboardContents", "promise", _client.marshalArguments(Array.from(arguments), [{
+        name: "text",
+        type: {
+          kind: "string"
+        }
+      }])).then(value => {
+        return _client.unmarshal(value, {
+          kind: "void"
+        });
+      });
+    }
+
+>>>>>>> Update
     dispose() {
       return _client.disposeRemoteObject(this);
     }
@@ -1028,11 +1068,53 @@ Object.defineProperty(module.exports, "defs", {
             }
           }
         },
+<<<<<<< HEAD
+=======
+        getClipboardContents: {
+          location: {
+            type: "source",
+            fileName: "rpc-types.js",
+            line: 81
+          },
+          kind: "function",
+          argumentTypes: [],
+          returnType: {
+            kind: "promise",
+            type: {
+              kind: "string"
+            }
+          }
+        },
+        setClipboardContents: {
+          location: {
+            type: "source",
+            fileName: "rpc-types.js",
+            line: 86
+          },
+          kind: "function",
+          argumentTypes: [{
+            name: "text",
+            type: {
+              kind: "string"
+            }
+          }],
+          returnType: {
+            kind: "promise",
+            type: {
+              kind: "void"
+            }
+          }
+        },
+>>>>>>> Update
         dispose: {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 78
+=======
+            line: 88
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [],

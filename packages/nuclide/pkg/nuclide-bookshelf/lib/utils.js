@@ -30,7 +30,11 @@ function Immutable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/feature-config"));
@@ -63,7 +67,11 @@ function _nuclideVcsBase() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -148,7 +156,11 @@ function getRepoPathToEditors() {
 }
 
 function shortHeadChangedNotification(repository, newShortHead, restorePaneItemState) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     const workingDirectoryName = _nuclideUri().default.basename(repository.getWorkingDirectory()); // TODO(most): Should we handle empty bookmark switches differently?
 
 
@@ -187,7 +199,11 @@ function getShortHeadChangesFromStateStream(states) {
     const {
       repositoryPathToState: oldRepositoryPathToState
     } = oldBookShelfState;
+<<<<<<< HEAD
     return _RxMin.Observable.from(Array.from(newBookShelfState.repositoryPathToState.entries()).filter(([repositoryPath, newRepositoryState]) => {
+=======
+    return _rxjsCompatUmdMin.Observable.from(Array.from(newBookShelfState.repositoryPathToState.entries()).filter(([repositoryPath, newRepositoryState]) => {
+>>>>>>> Update
       const oldRepositoryState = oldRepositoryPathToState.get(repositoryPath);
       return oldRepositoryState != null && oldRepositoryState.activeShortHead !== newRepositoryState.activeShortHead;
     }).map(([repositoryPath, newRepositoryState]) => {

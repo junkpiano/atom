@@ -35,7 +35,11 @@ function _nuclideRemoteConnection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -231,10 +235,13 @@ class AtomLanguageService {
     this._subscriptions.add(this._connectionToLanguageService);
   }
 
+<<<<<<< HEAD
   _selector() {
     return this._config.grammars.join(', ');
   }
 
+=======
+>>>>>>> Update
   activate() {
     let busySignalService = null;
     const busySignalProvider = {
@@ -274,7 +281,11 @@ class AtomLanguageService {
     const coverageConfig = this._config.coverage;
 
     if (coverageConfig != null) {
+<<<<<<< HEAD
       this._subscriptions.add(_TypeCoverageProvider().TypeCoverageProvider.register(this._config.name, this._selector(), coverageConfig, this._connectionToLanguageService));
+=======
+      this._subscriptions.add(_TypeCoverageProvider().TypeCoverageProvider.register(this._config.name, this._config.grammars, coverageConfig, this._connectionToLanguageService));
+>>>>>>> Update
     }
 
     const definitionConfig = this._config.definition;
@@ -286,7 +297,11 @@ class AtomLanguageService {
     const typeHintConfig = this._config.typeHint;
 
     if (typeHintConfig != null) {
+<<<<<<< HEAD
       this._subscriptions.add(_TypeHintProvider().TypeHintProvider.register(this._config.name, this._selector(), typeHintConfig, this._connectionToLanguageService));
+=======
+      this._subscriptions.add(_TypeHintProvider().TypeHintProvider.register(this._config.name, this._config.grammars, typeHintConfig, this._connectionToLanguageService));
+>>>>>>> Update
     }
 
     const codeFormatConfig = this._config.codeFormat;
@@ -376,25 +391,41 @@ class AtomLanguageService {
 
   observeLanguageServices() {
     return this._connectionToLanguageService.observeValues().switchMap(languageService => {
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(languageService);
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(languageService);
+>>>>>>> Update
     });
   }
 
   observeConnectionLanguageEntries() {
     return this._connectionToLanguageService.observeEntries().switchMap(([connection, servicePromise]) => {
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(servicePromise).map(languageService => [connection, languageService]);
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(servicePromise).map(languageService => [connection, languageService]);
+>>>>>>> Update
     });
   }
 
   _registerOnWillSave(config) {
     const callback = editor => {
+<<<<<<< HEAD
       return _RxMin.Observable.defer(async () => {
+=======
+      return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
         const fileVersion = await (0, _nuclideOpenFiles().getFileVersionOfEditor)(editor);
         const languageService = await this._connectionToLanguageService.getForUri(editor.getPath());
         return [languageService, fileVersion];
       }).flatMap(([languageService, fileVersion]) => {
         if (languageService == null || fileVersion == null) {
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }
 
         return languageService.onWillSave(fileVersion).refCount();

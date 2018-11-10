@@ -15,7 +15,11 @@ function _DebuggerInterface() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -55,9 +59,15 @@ class EnterCode {
 
     this._console.prompt();
 
+<<<<<<< HEAD
     this._subscription = _RxMin.Observable.merge(this._console.observeInterrupts().switchMap(_ => _RxMin.Observable.from([{
       type: 'interrupt'
     }])), this._console.observeLines().switchMap(line => _RxMin.Observable.from([{
+=======
+    this._subscription = _rxjsCompatUmdMin.Observable.merge(this._console.observeInterrupts().switchMap(_ => _rxjsCompatUmdMin.Observable.from([{
+      type: 'interrupt'
+    }])), this._console.observeLines().switchMap(line => _rxjsCompatUmdMin.Observable.from([{
+>>>>>>> Update
       type: 'line',
       line
     }]))).switchMap(event => {
@@ -80,7 +90,11 @@ class EnterCode {
 
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }).subscribe(_ => this._closeNestedInput(), _ => this._closeNestedInput());
   }
 
@@ -102,7 +116,11 @@ class EnterCode {
         body: {
           result
         }
+<<<<<<< HEAD
       } = await this._debugger.evaluateExpression(this._pendingText);
+=======
+      } = await this._debugger.evaluateExpression(this._pendingText, true);
+>>>>>>> Update
 
       this._console.outputLine(result);
     } catch (err) {

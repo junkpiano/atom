@@ -22,9 +22,13 @@ exports.default = recordsChanged;
  * knowledge that record lists are only ever appended.
  */
 function recordsChanged(a, b) {
+<<<<<<< HEAD
   var _ref, _ref2;
 
   return a.length !== b.length || ((_ref = last(a)) != null ? _ref.id : _ref) !== ((_ref2 = last(b)) != null ? _ref2.id : _ref2);
+=======
+  return a.length !== b.length || last(a) !== last(b);
+>>>>>>> Update
 }
 
 const last = arr => arr[arr.length - 1];

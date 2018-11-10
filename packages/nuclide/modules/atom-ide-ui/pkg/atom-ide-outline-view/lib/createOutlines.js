@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createOutlines = createOutlines;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/feature-config"));
@@ -64,12 +68,20 @@ function outlinesForProviderResults(providerResults) {
 function uiOutlinesForResult(result) {
   switch (result.kind) {
     case 'not-text-editor':
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'not-text-editor'
       });
 
     case 'no-provider':
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'no-provider',
         grammar: result.grammar.name
       });
@@ -78,7 +90,11 @@ function uiOutlinesForResult(result) {
       // Originally, we displayed a empty pane immediately, but this caused an undesireable
       // flickering effect so we prefer stale information for the first LOADING_DELAY_MS.
       // If we haven't received anything after LOADING_DELAY_MS, display a loading indicator.
+<<<<<<< HEAD
       return _RxMin.Observable.concat(_RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'loading'
       }).delay(LOADING_DELAY_MS));
 
@@ -86,7 +102,11 @@ function uiOutlinesForResult(result) {
       const outline = result.result;
 
       if (outline == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           kind: 'provider-no-outline'
         });
       }
@@ -94,14 +114,22 @@ function uiOutlinesForResult(result) {
       return rootOutline(outline, result.editor);
 
     case 'provider-error':
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'provider-no-outline'
       });
 
     default:
       // Don't change the UI after 'edit' or 'save' events.
       // It's better to just leave the existing outline visible until the new results come in.
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }
 }
 

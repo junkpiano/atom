@@ -20,7 +20,11 @@ function _createPackage() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _BuckTaskRunner() {
   const data = require("../../nuclide-buck/lib/BuckTaskRunner");
@@ -93,7 +97,11 @@ function _log4js() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../commons-node/passesGK"));
+=======
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -149,11 +157,19 @@ class Activation {
     const underlyingRuleType = this._getUnderlyingRuleType(ruleType, buildTarget);
 
     if (!SUPPORTED_RULE_TYPES.has(underlyingRuleType)) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(null);
     }
 
     const availableActions = new Set(['build', 'run', 'test', 'debug', 'debug-launch-no-build', 'debug-attach']);
     return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of(null);
+    }
+
+    const availableActions = new Set(['build', 'run', 'test', 'build-launch-debug', 'launch-debug', 'attach-debug']);
+    return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       name: 'Native',
       platforms: [{
         isMobile: false,
@@ -162,7 +178,11 @@ class Activation {
           return availableActions;
         },
         runTask: (builder, taskType, target, settings) => {
+<<<<<<< HEAD
           const subcommand = taskType === 'debug' ? 'build' : taskType;
+=======
+          const subcommand = taskType === 'build-launch-debug' ? 'build' : taskType;
+>>>>>>> Update
 
           if ((0, _BuckTaskRunner().isDebugTask)(taskType)) {
             return this._runDebugTask(builder, taskType, target, settings, buckRoot, underlyingRuleType);
@@ -185,18 +205,31 @@ class Activation {
   _waitForBuckThenDebugNativeTarget(buckRoot, processStream) {
     return processStream.flatMap(message => {
       if (message.kind !== 'stderr') {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const regMatch = message.data.match(LLDB_PROCESS_ID_REGEX);
 
       if (regMatch != null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(regMatch[1]);
       }
 
       return _RxMin.Observable.empty();
     }).switchMap(attachArg => {
       return _RxMin.Observable.fromPromise(this._debugPidWithLLDB(parseInt(attachArg, 10), buckRoot)).ignoreElements().startWith({
+=======
+        return _rxjsCompatUmdMin.Observable.of(regMatch[1]);
+      }
+
+      return _rxjsCompatUmdMin.Observable.empty();
+    }).switchMap(attachArg => {
+      return _rxjsCompatUmdMin.Observable.fromPromise(this._debugPidWithLLDB(parseInt(attachArg, 10), buckRoot)).ignoreElements().startWith({
+>>>>>>> Update
         type: 'log',
         message: `Attaching LLDB debugger to pid ${attachArg}...`,
         level: 'info'
@@ -205,8 +238,16 @@ class Activation {
   }
 
   _runDebugTask(builder, taskType, buildTarget, taskSettings, buckRoot, ruleType) {
+<<<<<<< HEAD
     if (taskType === 'debug-attach') {
       return _RxMin.Observable.defer(async () => {
+=======
+    if (taskType === 'attach-debug') {
+      // TODO: The implementation below is annoying/wrong
+      // It redirects to the attach dialog, ignores the buildTarget input and asks user to choose what they want to attach to.
+      // Instead it should automatically figure out the process based on buildTarget and attach to it.
+      return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
         const providerType = await this._getBuckNativeDebugAdapterType();
         atom.commands.dispatch(atom.views.getView(atom.workspace), 'debugger:show-attach-dialog', {
           selectedTabName: providerType === _nuclideDebuggerCommon().VsAdapterTypes.NATIVE_GDB ? _nuclideDebuggerCommon().VsAdapterNames.NATIVE_GDB : _nuclideDebuggerCommon().VsAdapterNames.NATIVE_LLDB,
@@ -232,9 +273,15 @@ class Activation {
     const runArguments = taskSettings.runArguments || [];
     const argString = runArguments.length === 0 ? '' : ` with arguments "${runArguments.join(' ')}"`;
 
+<<<<<<< HEAD
     const debugBuckTarget = _RxMin.Observable.defer(() => this._debugBuckTarget(buckService, buckRoot, targetString, taskSettings.buildArguments || [], runArguments)).ignoreElements().catch(err => {
       (0, _log4js().getLogger)('nuclide-buck').error(`Failed to launch debugger for ${targetString}`, err);
       return _RxMin.Observable.of({
+=======
+    const debugBuckTarget = _rxjsCompatUmdMin.Observable.defer(() => this._debugBuckTarget(buckService, buckRoot, targetString, taskSettings.buildArguments || [], runArguments)).ignoreElements().catch(err => {
+      (0, _log4js().getLogger)('nuclide-buck').error(`Failed to launch debugger for ${targetString}`, err);
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         type: 'message',
         message: {
           level: 'error',
@@ -252,12 +299,21 @@ class Activation {
       progress: null
     });
 
+<<<<<<< HEAD
     if (taskType === 'debug-launch-no-build') {
       return debugBuckTarget;
     }
 
     if (!(taskType === 'debug')) {
       throw new Error("Invariant violation: \"taskType === 'debug'\"");
+=======
+    if (taskType === 'launch-debug') {
+      return debugBuckTarget;
+    }
+
+    if (!(taskType === 'build-launch-debug')) {
+      throw new Error("Invariant violation: \"taskType === 'build-launch-debug'\"");
+>>>>>>> Update
     }
 
     return this._addModeDbgIfNoModeInBuildArguments(buckRoot, taskSettings).switchMap(settings => {
@@ -341,11 +397,19 @@ class Activation {
     const buildArguments = settings.buildArguments != null ? settings.buildArguments : [];
 
     if (buildArguments.some(arg => arg.includes('@mode'))) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(settings);
     }
 
     const fileSystemService = (0, _nuclideRemoteConnection().getFileSystemServiceByNuclideUri)(buckRoot);
     return _RxMin.Observable.defer(async () => {
+=======
+      return _rxjsCompatUmdMin.Observable.of(settings);
+    }
+
+    const fileSystemService = (0, _nuclideRemoteConnection().getFileSystemServiceByNuclideUri)(buckRoot);
+    return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
       const modeDbgFile = _nuclideUri().default.join(buckRoot, 'mode', 'dbg');
 
       if (await fileSystemService.exists(modeDbgFile)) {

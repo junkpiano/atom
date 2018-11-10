@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+<<<<<<< HEAD
 exports.findHackConfigDir = findHackConfigDir;
 exports.setHackCommand = setHackCommand;
 exports.getHackCommand = getHackCommand;
@@ -18,6 +19,9 @@ function _ConfigCache() {
 
   return data;
 }
+=======
+exports.DEFAULT_HACK_COMMAND = exports.HACK_LOGGER_CATEGORY = void 0;
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -29,6 +33,7 @@ function _process() {
   return data;
 }
 
+<<<<<<< HEAD
 function _log4js() {
   const data = require("log4js");
 
@@ -49,6 +54,8 @@ function _constants() {
   return data;
 }
 
+=======
+>>>>>>> Update
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -61,13 +68,17 @@ function _constants() {
  */
 const HACK_LOGGER_CATEGORY = 'nuclide-hack';
 exports.HACK_LOGGER_CATEGORY = HACK_LOGGER_CATEGORY;
+<<<<<<< HEAD
 const logger = (0, _log4js().getLogger)(HACK_LOGGER_CATEGORY);
 exports.logger = logger;
+=======
+>>>>>>> Update
 const PATH_TO_HH_CLIENT = 'hh_client'; // Kick this off early, so we don't need to repeat this on every call.
 // We don't have a way of changing the path on the dev server after a
 // connection is made so this shouldn't change over time.
 // Worst case scenario is requiring restarting Nuclide after changing the hh_client path.
 
+<<<<<<< HEAD
 const DEFAULT_HACK_COMMAND = findHackCommand();
 let hackCommand = DEFAULT_HACK_COMMAND;
 const configCache = new (_ConfigCache().ConfigCache)([_constants().HACK_CONFIG_FILE_NAME]);
@@ -79,6 +90,11 @@ function findHackConfigDir(localFile) {
   return configCache.getConfigDir(localFile);
 } // Returns the empty string on failure
 
+=======
+const DEFAULT_HACK_COMMAND = findHackCommand(); // Returns the empty string on failure
+
+exports.DEFAULT_HACK_COMMAND = DEFAULT_HACK_COMMAND;
+>>>>>>> Update
 
 async function findHackCommand() {
   try {
@@ -86,6 +102,7 @@ async function findHackCommand() {
   } catch (err) {
     return '';
   }
+<<<<<<< HEAD
 }
 
 function setHackCommand(newHackCommand) {
@@ -112,4 +129,6 @@ async function getHackExecOptions(localFile) {
   } else {
     return null;
   }
+=======
+>>>>>>> Update
 }

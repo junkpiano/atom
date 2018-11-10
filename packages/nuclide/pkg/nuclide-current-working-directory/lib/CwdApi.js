@@ -55,7 +55,11 @@ function FileTreeHelpers() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -64,14 +68,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // eslint-disable-next-line nuclide-internal/no-cross-atom-imports
 class CwdApi {
   constructor(initialPath) {
+<<<<<<< HEAD
     this._disposed = new _RxMin.ReplaySubject(1);
+=======
+    this._disposed = new _rxjsCompatUmdMin.ReplaySubject(1);
+>>>>>>> Update
     this._getPaths = (0, _memoize2().default)(() => {
       // Since adding and removing projects can affect the validity of cwdPath, we need to re-query
       // every time it happens.
       const projectPathChanges = (0, _event().observableFromSubscribeFunction)(cb => atom.project.onDidChangePaths(cb)).mapTo(null).share();
+<<<<<<< HEAD
       return _RxMin.Observable.merge(this._explicitlySetPaths, projectPathChanges).map(() => this.getCwd()).distinctUntilChanged().takeUntil(this._disposed);
     });
     this._explicitlySetPaths = new _RxMin.BehaviorSubject(initialPath);
+=======
+      return _rxjsCompatUmdMin.Observable.merge(this._explicitlySetPaths, projectPathChanges).map(() => this.getCwd()).distinctUntilChanged().takeUntil(this._disposed);
+    });
+    this._explicitlySetPaths = new _rxjsCompatUmdMin.BehaviorSubject(initialPath);
+>>>>>>> Update
   }
 
   setCwd(path) {

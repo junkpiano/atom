@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getPortForJavaDebugger = getPortForJavaDebugger;
 exports.getJavaVSAdapterExecutableInfo = getJavaVSAdapterExecutableInfo;
+<<<<<<< HEAD
 exports.prepareForTerminalLaunch = prepareForTerminalLaunch;
 exports.javaDebugWaitForJdwpProcessStart = javaDebugWaitForJdwpProcessStart;
 exports.javaDebugWaitForJdwpProcessExit = javaDebugWaitForJdwpProcessExit;
@@ -14,26 +15,48 @@ function _fsPromise() {
   const data = _interopRequireDefault(require("../nuclide-commons/fsPromise"));
 
   _fsPromise = function () {
+=======
+exports.getSdkVersionSourcePath = getSdkVersionSourcePath;
+
+function _analytics() {
+  const data = require("../nuclide-commons/analytics");
+
+  _analytics = function () {
+>>>>>>> Update
     return data;
   };
 
   return data;
 }
 
+<<<<<<< HEAD
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../nuclide-commons/nuclideUri"));
 
   _nuclideUri = function () {
+=======
+function _fsPromise() {
+  const data = _interopRequireDefault(require("../nuclide-commons/fsPromise"));
+
+  _fsPromise = function () {
+>>>>>>> Update
     return data;
   };
 
   return data;
 }
 
+<<<<<<< HEAD
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../nuclide-commons/UniversalDisposable"));
 
   _UniversalDisposable = function () {
+=======
+function _nuclideUri() {
+  const data = _interopRequireDefault(require("../nuclide-commons/nuclideUri"));
+
+  _nuclideUri = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -52,8 +75,11 @@ function _process() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
+=======
+>>>>>>> Update
 function _serverPort() {
   const data = require("../nuclide-commons/serverPort");
 
@@ -79,10 +105,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 const JAVA = 'java';
 
+<<<<<<< HEAD
 function _getAndroidHomeDir() {
   return process.env.ANDROID_HOME || '/opt/android_sdk';
 }
 
+=======
+>>>>>>> Update
 async function getPortForJavaDebugger() {
   return (0, _serverPort().getAvailableServerPort)();
 }
@@ -94,6 +123,7 @@ async function getJavaVSAdapterExecutableInfo(debug) {
   };
 }
 
+<<<<<<< HEAD
 async function prepareForTerminalLaunch(config) {
   const {
     classPath,
@@ -155,6 +185,8 @@ async function javaDebugWaitForJdwpProcessExit(jvmSuspendArgs) {
   });
 }
 
+=======
+>>>>>>> Update
 async function _getJavaArgs(debug) {
   const baseJavaArgs = ['-classpath', await _getClassPath(), 'com.facebook.nuclide.debugger.JavaDbg'];
   const debugArgs = debug ? ['-Xdebug', '-Xrunjdwp:transport=dt_socket,address=127.0.0.1:' + (await (0, _serverPort().getAvailableServerPort)()).toString() + ',server=y,suspend=n'] : [];
@@ -197,12 +229,18 @@ async function _getClassPath() {
   }
 
   if (!(await _fsPromise().default.exists(toolsJarPath))) {
+<<<<<<< HEAD
     throw new Error(`Could not locate required JDK tools jar: ${toolsJarPath}. Is the JDK installed?`);
+=======
+    // Tools.jar is not expected on Java 10+ and is not required.
+    return serverJarPath;
+>>>>>>> Update
   }
 
   return _nuclideUri().default.joinPathList([serverJarPath, toolsJarPath]);
 }
 
+<<<<<<< HEAD
 async function _findJdwpProcess(jvmSuspendArgs) {
   const commands = await (0, _process().runCommand)('ps', ['-eww', '-o', 'pid,args'], {}).toPromise();
   const procs = commands.toString().split('\n').filter(line => line.includes(jvmSuspendArgs));
@@ -225,10 +263,96 @@ async function getSdkVersionSourcePath(sdkVersion) {
 
   if (await _fsPromise().default.exists(sdkManagerPath)) {
     await (0, _process().runCommand)(sdkManagerPath, ['sources;android-' + sdkVersion]); // try again
+=======
+async function getSdkVersionSourcePath(sdkVersion, options) {
+  if (Number.isNaN(parseInt(sdkVersion, 10))) {
+    return null;
+  } // First try process.env.ANDROID_HOME
+  // Then try /opt/android/sdk_DXXXXXXX which is the remote case.
+  // Then try /opt/android_sdk which is the local case
+
+
+  let androidHomeDir = process.env.ANDROID_HOME;
+  let sourcesDirectory = await _getSdkVersionSourcePath(androidHomeDir, sdkVersion, {
+    useSdkManager: options.useSdkManager
+  });
+
+  if (sourcesDirectory != null) {
+    return sourcesDirectory;
+  }
+
+  androidHomeDir = null;
+  const remoteAndroidHomeDirDir = '/opt/android/';
+
+  if (await _fsPromise().default.exists(remoteAndroidHomeDirDir)) {
+    const children = await _fsPromise().default.readdir(remoteAndroidHomeDirDir);
+    const sdkDirs = children.filter(c => c.startsWith('sdk_D'));
+    const sdkDirStats = await Promise.all(sdkDirs.map(d => _fsPromise().default.stat(_nuclideUri().default.join(remoteAndroidHomeDirDir, d))));
+    const sdkDirTimes = sdkDirStats.map(s => s.mtime.getTime());
+    const sortedSdkDirs = sdkDirs.map((d, i) => [d, sdkDirTimes[i]]).sort((a, b) => b[1] - a[1]);
+
+    if (sortedSdkDirs.length > 0) {
+      androidHomeDir = _nuclideUri().default.join(remoteAndroidHomeDirDir, sortedSdkDirs[0][0]);
+    }
+  }
+
+  sourcesDirectory = await _getSdkVersionSourcePath(androidHomeDir, sdkVersion, {
+    useSdkManager: false
+  });
+
+  if (sourcesDirectory != null) {
+    return sourcesDirectory;
+  }
+
+  androidHomeDir = '/opt/android_sdk';
+  sourcesDirectory = await _getSdkVersionSourcePath(androidHomeDir, sdkVersion, {
+    useSdkManager: options.useSdkManager
+  });
+
+  if (sourcesDirectory != null) {
+    return sourcesDirectory;
+  }
+
+  return null;
+}
+
+async function _getSdkVersionSourcePath(androidHomeDir, sdkVersion, options) {
+  if (androidHomeDir != null && androidHomeDir !== '') {
+    const sourcesDirectory = _nuclideUri().default.join(androidHomeDir, 'sources', 'android-' + sdkVersion);
+>>>>>>> Update
 
     if (await _fsPromise().default.exists(sourcesDirectory)) {
       return sourcesDirectory;
     }
+<<<<<<< HEAD
+=======
+
+    const sdkManagerPath = _nuclideUri().default.join(androidHomeDir, 'tools/bin/sdkmanager');
+
+    if (options.useSdkManager && (await _fsPromise().default.exists(sdkManagerPath))) {
+      try {
+        await (0, _process().runCommand)(sdkManagerPath, ['sources;android-' + sdkVersion]).timeout(30000).toPromise(); // try again
+
+        const sourcesDirectoryExists = await _fsPromise().default.exists(sourcesDirectory);
+        (0, _analytics().track)('atom-ide-debugger-java-installSdkSourcesUsingSdkManager', {
+          sourcesDirectoryExists,
+          sourcesDirectory,
+          sdkManagerPath
+        });
+
+        if (sourcesDirectoryExists) {
+          return sourcesDirectory;
+        }
+      } catch (err) {
+        (0, _analytics().track)('atom-ide-debugger-java-installSdkSourcesUsingSdkManager-error', {
+          sourcesDirectoryExists: false,
+          sourcesDirectory,
+          sdkManagerPath,
+          errMessage: err.toString()
+        });
+      }
+    }
+>>>>>>> Update
   }
 
   return null;

@@ -10,7 +10,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ConnectionState() {
   const data = _interopRequireDefault(require("../lib/ConnectionState"));
@@ -47,7 +51,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class MockHeartbeat {
   constructor() {
+<<<<<<< HEAD
     this.away = new _RxMin.BehaviorSubject(false);
+=======
+    this.away = new _rxjsCompatUmdMin.BehaviorSubject(false);
+>>>>>>> Update
   }
 
   isAway() {
@@ -66,7 +74,11 @@ class MockHeartbeat {
 
 describe('_observeConnectionState', () => {
   it('reflects the state of all connections', () => {
+<<<<<<< HEAD
     const connectionSubject = new _RxMin.BehaviorSubject([]);
+=======
+    const connectionSubject = new _rxjsCompatUmdMin.BehaviorSubject([]);
+>>>>>>> Update
     const propStream = [];
     (0, _RemoteProjectsController()._observeConnectionState)(connectionSubject).subscribe(props => propStream.push(props));
     const heartbeat1 = new MockHeartbeat();

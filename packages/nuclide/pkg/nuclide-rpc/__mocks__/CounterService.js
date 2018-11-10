@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Counter = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -23,7 +27,11 @@ class Counter {
     // Set initial count.
     this._count = initialCount; // Set the changes subscription observable.
 
+<<<<<<< HEAD
     this._changes = new _RxMin.Subject();
+=======
+    this._changes = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   static async createCounter(initialCount) {
@@ -89,4 +97,8 @@ class Counter {
 
 exports.Counter = Counter;
 Counter._counters = [];
+<<<<<<< HEAD
 Counter._newCounters = new _RxMin.Subject();
+=======
+Counter._newCounters = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update

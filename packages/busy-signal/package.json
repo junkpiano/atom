@@ -2,6 +2,7 @@
   "_args": [
     [
       {
+<<<<<<< HEAD
         "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19971-19thas4.jf3l3di/package.tgz",
         "scope": null,
         "escapedName": null,
@@ -14,27 +15,58 @@
     ]
   ],
   "_from": "../d-11883-19971-19thas4.jf3l3di/package.tgz",
+=======
+        "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+        "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-11887-65229-tru06i.47jfwrvn29"
+    ]
+  ],
+  "_from": "../d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+>>>>>>> Update
   "_id": "busy-signal@1.4.3",
   "_inCache": true,
   "_location": "/busy-signal",
   "_phantomChildren": {},
   "_requested": {
+<<<<<<< HEAD
     "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19971-19thas4.jf3l3di/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
     "rawSpec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19971-19thas4.jf3l3di/package.tgz",
     "spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19971-19thas4.jf3l3di/package.tgz",
+=======
+    "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+    "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+>>>>>>> Update
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
+<<<<<<< HEAD
   "_resolved": "file:../d-11883-19971-19thas4.jf3l3di/package.tgz",
   "_shasum": "6baf37a38bf9468d9bfd491817102a70b50e05f3",
   "_shrinkwrap": null,
   "_spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19971-19thas4.jf3l3di/package.tgz",
   "_where": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/apm-install-dir-11883-19971-131p115.o0and5z5mi",
+=======
+  "_resolved": "file:../d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+  "_shasum": "6baf37a38bf9468d9bfd491817102a70b50e05f3",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65229-18v4ne0.n3i91cerk9/package.tgz",
+  "_where": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-11887-65229-tru06i.47jfwrvn29",
+>>>>>>> Update
   "bugs": {
     "url": "https://github.com/steelbrain/busy-signal/issues"
   },

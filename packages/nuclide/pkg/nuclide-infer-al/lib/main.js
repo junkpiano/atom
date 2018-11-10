@@ -17,7 +17,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -61,7 +65,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * 
  * @format
  */
+<<<<<<< HEAD
 const requests = new _RxMin.Subject(); // Check for a new version every 10 minutes.
+=======
+const requests = new _rxjsCompatUmdMin.Subject(); // Check for a new version every 10 minutes.
+>>>>>>> Update
 
 const DOWNLOAD_INTERVAL = 10 * 60 * 1000; // Display a "fetching" notification if it hasn't completed within 5s.
 
@@ -85,14 +93,24 @@ function checkVersion(cwd) {
         description: String(err),
         dismissable: true
       });
+<<<<<<< HEAD
       return _RxMin.Observable.of(false);
     }).race( // By using 'race', this won't show up if the version comes back first.
     _RxMin.Observable.timer(DOWNLOAD_NOTIFICATION_DELAY).do(() => {
+=======
+      return _rxjsCompatUmdMin.Observable.of(false);
+    }).race( // By using 'race', this won't show up if the version comes back first.
+    _rxjsCompatUmdMin.Observable.timer(DOWNLOAD_NOTIFICATION_DELAY).do(() => {
+>>>>>>> Update
       atom.notifications.addInfo('Fetching Infer...', {
         description: 'Fetching the latest version of Infer. This may take quite some time initially...',
         dismissable: true
       });
+<<<<<<< HEAD
     }).concat(_RxMin.Observable.never()).ignoreElements()) // Share this and make it replayable.
+=======
+    }).concat(_rxjsCompatUmdMin.Observable.never()).ignoreElements()) // Share this and make it replayable.
+>>>>>>> Update
     .publishReplay(1).refCount();
     return cachedVersionCheck;
   }
@@ -119,7 +137,11 @@ function provideLint() {
       requests.next();
       return checkVersion(cwd).take(1).switchMap(success => {
         if (!success) {
+<<<<<<< HEAD
           return _RxMin.Observable.of(null);
+=======
+          return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
         }
 
         return (0, _process().runCommandDetailed)(getInferCommand(), ['--linters-def-file', src, '--no-default-linters', '--linters-validate-syntax-only'], {
@@ -144,7 +166,11 @@ function provideLint() {
             description: String(err),
             dismissable: true
           });
+<<<<<<< HEAD
           return _RxMin.Observable.of(null);
+=======
+          return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
         }) // Stop if we get a new request in the meantime.
         .takeUntil(requests);
       }).toPromise();

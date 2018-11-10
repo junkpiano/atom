@@ -20,7 +20,11 @@ function _createMessageStream() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,9 +43,15 @@ describe('createMessageStream', () => {
   it('splits the output by message', async () => {
     const original = _featureConfig().default.observeAsStream.bind(_featureConfig().default);
 
+<<<<<<< HEAD
     jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-adb-logcat.whitelistedTags' ? _RxMin.Observable.of('.*') : original(name));
 
     const output = _RxMin.Observable.from(['[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Prepared write state in 0ms', '', '[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Prepared write state in 0ms', '']);
+=======
+    jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-adb-logcat.whitelistedTags' ? _rxjsCompatUmdMin.Observable.of('.*') : original(name));
+
+    const output = _rxjsCompatUmdMin.Observable.from(['[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Prepared write state in 0ms', '', '[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Prepared write state in 0ms', '']);
+>>>>>>> Update
 
     const messages = await (0, _createMessageStream().default)(output).map(message => message.text).toArray().toPromise();
     expect(messages.length).toBe(2);
@@ -52,9 +62,15 @@ describe('createMessageStream', () => {
   it('only includes messages with whitelisted tags', async () => {
     const original = _featureConfig().default.observeAsStream.bind(_featureConfig().default);
 
+<<<<<<< HEAD
     jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-adb-logcat.whitelistedTags' ? _RxMin.Observable.of('ExampleTag') : original(name));
 
     const output = _RxMin.Observable.from(['[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Bad', '', '[ 01-14 17:15:01.003   640:  654 I/ExampleTag ]', 'Good', '']);
+=======
+    jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-adb-logcat.whitelistedTags' ? _rxjsCompatUmdMin.Observable.of('ExampleTag') : original(name));
+
+    const output = _rxjsCompatUmdMin.Observable.from(['[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Bad', '', '[ 01-14 17:15:01.003   640:  654 I/ExampleTag ]', 'Good', '']);
+>>>>>>> Update
 
     const messages = await (0, _createMessageStream().default)(output).map(message => message.text).toArray().toPromise();
     expect(messages).toEqual(['Good']);
@@ -64,9 +80,15 @@ describe('createMessageStream', () => {
 
     const original = _featureConfig().default.observeAsStream.bind(_featureConfig().default);
 
+<<<<<<< HEAD
     jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-adb-logcat.whitelistedTags' ? _RxMin.Observable.of('(') : original(name));
 
     const output = _RxMin.Observable.from(['[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Bad', '', '[ 01-14 17:15:01.003   640:  654 I/ExampleTag ]', 'Good', '']);
+=======
+    jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-adb-logcat.whitelistedTags' ? _rxjsCompatUmdMin.Observable.of('(') : original(name));
+
+    const output = _rxjsCompatUmdMin.Observable.from(['[ 01-14 17:15:01.003   640:  654 I/ProcessStatsService ]', 'Bad', '', '[ 01-14 17:15:01.003   640:  654 I/ExampleTag ]', 'Good', '']);
+>>>>>>> Update
 
     await (0, _createMessageStream().default)(output).toPromise();
     expect(atom.notifications.addError.mock.calls.length).toBe(1);

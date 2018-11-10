@@ -45,7 +45,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -124,7 +128,11 @@ class RootHostServices {
     // (1) when code connects to it then we display the dialog
     // (2) when the dialog closes we complete the stream
     // (3) if code unsubscribed before that, then we dismiss the dialog
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       const notification = this._atomNotification(level, text);
 
       return () => {
@@ -133,7 +141,11 @@ class RootHostServices {
     }) // Note: notification.onDidDismiss never fires for non-dismissable notifications!
     // However non-dismissable notifications have a fixed 5s duration:
     // https://github.com/atom/notifications/blob/master/lib/notification-element.coffee#L50
+<<<<<<< HEAD
     .takeUntil(_RxMin.Observable.timer(5000)).publish();
+=======
+    .takeUntil(_rxjsCompatUmdMin.Observable.timer(5000)).publish();
+>>>>>>> Update
   }
 
   dialogRequest(level, text, buttonLabels, closeLabel) {
@@ -142,7 +154,11 @@ class RootHostServices {
     // (2) if user clicks a button then we do next(buttonLabel); complete()
     // (3) if user clicks Close then we do next(closeLabel); complete();
     // (4) if code unsubscribed before that then we dismiss the dialog.
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       let result = closeLabel;
 
       const notification = this._atomNotification(level, text, {
@@ -197,8 +213,13 @@ class RootHostServices {
   }
 
   showActionRequired(title, options) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => this._getBusySignalService()).switchMap(service => {
       return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => this._getBusySignalService()).switchMap(service => {
+      return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
         let onDidClick;
 
         if (options != null && options.clickable) {

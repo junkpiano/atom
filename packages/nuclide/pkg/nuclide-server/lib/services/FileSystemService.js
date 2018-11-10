@@ -80,10 +80,17 @@ function _stream() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _systemInfo() {
   const data = require("../../../commons-node/system-info");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _systemInfo() {
+  const data = require("../../../../modules/nuclide-commons/system-info");
+>>>>>>> Update
 
   _systemInfo = function () {
     return data;
@@ -160,7 +167,11 @@ async function findNearestAncestorNamed(fileName, pathToDirectory) {
 
 function findFilesInDirectories(searchPaths, fileName) {
   if (searchPaths.length === 0) {
+<<<<<<< HEAD
     return _RxMin.Observable.throw(new Error('No directories to search in!')).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.throw(new Error('No directories to search in!')).publish();
+>>>>>>> Update
   }
 
   const findArgs = [...searchPaths, '-type', 'f', '-name', fileName];

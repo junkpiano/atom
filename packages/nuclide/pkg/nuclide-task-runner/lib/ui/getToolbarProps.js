@@ -27,7 +27,11 @@ function Actions() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
@@ -39,6 +43,19 @@ function _shallowequal() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -64,14 +81,22 @@ function getToolbarProps(store) {
     stopRunningTask: () => {
       store.dispatch(Actions().stopTask());
     }
+<<<<<<< HEAD
   }; // $FlowFixMe: We need to teach Flow about Symbol.observable
 
   const states = _RxMin.Observable.from(store).distinctUntilChanged(); // We don't want to refresh the UI with a "pending" state while we wait for the initial tasks to
+=======
+  };
+  const states = (0, _observableFromReduxStore().default)(store).distinctUntilChanged(); // We don't want to refresh the UI with a "pending" state while we wait for the initial tasks to
+>>>>>>> Update
   // become ready; that would cause too many updates in quick succession. So we make the parts of
   // the state related to the selected task "sticky." Other parts of the state, however, we always
   // need to update immediately (e.g. progress).
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Update
   const stickyProps = states.filter(state => state.initialPackagesActivated && state.readyTaskRunners.count() === state.taskRunners.count()).startWith(store.getState()).map(state => ({
     taskRunners: state.taskRunners,
     statesForTaskRunners: state.statesForTaskRunners,
@@ -79,6 +104,7 @@ function getToolbarProps(store) {
     iconComponent: state.activeTaskRunner ? state.activeTaskRunner.getIcon() : null,
     extraUiComponent: getExtraUiComponent(state.activeTaskRunner)
   })).distinctUntilChanged(_shallowequal().default);
+<<<<<<< HEAD
   const alwaysUpToDateProps = states.map(state => Object.assign({}, staticProps, {
     toolbarDisabled: !state.initialPackagesActivated || state.readyTaskRunners.count() !== state.taskRunners.count(),
     progress: state.runningTask ? state.runningTask.progress : null,
@@ -87,6 +113,21 @@ function getToolbarProps(store) {
   }));
 
   const props = _RxMin.Observable.combineLatest(stickyProps, alwaysUpToDateProps, (a, b) => Object.assign({}, a, b)).let((0, _observable().throttle)(() => _observable().nextAnimationFrame));
+=======
+  const alwaysUpToDateProps = states.map(state => {
+    var _state$runningTask, _state$runningTask2;
+
+    return Object.assign({}, staticProps, {
+      toolbarDisabled: !state.initialPackagesActivated || state.readyTaskRunners.count() !== state.taskRunners.count(),
+      progress: (_state$runningTask = state.runningTask) === null || _state$runningTask === void 0 ? void 0 : _state$runningTask.progress,
+      status: (_state$runningTask2 = state.runningTask) === null || _state$runningTask2 === void 0 ? void 0 : _state$runningTask2.status,
+      taskIsRunning: state.runningTask != null,
+      runningTaskIsCancelable: state.runningTask ? state.runningTask.metadata.cancelable !== false : undefined
+    });
+  });
+
+  const props = _rxjsCompatUmdMin.Observable.combineLatest(stickyProps, alwaysUpToDateProps, (a, b) => Object.assign({}, a, b)).let((0, _observable().throttle)(() => _observable().nextAnimationFrame));
+>>>>>>> Update
 
   return props;
 } // Since `getExtraUi` may create a React class dynamically, the classes are cached

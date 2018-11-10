@@ -8,7 +8,11 @@ exports.default = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../../../../nuclide-commons/event");
@@ -68,7 +72,11 @@ const gotoLine = (file, line) => (0, _goToLocation().goToLocation)(file, {
 });
 
 function makeDatatipComponent(messages, diagnosticUpdater, props) {
+<<<<<<< HEAD
   return (0, _bindObservableAsProps().bindObservableAsProps)(_RxMin.Observable.combineLatest((0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeCodeActionsForMessage(cb)), (0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeDescriptions(cb))).map(([codeActionsForMessage, descriptions]) => {
+=======
+  return (0, _bindObservableAsProps().bindObservableAsProps)(_rxjsCompatUmdMin.Observable.combineLatest((0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeCodeActionsForMessage(cb)), (0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeDescriptions(cb))).map(([codeActionsForMessage, descriptions]) => {
+>>>>>>> Update
     return Object.assign({
       messages,
       codeActionsForMessage,

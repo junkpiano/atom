@@ -15,7 +15,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ps() {
   const data = require("./common/ps");
@@ -93,9 +97,15 @@ class Adb {
   }
 
   getDeviceInfo() {
+<<<<<<< HEAD
     const unknownCB = () => _RxMin.Observable.of('');
 
     return _RxMin.Observable.forkJoin(this.getDeviceArchitecture().catch(unknownCB), this.getAPIVersion().catch(unknownCB), this.getDeviceModel().catch(unknownCB), this.getOSVersion().catch(unknownCB), this.getManufacturer().catch(unknownCB), this.getBrand().catch(unknownCB), this.getWifiIp().catch(unknownCB)).map(([architecture, apiVersion, model, android_version, manufacturer, brand, wifi_ip]) => {
+=======
+    const unknownCB = () => _rxjsCompatUmdMin.Observable.of('');
+
+    return _rxjsCompatUmdMin.Observable.forkJoin(this.getDeviceArchitecture().catch(unknownCB), this.getAPIVersion().catch(unknownCB), this.getDeviceModel().catch(unknownCB), this.getOSVersion().catch(unknownCB), this.getManufacturer().catch(unknownCB), this.getBrand().catch(unknownCB), this.getWifiIp().catch(unknownCB)).map(([architecture, apiVersion, model, android_version, manufacturer, brand, wifi_ip]) => {
+>>>>>>> Update
       return new Map([['name', this._serial], ['adb_port', '5037'], ['architecture', architecture], ['api_version', apiVersion], ['model', model], ['android_version', android_version], ['manufacturer', manufacturer], ['brand', brand], ['wifi_ip', wifi_ip]]);
     });
   }
@@ -124,6 +134,7 @@ class Adb {
   }
 
   installPackage(packagePath) {
+<<<<<<< HEAD
     // TODO(T17463635)
     if (!!_nuclideUri().default.isRemote(packagePath)) {
       throw new Error("Invariant violation: \"!nuclideUri.isRemote(packagePath)\"");
@@ -131,6 +142,21 @@ class Adb {
 
 
     return this.getAPIVersion().map(version => parseInt(version, 10) >= 17).catch(() => _RxMin.Observable.of(false)).switchMap(canUseDowngradeOption => this.runLongCommand(...['install', '-r', ...(canUseDowngradeOption ? ['-d'] : []), packagePath]));
+=======
+    if (!!_nuclideUri().default.isRemote(packagePath)) {
+      throw new Error("Invariant violation: \"!nuclideUri.isRemote(packagePath)\"");
+    }
+
+    return this.getAPIVersion().map(version => parseInt(version, 10) >= 17).catch(() => _rxjsCompatUmdMin.Observable.of(false)).switchMap(canUseDowngradeOption => this.runLongCommandNew(...['install', '-r', // The -d option allows downgrades, which happen frequently during development.
+    ...(canUseDowngradeOption ? ['-d'] : []), packagePath])) // adb install sends a lot of identical progress events to stdout, deduplicate them
+    .distinctUntilChanged((a, b) => {
+      if (a.kind === 'stdout' && b.kind === 'stdout') {
+        return a.data === b.data;
+      } else {
+        return false;
+      }
+    });
+>>>>>>> Update
   }
 
   uninstallPackage(packageName) {
@@ -268,7 +294,11 @@ class Adb {
 
   getJavaProcesses() {
     const jdwpProcesses = new Set();
+<<<<<<< HEAD
     return this.runShortCommand('shell', 'ps').map(stdout => {
+=======
+    return this.runPsCommand().map(stdout => {
+>>>>>>> Update
       const psOutput = stdout.trim();
       return (0, _ps().parsePsTableOutput)(psOutput, ['user', 'pid', 'name']);
     }).switchMap(allProcesses => {
@@ -288,7 +318,11 @@ class Adb {
           });
         }
       });
+<<<<<<< HEAD
     }).timeout(1000).catch(error => _RxMin.Observable.of([])).switchMap(() => {
+=======
+    }).timeout(1000).catch(error => _rxjsCompatUmdMin.Observable.of([])).switchMap(() => {
+>>>>>>> Update
       return Promise.resolve(Array.from(jdwpProcesses));
     });
   }
@@ -306,7 +340,11 @@ class Adb {
   }
 
   getProcesses() {
+<<<<<<< HEAD
     return this.runShortCommand('shell', 'ps').map(stdout => stdout.split(/\n/).map(line => {
+=======
+    return this.runPsCommand().map(stdout => stdout.split(/\n/).map(line => {
+>>>>>>> Update
       const info = line.trim().split(/\s+/);
       return {
         user: info[0],
@@ -316,6 +354,23 @@ class Adb {
     }));
   }
 
+<<<<<<< HEAD
+=======
+  runPsCommand(...additionalCommands) {
+    return this.getAPIVersion().switchMap(apiVersion => {
+      let commands = ['shell', 'ps']; // Starting with Android 8.0 Oreo (API 26) ps only returns all processes
+      // with -A
+
+      if (parseInt(apiVersion, 10) >= 26) {
+        commands.push('-A');
+      }
+
+      commands = commands.concat(additionalCommands);
+      return this.runShortCommand(...commands);
+    });
+  }
+
+>>>>>>> Update
   runShortCommand(...command) {
     return (0, _process().runCommand)('adb', this.getDeviceArgs().concat(command));
   }
@@ -327,12 +382,25 @@ class Adb {
 
       /* TODO(T17353599) */
       isExitError: () => false
+<<<<<<< HEAD
     }).catch(error => _RxMin.Observable.of({
+=======
+    }).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       kind: 'error',
       error
     })); // TODO(T17463635)
   }
 
+<<<<<<< HEAD
+=======
+  runLongCommandNew(...command) {
+    return (0, _process().observeProcess)('adb', this.getDeviceArgs().concat(command), {
+      killTreeWhenDone: true
+    });
+  }
+
+>>>>>>> Update
   static _parseDevicesCommandOutput(stdout) {
     const nameFrequency = new Map();
     return stdout.split(/\n+/g).slice(1).filter(s => s.length > 0 && !s.trim().startsWith('*')).map(s => s.split(/\s+/g)).filter(a => a[0] !== '').map(a => {

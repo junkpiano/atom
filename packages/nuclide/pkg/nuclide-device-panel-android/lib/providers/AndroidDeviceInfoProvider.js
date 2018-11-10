@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AndroidDeviceInfoProvider = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _utils() {
   const data = require("../../../../modules/nuclide-adb/lib/utils");
@@ -54,7 +58,11 @@ class AndroidDeviceInfoProvider {
   }
 
   isSupported() {
+<<<<<<< HEAD
     return _RxMin.Observable.of(true);
+=======
+    return _rxjsCompatUmdMin.Observable.of(true);
+>>>>>>> Update
   }
 
 }

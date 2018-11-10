@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DevicePanelTask = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -20,7 +24,11 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
 class DevicePanelTask {
   constructor(taskFactory, name) {
     this._subscription = null;
+<<<<<<< HEAD
     this._events = new _RxMin.ReplaySubject(1);
+=======
+    this._events = new _rxjsCompatUmdMin.ReplaySubject(1);
+>>>>>>> Update
     this._taskFactory = taskFactory;
     this._name = name;
 

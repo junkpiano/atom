@@ -17,7 +17,11 @@ function _nullthrows() {
 
 var _electron = require("electron");
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _observableDom() {
   const data = require("../../modules/nuclide-commons-ui/observable-dom");
@@ -40,7 +44,11 @@ function _UniversalDisposable() {
 }
 
 function _once() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../commons-node/once"));
+=======
+  const data = _interopRequireDefault(require("../../modules/nuclide-commons/once"));
+>>>>>>> Update
 
   _once = function () {
     return data;
@@ -105,6 +113,7 @@ const observeStalls = (0, _once().default)(() => {
   .filter(entry => // did the intentionalblocktime occur between the start and end,
   // accounting for some extra padding?
   !(intentionalBlockTime > entry.startTime - BLOCKED_RANGE_PADDING && intentionalBlockTime < entry.startTime + entry.duration + BLOCKED_RANGE_PADDING));
+<<<<<<< HEAD
   return _RxMin.Observable.using(() => new (_UniversalDisposable().default)( // Confirmation dialogs also block the event loop.
   // This typically happens when you're about to close an unsaved file.
   atom.workspace.onWillDestroyPaneItem(onIntentionalBlock), // Electron context menus block the event loop.
@@ -115,6 +124,18 @@ const observeStalls = (0, _once().default)(() => {
   .takeUntil(_RxMin.Observable.fromEvent(browserWindow, 'close')).subscribe(onIntentionalBlock)), () => {
     return _RxMin.Observable.merge( // kick off subscription with a one-time query on start
     _RxMin.Observable.of(document.hasFocus()), _RxMin.Observable.fromEvent(browserWindow, 'focus').mapTo(true), _RxMin.Observable.fromEvent(browserWindow, 'blur').mapTo(false)).distinctUntilChanged().switchMap(isFocused => isFocused ? blockedEvents : _RxMin.Observable.empty()).map(entry => entry.duration);
+=======
+  return _rxjsCompatUmdMin.Observable.using(() => new (_UniversalDisposable().default)( // Confirmation dialogs also block the event loop.
+  // This typically happens when you're about to close an unsaved file.
+  atom.workspace.onWillDestroyPaneItem(onIntentionalBlock), // Electron context menus block the event loop.
+  _rxjsCompatUmdMin.Observable.fromEvent(browserWindow, 'context-menu') // There appears to be an race with browser window shutdown where
+  // the 'context-menu' event fires after window destruction.
+  // Try to prevent this by removing the event on close.
+  // https://github.com/facebook/nuclide/issues/1246
+  .takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(browserWindow, 'close')).subscribe(onIntentionalBlock)), () => {
+    return _rxjsCompatUmdMin.Observable.merge( // kick off subscription with a one-time query on start
+    _rxjsCompatUmdMin.Observable.of(document.hasFocus()), _rxjsCompatUmdMin.Observable.fromEvent(browserWindow, 'focus').mapTo(true), _rxjsCompatUmdMin.Observable.fromEvent(browserWindow, 'blur').mapTo(false)).distinctUntilChanged().switchMap(isFocused => isFocused ? blockedEvents : _rxjsCompatUmdMin.Observable.empty()).map(entry => entry.duration);
+>>>>>>> Update
   }).share();
 });
 var _default = observeStalls;

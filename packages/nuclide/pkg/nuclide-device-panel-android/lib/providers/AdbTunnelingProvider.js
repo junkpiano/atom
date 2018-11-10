@@ -45,7 +45,11 @@ function _Tunneling() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AdbTunnelButton() {
   const data = require("../ui/AdbTunnelButton");
@@ -104,7 +108,11 @@ class AdbTunnelingProvider {
           const BoundButton = (0, _bindObservableAsProps().bindObservableAsProps)((0, _Tunneling().isAdbTunneled)(host).map(value => ({
             host,
             status: value ? 'active' : 'inactive',
+<<<<<<< HEAD
             enable: () => startTunnelingAdb(host).catch(() => _RxMin.Observable.empty()),
+=======
+            enable: () => startTunnelingAdb(host).catch(() => _rxjsCompatUmdMin.Observable.empty()),
+>>>>>>> Update
             disable: () => (0, _Tunneling().stopTunnelingAdb)(host)
           })), _AdbTunnelButton().AdbTunnelButton);
           return React.createElement(BoundButton, null);

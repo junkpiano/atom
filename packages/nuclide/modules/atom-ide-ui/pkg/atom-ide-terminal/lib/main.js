@@ -22,7 +22,11 @@ function _event() {
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _createPackage() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/createPackage"));
@@ -44,6 +48,7 @@ function _getElementFilePath() {
   return data;
 }
 
+<<<<<<< HEAD
 function _goToLocation() {
   const data = require("../../../../nuclide-commons-atom/go-to-location");
 
@@ -54,6 +59,8 @@ function _goToLocation() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons/nuclideUri"));
 
@@ -104,10 +111,17 @@ function _terminalView() {
   return data;
 }
 
+<<<<<<< HEAD
 function _nuclideTerminalUri() {
   const data = require("./nuclide-terminal-uri");
 
   _nuclideTerminalUri = function () {
+=======
+function _nuclideTerminalInfo() {
+  const data = require("./nuclide-terminal-info");
+
+  _nuclideTerminalInfo = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -144,24 +158,41 @@ class Activation {
   constructor() {
     const focusManager = new (_FocusManager().FocusManager)();
     this._subscriptions = new (_UniversalDisposable().default)(focusManager, atom.workspace.addOpener((uri, options) => {
+<<<<<<< HEAD
       if (uri.startsWith(_nuclideTerminalUri().URI_PREFIX)) {
         const info = (0, _nuclideTerminalUri().infoFromUri)(uri);
 
         if (info.cwd === '') {
           // $FlowFixMe we're threading cwd through options; it's not part of its type
           const cwd = options.cwd || this._cwd && this._cwd.getCwd();
+=======
+      if (uri === _nuclideTerminalInfo().TERMINAL_URI) {
+        // $FlowFixMe this has the merged terminalInfo inside it
+        const info = options.terminalInfo || {};
+
+        if (info.cwd == null || info.cwd === '') {
+          const cwd = this._cwd && this._cwd.getCwd();
+>>>>>>> Update
 
           if (cwd != null) {
             info.cwd = cwd;
           }
         }
 
+<<<<<<< HEAD
         return new (_terminalView().TerminalView)(info);
+=======
+        return new (_terminalView().TerminalView)(Object.assign({}, _nuclideTerminalInfo().TERMINAL_DEFAULT_INFO, info));
+>>>>>>> Update
       }
     }), atom.commands.add('atom-workspace', 'atom-ide-terminal:toggle', () => {
       const activePane = atom.workspace.getActivePaneItem();
 
+<<<<<<< HEAD
       if (activePane && activePane.getURI && activePane.getURI() === _nuclideTerminalUri().URI_PREFIX) {
+=======
+      if (activePane && activePane.getURI && activePane.getURI() === _nuclideTerminalInfo().TERMINAL_URI) {
+>>>>>>> Update
         const container = atom.workspace.getActivePaneContainer();
 
         if (container === atom.workspace.getCenter()) {
@@ -172,31 +203,55 @@ class Activation {
             defaultId: 0,
             cancelId: 0,
             type: 'warning'
+<<<<<<< HEAD
           }, // $FlowFixMe Flow can't handle multiple definitions for confirm(). This is the newer async version.
           response => {
             if (response === 1) {
               atom.workspace.toggle(_nuclideTerminalUri().URI_PREFIX);
+=======
+          }, response => {
+            if (response === 1) {
+              atom.workspace.toggle(_nuclideTerminalInfo().TERMINAL_URI);
+>>>>>>> Update
             }
           });
           return;
         }
       }
 
+<<<<<<< HEAD
       atom.workspace.toggle(_nuclideTerminalUri().URI_PREFIX);
+=======
+      atom.workspace.toggle(_nuclideTerminalInfo().TERMINAL_URI);
+>>>>>>> Update
     }), atom.commands.add('atom-workspace', 'atom-ide-terminal:new-terminal', event => {
       // HACK: we pass along the cwd in the opener's options to be able to
       // read from it above.
       // eslint-disable-next-line nuclide-internal/atom-apis
+<<<<<<< HEAD
       openInNewPaneItem(_nuclideTerminalUri().URI_PREFIX, {
         cwd: this._getPathOrCwd(event),
+=======
+      openTerminalInNewPaneItem({
+        terminalInfo: {
+          cwd: this._getPathOrCwd(event)
+        },
+>>>>>>> Update
         searchAllPanes: false
       });
     }), atom.commands.add('atom-workspace', 'atom-ide-terminal:new-local-terminal', () => {
       // HACK: we pass along the cwd in the opener's options to be able to
       // read from it above.
       // eslint-disable-next-line nuclide-internal/atom-apis
+<<<<<<< HEAD
       openInNewPaneItem(_nuclideTerminalUri().URI_PREFIX, {
         cwd: _os.default.homedir()
+=======
+      openTerminalInNewPaneItem({
+        terminalInfo: {
+          cwd: _os.default.homedir()
+        }
+>>>>>>> Update
       });
     }), atom.commands.add('atom-workspace', 'atom-ide-terminal:toggle-terminal-focus', () => focusManager.toggleFocus()));
   }
@@ -204,7 +259,13 @@ class Activation {
   provideTerminal() {
     return {
       open: info => {
+<<<<<<< HEAD
         const terminalView = (0, _goToLocation().goToLocation)((0, _nuclideTerminalUri().uriFromInfo)(info));
+=======
+        const terminalView = openTerminalInNewPaneItem({
+          terminalInfo: info
+        });
+>>>>>>> Update
         return terminalView;
       },
       close: key => {
@@ -329,6 +390,7 @@ module.exports = {
 };
 (0, _createPackage().default)(module.exports, Activation);
 
+<<<<<<< HEAD
 async function openInNewPaneItem(uri, options) {
   const existingPane = atom.workspace.paneForURI(uri); // TODO: The flow types are wrong. paneForURI returns a nullable pane
 
@@ -338,6 +400,17 @@ async function openInNewPaneItem(uri, options) {
   }
 
   const [item, hasShownNux] = await Promise.all([atom.workspace.createItemForURI(uri, options), _idbKeyval().default.get(MOVED_TERMINAL_NUX_SHOWN_KEY)]);
+=======
+async function openTerminalInNewPaneItem(options) {
+  const existingPane = atom.workspace.paneForURI(_nuclideTerminalInfo().TERMINAL_URI); // TODO: The flow types are wrong. paneForURI returns a nullable pane
+
+  if (!existingPane) {
+    // eslint-disable-next-line nuclide-internal/atom-apis
+    return atom.workspace.open(_nuclideTerminalInfo().TERMINAL_URI, options);
+  }
+
+  const [item, hasShownNux] = await Promise.all([atom.workspace.createItemForURI(_nuclideTerminalInfo().TERMINAL_URI, options), _idbKeyval().default.get(MOVED_TERMINAL_NUX_SHOWN_KEY)]);
+>>>>>>> Update
   existingPane.activateItem(item);
   existingPane.activate();
 
@@ -355,7 +428,11 @@ async function openInNewPaneItem(uri, options) {
 }
 
 function showTooltipForPaneItem(paneItem) {
+<<<<<<< HEAD
   return new (_UniversalDisposable().default)(_RxMin.Observable.create(() => {
+=======
+  return new (_UniversalDisposable().default)(_rxjsCompatUmdMin.Observable.create(() => {
+>>>>>>> Update
     const tooltip = atom.tooltips.add(paneItem.getElement(), {
       title: `
         <div>
@@ -372,5 +449,9 @@ function showTooltipForPaneItem(paneItem) {
       html: true
     });
     return () => tooltip.dispose();
+<<<<<<< HEAD
   }).takeUntil(_RxMin.Observable.timer(1000 * 60)).takeUntil((0, _event().observableFromSubscribeFunction)(cb => atom.workspace.onDidDestroyPaneItem(cb)).filter(event => event.item === paneItem)).takeUntil(_RxMin.Observable.fromEvent(document.body, 'click').filter(e => e.target.classList.contains('nuclide-moved-terminal-nux-dismiss'))).subscribe());
+=======
+  }).takeUntil(_rxjsCompatUmdMin.Observable.timer(1000 * 60)).takeUntil((0, _event().observableFromSubscribeFunction)(cb => atom.workspace.onDidDestroyPaneItem(cb)).filter(event => event.item === paneItem)).takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(document.body, 'click').filter(e => e.target.classList.contains('nuclide-moved-terminal-nux-dismiss'))).subscribe());
+>>>>>>> Update
 }

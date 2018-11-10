@@ -20,7 +20,11 @@ function _createPackage() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _StatusBar() {
   const data = require("./StatusBar");
@@ -47,7 +51,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class Activation {
   constructor(state) {
     this._disposables = new (_UniversalDisposable().default)();
+<<<<<<< HEAD
     this._navigationStackSubject = new _RxMin.ReplaySubject(1);
+=======
+    this._navigationStackSubject = new _rxjsCompatUmdMin.ReplaySubject(1);
+>>>>>>> Update
 
     this._disposables.add(this._navigationStackSubject);
   }

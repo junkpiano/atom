@@ -165,9 +165,15 @@ class AutoImportsManager {
     logger.debug('Indexing the directory', root, 'recursively');
 
     const worker = _child_process.default.fork(_nuclideUri().default.join(__dirname, 'AutoImportsWorker-entry.js'), [root], {
+<<<<<<< HEAD
       env: {
         JS_IMPORTS_INITIALIZATION_SETTINGS: JSON.stringify(this.initializationSettings)
       }
+=======
+      env: Object.assign({}, process.env, {
+        JS_IMPORTS_INITIALIZATION_SETTINGS: JSON.stringify(this.initializationSettings)
+      })
+>>>>>>> Update
     });
 
     worker.on('message', updateForFile => {

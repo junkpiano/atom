@@ -25,10 +25,17 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 function _xterm() {
   const data = require("xterm");
 
   _xterm = function () {
+=======
+function _vscodeXterm() {
+  const data = require("vscode-xterm");
+
+  _vscodeXterm = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -36,7 +43,11 @@ function _xterm() {
 }
 
 function Fit() {
+<<<<<<< HEAD
   const data = _interopRequireWildcard(require("xterm/lib/addons/fit/fit"));
+=======
+  const data = _interopRequireWildcard(require("vscode-xterm/lib/addons/fit/fit"));
+>>>>>>> Update
 
   Fit = function () {
     return data;
@@ -46,7 +57,11 @@ function Fit() {
 }
 
 function WebLinks() {
+<<<<<<< HEAD
   const data = _interopRequireWildcard(require("xterm/lib/addons/webLinks/webLinks"));
+=======
+  const data = _interopRequireWildcard(require("vscode-xterm/lib/addons/webLinks/webLinks"));
+>>>>>>> Update
 
   WebLinks = function () {
     return data;
@@ -96,6 +111,7 @@ const assertTerminalOptionsInFeatureConfig = (0, _decoders().guard)((0, _decoder
 function createTerminal(options = {}) {
   // Load the addons on-demand the first time we create a terminal.
   // $FlowIgnore
+<<<<<<< HEAD
   if (_xterm().Terminal.fit == null) {
     // The 'fit' add-on resizes the terminal based on the container size
     // and the font size such that the terminal fills the container.
@@ -106,12 +122,28 @@ function createTerminal(options = {}) {
   if (_xterm().Terminal.webLinksInit == null) {
     // The 'webLinks' add-on linkifies http URL strings.
     _xterm().Terminal.applyAddon(WebLinks());
+=======
+  if (_vscodeXterm().Terminal.fit == null) {
+    // The 'fit' add-on resizes the terminal based on the container size
+    // and the font size such that the terminal fills the container.
+    _vscodeXterm().Terminal.applyAddon(Fit());
+  } // $FlowIgnore
+
+
+  if (_vscodeXterm().Terminal.webLinksInit == null) {
+    // The 'webLinks' add-on linkifies http URL strings.
+    _vscodeXterm().Terminal.applyAddon(WebLinks());
+>>>>>>> Update
   }
 
   const rendererType = _featureConfig().default.get(_config().RENDERER_TYPE_CONFIG); // $FlowIgnore We know that TerminalClass is XTerminal + addons
 
 
+<<<<<<< HEAD
   const terminal = new (_xterm().Terminal)( // $FlowIssue: xterms type needs to be updated to include experimentalCharAtlas
+=======
+  const terminal = new (_vscodeXterm().Terminal)( // $FlowIssue: xterms type needs to be updated to include experimentalCharAtlas
+>>>>>>> Update
   assertTerminalOptionsInFeatureConfig(Object.assign({
     cursorBlink: _featureConfig().default.get(_config().CURSOR_BLINK_CONFIG),
     cursorStyle: _featureConfig().default.get(_config().CURSOR_STYLE_CONFIG),

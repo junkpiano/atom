@@ -20,7 +20,11 @@ function _eventKit() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -89,7 +93,11 @@ describe('commons-node/tasks', () => {
     it("doesn't call cancel when unsubscribed after an error", () => {
       const task = createMockTask();
       const observable = (0, _tasks().observableFromTask)(task);
+<<<<<<< HEAD
       const sub = observable.catch(() => _RxMin.Observable.empty()).subscribe();
+=======
+      const sub = observable.catch(() => _rxjsCompatUmdMin.Observable.empty()).subscribe();
+>>>>>>> Update
 
       task._error(new Error());
 
@@ -147,17 +155,35 @@ describe('commons-node/tasks', () => {
       const handler = jest.fn();
       observable.subscribe(handler);
 
+<<<<<<< HEAD
       task._status('fine and dandy');
 
       expect(handler).toHaveBeenCalledWith({
         type: 'status',
         status: 'fine and dandy'
+=======
+      task._status({
+        type: 'string',
+        status: 'fine and dandy'
+      });
+
+      expect(handler).toHaveBeenCalledWith({
+        type: 'status',
+        status: {
+          type: 'string',
+          status: 'fine and dandy'
+        }
+>>>>>>> Update
       });
     });
   });
   describe('taskFromObservable', () => {
     it('subscribes when started', () => {
+<<<<<<< HEAD
       const observable = new _RxMin.Subject();
+=======
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       jest.spyOn(observable, 'subscribe');
       const task = (0, _tasks().taskFromObservable)(observable);
       expect(observable.subscribe).not.toHaveBeenCalled();
@@ -165,9 +191,15 @@ describe('commons-node/tasks', () => {
       expect(observable.subscribe).toHaveBeenCalled();
     });
     it('unsubscribes when canceled', () => {
+<<<<<<< HEAD
       const sub = new _RxMin.Subscription();
       jest.spyOn(sub, 'unsubscribe').mockImplementation(() => {});
       const observable = new _RxMin.Subject();
+=======
+      const sub = new _rxjsCompatUmdMin.Subscription();
+      jest.spyOn(sub, 'unsubscribe').mockImplementation(() => {});
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       jest.spyOn(observable, 'subscribe').mockReturnValue(sub);
       const task = (0, _tasks().taskFromObservable)(observable);
       task.start();
@@ -176,9 +208,15 @@ describe('commons-node/tasks', () => {
       expect(sub.unsubscribe).toHaveBeenCalled();
     });
     it('calls onDidComplete callbacks when it completes', () => {
+<<<<<<< HEAD
       const sub = new _RxMin.Subscription();
       jest.spyOn(sub, 'unsubscribe').mockImplementation(() => {});
       const observable = new _RxMin.Subject();
+=======
+      const sub = new _rxjsCompatUmdMin.Subscription();
+      jest.spyOn(sub, 'unsubscribe').mockImplementation(() => {});
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(observable);
       const completed = jest.fn();
       task.onDidComplete(completed);
@@ -188,7 +226,11 @@ describe('commons-node/tasks', () => {
       expect(completed).toHaveBeenCalled();
     });
     it('calls onDidError callbacks when it errors', () => {
+<<<<<<< HEAD
       const observable = new _RxMin.Subject();
+=======
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(observable);
       const errored = jest.fn();
       task.onDidError(errored);
@@ -198,7 +240,11 @@ describe('commons-node/tasks', () => {
       expect(errored).toHaveBeenCalled();
     });
     it('calls onMessage callbacks for message events', () => {
+<<<<<<< HEAD
       const observable = new _RxMin.Subject();
+=======
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(observable);
       const handler = jest.fn();
 
@@ -222,7 +268,11 @@ describe('commons-node/tasks', () => {
       });
     });
     it('calls onProgress callbacks for progress events', () => {
+<<<<<<< HEAD
       const observable = new _RxMin.Subject();
+=======
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(observable);
       const handler = jest.fn();
 
@@ -240,7 +290,11 @@ describe('commons-node/tasks', () => {
       expect(handler).toHaveBeenCalledWith(0.5);
     });
     it('calls onResult callbacks for result events', () => {
+<<<<<<< HEAD
       const observable = new _RxMin.Subject();
+=======
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(observable);
       const handler = jest.fn();
 
@@ -258,7 +312,11 @@ describe('commons-node/tasks', () => {
       expect(handler).toHaveBeenCalledWith(42);
     });
     it('calls onStatusChange callbacks for status events', () => {
+<<<<<<< HEAD
       const observable = new _RxMin.Subject();
+=======
+      const observable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(observable);
       const handler = jest.fn();
 
@@ -271,9 +329,21 @@ describe('commons-node/tasks', () => {
       expect(handler).not.toHaveBeenCalled();
       observable.next({
         type: 'status',
+<<<<<<< HEAD
         status: 'fine and dandy'
       });
       expect(handler).toHaveBeenCalledWith('fine and dandy');
+=======
+        status: {
+          type: 'string',
+          status: 'fine and dandy'
+        }
+      });
+      expect(handler).toHaveBeenCalledWith({
+        type: 'string',
+        status: 'fine and dandy'
+      });
+>>>>>>> Update
     });
   });
 });

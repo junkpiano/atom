@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -149,7 +153,11 @@ class WatchExpressionComponent extends React.Component {
           initialValue: watchExpression.name
         });
       } else if (focusedProcess == null) {
+<<<<<<< HEAD
         evalResult = _RxMin.Observable.of(null);
+=======
+        evalResult = _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       } else {
         evalResult = (0, _utils().expressionAsEvaluationResultStream)(watchExpression, focusedProcess, focusedStackFrame, 'watch');
       }

@@ -57,7 +57,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -210,7 +214,11 @@ class SelectableFilterableProcessTable extends React.Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.interval(PROCESS_UPDATES_INTERVAL_MS).startWith(0).flatMap(_ => (0, _debugAdapterService().getVSCodeDebuggerAdapterServiceByNuclideUri)(this.props.targetUri).getProcessTree()).subscribe(this._updateList));
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.interval(PROCESS_UPDATES_INTERVAL_MS).startWith(0).flatMap(_ => (0, _debugAdapterService().getVSCodeDebuggerAdapterServiceByNuclideUri)(this.props.targetUri).getProcessTree()).subscribe(this._updateList));
+>>>>>>> Update
   }
 
   componentWillUnmount() {

@@ -40,7 +40,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70,18 +74,30 @@ describe('nuclide-commons/observable', () => {
   describe('splitStream', () => {
     it('splits streams', async () => {
       const input = ['foo\nbar', '\n', '\nba', 'z', '\nblar'];
+<<<<<<< HEAD
       const output = await (0, _observable().splitStream)(_RxMin.Observable.from(input)).toArray().toPromise();
+=======
+      const output = await (0, _observable().splitStream)(_rxjsCompatUmdMin.Observable.from(input)).toArray().toPromise();
+>>>>>>> Update
       expect(output).toEqual(['foo\n', 'bar\n', '\n', 'baz\n', 'blar']);
     });
     it('splits streams without the newline', async () => {
       const input = ['foo\nbar', '\n', '\nba', 'z', '\nblar'];
+<<<<<<< HEAD
       const output = await (0, _observable().splitStream)(_RxMin.Observable.from(input), false).toArray().toPromise();
+=======
+      const output = await (0, _observable().splitStream)(_rxjsCompatUmdMin.Observable.from(input), false).toArray().toPromise();
+>>>>>>> Update
       expect(output).toEqual(['foo', 'bar', '', 'baz', 'blar']);
     });
   });
   describe('takeWhileInclusive', () => {
     it('completes the stream when something matches the predicate', () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const result = source.let((0, _observable().takeWhileInclusive)(x => x !== 2));
       const next = jest.fn();
       const complete = jest.fn();
@@ -105,7 +121,11 @@ describe('nuclide-commons/observable', () => {
     }
 
     beforeEach(() => {
+<<<<<<< HEAD
       input = new _RxMin.Subject();
+=======
+      input = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       output = (0, _observable().cacheWhileSubscribed)(input);
     });
     it('should provide cached values to late subscribers', () => {
@@ -138,7 +158,11 @@ describe('nuclide-commons/observable', () => {
   });
   describe('diffSets', () => {
     it('emits a diff for the first item', async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)()).toArray().toPromise();
       source.next(new Set([1, 2, 3]));
       source.complete();
@@ -150,7 +174,11 @@ describe('nuclide-commons/observable', () => {
       })).toBe(true);
     });
     it('correctly identifies removed items', async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)()).toArray().toPromise();
       source.next(new Set([1, 2, 3]));
       source.next(new Set([1, 2]));
@@ -159,7 +187,11 @@ describe('nuclide-commons/observable', () => {
       expect(setsAreEqual(diffs[1].removed, new Set([3]))).toBe(true);
     });
     it('correctly identifies removed items when a hash function is used', async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)(x => x.key)).toArray().toPromise();
       const firstItems = [{
         key: 1
@@ -180,7 +212,11 @@ describe('nuclide-commons/observable', () => {
       expect(setsAreEqual(diffs[1].removed, new Set([firstItems[2]]))).toBe(true);
     });
     it('correctly identifies added items', async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)()).toArray().toPromise();
       source.next(new Set([1, 2]));
       source.next(new Set([1, 2, 3]));
@@ -189,7 +225,11 @@ describe('nuclide-commons/observable', () => {
       expect(setsAreEqual(diffs[1].added, new Set([3]))).toBe(true);
     });
     it('correctly identifies added items when a hash function is used', async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)(x => x.key)).toArray().toPromise();
       const firstItems = [{
         key: 1
@@ -210,7 +250,11 @@ describe('nuclide-commons/observable', () => {
       expect(setsAreEqual(diffs[1].added, new Set([secondItems[2]]))).toBe(true);
     });
     it("doesn't emit a diff when nothing changes", async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)()).toArray().toPromise();
       source.next(new Set([1, 2, 3]));
       source.next(new Set([1, 2, 3]));
@@ -220,7 +264,11 @@ describe('nuclide-commons/observable', () => {
       expect(diffs.length).toBe(1);
     });
     it("doesn't emit a diff when nothing changes and a hash function is used", async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const diffsPromise = source.let((0, _observable().diffSets)(x => x.key)).toArray().toPromise();
       const firstItems = [{
         key: 1
@@ -246,7 +294,11 @@ describe('nuclide-commons/observable', () => {
   });
   describe('reconcileSetDiffs', () => {
     it("calls the add action for each item that's added", () => {
+<<<<<<< HEAD
       const diffs = new _RxMin.Subject();
+=======
+      const diffs = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const addAction = jest.fn().mockReturnValue(new (_UniversalDisposable().default)());
       (0, _observable().reconcileSetDiffs)(diffs, addAction);
       diffs.next({
@@ -256,7 +308,11 @@ describe('nuclide-commons/observable', () => {
       expect(addAction.mock.calls.map(call => call[0])).toEqual(['a', 'b']);
     });
     it("disposes for each item that's removed", () => {
+<<<<<<< HEAD
       const diffs = new _RxMin.Subject();
+=======
+      const diffs = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const disposables = {
         a: createDisposable(),
         b: createDisposable()
@@ -277,7 +333,11 @@ describe('nuclide-commons/observable', () => {
       expect(disposables.b.dispose).toHaveBeenCalled();
     });
     it('disposes for all items when disposed', () => {
+<<<<<<< HEAD
       const diffs = new _RxMin.Subject();
+=======
+      const diffs = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const disposables = {
         a: createDisposable(),
         b: createDisposable()
@@ -295,7 +355,11 @@ describe('nuclide-commons/observable', () => {
       expect(disposables.b.dispose).toHaveBeenCalled();
     });
     it("disposes for each item that's removed when a hash function is used", () => {
+<<<<<<< HEAD
       const diffs = new _RxMin.Subject();
+=======
+      const diffs = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const disposables = {
         a: createDisposable(),
         b: createDisposable()
@@ -330,14 +394,24 @@ describe('nuclide-commons/observable', () => {
     let output = null;
     let outputArray = null;
     beforeEach(() => {
+<<<<<<< HEAD
       toggler = new _RxMin.Subject(); // Deferred so individual 'it' blocks can set the source on the fly.
 
       output = _RxMin.Observable.defer(() => source).let((0, _observable().toggle)(toggler));
+=======
+      toggler = new _rxjsCompatUmdMin.Subject(); // Deferred so individual 'it' blocks can set the source on the fly.
+
+      output = _rxjsCompatUmdMin.Observable.defer(() => source).let((0, _observable().toggle)(toggler));
+>>>>>>> Update
     });
     describe('with a standard source', () => {
       let realSource = null;
       beforeEach(() => {
+<<<<<<< HEAD
         source = realSource = new _RxMin.Subject();
+=======
+        source = realSource = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
         outputArray = [];
         output.subscribe(x => outputArray.push(x));
       });
@@ -361,7 +435,11 @@ describe('nuclide-commons/observable', () => {
 
     describe('subscription behavior', () => {
       beforeEach(() => {
+<<<<<<< HEAD
         source = _RxMin.Observable.of(1, 2, 3);
+=======
+        source = _rxjsCompatUmdMin.Observable.of(1, 2, 3);
+>>>>>>> Update
         outputArray = [];
         output.subscribe(x => outputArray.push(x));
       });
@@ -386,6 +464,7 @@ describe('nuclide-commons/observable', () => {
       expect(output).toEqual([]);
     });
     it('should work with several observables', async () => {
+<<<<<<< HEAD
       const output = await (0, _observable().concatLatest)(_RxMin.Observable.of([], [1]), _RxMin.Observable.of([2]), _RxMin.Observable.of([3], [3, 4])).toArray().toPromise();
       expect(output).toEqual([[], [1], [1, 2], [1, 2, 3], [1, 2, 3, 4]]);
     });
@@ -417,6 +496,12 @@ describe('nuclide-commons/observable', () => {
       expect(spy.mock.calls.length).toBe(1);
     });
   });
+=======
+      const output = await (0, _observable().concatLatest)(_rxjsCompatUmdMin.Observable.of([], [1]), _rxjsCompatUmdMin.Observable.of([2]), _rxjsCompatUmdMin.Observable.of([3], [3, 4])).toArray().toPromise();
+      expect(output).toEqual([[], [1], [1, 2], [1, 2, 3], [1, 2, 3, 4]]);
+    });
+  });
+>>>>>>> Update
   describe('nextAnimationFrame', () => {
     let oldRequestAnimationFrame;
     let oldCancelAnimationFrame;
@@ -446,19 +531,32 @@ describe('nuclide-commons/observable', () => {
   });
   describe('bufferUntil', () => {
     it('buffers based on the predicate', async () => {
+<<<<<<< HEAD
       const chunks = await _RxMin.Observable.of(1, 2, 3, 4).let((0, _observable().bufferUntil)(x => x % 2 === 0)).toArray().toPromise();
       expect(chunks).toEqual([[1, 2], [3, 4]]);
     });
     it('provides the current buffer', async () => {
       const chunks = await _RxMin.Observable.of(1, 2, 3, 4).let((0, _observable().bufferUntil)((x, buffer) => buffer.length === 2)).toArray().toPromise();
+=======
+      const chunks = await _rxjsCompatUmdMin.Observable.of(1, 2, 3, 4).let((0, _observable().bufferUntil)(x => x % 2 === 0)).toArray().toPromise();
+      expect(chunks).toEqual([[1, 2], [3, 4]]);
+    });
+    it('provides the current buffer', async () => {
+      const chunks = await _rxjsCompatUmdMin.Observable.of(1, 2, 3, 4).let((0, _observable().bufferUntil)((x, buffer) => buffer.length === 2)).toArray().toPromise();
+>>>>>>> Update
       expect(chunks).toEqual([[1, 2], [3, 4]]);
     });
   });
   describe('completingSwitchMap', () => {
     it('propagates completions to the inner observable', async () => {
       await (async () => {
+<<<<<<< HEAD
         const results = await _RxMin.Observable.of(1, 2).let((0, _observable().completingSwitchMap)(x => {
           return _RxMin.Observable.concat(_RxMin.Observable.of(x + 1), _RxMin.Observable.never());
+=======
+        const results = await _rxjsCompatUmdMin.Observable.of(1, 2).let((0, _observable().completingSwitchMap)(x => {
+          return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(x + 1), _rxjsCompatUmdMin.Observable.never());
+>>>>>>> Update
         })).toArray().toPromise();
         expect(results).toEqual([2, 3]);
       })();
@@ -469,9 +567,15 @@ describe('nuclide-commons/observable', () => {
       const aDone = jest.fn();
       const bDone = jest.fn();
 
+<<<<<<< HEAD
       const a = _RxMin.Observable.timer(0, 10).mapTo('A').take(100).finally(aDone);
 
       const b = _RxMin.Observable.timer(5, 10).mapTo('B').take(3).finally(bDone);
+=======
+      const a = _rxjsCompatUmdMin.Observable.timer(0, 10).mapTo('A').take(100).finally(aDone);
+
+      const b = _rxjsCompatUmdMin.Observable.timer(5, 10).mapTo('B').take(3).finally(bDone);
+>>>>>>> Update
 
       const results = await (0, _observable().mergeUntilAnyComplete)(a, b).toArray().toPromise();
       expect(results).toEqual(['A', 'B', 'A', 'B', 'A', 'B']);
@@ -483,17 +587,29 @@ describe('nuclide-commons/observable', () => {
     it('debounces events', async () => {
       let nextSpy;
 
+<<<<<<< HEAD
       const originalCreate = _RxMin.Observable.create.bind(_RxMin.Observable); // Spy on the created observer's next to ensure that we always cancel
       // the last debounced timer on unsubscribe.
 
 
       jest.spyOn(_RxMin.Observable, 'create').mockImplementation(callback => {
+=======
+      const originalCreate = _rxjsCompatUmdMin.Observable.create.bind(_rxjsCompatUmdMin.Observable); // Spy on the created observer's next to ensure that we always cancel
+      // the last debounced timer on unsubscribe.
+
+
+      jest.spyOn(_rxjsCompatUmdMin.Observable, 'create').mockImplementation(callback => {
+>>>>>>> Update
         return originalCreate(observer => {
           nextSpy = jest.spyOn(observer, 'next');
           return callback(observer);
         });
       });
+<<<<<<< HEAD
       const subject = new _RxMin.Subject();
+=======
+      const subject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const promise = subject.let((0, _observable().fastDebounce)(10)).toArray().toPromise();
       subject.next(1);
       subject.next(2);
@@ -511,7 +627,11 @@ describe('nuclide-commons/observable', () => {
     it('passes errors through immediately', () => {
       let caught = false;
 
+<<<<<<< HEAD
       _RxMin.Observable.throw(1).let((0, _observable().fastDebounce)(10)).subscribe({
+=======
+      _rxjsCompatUmdMin.Observable.throw(1).let((0, _observable().fastDebounce)(10)).subscribe({
+>>>>>>> Update
         error() {
           caught = true;
         }
@@ -582,7 +702,11 @@ describe('nuclide-commons/observable', () => {
     it('rejects with a DOMException on abort', async () => {
       const controller = new (_AbortController().default)();
       const spy = jest.fn();
+<<<<<<< HEAD
       const promise = (0, _observable().toAbortablePromise)(_RxMin.Observable.never(), controller.signal).catch(spy);
+=======
+      const promise = (0, _observable().toAbortablePromise)(_rxjsCompatUmdMin.Observable.never(), controller.signal).catch(spy);
+>>>>>>> Update
       controller.abort();
       await promise;
       expect(spy).toHaveBeenCalled();
@@ -596,7 +720,11 @@ describe('nuclide-commons/observable', () => {
         const controller = new (_AbortController().default)();
         const spy = jest.fn();
 
+<<<<<<< HEAD
         _RxMin.Observable.never().let(obs => (0, _observable().takeUntilAbort)(obs, controller.signal)).subscribe({
+=======
+        _rxjsCompatUmdMin.Observable.never().let((0, _observable().takeUntilAbort)(controller.signal)).subscribe({
+>>>>>>> Update
           complete: spy
         });
 
@@ -609,7 +737,11 @@ describe('nuclide-commons/observable', () => {
         controller.abort();
         const spy = jest.fn();
 
+<<<<<<< HEAD
         _RxMin.Observable.never().let(obs => (0, _observable().takeUntilAbort)(obs, controller.signal)).subscribe({
+=======
+        _rxjsCompatUmdMin.Observable.never().let((0, _observable().takeUntilAbort)(controller.signal)).subscribe({
+>>>>>>> Update
           complete: spy
         });
 
@@ -617,7 +749,11 @@ describe('nuclide-commons/observable', () => {
       });
     });
     it('works with no signal', async () => {
+<<<<<<< HEAD
       const promise = (0, _observable().toAbortablePromise)(_RxMin.Observable.of(1));
+=======
+      const promise = (0, _observable().toAbortablePromise)(_rxjsCompatUmdMin.Observable.of(1));
+>>>>>>> Update
       expect((await promise)).toBe(1);
     });
   });
@@ -625,7 +761,11 @@ describe('nuclide-commons/observable', () => {
     it('isExecuting()', () => {
       const executor = new (_observable().SingletonExecutor)();
       expect(executor.isExecuting()).toBe(false);
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const result = executor.execute(source);
       result.catch(() => 'silence unhandled promise rejection warning');
       expect(executor.isExecuting()).toBe(true);
@@ -634,7 +774,11 @@ describe('nuclide-commons/observable', () => {
     });
     it('completing task normally', async () => {
       const executor = new (_observable().SingletonExecutor)();
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const result = executor.execute(source);
       expect(executor.isExecuting()).toBe(true);
       source.next(42);
@@ -644,7 +788,11 @@ describe('nuclide-commons/observable', () => {
     });
     it('completing task by error', async () => {
       const executor = new (_observable().SingletonExecutor)();
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const result = executor.execute(source);
       expect(executor.isExecuting()).toBe(true);
       source.error(42);
@@ -662,10 +810,17 @@ describe('nuclide-commons/observable', () => {
     });
     it('scheduling second task while first is in flight', async () => {
       const executor = new (_observable().SingletonExecutor)();
+<<<<<<< HEAD
       const source1 = new _RxMin.Subject();
       const result1 = executor.execute(source1);
       expect(executor.isExecuting()).toBe(true);
       const source2 = new _RxMin.Subject();
+=======
+      const source1 = new _rxjsCompatUmdMin.Subject();
+      const result1 = executor.execute(source1);
+      expect(executor.isExecuting()).toBe(true);
+      const source2 = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const result2 = executor.execute(source2);
       expect(executor.isExecuting()).toBe(true);
       let thrown = false;
@@ -688,7 +843,11 @@ describe('nuclide-commons/observable', () => {
   describe('poll', () => {
     beforeEach(() => {});
     it('subscribes to the observable synchronously', () => {
+<<<<<<< HEAD
       const source = _RxMin.Observable.never();
+=======
+      const source = _rxjsCompatUmdMin.Observable.never();
+>>>>>>> Update
 
       const spy = jest.spyOn(source, 'subscribe');
       const sub = source.let((0, _observable().poll)(10)).subscribe();
@@ -698,7 +857,11 @@ describe('nuclide-commons/observable', () => {
     it('resubscribes when complete', async () => {
       let mostRecentObserver;
 
+<<<<<<< HEAD
       const source = _RxMin.Observable.create(observer => {
+=======
+      const source = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
         mostRecentObserver = observer;
       });
 
@@ -718,7 +881,11 @@ describe('nuclide-commons/observable', () => {
       sub.unsubscribe();
     });
     it("doesn't resubscribe to the source when you unsubscribe", async () => {
+<<<<<<< HEAD
       const source = new _RxMin.Subject();
+=======
+      const source = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const spy = jest.spyOn(source, 'subscribe');
       source.let((0, _observable().poll)(10)).take(1) // This will unsubscribe after the first element.
       .subscribe();
@@ -728,7 +895,11 @@ describe('nuclide-commons/observable', () => {
       expect(spy.mock.calls.length).toBe(1);
     });
     it('polls synchronously completing observables', async () => {
+<<<<<<< HEAD
       const result = await _RxMin.Observable.of('hi').let((0, _observable().poll)(10)).take(2).toArray().toPromise();
+=======
+      const result = await _rxjsCompatUmdMin.Observable.of('hi').let((0, _observable().poll)(10)).take(2).toArray().toPromise();
+>>>>>>> Update
       expect(result).toEqual(['hi', 'hi']);
     });
   });

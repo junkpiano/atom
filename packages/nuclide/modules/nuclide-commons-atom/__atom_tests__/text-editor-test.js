@@ -10,8 +10,11 @@ function _textEditor() {
   return data;
 }
 
+<<<<<<< HEAD
 var _atom = require("atom");
 
+=======
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -46,6 +49,7 @@ describe('existingEditorForUri', () => {
   it('should return null if no editor exists', () => {
     expect((0, _textEditor().existingEditorForUri)(file3)).toBeNull();
   });
+<<<<<<< HEAD
 });
 
 function ensureReadOnlyOperations(buffer, operations, expectedReadOnly) {
@@ -109,4 +113,6 @@ describe('enforceReadOnlyBuffer', () => {
     enforceReadOnlyEditorDisposable.dispose();
     ensureReadOnlyOperations(buffer, operations, false);
   });
+=======
+>>>>>>> Update
 });

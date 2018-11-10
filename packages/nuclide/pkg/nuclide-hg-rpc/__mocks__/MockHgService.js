@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -19,6 +23,7 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
  */
 class MockHgRepositorySubscriptions {
   observeFilesDidChange() {
+<<<<<<< HEAD
     return new _RxMin.Subject().publish();
   }
 
@@ -44,6 +49,33 @@ class MockHgRepositorySubscriptions {
 
   observeBookmarksDidChange() {
     return new _RxMin.Subject().publish();
+=======
+    return new _rxjsCompatUmdMin.Subject().publish();
+  }
+
+  observeHgIgnoreFileDidChange() {
+    return new _rxjsCompatUmdMin.Subject().publish();
+  }
+
+  observeHgRepoStateDidChange() {
+    return new _rxjsCompatUmdMin.Subject().publish();
+  }
+
+  observeHgCommitsDidChange() {
+    return new _rxjsCompatUmdMin.Subject().publish();
+  }
+
+  observeHgConflictStateDidChange() {
+    return new _rxjsCompatUmdMin.Subject().publish();
+  }
+
+  observeActiveBookmarkDidChange() {
+    return new _rxjsCompatUmdMin.Subject().publish();
+  }
+
+  observeBookmarksDidChange() {
+    return new _rxjsCompatUmdMin.Subject().publish();
+>>>>>>> Update
   }
 
 } // This class is meant to be stubbed out.
@@ -55,7 +87,11 @@ class MockHgService {
   }
 
   fetchStatuses(filePaths, options) {
+<<<<<<< HEAD
     return new _RxMin.Subject().publish();
+=======
+    return new _rxjsCompatUmdMin.Subject().publish();
+>>>>>>> Update
   }
 
   deleteBookmark(name) {
@@ -83,7 +119,11 @@ class MockHgService {
   }
 
   getHeadId() {
+<<<<<<< HEAD
     return new _RxMin.Observable();
+=======
+    return new _rxjsCompatUmdMin.Observable();
+>>>>>>> Update
   }
 
   getFullHashForRevision() {
@@ -91,7 +131,11 @@ class MockHgService {
   }
 
   fetchFileContentAtRevision(filePath, revision) {
+<<<<<<< HEAD
     return new _RxMin.Subject().publish();
+=======
+    return new _rxjsCompatUmdMin.Subject().publish();
+>>>>>>> Update
   }
 
 }

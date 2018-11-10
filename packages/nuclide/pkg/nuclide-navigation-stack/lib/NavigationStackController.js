@@ -45,7 +45,11 @@ function _Location() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -242,7 +246,11 @@ class NavigationStackController {
   }
 
   observeStackChanges() {
+<<<<<<< HEAD
     return _RxMin.Observable.of(this._navigationStack).concat(this._navigationStack.observeChanges());
+=======
+    return _rxjsCompatUmdMin.Observable.of(this._navigationStack).concat(this._navigationStack.observeChanges());
+>>>>>>> Update
   } // For Testing.
 
 

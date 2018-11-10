@@ -15,7 +15,11 @@ function _nuclideDebuggerCommon() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -177,7 +181,11 @@ class HhvmBuildSystem {
   }
 
   runTask(taskName) {
+<<<<<<< HEAD
     return (0, _tasks().taskFromObservable)(_RxMin.Observable.fromPromise((async () => {
+=======
+    return (0, _tasks().taskFromObservable)(_rxjsCompatUmdMin.Observable.fromPromise((async () => {
+>>>>>>> Update
       this._projectStore.updateLastUsed();
 
       this._projectStore.saveSettings();
@@ -239,12 +247,21 @@ class HhvmBuildSystem {
       disabled: disabledMsg != null
     }];
 
+<<<<<<< HEAD
     const tasksObservable = _RxMin.Observable.concat(_RxMin.Observable.of(null), _RxMin.Observable.fromPromise((0, _debugger().getDebuggerService)())).switchMap(debugService => {
       if (debugService == null) {
         return _RxMin.Observable.of(getTask(null));
       }
 
       return _RxMin.Observable.concat(_RxMin.Observable.of(getTask(null)), _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(debugService.onDidChangeDebuggerSessions.bind(debugService)), (0, _event().observableFromSubscribeFunction)(this._projectStore.onChange.bind(this._projectStore))).switchMap(() => {
+=======
+    const tasksObservable = _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(null), _rxjsCompatUmdMin.Observable.fromPromise((0, _debugger().getDebuggerService)())).switchMap(debugService => {
+      if (debugService == null) {
+        return _rxjsCompatUmdMin.Observable.of(getTask(null));
+      }
+
+      return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(getTask(null)), _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(debugService.onDidChangeDebuggerSessions.bind(debugService)), (0, _event().observableFromSubscribeFunction)(this._projectStore.onChange.bind(this._projectStore))).switchMap(() => {
+>>>>>>> Update
         let disabledMsg = null;
 
         if (!this._projectStore.isCurrentSettingDebuggable()) {
@@ -255,11 +272,19 @@ class HhvmBuildSystem {
           disabledMsg = 'The HHVM debugger is already attached to this server';
         }
 
+<<<<<<< HEAD
         return _RxMin.Observable.of(getTask(disabledMsg));
       }));
     });
 
     const subscription = _RxMin.Observable.combineLatest(enabledObservable, tasksObservable).subscribe(([enabled, tasks]) => callback(enabled, tasks));
+=======
+        return _rxjsCompatUmdMin.Observable.of(getTask(disabledMsg));
+      }));
+    });
+
+    const subscription = _rxjsCompatUmdMin.Observable.combineLatest(enabledObservable, tasksObservable).subscribe(([enabled, tasks]) => callback(enabled, tasks));
+>>>>>>> Update
 
     this._projectStore.setProjectRoot(projectRoot);
 

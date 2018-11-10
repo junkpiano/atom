@@ -13,7 +13,10 @@ Nuclide including:
 - find references
 - code formatting
 - messages from the language service to be shown in the UI
+<<<<<<< HEAD
 - debugger expression evaluation
+=======
+>>>>>>> Update
 
 ## Overview
 
@@ -63,8 +66,11 @@ language into the Atom UI.
   the most laziness; if the language needs a response from Atom, then `HostServices`
   is the only possibility.
 
+<<<<<<< HEAD
 TODO: Add Picture
 
+=======
+>>>>>>> Update
 Creating a new language service requires defining 2 packages:
 - Adding a new remote package which implements the `LanguageService` interface.
   The simplest implementation can be provided by `ServerLanguageService` which defers to a `SingleFileLanguageService` for each new remote `ServerConnection`. This has some limitations
@@ -84,14 +90,21 @@ The API contains methods for all of the available Nuclide language services.
 Likely your language service will not provide every service. For services that
 are unavailable for your language just provide an implementation which throws an exception.
 
+<<<<<<< HEAD
 #### `stripped-text-buffer`
+=======
+#### `simple-text-buffer`
+>>>>>>> Update
 
 Note that these `TextBuffer` objects in the NuclideServer process are stripped down from the full
 Atom versions. They cannot save/load from disk, or use the marker portions of the TextBuffer API.
 The source for the stripped TextBuffer is in the `simple-text-buffer` npm package if you need details.
 
+<<<<<<< HEAD
 TODO: Add StrippedTextBuffer type annotation once we have property variance from flow.
 
+=======
+>>>>>>> Update
 ### An Example `SingleFileLanguageService` API implementation
 
 Let's take a look at an example API and what a typical implementation might look like. We'll use the
@@ -104,6 +117,7 @@ getDefinition(
 ): Promise<?DefinitionQueryResult>,
 ```
 
+<<<<<<< HEAD
 API in our example. A typical implementation might look like:
 
 ```js
@@ -130,6 +144,8 @@ async getDefinition(
 }
 ```
 
+=======
+>>>>>>> Update
 If you cannot provide a given service for your language, just have the implementation
 throw an Error:
 
@@ -320,9 +336,12 @@ Whenever a `.php` file in a given project directory is opened in Nuclide,
 or a directory containing a `.hhconfig` file is added to the file tree, that
 project is considered to be open.
 
+<<<<<<< HEAD
 The `ConfigObserver` class in the nuclide-open-files-rpc package provides
 an Observable of open projects for a given language.
 
+=======
+>>>>>>> Update
 ### Analyzer Processes
 
 An analyzer process provides diagnostics(and possibly other language analysis services) for a single project.
@@ -330,10 +349,13 @@ An analyzer process provides diagnostics(and possibly other language analysis se
 Each time a project is opened in Nuclide, an analyzer process for that project
 is started. When a project is closed in Atom the corresponding analyzer process is shut down.
 
+<<<<<<< HEAD
 TODO: Process lifetime is currently handled by the `processes`,
 `ensureProcess`, `observeConnections` in HackProcess.js. These
 should be abstracted into a reusable Language agnostic API.
 
+=======
+>>>>>>> Update
 One additional complexity is that a given project may be opened
 by multiple Atom windows simultaneously. A LanguageService must choose between
 starting a new analyzer process per connected Atom window; or having one analyzer
@@ -355,9 +377,12 @@ quite reasonable.
 ### Observing Diagnostics for an Analyzer Process
 
 This will be language specific.
+<<<<<<< HEAD
 
 ### Aggregating and Invalidating Diagnostics
 
 Currently this occurs in `observeDiagnostics` in HackService.js.
 
 TODO: Move this to a reusable component which maps Observable<Observable<FileDiagnosticMessages>> for each project to an Observable<FileDiagnosticMessages> which handles the invalidations and flattening.
+=======
+>>>>>>> Update

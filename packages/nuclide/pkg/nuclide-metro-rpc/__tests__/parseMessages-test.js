@@ -30,7 +30,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68,5 +72,9 @@ describe('parseMessages', () => {
 function getLines(name) {
   const pathToFile = _nuclideUri().default.resolve(__dirname, '../__mocks__/fixtures', `${name}.txt`);
 
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => _fsPromise().default.readFile(pathToFile)).switchMap(contents => _RxMin.Observable.from(contents.toString().split('\n')));
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => _fsPromise().default.readFile(pathToFile)).switchMap(contents => _rxjsCompatUmdMin.Observable.from(contents.toString().split('\n')));
+>>>>>>> Update
 }

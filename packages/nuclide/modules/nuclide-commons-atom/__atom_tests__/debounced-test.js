@@ -2,7 +2,11 @@
 
 var _atom = require("atom");
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _debounced() {
   const data = require("../debounced");
@@ -61,7 +65,11 @@ xdescribe('editorScrollTopDebounced', () => {
     const editor = await atom.workspace.open();
     editor.setText(mockText);
     const editorScroll = (0, _debounced().editorScrollTopDebounced)(editor, DEBOUNCE_INTERVAL);
+<<<<<<< HEAD
     const eventsPromise = editorScroll.takeUntil(_RxMin.Observable.of(null).delay(500)).toArray().toPromise();
+=======
+    const eventsPromise = editorScroll.takeUntil(_rxjsCompatUmdMin.Observable.of(null).delay(500)).toArray().toPromise();
+>>>>>>> Update
     editor.scrollToBufferPosition(new _atom.Point(LINES / 2, 0));
     editor.scrollToBufferPosition(new _atom.Point(0, 0));
     editor.scrollToBufferPosition(new _atom.Point(LINES - 1, 0));
@@ -107,7 +115,11 @@ xdescribe('pane item change events', () => {
     });
     it('should issue an initial item', async () => {
       expect((await activePaneItems.first() // Split out an empty observable after waiting 20 ms.
+<<<<<<< HEAD
       .race(_RxMin.Observable.empty().delay(20)).toArray().toPromise())).toEqual([editor1]);
+=======
+      .race(_rxjsCompatUmdMin.Observable.empty().delay(20)).toArray().toPromise())).toEqual([editor1]);
+>>>>>>> Update
     });
     it('should debounce', async () => {
       const itemsPromise = activePaneItems.take(2).toArray().toPromise();
@@ -185,7 +197,11 @@ xdescribe('editorChangesDebounced', () => {
     editorChanges = (0, _debounced().editorChangesDebounced)(editor, DEBOUNCE_INTERVAL);
   });
   it('debounces changes', async () => {
+<<<<<<< HEAD
     const eventsPromise = editorChanges.takeUntil(_RxMin.Observable.of(null).delay(50)).toArray().toPromise();
+=======
+    const eventsPromise = editorChanges.takeUntil(_rxjsCompatUmdMin.Observable.of(null).delay(50)).toArray().toPromise();
+>>>>>>> Update
     await (0, _promise().sleep)(SLEEP_INTERVAL);
     editor.insertNewline();
     editor.insertNewline();

@@ -15,7 +15,11 @@ function _ssh() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var pathModule = _interopRequireWildcard(require("path"));
 
@@ -113,10 +117,17 @@ class SftpClient {
     };
 
     this._sftp = sftp;
+<<<<<<< HEAD
     this._onError = _RxMin.Observable.fromEvent(this._sftp, 'error');
     this._onEnd = _RxMin.Observable.fromEvent(this._sftp, 'end');
     this._onClose = _RxMin.Observable.fromEvent(this._sftp, 'close');
     this._onContinue = _RxMin.Observable.fromEvent(this._sftp, 'continue');
+=======
+    this._onError = _rxjsCompatUmdMin.Observable.fromEvent(this._sftp, 'error');
+    this._onEnd = _rxjsCompatUmdMin.Observable.fromEvent(this._sftp, 'end');
+    this._onClose = _rxjsCompatUmdMin.Observable.fromEvent(this._sftp, 'close');
+    this._onContinue = _rxjsCompatUmdMin.Observable.fromEvent(this._sftp, 'continue');
+>>>>>>> Update
     this._closePromise = new (_promise().Deferred)();
     this._endPromise = new (_promise().Deferred)();
 

@@ -49,10 +49,17 @@
     "nuclide-debugger-common": "0.7.3-dev",
     "plist": "2.0.1",
     "q": "1.4.1",
+<<<<<<< HEAD
     "react": "16.5.0",
     "request": "2.79.0",
     "rimraf": "2.6.2",
     "rxjs": "5.5.5",
+=======
+    "react": "16.5.2",
+    "request": "2.79.0",
+    "rimraf": "2.6.2",
+    "rxjs-compat": "6.3.3",
+>>>>>>> Update
     "semver": "5.5.0",
     "source-map": "0.5.6",
     "source-map-resolve": "0.5.0",

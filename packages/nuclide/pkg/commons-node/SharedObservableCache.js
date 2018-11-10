@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -33,7 +37,11 @@ class SharedObservableCache {
   }
 
   get(key) {
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       let cached = this._cache.get(key);
 
       if (cached == null) {

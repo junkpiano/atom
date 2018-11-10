@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _observableDom() {
   const data = require("../observable-dom");
@@ -84,7 +88,11 @@ describe('new DOMObserverObservable', () => {
       observe(...args) {
         super.observe(...args);
 
+<<<<<<< HEAD
         _RxMin.Observable.interval(1).mapTo(['foo', 'bar', 'baz']).take(2).subscribe(this._callback);
+=======
+        _rxjsCompatUmdMin.Observable.interval(1).mapTo(['foo', 'bar', 'baz']).take(2).subscribe(this._callback);
+>>>>>>> Update
       }
 
     }
@@ -143,7 +151,11 @@ describe('new DOMObserverObservable', () => {
         observe(...args) {
           super.observe(...args);
 
+<<<<<<< HEAD
           _RxMin.Observable.interval(1).mapTo(['foo', 'bar', 'baz']).take(2).subscribe(this._callback);
+=======
+          _rxjsCompatUmdMin.Observable.interval(1).mapTo(['foo', 'bar', 'baz']).take(2).subscribe(this._callback);
+>>>>>>> Update
         }
 
       }
@@ -155,7 +167,11 @@ describe('new DOMObserverObservable', () => {
         observe(...args) {
           super.observe(...args);
 
+<<<<<<< HEAD
           _RxMin.Observable.interval(1).mapTo(['foo', 'bar', 'baz']).take(2).subscribe(this._callback);
+=======
+          _rxjsCompatUmdMin.Observable.interval(1).mapTo(['foo', 'bar', 'baz']).take(2).subscribe(this._callback);
+>>>>>>> Update
         }
 
       }
@@ -168,7 +184,11 @@ describe('new DOMObserverObservable', () => {
         observe(...args) {
           super.observe(...args);
 
+<<<<<<< HEAD
           _RxMin.Observable.interval(1).mapTo({
+=======
+          _rxjsCompatUmdMin.Observable.interval(1).mapTo({
+>>>>>>> Update
             getEntries: () => ['foo', 'bar', 'baz']
           }).take(2).subscribe(this._callback);
         }
@@ -183,7 +203,11 @@ describe('new DOMObserverObservable', () => {
         observe(...args) {
           super.observe(...args);
 
+<<<<<<< HEAD
           _RxMin.Observable.interval(1).take(2).subscribe(this._callback);
+=======
+          _rxjsCompatUmdMin.Observable.interval(1).take(2).subscribe(this._callback);
+>>>>>>> Update
         }
 
       }

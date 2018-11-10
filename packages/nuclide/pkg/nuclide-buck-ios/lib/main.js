@@ -46,7 +46,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _consumeFirstProvider() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/consumeFirstProvider"));
@@ -85,6 +89,7 @@ function consumePlatformService(service) {
 
 function provideIosPlatformGroup(buckRoot, ruleType, buildTarget) {
   if (!_types().SUPPORTED_RULE_TYPES.has(ruleType)) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(null);
   }
 
@@ -98,6 +103,21 @@ function provideIosPlatformGroup(buckRoot, ruleType, buildTarget) {
     } else {
       return _RxMin.Observable.fromPromise(_getDebuggerCallback(buckRoot)).switchMap(debuggerCallback => {
         return _RxMin.Observable.combineLatest((0, _Platforms().getSimulatorPlatform)(buckRoot, ruleType, debuggerCallback), (0, _Platforms().getDevicePlatform)(buckRoot, ruleType, debuggerCallback)).map(([simulatorPlatform, devicePlatform]) => {
+=======
+    return _rxjsCompatUmdMin.Observable.of(null);
+  }
+
+  if (ruleType === 'apple_binary' && buildTarget.endsWith('AppleMac')) {
+    return _rxjsCompatUmdMin.Observable.of(null);
+  }
+
+  return _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.exists(_nuclideUri().default.join(buckRoot, 'mode', 'oculus-mobile'))).switchMap(result => {
+    if (result) {
+      return _rxjsCompatUmdMin.Observable.of(null);
+    } else {
+      return _rxjsCompatUmdMin.Observable.fromPromise(_getDebuggerCallback(buckRoot)).switchMap(debuggerCallback => {
+        return _rxjsCompatUmdMin.Observable.combineLatest((0, _Platforms().getSimulatorPlatform)(buckRoot, ruleType, debuggerCallback), (0, _Platforms().getDevicePlatform)(buckRoot, ruleType, debuggerCallback)).map(([simulatorPlatform, devicePlatform]) => {
+>>>>>>> Update
           return {
             name: 'iOS',
             platforms: [simulatorPlatform, devicePlatform]

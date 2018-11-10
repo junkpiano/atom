@@ -45,7 +45,11 @@ function _nuclideRemoteConnection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -93,7 +97,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * 
  * @format
  */
+<<<<<<< HEAD
 const directoriesObs = new _RxMin.Subject();
+=======
+const directoriesObs = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 const SEARCH_TIMEOUT = 10000;
 const CodeSearchProvider = {
   name: 'CodeSearchProvider',
@@ -145,7 +153,11 @@ const CodeSearchProvider = {
       };
       lastPath = match.file;
       return result;
+<<<<<<< HEAD
     }).timeout(SEARCH_TIMEOUT).catch(() => _RxMin.Observable.empty()).toArray().takeUntil(directoriesObs.filter(dir => dir.getPath() === projectRoot)).toPromise() // toPromise yields undefined if it was interrupted.
+=======
+    }).timeout(SEARCH_TIMEOUT).catch(() => _rxjsCompatUmdMin.Observable.empty()).toArray().takeUntil(directoriesObs.filter(dir => dir.getPath() === projectRoot)).toPromise() // toPromise yields undefined if it was interrupted.
+>>>>>>> Update
     .then(result => result || []);
   },
 

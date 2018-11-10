@@ -5,10 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TunnelsPanelTable = void 0;
 
+<<<<<<< HEAD
 function _hostnames() {
   const data = require("../../../commons-node/hostnames");
 
   _hostnames = function () {
+=======
+function _nuclideUri() {
+  const data = _interopRequireDefault(require("../../../../modules/nuclide-commons/nuclideUri"));
+
+  _nuclideUri = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -91,8 +98,13 @@ class TunnelsPanelTable extends React.Component {
         className: 'nuclide-ssh-tunnels-table-row',
         data: {
           description: Array.from(descriptions).join(', '),
+<<<<<<< HEAD
           from: `${(0, _hostnames().shortenHostname)(from.host)}:${from.port}`,
           to: `${(0, _hostnames().shortenHostname)(to.host)}:${to.port}`,
+=======
+          from: `${_nuclideUri().default.nuclideUriToDisplayHostname(from.host)}:${from.port}`,
+          to: `${_nuclideUri().default.nuclideUriToDisplayHostname(to.host)}:${to.port}`,
+>>>>>>> Update
           status: active.state,
           close: React.createElement(_TunnelCloseButton().default, {
             tunnel: active.tunnel,

@@ -7,6 +7,21 @@ exports.bindObservableAsProps = bindObservableAsProps;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
+=======
+function _getDisplayName() {
+  const data = _interopRequireDefault(require("../nuclide-commons/getDisplayName"));
+
+  _getDisplayName = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 /**
@@ -31,8 +46,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
  * otherwise, the wrapper component renders `null`.
  */
 function bindObservableAsProps(stream, ComposedComponent) {
+<<<<<<< HEAD
   // $FlowIssue The return type is guaranteed to be the same as the type of ComposedComponent.
   return class extends React.Component {
+=======
+  var _class, _temp;
+
+  // $FlowIssue The return type is guaranteed to be the same as the type of ComposedComponent.
+  return _temp = _class = class extends React.Component {
+>>>>>>> Update
     constructor(props) {
       super(props);
       this._subscription = null;
@@ -62,5 +84,9 @@ function bindObservableAsProps(stream, ComposedComponent) {
       return React.createElement(ComposedComponent, props);
     }
 
+<<<<<<< HEAD
   };
+=======
+  }, _class.displayName = `bindObservableAsProps(${(0, _getDisplayName().default)(ComposedComponent)})`, _temp;
+>>>>>>> Update
 }

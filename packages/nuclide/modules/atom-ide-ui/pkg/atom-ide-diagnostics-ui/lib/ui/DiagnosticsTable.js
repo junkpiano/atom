@@ -411,13 +411,23 @@ var _initialiseProps = function () {
     }
 
     this.props.gotoMessageLocation(item.diagnostic, {
+<<<<<<< HEAD
       focusEditor: false
+=======
+      focusEditor: false,
+      pendingPane: event.type !== 'click'
+>>>>>>> Update
     });
   };
 
   this._handleConfirmTableRow = item => {
     this.props.gotoMessageLocation(item.diagnostic, {
+<<<<<<< HEAD
       focusEditor: true
+=======
+      focusEditor: true,
+      pendingPane: false
+>>>>>>> Update
     });
   };
 

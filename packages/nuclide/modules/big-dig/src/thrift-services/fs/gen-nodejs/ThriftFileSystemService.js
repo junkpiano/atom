@@ -24,6 +24,7 @@ var Q = thrift.Q;
 var ttypes = require('./filesystem_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
+<<<<<<< HEAD
 var ThriftFileSystemService_watch_args = function(args) {
   this.uri = null;
   this.options = null;
@@ -38,6 +39,22 @@ var ThriftFileSystemService_watch_args = function(args) {
 };
 ThriftFileSystemService_watch_args.prototype = {};
 ThriftFileSystemService_watch_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_chmod_args = function(args) {
+  this.path = null;
+  this.mode = null;
+  if (args) {
+    if (args.path !== undefined && args.path !== null) {
+      this.path = args.path;
+    }
+    if (args.mode !== undefined && args.mode !== null) {
+      this.mode = args.mode;
+    }
+  }
+};
+ThriftFileSystemService_chmod_args.prototype = {};
+ThriftFileSystemService_chmod_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -52,15 +69,24 @@ ThriftFileSystemService_watch_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
         this.uri = input.readString();
+=======
+        this.path = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.STRUCT) {
         this.options = new ttypes.WatchOpt();
         this.options.read(input);
+=======
+      if (ftype == Thrift.Type.I32) {
+        this.mode = input.readI32();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
@@ -74,6 +100,7 @@ ThriftFileSystemService_watch_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_watch_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_watch_args');
   if (this.uri !== null && this.uri !== undefined) {
@@ -84,6 +111,18 @@ ThriftFileSystemService_watch_args.prototype.write = function(output) {
   if (this.options !== null && this.options !== undefined) {
     output.writeFieldBegin('options', Thrift.Type.STRUCT, 2);
     this.options.write(output);
+=======
+ThriftFileSystemService_chmod_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chmod_args');
+  if (this.path !== null && this.path !== undefined) {
+    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
+    output.writeString(this.path);
+    output.writeFieldEnd();
+  }
+  if (this.mode !== null && this.mode !== undefined) {
+    output.writeFieldBegin('mode', Thrift.Type.I32, 2);
+    output.writeI32(this.mode);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -91,24 +130,36 @@ ThriftFileSystemService_watch_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_watch_result = function(args) {
   this.success = null;
+=======
+var ThriftFileSystemService_chmod_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
     if (args.success !== undefined && args.success !== null) {
       this.success = args.success;
     }
+=======
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_watch_result.prototype = {};
 ThriftFileSystemService_watch_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_chmod_result.prototype = {};
+ThriftFileSystemService_chmod_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -121,6 +172,7 @@ ThriftFileSystemService_watch_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
       case 0:
       if (ftype == Thrift.Type.STRING) {
         this.success = input.readString();
@@ -128,6 +180,8 @@ ThriftFileSystemService_watch_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -136,6 +190,12 @@ ThriftFileSystemService_watch_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -145,6 +205,7 @@ ThriftFileSystemService_watch_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_watch_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_watch_result');
   if (this.success !== null && this.success !== undefined) {
@@ -152,6 +213,10 @@ ThriftFileSystemService_watch_result.prototype.write = function(output) {
     output.writeString(this.success);
     output.writeFieldEnd();
   }
+=======
+ThriftFileSystemService_chmod_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chmod_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -162,6 +227,7 @@ ThriftFileSystemService_watch_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_unwatch_args = function(args) {
   this.watchId = null;
   if (args) {
@@ -172,6 +238,26 @@ var ThriftFileSystemService_unwatch_args = function(args) {
 };
 ThriftFileSystemService_unwatch_args.prototype = {};
 ThriftFileSystemService_unwatch_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_chown_args = function(args) {
+  this.path = null;
+  this.uid = null;
+  this.gid = null;
+  if (args) {
+    if (args.path !== undefined && args.path !== null) {
+      this.path = args.path;
+    }
+    if (args.uid !== undefined && args.uid !== null) {
+      this.uid = args.uid;
+    }
+    if (args.gid !== undefined && args.gid !== null) {
+      this.gid = args.gid;
+    }
+  }
+};
+ThriftFileSystemService_chown_args.prototype = {};
+ThriftFileSystemService_chown_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -186,14 +272,35 @@ ThriftFileSystemService_unwatch_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
         this.watchId = input.readString();
+=======
+        this.path = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.uid = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.I32) {
+        this.gid = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -203,11 +310,29 @@ ThriftFileSystemService_unwatch_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_unwatch_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_unwatch_args');
   if (this.watchId !== null && this.watchId !== undefined) {
     output.writeFieldBegin('watchId', Thrift.Type.STRING, 1);
     output.writeString(this.watchId);
+=======
+ThriftFileSystemService_chown_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chown_args');
+  if (this.path !== null && this.path !== undefined) {
+    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
+    output.writeString(this.path);
+    output.writeFieldEnd();
+  }
+  if (this.uid !== null && this.uid !== undefined) {
+    output.writeFieldBegin('uid', Thrift.Type.I32, 2);
+    output.writeI32(this.uid);
+    output.writeFieldEnd();
+  }
+  if (this.gid !== null && this.gid !== undefined) {
+    output.writeFieldBegin('gid', Thrift.Type.I32, 3);
+    output.writeI32(this.gid);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -215,7 +340,11 @@ ThriftFileSystemService_unwatch_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_unwatch_result = function(args) {
+=======
+var ThriftFileSystemService_chown_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
@@ -227,8 +356,13 @@ var ThriftFileSystemService_unwatch_result = function(args) {
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_unwatch_result.prototype = {};
 ThriftFileSystemService_unwatch_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_chown_result.prototype = {};
+ThriftFileSystemService_chown_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -261,8 +395,13 @@ ThriftFileSystemService_unwatch_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_unwatch_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_unwatch_result');
+=======
+ThriftFileSystemService_chown_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chown_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -273,6 +412,7 @@ ThriftFileSystemService_unwatch_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_pollFileChanges_args = function(args) {
   this.watchId = null;
   if (args) {
@@ -283,6 +423,18 @@ var ThriftFileSystemService_pollFileChanges_args = function(args) {
 };
 ThriftFileSystemService_pollFileChanges_args.prototype = {};
 ThriftFileSystemService_pollFileChanges_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_close_args = function(args) {
+  this.fd = null;
+  if (args) {
+    if (args.fd !== undefined && args.fd !== null) {
+      this.fd = args.fd;
+    }
+  }
+};
+ThriftFileSystemService_close_args.prototype = {};
+ThriftFileSystemService_close_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -296,8 +448,13 @@ ThriftFileSystemService_pollFileChanges_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.STRING) {
         this.watchId = input.readString();
+=======
+      if (ftype == Thrift.Type.I32) {
+        this.fd = input.readI32();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
@@ -314,11 +471,19 @@ ThriftFileSystemService_pollFileChanges_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_pollFileChanges_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_pollFileChanges_args');
   if (this.watchId !== null && this.watchId !== undefined) {
     output.writeFieldBegin('watchId', Thrift.Type.STRING, 1);
     output.writeString(this.watchId);
+=======
+ThriftFileSystemService_close_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_close_args');
+  if (this.fd !== null && this.fd !== undefined) {
+    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
+    output.writeI32(this.fd);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -326,24 +491,36 @@ ThriftFileSystemService_pollFileChanges_args.prototype.write = function(output) 
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_pollFileChanges_result = function(args) {
   this.success = null;
+=======
+var ThriftFileSystemService_close_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
     if (args.success !== undefined && args.success !== null) {
       this.success = Thrift.copyList(args.success, [ttypes.FileChangeEvent]);
     }
+=======
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_pollFileChanges_result.prototype = {};
 ThriftFileSystemService_pollFileChanges_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_close_result.prototype = {};
+ThriftFileSystemService_close_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -356,6 +533,7 @@ ThriftFileSystemService_pollFileChanges_result.prototype.read = function(input) 
     }
     switch (fid)
     {
+<<<<<<< HEAD
       case 0:
       if (ftype == Thrift.Type.LIST) {
         var _size8 = 0;
@@ -377,6 +555,8 @@ ThriftFileSystemService_pollFileChanges_result.prototype.read = function(input) 
         input.skip(ftype);
       }
       break;
+=======
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -385,6 +565,12 @@ ThriftFileSystemService_pollFileChanges_result.prototype.read = function(input) 
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -394,6 +580,7 @@ ThriftFileSystemService_pollFileChanges_result.prototype.read = function(input) 
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_pollFileChanges_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_pollFileChanges_result');
   if (this.success !== null && this.success !== undefined) {
@@ -410,6 +597,10 @@ ThriftFileSystemService_pollFileChanges_result.prototype.write = function(output
     output.writeListEnd();
     output.writeFieldEnd();
   }
+=======
+ThriftFileSystemService_close_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_close_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -420,6 +611,7 @@ ThriftFileSystemService_pollFileChanges_result.prototype.write = function(output
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_stat_args = function(args) {
   this.uri = null;
   if (args) {
@@ -430,6 +622,26 @@ var ThriftFileSystemService_stat_args = function(args) {
 };
 ThriftFileSystemService_stat_args.prototype = {};
 ThriftFileSystemService_stat_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_copy_args = function(args) {
+  this.source = null;
+  this.destination = null;
+  this.options = null;
+  if (args) {
+    if (args.source !== undefined && args.source !== null) {
+      this.source = args.source;
+    }
+    if (args.destination !== undefined && args.destination !== null) {
+      this.destination = args.destination;
+    }
+    if (args.options !== undefined && args.options !== null) {
+      this.options = new ttypes.CopyOpt(args.options);
+    }
+  }
+};
+ThriftFileSystemService_copy_args.prototype = {};
+ThriftFileSystemService_copy_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -444,14 +656,36 @@ ThriftFileSystemService_stat_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
         this.uri = input.readString();
+=======
+        this.source = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.destination = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.options = new ttypes.CopyOpt();
+        this.options.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -461,11 +695,29 @@ ThriftFileSystemService_stat_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_stat_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_stat_args');
   if (this.uri !== null && this.uri !== undefined) {
     output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
     output.writeString(this.uri);
+=======
+ThriftFileSystemService_copy_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_copy_args');
+  if (this.source !== null && this.source !== undefined) {
+    output.writeFieldBegin('source', Thrift.Type.STRING, 1);
+    output.writeString(this.source);
+    output.writeFieldEnd();
+  }
+  if (this.destination !== null && this.destination !== undefined) {
+    output.writeFieldBegin('destination', Thrift.Type.STRING, 2);
+    output.writeString(this.destination);
+    output.writeFieldEnd();
+  }
+  if (this.options !== null && this.options !== undefined) {
+    output.writeFieldBegin('options', Thrift.Type.STRUCT, 3);
+    this.options.write(output);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -473,24 +725,36 @@ ThriftFileSystemService_stat_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_stat_result = function(args) {
   this.success = null;
+=======
+var ThriftFileSystemService_copy_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
     if (args.success !== undefined && args.success !== null) {
       this.success = new ttypes.FileStat(args.success);
     }
+=======
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_stat_result.prototype = {};
 ThriftFileSystemService_stat_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_copy_result.prototype = {};
+ThriftFileSystemService_copy_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -503,6 +767,7 @@ ThriftFileSystemService_stat_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
         this.success = new ttypes.FileStat();
@@ -511,6 +776,8 @@ ThriftFileSystemService_stat_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -519,6 +786,12 @@ ThriftFileSystemService_stat_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -528,6 +801,7 @@ ThriftFileSystemService_stat_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_stat_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_stat_result');
   if (this.success !== null && this.success !== undefined) {
@@ -535,6 +809,10 @@ ThriftFileSystemService_stat_result.prototype.write = function(output) {
     this.success.write(output);
     output.writeFieldEnd();
   }
+=======
+ThriftFileSystemService_copy_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_copy_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -545,7 +823,11 @@ ThriftFileSystemService_stat_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_lstat_args = function(args) {
+=======
+var ThriftFileSystemService_createDirectory_args = function(args) {
+>>>>>>> Update
   this.uri = null;
   if (args) {
     if (args.uri !== undefined && args.uri !== null) {
@@ -553,8 +835,13 @@ var ThriftFileSystemService_lstat_args = function(args) {
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_lstat_args.prototype = {};
 ThriftFileSystemService_lstat_args.prototype.read = function(input) {
+=======
+ThriftFileSystemService_createDirectory_args.prototype = {};
+ThriftFileSystemService_createDirectory_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -586,8 +873,13 @@ ThriftFileSystemService_lstat_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_lstat_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_lstat_args');
+=======
+ThriftFileSystemService_createDirectory_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_createDirectory_args');
+>>>>>>> Update
   if (this.uri !== null && this.uri !== undefined) {
     output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
     output.writeString(this.uri);
@@ -598,24 +890,36 @@ ThriftFileSystemService_lstat_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_lstat_result = function(args) {
   this.success = null;
+=======
+var ThriftFileSystemService_createDirectory_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
     if (args.success !== undefined && args.success !== null) {
       this.success = new ttypes.FileStat(args.success);
     }
+=======
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_lstat_result.prototype = {};
 ThriftFileSystemService_lstat_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_createDirectory_result.prototype = {};
+ThriftFileSystemService_createDirectory_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -628,6 +932,7 @@ ThriftFileSystemService_lstat_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
       case 0:
       if (ftype == Thrift.Type.STRUCT) {
         this.success = new ttypes.FileStat();
@@ -636,6 +941,8 @@ ThriftFileSystemService_lstat_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -644,6 +951,12 @@ ThriftFileSystemService_lstat_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -653,6 +966,7 @@ ThriftFileSystemService_lstat_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_lstat_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_lstat_result');
   if (this.success !== null && this.success !== undefined) {
@@ -660,6 +974,10 @@ ThriftFileSystemService_lstat_result.prototype.write = function(output) {
     this.success.write(output);
     output.writeFieldEnd();
   }
+=======
+ThriftFileSystemService_createDirectory_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_createDirectory_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -670,16 +988,32 @@ ThriftFileSystemService_lstat_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_readDirectory_args = function(args) {
   this.uri = null;
+=======
+var ThriftFileSystemService_deletePath_args = function(args) {
+  this.uri = null;
+  this.options = null;
+>>>>>>> Update
   if (args) {
     if (args.uri !== undefined && args.uri !== null) {
       this.uri = args.uri;
     }
+<<<<<<< HEAD
   }
 };
 ThriftFileSystemService_readDirectory_args.prototype = {};
 ThriftFileSystemService_readDirectory_args.prototype.read = function(input) {
+=======
+    if (args.options !== undefined && args.options !== null) {
+      this.options = new ttypes.DeleteOpt(args.options);
+    }
+  }
+};
+ThriftFileSystemService_deletePath_args.prototype = {};
+ThriftFileSystemService_deletePath_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -699,9 +1033,20 @@ ThriftFileSystemService_readDirectory_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.options = new ttypes.DeleteOpt();
+        this.options.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -711,36 +1056,61 @@ ThriftFileSystemService_readDirectory_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_readDirectory_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_readDirectory_args');
+=======
+ThriftFileSystemService_deletePath_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_deletePath_args');
+>>>>>>> Update
   if (this.uri !== null && this.uri !== undefined) {
     output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
     output.writeString(this.uri);
     output.writeFieldEnd();
   }
+<<<<<<< HEAD
+=======
+  if (this.options !== null && this.options !== undefined) {
+    output.writeFieldBegin('options', Thrift.Type.STRUCT, 2);
+    this.options.write(output);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
   output.writeFieldStop();
   output.writeStructEnd();
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_readDirectory_result = function(args) {
   this.success = null;
+=======
+var ThriftFileSystemService_deletePath_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
     if (args.success !== undefined && args.success !== null) {
       this.success = Thrift.copyList(args.success, [ttypes.FileEntry]);
     }
+=======
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_readDirectory_result.prototype = {};
 ThriftFileSystemService_readDirectory_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_deletePath_result.prototype = {};
+ThriftFileSystemService_deletePath_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -753,6 +1123,7 @@ ThriftFileSystemService_readDirectory_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
       case 0:
       if (ftype == Thrift.Type.LIST) {
         var _size16 = 0;
@@ -774,6 +1145,8 @@ ThriftFileSystemService_readDirectory_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -782,6 +1155,12 @@ ThriftFileSystemService_readDirectory_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -791,6 +1170,7 @@ ThriftFileSystemService_readDirectory_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_readDirectory_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_readDirectory_result');
   if (this.success !== null && this.success !== undefined) {
@@ -807,6 +1187,10 @@ ThriftFileSystemService_readDirectory_result.prototype.write = function(output) 
     output.writeListEnd();
     output.writeFieldEnd();
   }
+=======
+ThriftFileSystemService_deletePath_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_deletePath_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -817,7 +1201,11 @@ ThriftFileSystemService_readDirectory_result.prototype.write = function(output) 
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_createDirectory_args = function(args) {
+=======
+var ThriftFileSystemService_expandHomeDir_args = function(args) {
+>>>>>>> Update
   this.uri = null;
   if (args) {
     if (args.uri !== undefined && args.uri !== null) {
@@ -825,8 +1213,13 @@ var ThriftFileSystemService_createDirectory_args = function(args) {
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_createDirectory_args.prototype = {};
 ThriftFileSystemService_createDirectory_args.prototype.read = function(input) {
+=======
+ThriftFileSystemService_expandHomeDir_args.prototype = {};
+ThriftFileSystemService_expandHomeDir_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -858,8 +1251,13 @@ ThriftFileSystemService_createDirectory_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_createDirectory_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_createDirectory_args');
+=======
+ThriftFileSystemService_expandHomeDir_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_expandHomeDir_args');
+>>>>>>> Update
   if (this.uri !== null && this.uri !== undefined) {
     output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
     output.writeString(this.uri);
@@ -870,20 +1268,36 @@ ThriftFileSystemService_createDirectory_args.prototype.write = function(output) 
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_createDirectory_result = function(args) {
+=======
+var ThriftFileSystemService_expandHomeDir_result = function(args) {
+  this.success = null;
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = args.success;
+    }
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_createDirectory_result.prototype = {};
 ThriftFileSystemService_createDirectory_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_expandHomeDir_result.prototype = {};
+ThriftFileSystemService_expandHomeDir_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -896,6 +1310,16 @@ ThriftFileSystemService_createDirectory_result.prototype.read = function(input) 
     }
     switch (fid)
     {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.STRING) {
+        this.success = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -904,9 +1328,12 @@ ThriftFileSystemService_createDirectory_result.prototype.read = function(input) 
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -916,8 +1343,18 @@ ThriftFileSystemService_createDirectory_result.prototype.read = function(input) 
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_createDirectory_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_createDirectory_result');
+=======
+ThriftFileSystemService_expandHomeDir_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_expandHomeDir_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+    output.writeString(this.success);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -928,6 +1365,7 @@ ThriftFileSystemService_createDirectory_result.prototype.write = function(output
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_readFile_args = function(args) {
   this.uri = null;
   if (args) {
@@ -938,6 +1376,18 @@ var ThriftFileSystemService_readFile_args = function(args) {
 };
 ThriftFileSystemService_readFile_args.prototype = {};
 ThriftFileSystemService_readFile_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_fsync_args = function(args) {
+  this.fd = null;
+  if (args) {
+    if (args.fd !== undefined && args.fd !== null) {
+      this.fd = args.fd;
+    }
+  }
+};
+ThriftFileSystemService_fsync_args.prototype = {};
+ThriftFileSystemService_fsync_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -951,8 +1401,13 @@ ThriftFileSystemService_readFile_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.STRING) {
         this.uri = input.readString();
+=======
+      if (ftype == Thrift.Type.I32) {
+        this.fd = input.readI32();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
@@ -969,11 +1424,19 @@ ThriftFileSystemService_readFile_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_readFile_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_readFile_args');
   if (this.uri !== null && this.uri !== undefined) {
     output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
     output.writeString(this.uri);
+=======
+ThriftFileSystemService_fsync_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fsync_args');
+  if (this.fd !== null && this.fd !== undefined) {
+    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
+    output.writeI32(this.fd);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -981,24 +1444,36 @@ ThriftFileSystemService_readFile_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_readFile_result = function(args) {
   this.success = null;
+=======
+var ThriftFileSystemService_fsync_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
     if (args.success !== undefined && args.success !== null) {
       this.success = args.success;
     }
+=======
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_readFile_result.prototype = {};
 ThriftFileSystemService_readFile_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_fsync_result.prototype = {};
+ThriftFileSystemService_fsync_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1011,6 +1486,7 @@ ThriftFileSystemService_readFile_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
       case 0:
       if (ftype == Thrift.Type.STRING) {
         this.success = input.readBinary();
@@ -1018,6 +1494,8 @@ ThriftFileSystemService_readFile_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -1026,6 +1504,12 @@ ThriftFileSystemService_readFile_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1035,6 +1519,7 @@ ThriftFileSystemService_readFile_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_readFile_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_readFile_result');
   if (this.success !== null && this.success !== undefined) {
@@ -1042,6 +1527,10 @@ ThriftFileSystemService_readFile_result.prototype.write = function(output) {
     output.writeBinary(this.success);
     output.writeFieldEnd();
   }
+=======
+ThriftFileSystemService_fsync_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fsync_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1052,6 +1541,7 @@ ThriftFileSystemService_readFile_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_writeFile_args = function(args) {
   this.uri = null;
   this.content = null;
@@ -1070,6 +1560,18 @@ var ThriftFileSystemService_writeFile_args = function(args) {
 };
 ThriftFileSystemService_writeFile_args.prototype = {};
 ThriftFileSystemService_writeFile_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_fstat_args = function(args) {
+  this.fd = null;
+  if (args) {
+    if (args.fd !== undefined && args.fd !== null) {
+      this.fd = args.fd;
+    }
+  }
+};
+ThriftFileSystemService_fstat_args.prototype = {};
+ThriftFileSystemService_fstat_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1083,6 +1585,7 @@ ThriftFileSystemService_writeFile_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.STRING) {
         this.uri = input.readString();
       } else {
@@ -1092,10 +1595,15 @@ ThriftFileSystemService_writeFile_args.prototype.read = function(input) {
       case 2:
       if (ftype == Thrift.Type.STRING) {
         this.content = input.readBinary();
+=======
+      if (ftype == Thrift.Type.I32) {
+        this.fd = input.readI32();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
         this.options = new ttypes.WriteFileOpt();
@@ -1104,6 +1612,11 @@ ThriftFileSystemService_writeFile_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1113,6 +1626,7 @@ ThriftFileSystemService_writeFile_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_writeFile_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_writeFile_args');
   if (this.uri !== null && this.uri !== undefined) {
@@ -1128,6 +1642,13 @@ ThriftFileSystemService_writeFile_args.prototype.write = function(output) {
   if (this.options !== null && this.options !== undefined) {
     output.writeFieldBegin('options', Thrift.Type.STRUCT, 3);
     this.options.write(output);
+=======
+ThriftFileSystemService_fstat_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fstat_args');
+  if (this.fd !== null && this.fd !== undefined) {
+    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
+    output.writeI32(this.fd);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1135,20 +1656,36 @@ ThriftFileSystemService_writeFile_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_writeFile_result = function(args) {
+=======
+var ThriftFileSystemService_fstat_result = function(args) {
+  this.success = null;
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = new ttypes.FileStat(args.success);
+    }
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_writeFile_result.prototype = {};
 ThriftFileSystemService_writeFile_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_fstat_result.prototype = {};
+ThriftFileSystemService_fstat_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1161,6 +1698,17 @@ ThriftFileSystemService_writeFile_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new ttypes.FileStat();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -1169,9 +1717,12 @@ ThriftFileSystemService_writeFile_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1181,8 +1732,18 @@ ThriftFileSystemService_writeFile_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_writeFile_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_writeFile_result');
+=======
+ThriftFileSystemService_fstat_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fstat_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1193,6 +1754,7 @@ ThriftFileSystemService_writeFile_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_deletePath_args = function(args) {
   this.uri = null;
   this.options = null;
@@ -1207,6 +1769,22 @@ var ThriftFileSystemService_deletePath_args = function(args) {
 };
 ThriftFileSystemService_deletePath_args.prototype = {};
 ThriftFileSystemService_deletePath_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_ftruncate_args = function(args) {
+  this.fd = null;
+  this.len = null;
+  if (args) {
+    if (args.fd !== undefined && args.fd !== null) {
+      this.fd = args.fd;
+    }
+    if (args.len !== undefined && args.len !== null) {
+      this.len = args.len;
+    }
+  }
+};
+ThriftFileSystemService_ftruncate_args.prototype = {};
+ThriftFileSystemService_ftruncate_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1220,16 +1798,26 @@ ThriftFileSystemService_deletePath_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.STRING) {
         this.uri = input.readString();
+=======
+      if (ftype == Thrift.Type.I32) {
+        this.fd = input.readI32();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
       case 2:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.STRUCT) {
         this.options = new ttypes.DeleteOpt();
         this.options.read(input);
+=======
+      if (ftype == Thrift.Type.I32) {
+        this.len = input.readI32();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
@@ -1243,6 +1831,7 @@ ThriftFileSystemService_deletePath_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_deletePath_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_deletePath_args');
   if (this.uri !== null && this.uri !== undefined) {
@@ -1253,6 +1842,18 @@ ThriftFileSystemService_deletePath_args.prototype.write = function(output) {
   if (this.options !== null && this.options !== undefined) {
     output.writeFieldBegin('options', Thrift.Type.STRUCT, 2);
     this.options.write(output);
+=======
+ThriftFileSystemService_ftruncate_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_ftruncate_args');
+  if (this.fd !== null && this.fd !== undefined) {
+    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
+    output.writeI32(this.fd);
+    output.writeFieldEnd();
+  }
+  if (this.len !== null && this.len !== undefined) {
+    output.writeFieldBegin('len', Thrift.Type.I32, 2);
+    output.writeI32(this.len);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1260,7 +1861,11 @@ ThriftFileSystemService_deletePath_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_deletePath_result = function(args) {
+=======
+var ThriftFileSystemService_ftruncate_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
@@ -1272,8 +1877,13 @@ var ThriftFileSystemService_deletePath_result = function(args) {
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_deletePath_result.prototype = {};
 ThriftFileSystemService_deletePath_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_ftruncate_result.prototype = {};
+ThriftFileSystemService_ftruncate_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1306,8 +1916,13 @@ ThriftFileSystemService_deletePath_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_deletePath_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_deletePath_result');
+=======
+ThriftFileSystemService_ftruncate_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_ftruncate_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1318,6 +1933,7 @@ ThriftFileSystemService_deletePath_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_rename_args = function(args) {
   this.oldUri = null;
   this.newUri = null;
@@ -1336,6 +1952,18 @@ var ThriftFileSystemService_rename_args = function(args) {
 };
 ThriftFileSystemService_rename_args.prototype = {};
 ThriftFileSystemService_rename_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_lstat_args = function(args) {
+  this.uri = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+  }
+};
+ThriftFileSystemService_lstat_args.prototype = {};
+ThriftFileSystemService_lstat_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1350,6 +1978,7 @@ ThriftFileSystemService_rename_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
         this.oldUri = input.readString();
       } else {
         input.skip(ftype);
@@ -1358,10 +1987,14 @@ ThriftFileSystemService_rename_args.prototype.read = function(input) {
       case 2:
       if (ftype == Thrift.Type.STRING) {
         this.newUri = input.readString();
+=======
+        this.uri = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 3:
       if (ftype == Thrift.Type.STRUCT) {
         this.options = new ttypes.RenameOpt();
@@ -1370,6 +2003,11 @@ ThriftFileSystemService_rename_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1379,6 +2017,7 @@ ThriftFileSystemService_rename_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_rename_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_rename_args');
   if (this.oldUri !== null && this.oldUri !== undefined) {
@@ -1394,6 +2033,13 @@ ThriftFileSystemService_rename_args.prototype.write = function(output) {
   if (this.options !== null && this.options !== undefined) {
     output.writeFieldBegin('options', Thrift.Type.STRUCT, 3);
     this.options.write(output);
+=======
+ThriftFileSystemService_lstat_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_lstat_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1401,20 +2047,36 @@ ThriftFileSystemService_rename_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_rename_result = function(args) {
+=======
+var ThriftFileSystemService_lstat_result = function(args) {
+  this.success = null;
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = new ttypes.FileStat(args.success);
+    }
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_rename_result.prototype = {};
 ThriftFileSystemService_rename_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_lstat_result.prototype = {};
+ThriftFileSystemService_lstat_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1427,6 +2089,17 @@ ThriftFileSystemService_rename_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new ttypes.FileStat();
+        this.success.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -1435,9 +2108,12 @@ ThriftFileSystemService_rename_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1447,8 +2123,18 @@ ThriftFileSystemService_rename_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_rename_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_rename_result');
+=======
+ThriftFileSystemService_lstat_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_lstat_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1459,6 +2145,7 @@ ThriftFileSystemService_rename_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_copy_args = function(args) {
   this.source = null;
   this.destination = null;
@@ -1477,6 +2164,18 @@ var ThriftFileSystemService_copy_args = function(args) {
 };
 ThriftFileSystemService_copy_args.prototype = {};
 ThriftFileSystemService_copy_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_mkdirp_args = function(args) {
+  this.path = null;
+  if (args) {
+    if (args.path !== undefined && args.path !== null) {
+      this.path = args.path;
+    }
+  }
+};
+ThriftFileSystemService_mkdirp_args.prototype = {};
+ThriftFileSystemService_mkdirp_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1491,11 +2190,16 @@ ThriftFileSystemService_copy_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
         this.source = input.readString();
+=======
+        this.path = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 2:
       if (ftype == Thrift.Type.STRING) {
         this.destination = input.readString();
@@ -1511,6 +2215,11 @@ ThriftFileSystemService_copy_args.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1520,6 +2229,7 @@ ThriftFileSystemService_copy_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_copy_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_copy_args');
   if (this.source !== null && this.source !== undefined) {
@@ -1535,6 +2245,13 @@ ThriftFileSystemService_copy_args.prototype.write = function(output) {
   if (this.options !== null && this.options !== undefined) {
     output.writeFieldBegin('options', Thrift.Type.STRUCT, 3);
     this.options.write(output);
+=======
+ThriftFileSystemService_mkdirp_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_mkdirp_args');
+  if (this.path !== null && this.path !== undefined) {
+    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
+    output.writeString(this.path);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1542,20 +2259,36 @@ ThriftFileSystemService_copy_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_copy_result = function(args) {
+=======
+var ThriftFileSystemService_mkdirp_result = function(args) {
+  this.success = null;
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = args.success;
+    }
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_copy_result.prototype = {};
 ThriftFileSystemService_copy_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_mkdirp_result.prototype = {};
+ThriftFileSystemService_mkdirp_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1568,6 +2301,16 @@ ThriftFileSystemService_copy_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.BOOL) {
+        this.success = input.readBool();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -1576,9 +2319,12 @@ ThriftFileSystemService_copy_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1588,8 +2334,18 @@ ThriftFileSystemService_copy_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_copy_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_copy_result');
+=======
+ThriftFileSystemService_mkdirp_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_mkdirp_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.BOOL, 0);
+    output.writeBool(this.success);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1753,6 +2509,7 @@ ThriftFileSystemService_open_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_close_args = function(args) {
   this.fd = null;
   if (args) {
@@ -1763,6 +2520,18 @@ var ThriftFileSystemService_close_args = function(args) {
 };
 ThriftFileSystemService_close_args.prototype = {};
 ThriftFileSystemService_close_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_pollFileChanges_args = function(args) {
+  this.watchId = null;
+  if (args) {
+    if (args.watchId !== undefined && args.watchId !== null) {
+      this.watchId = args.watchId;
+    }
+  }
+};
+ThriftFileSystemService_pollFileChanges_args.prototype = {};
+ThriftFileSystemService_pollFileChanges_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1776,8 +2545,13 @@ ThriftFileSystemService_close_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.I32) {
         this.fd = input.readI32();
+=======
+      if (ftype == Thrift.Type.STRING) {
+        this.watchId = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
@@ -1794,11 +2568,19 @@ ThriftFileSystemService_close_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_close_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_close_args');
   if (this.fd !== null && this.fd !== undefined) {
     output.writeFieldBegin('fd', Thrift.Type.I32, 1);
     output.writeI32(this.fd);
+=======
+ThriftFileSystemService_pollFileChanges_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_pollFileChanges_args');
+  if (this.watchId !== null && this.watchId !== undefined) {
+    output.writeFieldBegin('watchId', Thrift.Type.STRING, 1);
+    output.writeString(this.watchId);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1806,20 +2588,36 @@ ThriftFileSystemService_close_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_close_result = function(args) {
+=======
+var ThriftFileSystemService_pollFileChanges_result = function(args) {
+  this.success = null;
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = Thrift.copyList(args.success, [ttypes.FileChangeEvent]);
+    }
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
+<<<<<<< HEAD
 ThriftFileSystemService_close_result.prototype = {};
 ThriftFileSystemService_close_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_pollFileChanges_result.prototype = {};
+ThriftFileSystemService_pollFileChanges_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1832,6 +2630,30 @@ ThriftFileSystemService_close_result.prototype.read = function(input) {
     }
     switch (fid)
     {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size8 = 0;
+        var _rtmp312;
+        this.success = [];
+        var _etype11 = 0;
+        _rtmp312 = input.readListBegin();
+        _etype11 = _rtmp312.etype;
+        _size8 = _rtmp312.size;
+        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        {
+          var elem14 = null;
+          elem14 = new ttypes.FileChangeEvent();
+          elem14.read(input);
+          this.success.push(elem14);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
         this.error = new ttypes.Error();
@@ -1840,9 +2662,12 @@ ThriftFileSystemService_close_result.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+<<<<<<< HEAD
       case 0:
         input.skip(ftype);
         break;
+=======
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -1852,8 +2677,27 @@ ThriftFileSystemService_close_result.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_close_result.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_close_result');
+=======
+ThriftFileSystemService_pollFileChanges_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_pollFileChanges_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter15 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter15))
+      {
+        iter15 = this.success[iter15];
+        iter15.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1864,6 +2708,7 @@ ThriftFileSystemService_close_result.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_fsync_args = function(args) {
   this.fd = null;
   if (args) {
@@ -1874,6 +2719,18 @@ var ThriftFileSystemService_fsync_args = function(args) {
 };
 ThriftFileSystemService_fsync_args.prototype = {};
 ThriftFileSystemService_fsync_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_readDirectory_args = function(args) {
+  this.uri = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+  }
+};
+ThriftFileSystemService_readDirectory_args.prototype = {};
+ThriftFileSystemService_readDirectory_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1887,8 +2744,13 @@ ThriftFileSystemService_fsync_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
+<<<<<<< HEAD
       if (ftype == Thrift.Type.I32) {
         this.fd = input.readI32();
+=======
+      if (ftype == Thrift.Type.STRING) {
+        this.uri = input.readString();
+>>>>>>> Update
       } else {
         input.skip(ftype);
       }
@@ -1905,11 +2767,19 @@ ThriftFileSystemService_fsync_args.prototype.read = function(input) {
   return;
 };
 
+<<<<<<< HEAD
 ThriftFileSystemService_fsync_args.prototype.write = function(output) {
   output.writeStructBegin('ThriftFileSystemService_fsync_args');
   if (this.fd !== null && this.fd !== undefined) {
     output.writeFieldBegin('fd', Thrift.Type.I32, 1);
     output.writeI32(this.fd);
+=======
+ThriftFileSystemService_readDirectory_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_readDirectory_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1917,7 +2787,833 @@ ThriftFileSystemService_fsync_args.prototype.write = function(output) {
   return;
 };
 
+<<<<<<< HEAD
 var ThriftFileSystemService_fsync_result = function(args) {
+=======
+var ThriftFileSystemService_readDirectory_result = function(args) {
+  this.success = null;
+>>>>>>> Update
+  this.error = null;
+  if (args instanceof ttypes.Error) {
+    this.error = args;
+    return;
+  }
+  if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = Thrift.copyList(args.success, [ttypes.FileEntry]);
+    }
+>>>>>>> Update
+    if (args.error !== undefined && args.error !== null) {
+      this.error = args.error;
+    }
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemService_fsync_result.prototype = {};
+ThriftFileSystemService_fsync_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_readDirectory_result.prototype = {};
+ThriftFileSystemService_readDirectory_result.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.LIST) {
+        var _size16 = 0;
+        var _rtmp320;
+        this.success = [];
+        var _etype19 = 0;
+        _rtmp320 = input.readListBegin();
+        _etype19 = _rtmp320.etype;
+        _size16 = _rtmp320.size;
+        for (var _i21 = 0; _i21 < _size16; ++_i21)
+        {
+          var elem22 = null;
+          elem22 = new ttypes.FileEntry();
+          elem22.read(input);
+          this.success.push(elem22);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new ttypes.Error();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+<<<<<<< HEAD
+      case 0:
+        input.skip(ftype);
+        break;
+=======
+>>>>>>> Update
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_fsync_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fsync_result');
+=======
+ThriftFileSystemService_readDirectory_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_readDirectory_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+    output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+    for (var iter23 in this.success)
+    {
+      if (this.success.hasOwnProperty(iter23))
+      {
+        iter23 = this.success[iter23];
+        iter23.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
+  if (this.error !== null && this.error !== undefined) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_fstat_args = function(args) {
+  this.fd = null;
+  if (args) {
+    if (args.fd !== undefined && args.fd !== null) {
+      this.fd = args.fd;
+    }
+  }
+};
+ThriftFileSystemService_fstat_args.prototype = {};
+ThriftFileSystemService_fstat_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_readFile_args = function(args) {
+  this.uri = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+  }
+};
+ThriftFileSystemService_readFile_args.prototype = {};
+ThriftFileSystemService_readFile_args.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+<<<<<<< HEAD
+      if (ftype == Thrift.Type.I32) {
+        this.fd = input.readI32();
+=======
+      if (ftype == Thrift.Type.STRING) {
+        this.uri = input.readString();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_fstat_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fstat_args');
+  if (this.fd !== null && this.fd !== undefined) {
+    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
+    output.writeI32(this.fd);
+=======
+ThriftFileSystemService_readFile_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_readFile_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+>>>>>>> Update
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_fstat_result = function(args) {
+=======
+var ThriftFileSystemService_readFile_result = function(args) {
+>>>>>>> Update
+  this.success = null;
+  this.error = null;
+  if (args instanceof ttypes.Error) {
+    this.error = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined && args.success !== null) {
+<<<<<<< HEAD
+      this.success = new ttypes.FileStat(args.success);
+=======
+      this.success = args.success;
+>>>>>>> Update
+    }
+    if (args.error !== undefined && args.error !== null) {
+      this.error = args.error;
+    }
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemService_fstat_result.prototype = {};
+ThriftFileSystemService_fstat_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_readFile_result.prototype = {};
+ThriftFileSystemService_readFile_result.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+<<<<<<< HEAD
+      if (ftype == Thrift.Type.STRUCT) {
+        this.success = new ttypes.FileStat();
+        this.success.read(input);
+=======
+      if (ftype == Thrift.Type.STRING) {
+        this.success = input.readBinary();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new ttypes.Error();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_fstat_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_fstat_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+    this.success.write(output);
+=======
+ThriftFileSystemService_readFile_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_readFile_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+    output.writeBinary(this.success);
+>>>>>>> Update
+    output.writeFieldEnd();
+  }
+  if (this.error !== null && this.error !== undefined) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_ftruncate_args = function(args) {
+  this.fd = null;
+  this.len = null;
+  if (args) {
+    if (args.fd !== undefined && args.fd !== null) {
+      this.fd = args.fd;
+    }
+    if (args.len !== undefined && args.len !== null) {
+      this.len = args.len;
+    }
+  }
+};
+ThriftFileSystemService_ftruncate_args.prototype = {};
+ThriftFileSystemService_ftruncate_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_realpath_args = function(args) {
+  this.uri = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+  }
+};
+ThriftFileSystemService_realpath_args.prototype = {};
+ThriftFileSystemService_realpath_args.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+<<<<<<< HEAD
+      if (ftype == Thrift.Type.I32) {
+        this.fd = input.readI32();
+=======
+      if (ftype == Thrift.Type.STRING) {
+        this.uri = input.readString();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+<<<<<<< HEAD
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.len = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_ftruncate_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_ftruncate_args');
+  if (this.fd !== null && this.fd !== undefined) {
+    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
+    output.writeI32(this.fd);
+    output.writeFieldEnd();
+  }
+  if (this.len !== null && this.len !== undefined) {
+    output.writeFieldBegin('len', Thrift.Type.I32, 2);
+    output.writeI32(this.len);
+=======
+ThriftFileSystemService_realpath_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_realpath_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+>>>>>>> Update
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_ftruncate_result = function(args) {
+=======
+var ThriftFileSystemService_realpath_result = function(args) {
+  this.success = null;
+>>>>>>> Update
+  this.error = null;
+  if (args instanceof ttypes.Error) {
+    this.error = args;
+    return;
+  }
+  if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = args.success;
+    }
+>>>>>>> Update
+    if (args.error !== undefined && args.error !== null) {
+      this.error = args.error;
+    }
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemService_ftruncate_result.prototype = {};
+ThriftFileSystemService_ftruncate_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_realpath_result.prototype = {};
+ThriftFileSystemService_realpath_result.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.STRING) {
+        this.success = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new ttypes.Error();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+<<<<<<< HEAD
+      case 0:
+        input.skip(ftype);
+        break;
+=======
+>>>>>>> Update
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_ftruncate_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_ftruncate_result');
+=======
+ThriftFileSystemService_realpath_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_realpath_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+    output.writeString(this.success);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
+  if (this.error !== null && this.error !== undefined) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_chmod_args = function(args) {
+  this.path = null;
+  this.mode = null;
+  if (args) {
+    if (args.path !== undefined && args.path !== null) {
+      this.path = args.path;
+    }
+    if (args.mode !== undefined && args.mode !== null) {
+      this.mode = args.mode;
+    }
+  }
+};
+ThriftFileSystemService_chmod_args.prototype = {};
+ThriftFileSystemService_chmod_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_resolveRealPath_args = function(args) {
+  this.uri = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+  }
+};
+ThriftFileSystemService_resolveRealPath_args.prototype = {};
+ThriftFileSystemService_resolveRealPath_args.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
+        this.path = input.readString();
+=======
+        this.uri = input.readString();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+<<<<<<< HEAD
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.mode = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+=======
+      case 0:
+        input.skip(ftype);
+        break;
+>>>>>>> Update
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_chmod_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chmod_args');
+  if (this.path !== null && this.path !== undefined) {
+    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
+    output.writeString(this.path);
+    output.writeFieldEnd();
+  }
+  if (this.mode !== null && this.mode !== undefined) {
+    output.writeFieldBegin('mode', Thrift.Type.I32, 2);
+    output.writeI32(this.mode);
+=======
+ThriftFileSystemService_resolveRealPath_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_resolveRealPath_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+>>>>>>> Update
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_chmod_result = function(args) {
+=======
+var ThriftFileSystemService_resolveRealPath_result = function(args) {
+  this.success = null;
+>>>>>>> Update
+  this.error = null;
+  if (args instanceof ttypes.Error) {
+    this.error = args;
+    return;
+  }
+  if (args) {
+<<<<<<< HEAD
+=======
+    if (args.success !== undefined && args.success !== null) {
+      this.success = args.success;
+    }
+>>>>>>> Update
+    if (args.error !== undefined && args.error !== null) {
+      this.error = args.error;
+    }
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemService_chmod_result.prototype = {};
+ThriftFileSystemService_chmod_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_resolveRealPath_result.prototype = {};
+ThriftFileSystemService_resolveRealPath_result.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+<<<<<<< HEAD
+=======
+      case 0:
+      if (ftype == Thrift.Type.STRING) {
+        this.success = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+>>>>>>> Update
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new ttypes.Error();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+<<<<<<< HEAD
+      case 0:
+        input.skip(ftype);
+        break;
+=======
+>>>>>>> Update
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_chmod_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chmod_result');
+=======
+ThriftFileSystemService_resolveRealPath_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_resolveRealPath_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+    output.writeString(this.success);
+    output.writeFieldEnd();
+  }
+>>>>>>> Update
+  if (this.error !== null && this.error !== undefined) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_chown_args = function(args) {
+  this.path = null;
+  this.uid = null;
+  this.gid = null;
+  if (args) {
+    if (args.path !== undefined && args.path !== null) {
+      this.path = args.path;
+    }
+    if (args.uid !== undefined && args.uid !== null) {
+      this.uid = args.uid;
+    }
+    if (args.gid !== undefined && args.gid !== null) {
+      this.gid = args.gid;
+    }
+  }
+};
+ThriftFileSystemService_chown_args.prototype = {};
+ThriftFileSystemService_chown_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_rename_args = function(args) {
+  this.oldUri = null;
+  this.newUri = null;
+  this.options = null;
+  if (args) {
+    if (args.oldUri !== undefined && args.oldUri !== null) {
+      this.oldUri = args.oldUri;
+    }
+    if (args.newUri !== undefined && args.newUri !== null) {
+      this.newUri = args.newUri;
+    }
+    if (args.options !== undefined && args.options !== null) {
+      this.options = new ttypes.RenameOpt(args.options);
+    }
+  }
+};
+ThriftFileSystemService_rename_args.prototype = {};
+ThriftFileSystemService_rename_args.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
+        this.path = input.readString();
+=======
+        this.oldUri = input.readString();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+<<<<<<< HEAD
+      if (ftype == Thrift.Type.I32) {
+        this.uid = input.readI32();
+=======
+      if (ftype == Thrift.Type.STRING) {
+        this.newUri = input.readString();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+<<<<<<< HEAD
+      if (ftype == Thrift.Type.I32) {
+        this.gid = input.readI32();
+=======
+      if (ftype == Thrift.Type.STRUCT) {
+        this.options = new ttypes.RenameOpt();
+        this.options.read(input);
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_chown_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chown_args');
+  if (this.path !== null && this.path !== undefined) {
+    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
+    output.writeString(this.path);
+    output.writeFieldEnd();
+  }
+  if (this.uid !== null && this.uid !== undefined) {
+    output.writeFieldBegin('uid', Thrift.Type.I32, 2);
+    output.writeI32(this.uid);
+    output.writeFieldEnd();
+  }
+  if (this.gid !== null && this.gid !== undefined) {
+    output.writeFieldBegin('gid', Thrift.Type.I32, 3);
+    output.writeI32(this.gid);
+=======
+ThriftFileSystemService_rename_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_rename_args');
+  if (this.oldUri !== null && this.oldUri !== undefined) {
+    output.writeFieldBegin('oldUri', Thrift.Type.STRING, 1);
+    output.writeString(this.oldUri);
+    output.writeFieldEnd();
+  }
+  if (this.newUri !== null && this.newUri !== undefined) {
+    output.writeFieldBegin('newUri', Thrift.Type.STRING, 2);
+    output.writeString(this.newUri);
+    output.writeFieldEnd();
+  }
+  if (this.options !== null && this.options !== undefined) {
+    output.writeFieldBegin('options', Thrift.Type.STRUCT, 3);
+    this.options.write(output);
+>>>>>>> Update
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+var ThriftFileSystemService_chown_result = function(args) {
+=======
+var ThriftFileSystemService_rename_result = function(args) {
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
@@ -1929,8 +3625,13 @@ var ThriftFileSystemService_fsync_result = function(args) {
     }
   }
 };
-ThriftFileSystemService_fsync_result.prototype = {};
-ThriftFileSystemService_fsync_result.prototype.read = function(input) {
+<<<<<<< HEAD
+ThriftFileSystemService_chown_result.prototype = {};
+ThriftFileSystemService_chown_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_rename_result.prototype = {};
+ThriftFileSystemService_rename_result.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1963,8 +3664,13 @@ ThriftFileSystemService_fsync_result.prototype.read = function(input) {
   return;
 };
 
-ThriftFileSystemService_fsync_result.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_fsync_result');
+<<<<<<< HEAD
+ThriftFileSystemService_chown_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_chown_result');
+=======
+ThriftFileSystemService_rename_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_rename_result');
+>>>>>>> Update
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -1975,16 +3681,37 @@ ThriftFileSystemService_fsync_result.prototype.write = function(output) {
   return;
 };
 
-var ThriftFileSystemService_fstat_args = function(args) {
-  this.fd = null;
+<<<<<<< HEAD
+var ThriftFileSystemService_utimes_args = function(args) {
+  this.path = null;
+  this.atime = null;
+  this.mtime = null;
   if (args) {
-    if (args.fd !== undefined && args.fd !== null) {
-      this.fd = args.fd;
+    if (args.path !== undefined && args.path !== null) {
+      this.path = args.path;
+    }
+    if (args.atime !== undefined && args.atime !== null) {
+      this.atime = args.atime;
+    }
+    if (args.mtime !== undefined && args.mtime !== null) {
+      this.mtime = args.mtime;
     }
   }
 };
-ThriftFileSystemService_fstat_args.prototype = {};
-ThriftFileSystemService_fstat_args.prototype.read = function(input) {
+ThriftFileSystemService_utimes_args.prototype = {};
+ThriftFileSystemService_utimes_args.prototype.read = function(input) {
+=======
+var ThriftFileSystemService_stat_args = function(args) {
+  this.uri = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+  }
+};
+ThriftFileSystemService_stat_args.prototype = {};
+ThriftFileSystemService_stat_args.prototype.read = function(input) {
+>>>>>>> Update
   input.readStructBegin();
   while (true)
   {
@@ -1998,15 +3725,36 @@ ThriftFileSystemService_fstat_args.prototype.read = function(input) {
     switch (fid)
     {
       case 1:
-      if (ftype == Thrift.Type.I32) {
-        this.fd = input.readI32();
+      if (ftype == Thrift.Type.STRING) {
+<<<<<<< HEAD
+        this.path = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
+      case 2:
+      if (ftype == Thrift.Type.I32) {
+        this.atime = input.readI32();
+=======
+        this.uri = input.readString();
+>>>>>>> Update
+      } else {
+        input.skip(ftype);
+      }
+      break;
+<<<<<<< HEAD
+      case 3:
+      if (ftype == Thrift.Type.I32) {
+        this.mtime = input.readI32();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+=======
       case 0:
         input.skip(ftype);
         break;
+>>>>>>> Update
       default:
         input.skip(ftype);
     }
@@ -2016,11 +3764,29 @@ ThriftFileSystemService_fstat_args.prototype.read = function(input) {
   return;
 };
 
-ThriftFileSystemService_fstat_args.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_fstat_args');
-  if (this.fd !== null && this.fd !== undefined) {
-    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
-    output.writeI32(this.fd);
+<<<<<<< HEAD
+ThriftFileSystemService_utimes_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_utimes_args');
+  if (this.path !== null && this.path !== undefined) {
+    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
+    output.writeString(this.path);
+    output.writeFieldEnd();
+  }
+  if (this.atime !== null && this.atime !== undefined) {
+    output.writeFieldBegin('atime', Thrift.Type.I32, 2);
+    output.writeI32(this.atime);
+    output.writeFieldEnd();
+  }
+  if (this.mtime !== null && this.mtime !== undefined) {
+    output.writeFieldBegin('mtime', Thrift.Type.I32, 3);
+    output.writeI32(this.mtime);
+=======
+ThriftFileSystemService_stat_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_stat_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+>>>>>>> Update
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -2028,24 +3794,35 @@ ThriftFileSystemService_fstat_args.prototype.write = function(output) {
   return;
 };
 
-var ThriftFileSystemService_fstat_result = function(args) {
+<<<<<<< HEAD
+var ThriftFileSystemService_utimes_result = function(args) {
+=======
+var ThriftFileSystemService_stat_result = function(args) {
   this.success = null;
+>>>>>>> Update
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
     return;
   }
   if (args) {
+<<<<<<< HEAD
+=======
     if (args.success !== undefined && args.success !== null) {
       this.success = new ttypes.FileStat(args.success);
     }
+>>>>>>> Update
     if (args.error !== undefined && args.error !== null) {
       this.error = args.error;
     }
   }
 };
-ThriftFileSystemService_fstat_result.prototype = {};
-ThriftFileSystemService_fstat_result.prototype.read = function(input) {
+<<<<<<< HEAD
+ThriftFileSystemService_utimes_result.prototype = {};
+ThriftFileSystemService_utimes_result.prototype.read = function(input) {
+=======
+ThriftFileSystemService_stat_result.prototype = {};
+ThriftFileSystemService_stat_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -2083,8 +3860,8 @@ ThriftFileSystemService_fstat_result.prototype.read = function(input) {
   return;
 };
 
-ThriftFileSystemService_fstat_result.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_fstat_result');
+ThriftFileSystemService_stat_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_stat_result');
   if (this.success !== null && this.success !== undefined) {
     output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
     this.success.write(output);
@@ -2100,144 +3877,16 @@ ThriftFileSystemService_fstat_result.prototype.write = function(output) {
   return;
 };
 
-var ThriftFileSystemService_ftruncate_args = function(args) {
-  this.fd = null;
-  this.len = null;
+var ThriftFileSystemService_unwatch_args = function(args) {
+  this.watchId = null;
   if (args) {
-    if (args.fd !== undefined && args.fd !== null) {
-      this.fd = args.fd;
-    }
-    if (args.len !== undefined && args.len !== null) {
-      this.len = args.len;
+    if (args.watchId !== undefined && args.watchId !== null) {
+      this.watchId = args.watchId;
     }
   }
 };
-ThriftFileSystemService_ftruncate_args.prototype = {};
-ThriftFileSystemService_ftruncate_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.I32) {
-        this.fd = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.I32) {
-        this.len = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-ThriftFileSystemService_ftruncate_args.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_ftruncate_args');
-  if (this.fd !== null && this.fd !== undefined) {
-    output.writeFieldBegin('fd', Thrift.Type.I32, 1);
-    output.writeI32(this.fd);
-    output.writeFieldEnd();
-  }
-  if (this.len !== null && this.len !== undefined) {
-    output.writeFieldBegin('len', Thrift.Type.I32, 2);
-    output.writeI32(this.len);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var ThriftFileSystemService_ftruncate_result = function(args) {
-  this.error = null;
-  if (args instanceof ttypes.Error) {
-    this.error = args;
-    return;
-  }
-  if (args) {
-    if (args.error !== undefined && args.error !== null) {
-      this.error = args.error;
-    }
-  }
-};
-ThriftFileSystemService_ftruncate_result.prototype = {};
-ThriftFileSystemService_ftruncate_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.error = new ttypes.Error();
-        this.error.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-ThriftFileSystemService_ftruncate_result.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_ftruncate_result');
-  if (this.error !== null && this.error !== undefined) {
-    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
-    this.error.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var ThriftFileSystemService_chmod_args = function(args) {
-  this.path = null;
-  this.mode = null;
-  if (args) {
-    if (args.path !== undefined && args.path !== null) {
-      this.path = args.path;
-    }
-    if (args.mode !== undefined && args.mode !== null) {
-      this.mode = args.mode;
-    }
-  }
-};
-ThriftFileSystemService_chmod_args.prototype = {};
-ThriftFileSystemService_chmod_args.prototype.read = function(input) {
+ThriftFileSystemService_unwatch_args.prototype = {};
+ThriftFileSystemService_unwatch_args.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -2252,18 +3901,14 @@ ThriftFileSystemService_chmod_args.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRING) {
-        this.path = input.readString();
+        this.watchId = input.readString();
       } else {
         input.skip(ftype);
       }
       break;
-      case 2:
-      if (ftype == Thrift.Type.I32) {
-        this.mode = input.readI32();
-      } else {
+      case 0:
         input.skip(ftype);
-      }
-      break;
+        break;
       default:
         input.skip(ftype);
     }
@@ -2273,16 +3918,11 @@ ThriftFileSystemService_chmod_args.prototype.read = function(input) {
   return;
 };
 
-ThriftFileSystemService_chmod_args.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_chmod_args');
-  if (this.path !== null && this.path !== undefined) {
-    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
-    output.writeString(this.path);
-    output.writeFieldEnd();
-  }
-  if (this.mode !== null && this.mode !== undefined) {
-    output.writeFieldBegin('mode', Thrift.Type.I32, 2);
-    output.writeI32(this.mode);
+ThriftFileSystemService_unwatch_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_unwatch_args');
+  if (this.watchId !== null && this.watchId !== undefined) {
+    output.writeFieldBegin('watchId', Thrift.Type.STRING, 1);
+    output.writeString(this.watchId);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -2290,7 +3930,7 @@ ThriftFileSystemService_chmod_args.prototype.write = function(output) {
   return;
 };
 
-var ThriftFileSystemService_chmod_result = function(args) {
+var ThriftFileSystemService_unwatch_result = function(args) {
   this.error = null;
   if (args instanceof ttypes.Error) {
     this.error = args;
@@ -2302,8 +3942,8 @@ var ThriftFileSystemService_chmod_result = function(args) {
     }
   }
 };
-ThriftFileSystemService_chmod_result.prototype = {};
-ThriftFileSystemService_chmod_result.prototype.read = function(input) {
+ThriftFileSystemService_unwatch_result.prototype = {};
+ThriftFileSystemService_unwatch_result.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -2336,148 +3976,8 @@ ThriftFileSystemService_chmod_result.prototype.read = function(input) {
   return;
 };
 
-ThriftFileSystemService_chmod_result.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_chmod_result');
-  if (this.error !== null && this.error !== undefined) {
-    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
-    this.error.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var ThriftFileSystemService_chown_args = function(args) {
-  this.path = null;
-  this.uid = null;
-  this.gid = null;
-  if (args) {
-    if (args.path !== undefined && args.path !== null) {
-      this.path = args.path;
-    }
-    if (args.uid !== undefined && args.uid !== null) {
-      this.uid = args.uid;
-    }
-    if (args.gid !== undefined && args.gid !== null) {
-      this.gid = args.gid;
-    }
-  }
-};
-ThriftFileSystemService_chown_args.prototype = {};
-ThriftFileSystemService_chown_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRING) {
-        this.path = input.readString();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 2:
-      if (ftype == Thrift.Type.I32) {
-        this.uid = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 3:
-      if (ftype == Thrift.Type.I32) {
-        this.gid = input.readI32();
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-ThriftFileSystemService_chown_args.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_chown_args');
-  if (this.path !== null && this.path !== undefined) {
-    output.writeFieldBegin('path', Thrift.Type.STRING, 1);
-    output.writeString(this.path);
-    output.writeFieldEnd();
-  }
-  if (this.uid !== null && this.uid !== undefined) {
-    output.writeFieldBegin('uid', Thrift.Type.I32, 2);
-    output.writeI32(this.uid);
-    output.writeFieldEnd();
-  }
-  if (this.gid !== null && this.gid !== undefined) {
-    output.writeFieldBegin('gid', Thrift.Type.I32, 3);
-    output.writeI32(this.gid);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var ThriftFileSystemService_chown_result = function(args) {
-  this.error = null;
-  if (args instanceof ttypes.Error) {
-    this.error = args;
-    return;
-  }
-  if (args) {
-    if (args.error !== undefined && args.error !== null) {
-      this.error = args.error;
-    }
-  }
-};
-ThriftFileSystemService_chown_result.prototype = {};
-ThriftFileSystemService_chown_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.error = new ttypes.Error();
-        this.error.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-ThriftFileSystemService_chown_result.prototype.write = function(output) {
-  output.writeStructBegin('ThriftFileSystemService_chown_result');
+ThriftFileSystemService_unwatch_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_unwatch_result');
   if (this.error !== null && this.error !== undefined) {
     output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
     this.error.write(output);
@@ -2628,6 +4128,291 @@ ThriftFileSystemService_utimes_result.prototype.write = function(output) {
   return;
 };
 
+var ThriftFileSystemService_watch_args = function(args) {
+  this.uri = null;
+  this.options = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+    if (args.options !== undefined && args.options !== null) {
+      this.options = new ttypes.WatchOpt(args.options);
+    }
+  }
+};
+ThriftFileSystemService_watch_args.prototype = {};
+ThriftFileSystemService_watch_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.uri = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.options = new ttypes.WatchOpt();
+        this.options.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ThriftFileSystemService_watch_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_watch_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+    output.writeFieldEnd();
+  }
+  if (this.options !== null && this.options !== undefined) {
+    output.writeFieldBegin('options', Thrift.Type.STRUCT, 2);
+    this.options.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var ThriftFileSystemService_watch_result = function(args) {
+  this.success = null;
+  this.error = null;
+  if (args instanceof ttypes.Error) {
+    this.error = args;
+    return;
+  }
+  if (args) {
+    if (args.success !== undefined && args.success !== null) {
+      this.success = args.success;
+    }
+    if (args.error !== undefined && args.error !== null) {
+      this.error = args.error;
+    }
+  }
+};
+ThriftFileSystemService_watch_result.prototype = {};
+ThriftFileSystemService_watch_result.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 0:
+      if (ftype == Thrift.Type.STRING) {
+        this.success = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new ttypes.Error();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ThriftFileSystemService_watch_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_watch_result');
+  if (this.success !== null && this.success !== undefined) {
+    output.writeFieldBegin('success', Thrift.Type.STRING, 0);
+    output.writeString(this.success);
+    output.writeFieldEnd();
+  }
+  if (this.error !== null && this.error !== undefined) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var ThriftFileSystemService_writeFile_args = function(args) {
+  this.uri = null;
+  this.content = null;
+  this.options = null;
+  if (args) {
+    if (args.uri !== undefined && args.uri !== null) {
+      this.uri = args.uri;
+    }
+    if (args.content !== undefined && args.content !== null) {
+      this.content = args.content;
+    }
+    if (args.options !== undefined && args.options !== null) {
+      this.options = new ttypes.WriteFileOpt(args.options);
+    }
+  }
+};
+ThriftFileSystemService_writeFile_args.prototype = {};
+ThriftFileSystemService_writeFile_args.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.uri = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.content = input.readBinary();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.options = new ttypes.WriteFileOpt();
+        this.options.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+ThriftFileSystemService_writeFile_args.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_writeFile_args');
+  if (this.uri !== null && this.uri !== undefined) {
+    output.writeFieldBegin('uri', Thrift.Type.STRING, 1);
+    output.writeString(this.uri);
+    output.writeFieldEnd();
+  }
+  if (this.content !== null && this.content !== undefined) {
+    output.writeFieldBegin('content', Thrift.Type.STRING, 2);
+    output.writeBinary(this.content);
+    output.writeFieldEnd();
+  }
+  if (this.options !== null && this.options !== undefined) {
+    output.writeFieldBegin('options', Thrift.Type.STRUCT, 3);
+    this.options.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var ThriftFileSystemService_writeFile_result = function(args) {
+  this.error = null;
+  if (args instanceof ttypes.Error) {
+    this.error = args;
+    return;
+  }
+  if (args) {
+    if (args.error !== undefined && args.error !== null) {
+      this.error = args.error;
+    }
+  }
+};
+ThriftFileSystemService_writeFile_result.prototype = {};
+ThriftFileSystemService_writeFile_result.prototype.read = function(input) {
+>>>>>>> Update
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.error = new ttypes.Error();
+        this.error.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+<<<<<<< HEAD
+ThriftFileSystemService_utimes_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_utimes_result');
+=======
+ThriftFileSystemService_writeFile_result.prototype.write = function(output) {
+  output.writeStructBegin('ThriftFileSystemService_writeFile_result');
+>>>>>>> Update
+  if (this.error !== null && this.error !== undefined) {
+    output.writeFieldBegin('error', Thrift.Type.STRUCT, 1);
+    this.error.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 var ThriftFileSystemServiceClient = exports.Client = function(output, pClass) {
     this.output = output;
     this.pClass = pClass;
@@ -2637,7 +4422,11 @@ var ThriftFileSystemServiceClient = exports.Client = function(output, pClass) {
 ThriftFileSystemServiceClient.prototype = {};
 ThriftFileSystemServiceClient.prototype.seqid = function() { return this._seqid; };
 ThriftFileSystemServiceClient.prototype.new_seqid = function() { return this._seqid += 1; };
+<<<<<<< HEAD
 ThriftFileSystemServiceClient.prototype.watch = function(uri, options, callback) {
+=======
+ThriftFileSystemServiceClient.prototype.chmod = function(path, mode, callback) {
+>>>>>>> Update
   this._seqid = this.new_seqid();
   if (callback === undefined) {
     var _defer = Q.defer();
@@ -2648,6 +4437,7 @@ ThriftFileSystemServiceClient.prototype.watch = function(uri, options, callback)
         _defer.resolve(result);
       }
     };
+<<<<<<< HEAD
     this.send_watch(uri, options);
     return _defer.promise;
   } else {
@@ -2664,858 +4454,7 @@ ThriftFileSystemServiceClient.prototype.send_watch = function(uri, options) {
     options: options
   };
   var args = new ThriftFileSystemService_watch_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_watch = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_watch_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('watch failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.unwatch = function(watchId, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_unwatch(watchId);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_unwatch(watchId);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_unwatch = function(watchId) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('unwatch', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    watchId: watchId
-  };
-  var args = new ThriftFileSystemService_unwatch_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_unwatch = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_unwatch_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.pollFileChanges = function(watchId, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_pollFileChanges(watchId);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_pollFileChanges(watchId);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_pollFileChanges = function(watchId) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('pollFileChanges', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    watchId: watchId
-  };
-  var args = new ThriftFileSystemService_pollFileChanges_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_pollFileChanges = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_pollFileChanges_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('pollFileChanges failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.stat = function(uri, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_stat(uri);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_stat(uri);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_stat = function(uri) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('stat', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri
-  };
-  var args = new ThriftFileSystemService_stat_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_stat = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_stat_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('stat failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.lstat = function(uri, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_lstat(uri);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_lstat(uri);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_lstat = function(uri) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('lstat', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri
-  };
-  var args = new ThriftFileSystemService_lstat_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_lstat = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_lstat_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('lstat failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.readDirectory = function(uri, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_readDirectory(uri);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_readDirectory(uri);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_readDirectory = function(uri) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('readDirectory', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri
-  };
-  var args = new ThriftFileSystemService_readDirectory_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_readDirectory = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_readDirectory_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('readDirectory failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.createDirectory = function(uri, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_createDirectory(uri);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_createDirectory(uri);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_createDirectory = function(uri) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('createDirectory', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri
-  };
-  var args = new ThriftFileSystemService_createDirectory_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_createDirectory = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_createDirectory_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.readFile = function(uri, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_readFile(uri);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_readFile(uri);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_readFile = function(uri) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('readFile', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri
-  };
-  var args = new ThriftFileSystemService_readFile_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_readFile = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_readFile_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('readFile failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.writeFile = function(uri, content, options, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_writeFile(uri, content, options);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_writeFile(uri, content, options);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_writeFile = function(uri, content, options) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('writeFile', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri,
-    content: content,
-    options: options
-  };
-  var args = new ThriftFileSystemService_writeFile_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_writeFile = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_writeFile_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.deletePath = function(uri, options, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_deletePath(uri, options);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_deletePath(uri, options);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_deletePath = function(uri, options) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('deletePath', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    uri: uri,
-    options: options
-  };
-  var args = new ThriftFileSystemService_deletePath_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_deletePath = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_deletePath_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.rename = function(oldUri, newUri, options, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_rename(oldUri, newUri, options);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_rename(oldUri, newUri, options);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_rename = function(oldUri, newUri, options) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('rename', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    oldUri: oldUri,
-    newUri: newUri,
-    options: options
-  };
-  var args = new ThriftFileSystemService_rename_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_rename = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_rename_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.copy = function(source, destination, options, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_copy(source, destination, options);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_copy(source, destination, options);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_copy = function(source, destination, options) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('copy', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    source: source,
-    destination: destination,
-    options: options
-  };
-  var args = new ThriftFileSystemService_copy_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_copy = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_copy_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.open = function(path, permissionFlags, mode, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_open(path, permissionFlags, mode);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_open(path, permissionFlags, mode);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_open = function(path, permissionFlags, mode) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('open', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    path: path,
-    permissionFlags: permissionFlags,
-    mode: mode
-  };
-  var args = new ThriftFileSystemService_open_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_open = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_open_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('open failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.close = function(fd, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_close(fd);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_close(fd);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_close = function(fd) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('close', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    fd: fd
-  };
-  var args = new ThriftFileSystemService_close_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_close = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_close_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.fsync = function(fd, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_fsync(fd);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_fsync(fd);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_fsync = function(fd) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('fsync', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    fd: fd
-  };
-  var args = new ThriftFileSystemService_fsync_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_fsync = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_fsync_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.fstat = function(fd, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_fstat(fd);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_fstat(fd);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_fstat = function(fd) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('fstat', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    fd: fd
-  };
-  var args = new ThriftFileSystemService_fstat_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_fstat = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_fstat_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('fstat failed: unknown result');
-};
-ThriftFileSystemServiceClient.prototype.ftruncate = function(fd, len, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
-    this.send_ftruncate(fd, len);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_ftruncate(fd, len);
-  }
-};
-
-ThriftFileSystemServiceClient.prototype.send_ftruncate = function(fd, len) {
-  var output = new this.pClass(this.output);
-  output.writeMessageBegin('ftruncate', Thrift.MessageType.CALL, this.seqid());
-  var params = {
-    fd: fd,
-    len: len
-  };
-  var args = new ThriftFileSystemService_ftruncate_args(params);
-  args.write(output);
-  output.writeMessageEnd();
-  return this.output.flush();
-};
-
-ThriftFileSystemServiceClient.prototype.recv_ftruncate = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new ThriftFileSystemService_ftruncate_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.error) {
-    return callback(result.error);
-  }
-  callback(null);
-};
-ThriftFileSystemServiceClient.prototype.chmod = function(path, mode, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
-      }
-    };
+=======
     this.send_chmod(path, mode);
     return _defer.promise;
   } else {
@@ -3606,7 +4545,7 @@ ThriftFileSystemServiceClient.prototype.recv_chown = function(input,mtype,rseqid
   }
   callback(null);
 };
-ThriftFileSystemServiceClient.prototype.utimes = function(path, atime, mtime, callback) {
+ThriftFileSystemServiceClient.prototype.close = function(fd, callback) {
   this._seqid = this.new_seqid();
   if (callback === undefined) {
     var _defer = Q.defer();
@@ -3617,6 +4556,1536 @@ ThriftFileSystemServiceClient.prototype.utimes = function(path, atime, mtime, ca
         _defer.resolve(result);
       }
     };
+    this.send_close(fd);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_close(fd);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_close = function(fd) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('close', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd
+  };
+  var args = new ThriftFileSystemService_close_args(params);
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+ThriftFileSystemServiceClient.prototype.recv_close = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new ThriftFileSystemService_close_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.copy = function(source, destination, options, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_copy(source, destination, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_copy(source, destination, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_copy = function(source, destination, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('copy', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    source: source,
+    destination: destination,
+    options: options
+  };
+  var args = new ThriftFileSystemService_copy_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_watch = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_copy = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_watch_result();
+=======
+  var result = new ThriftFileSystemService_copy_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('watch failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.unwatch = function(watchId, callback) {
+=======
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.createDirectory = function(uri, callback) {
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+    this.send_createDirectory(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_createDirectory(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_createDirectory = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('createDirectory', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_createDirectory_args(params);
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+ThriftFileSystemServiceClient.prototype.recv_createDirectory = function(input,mtype,rseqid) {
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+  var result = new ThriftFileSystemService_createDirectory_result();
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.deletePath = function(uri, options, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_unwatch(watchId);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_unwatch(watchId);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_unwatch = function(watchId) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('unwatch', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    watchId: watchId
+  };
+  var args = new ThriftFileSystemService_unwatch_args(params);
+=======
+    this.send_deletePath(uri, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_deletePath(uri, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_deletePath = function(uri, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('deletePath', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri,
+    options: options
+  };
+  var args = new ThriftFileSystemService_deletePath_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_unwatch = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_deletePath = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_unwatch_result();
+=======
+  var result = new ThriftFileSystemService_deletePath_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  callback(null);
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.pollFileChanges = function(watchId, callback) {
+=======
+ThriftFileSystemServiceClient.prototype.expandHomeDir = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_pollFileChanges(watchId);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_pollFileChanges(watchId);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_pollFileChanges = function(watchId) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('pollFileChanges', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    watchId: watchId
+  };
+  var args = new ThriftFileSystemService_pollFileChanges_args(params);
+=======
+    this.send_expandHomeDir(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_expandHomeDir(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_expandHomeDir = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('expandHomeDir', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_expandHomeDir_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_pollFileChanges = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_expandHomeDir = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_pollFileChanges_result();
+=======
+  var result = new ThriftFileSystemService_expandHomeDir_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+<<<<<<< HEAD
+  return callback('pollFileChanges failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.stat = function(uri, callback) {
+=======
+  return callback('expandHomeDir failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.fsync = function(fd, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_stat(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_stat(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_stat = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('stat', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_stat_args(params);
+=======
+    this.send_fsync(fd);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_fsync(fd);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_fsync = function(fd) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('fsync', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd
+  };
+  var args = new ThriftFileSystemService_fsync_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_stat = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_fsync = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_stat_result();
+=======
+  var result = new ThriftFileSystemService_fsync_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('stat failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.lstat = function(uri, callback) {
+=======
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.fstat = function(fd, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_lstat(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_lstat(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_lstat = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('lstat', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_lstat_args(params);
+=======
+    this.send_fstat(fd);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_fstat(fd);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_fstat = function(fd) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('fstat', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd
+  };
+  var args = new ThriftFileSystemService_fstat_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_lstat = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_fstat = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_lstat_result();
+=======
+  var result = new ThriftFileSystemService_fstat_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+<<<<<<< HEAD
+  return callback('lstat failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.readDirectory = function(uri, callback) {
+=======
+  return callback('fstat failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.ftruncate = function(fd, len, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_readDirectory(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_readDirectory(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_readDirectory = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('readDirectory', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_readDirectory_args(params);
+=======
+    this.send_ftruncate(fd, len);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_ftruncate(fd, len);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_ftruncate = function(fd, len) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('ftruncate', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd,
+    len: len
+  };
+  var args = new ThriftFileSystemService_ftruncate_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_readDirectory = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_ftruncate = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_readDirectory_result();
+=======
+  var result = new ThriftFileSystemService_ftruncate_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('readDirectory failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.createDirectory = function(uri, callback) {
+=======
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.lstat = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_createDirectory(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_createDirectory(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_createDirectory = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('createDirectory', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_createDirectory_args(params);
+=======
+    this.send_lstat(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_lstat(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_lstat = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('lstat', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_lstat_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_createDirectory = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_lstat = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_createDirectory_result();
+=======
+  var result = new ThriftFileSystemService_lstat_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.readFile = function(uri, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('lstat failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.mkdirp = function(path, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_readFile(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_readFile(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_readFile = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('readFile', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_readFile_args(params);
+=======
+    this.send_mkdirp(path);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_mkdirp(path);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_mkdirp = function(path) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('mkdirp', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    path: path
+  };
+  var args = new ThriftFileSystemService_mkdirp_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_readFile = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_mkdirp = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_readFile_result();
+=======
+  var result = new ThriftFileSystemService_mkdirp_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+<<<<<<< HEAD
+  return callback('readFile failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.writeFile = function(uri, content, options, callback) {
+=======
+  return callback('mkdirp failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.open = function(path, permissionFlags, mode, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_writeFile(uri, content, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_writeFile(uri, content, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_writeFile = function(uri, content, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('writeFile', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri,
+    content: content,
+    options: options
+  };
+  var args = new ThriftFileSystemService_writeFile_args(params);
+=======
+    this.send_open(path, permissionFlags, mode);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_open(path, permissionFlags, mode);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_open = function(path, permissionFlags, mode) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('open', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    path: path,
+    permissionFlags: permissionFlags,
+    mode: mode
+  };
+  var args = new ThriftFileSystemService_open_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_writeFile = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_open = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_writeFile_result();
+=======
+  var result = new ThriftFileSystemService_open_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.deletePath = function(uri, options, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('open failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.pollFileChanges = function(watchId, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_deletePath(uri, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_deletePath(uri, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_deletePath = function(uri, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('deletePath', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri,
+    options: options
+  };
+  var args = new ThriftFileSystemService_deletePath_args(params);
+=======
+    this.send_pollFileChanges(watchId);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_pollFileChanges(watchId);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_pollFileChanges = function(watchId) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('pollFileChanges', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    watchId: watchId
+  };
+  var args = new ThriftFileSystemService_pollFileChanges_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_deletePath = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_pollFileChanges = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_deletePath_result();
+=======
+  var result = new ThriftFileSystemService_pollFileChanges_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.rename = function(oldUri, newUri, options, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('pollFileChanges failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.readDirectory = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_rename(oldUri, newUri, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_rename(oldUri, newUri, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_rename = function(oldUri, newUri, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('rename', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    oldUri: oldUri,
+    newUri: newUri,
+    options: options
+  };
+  var args = new ThriftFileSystemService_rename_args(params);
+=======
+    this.send_readDirectory(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_readDirectory(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_readDirectory = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('readDirectory', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_readDirectory_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_rename = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_readDirectory = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_rename_result();
+=======
+  var result = new ThriftFileSystemService_readDirectory_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.copy = function(source, destination, options, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('readDirectory failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.readFile = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_copy(source, destination, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_copy(source, destination, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_copy = function(source, destination, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('copy', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    source: source,
+    destination: destination,
+    options: options
+  };
+  var args = new ThriftFileSystemService_copy_args(params);
+=======
+    this.send_readFile(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_readFile(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_readFile = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('readFile', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_readFile_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_copy = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_readFile = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_copy_result();
+=======
+  var result = new ThriftFileSystemService_readFile_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.open = function(path, permissionFlags, mode, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('readFile failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.realpath = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_open(path, permissionFlags, mode);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_open(path, permissionFlags, mode);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_open = function(path, permissionFlags, mode) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('open', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    path: path,
+    permissionFlags: permissionFlags,
+    mode: mode
+  };
+  var args = new ThriftFileSystemService_open_args(params);
+=======
+    this.send_realpath(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_realpath(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_realpath = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('realpath', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_realpath_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_open = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_realpath = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_open_result();
+=======
+  var result = new ThriftFileSystemService_realpath_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+<<<<<<< HEAD
+  return callback('open failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.close = function(fd, callback) {
+=======
+  return callback('realpath failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.resolveRealPath = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_close(fd);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_close(fd);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_close = function(fd) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('close', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd
+  };
+  var args = new ThriftFileSystemService_close_args(params);
+=======
+    this.send_resolveRealPath(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_resolveRealPath(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_resolveRealPath = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('resolveRealPath', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_resolveRealPath_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_close = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_resolveRealPath = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_close_result();
+=======
+  var result = new ThriftFileSystemService_resolveRealPath_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.fsync = function(fd, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('resolveRealPath failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.rename = function(oldUri, newUri, options, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_fsync(fd);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_fsync(fd);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_fsync = function(fd) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('fsync', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd
+  };
+  var args = new ThriftFileSystemService_fsync_args(params);
+=======
+    this.send_rename(oldUri, newUri, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_rename(oldUri, newUri, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_rename = function(oldUri, newUri, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('rename', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    oldUri: oldUri,
+    newUri: newUri,
+    options: options
+  };
+  var args = new ThriftFileSystemService_rename_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_fsync = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_rename = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_fsync_result();
+=======
+  var result = new ThriftFileSystemService_rename_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  callback(null);
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.fstat = function(fd, callback) {
+=======
+ThriftFileSystemServiceClient.prototype.stat = function(uri, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_fstat(fd);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_fstat(fd);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_fstat = function(fd) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('fstat', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd
+  };
+  var args = new ThriftFileSystemService_fstat_args(params);
+=======
+    this.send_stat(uri);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_stat(uri);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_stat = function(uri) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('stat', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri
+  };
+  var args = new ThriftFileSystemService_stat_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_fstat = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_stat = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_fstat_result();
+=======
+  var result = new ThriftFileSystemService_stat_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+<<<<<<< HEAD
+  return callback('fstat failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.ftruncate = function(fd, len, callback) {
+=======
+  return callback('stat failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.unwatch = function(watchId, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_ftruncate(fd, len);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_ftruncate(fd, len);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_ftruncate = function(fd, len) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('ftruncate', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    fd: fd,
+    len: len
+  };
+  var args = new ThriftFileSystemService_ftruncate_args(params);
+=======
+    this.send_unwatch(watchId);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_unwatch(watchId);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_unwatch = function(watchId) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('unwatch', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    watchId: watchId
+  };
+  var args = new ThriftFileSystemService_unwatch_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_ftruncate = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_unwatch = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_ftruncate_result();
+=======
+  var result = new ThriftFileSystemService_unwatch_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  callback(null);
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.chmod = function(path, mode, callback) {
+=======
+ThriftFileSystemServiceClient.prototype.utimes = function(path, atime, mtime, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_chmod(path, mode);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_chmod(path, mode);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_chmod = function(path, mode) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('chmod', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    path: path,
+    mode: mode
+  };
+  var args = new ThriftFileSystemService_chmod_args(params);
+=======
     this.send_utimes(path, atime, mtime);
     return _defer.promise;
   } else {
@@ -3634,12 +6103,17 @@ ThriftFileSystemServiceClient.prototype.send_utimes = function(path, atime, mtim
     mtime: mtime
   };
   var args = new ThriftFileSystemService_utimes_args(params);
+>>>>>>> Update
   args.write(output);
   output.writeMessageEnd();
   return this.output.flush();
 };
 
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_chmod = function(input,mtype,rseqid) {
+=======
 ThriftFileSystemServiceClient.prototype.recv_utimes = function(input,mtype,rseqid) {
+>>>>>>> Update
   var callback = this._reqs[rseqid] || function() {};
   delete this._reqs[rseqid];
   if (mtype == Thrift.MessageType.EXCEPTION) {
@@ -3648,7 +6122,181 @@ ThriftFileSystemServiceClient.prototype.recv_utimes = function(input,mtype,rseqi
     input.readMessageEnd();
     return callback(x);
   }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_chmod_result();
+=======
   var result = new ThriftFileSystemService_utimes_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+  callback(null);
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.chown = function(path, uid, gid, callback) {
+=======
+ThriftFileSystemServiceClient.prototype.watch = function(uri, options, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_chown(path, uid, gid);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_chown(path, uid, gid);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_chown = function(path, uid, gid) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('chown', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    path: path,
+    uid: uid,
+    gid: gid
+  };
+  var args = new ThriftFileSystemService_chown_args(params);
+=======
+    this.send_watch(uri, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_watch(uri, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_watch = function(uri, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('watch', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri,
+    options: options
+  };
+  var args = new ThriftFileSystemService_watch_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_chown = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_watch = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_chown_result();
+=======
+  var result = new ThriftFileSystemService_watch_result();
+>>>>>>> Update
+  result.read(input);
+  input.readMessageEnd();
+
+  if (null !== result.error) {
+    return callback(result.error);
+  }
+<<<<<<< HEAD
+  callback(null);
+};
+ThriftFileSystemServiceClient.prototype.utimes = function(path, atime, mtime, callback) {
+=======
+  if (null !== result.success) {
+    return callback(null, result.success);
+  }
+  return callback('watch failed: unknown result');
+};
+ThriftFileSystemServiceClient.prototype.writeFile = function(uri, content, options, callback) {
+>>>>>>> Update
+  this._seqid = this.new_seqid();
+  if (callback === undefined) {
+    var _defer = Q.defer();
+    this._reqs[this.seqid()] = function(error, result) {
+      if (error) {
+        _defer.reject(error);
+      } else {
+        _defer.resolve(result);
+      }
+    };
+<<<<<<< HEAD
+    this.send_utimes(path, atime, mtime);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_utimes(path, atime, mtime);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_utimes = function(path, atime, mtime) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('utimes', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    path: path,
+    atime: atime,
+    mtime: mtime
+  };
+  var args = new ThriftFileSystemService_utimes_args(params);
+=======
+    this.send_writeFile(uri, content, options);
+    return _defer.promise;
+  } else {
+    this._reqs[this.seqid()] = callback;
+    this.send_writeFile(uri, content, options);
+  }
+};
+
+ThriftFileSystemServiceClient.prototype.send_writeFile = function(uri, content, options) {
+  var output = new this.pClass(this.output);
+  output.writeMessageBegin('writeFile', Thrift.MessageType.CALL, this.seqid());
+  var params = {
+    uri: uri,
+    content: content,
+    options: options
+  };
+  var args = new ThriftFileSystemService_writeFile_args(params);
+>>>>>>> Update
+  args.write(output);
+  output.writeMessageEnd();
+  return this.output.flush();
+};
+
+<<<<<<< HEAD
+ThriftFileSystemServiceClient.prototype.recv_utimes = function(input,mtype,rseqid) {
+=======
+ThriftFileSystemServiceClient.prototype.recv_writeFile = function(input,mtype,rseqid) {
+>>>>>>> Update
+  var callback = this._reqs[rseqid] || function() {};
+  delete this._reqs[rseqid];
+  if (mtype == Thrift.MessageType.EXCEPTION) {
+    var x = new Thrift.TApplicationException();
+    x.read(input);
+    input.readMessageEnd();
+    return callback(x);
+  }
+<<<<<<< HEAD
+  var result = new ThriftFileSystemService_utimes_result();
+=======
+  var result = new ThriftFileSystemService_writeFile_result();
+>>>>>>> Update
   result.read(input);
   input.readMessageEnd();
 
@@ -3666,6 +6314,7 @@ ThriftFileSystemServiceProcessor.prototype.process = function(input, output) {
   if (this['process_' + r.fname]) {
     return this['process_' + r.fname].call(this, r.rseqid, input, output);
   } else {
+<<<<<<< HEAD
     input.skip(Thrift.Type.STRUCT);
     input.readMessageEnd();
     var x = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, 'Unknown function ' + r.fname);
@@ -3685,694 +6334,17 @@ ThriftFileSystemServiceProcessor.prototype.process_watch = function(seqid, input
       .then(function(result) {
         var result_obj = new ThriftFileSystemService_watch_result({success: result});
         output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_watch_result(err);
-          output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("watch", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.watch(args.uri, args.options, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_watch_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("watch", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
+=======
+    input.skip(Thrift.Type.STRUCT);
+    input.readMessageEnd();
+    var x = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, 'Unknown function ' + r.fname);
+    output.writeMessageBegin(r.fname, Thrift.MessageType.EXCEPTION, r.rseqid);
+    x.write(output);
+    output.writeMessageEnd();
+    output.flush();
   }
-};
-ThriftFileSystemServiceProcessor.prototype.process_unwatch = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_unwatch_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.unwatch.length === 1) {
-    Q.fcall(this._handler.unwatch.bind(this._handler), args.watchId)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_unwatch_result({success: result});
-        output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_unwatch_result(err);
-          output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("unwatch", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.unwatch(args.watchId, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_unwatch_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("unwatch", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_pollFileChanges = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_pollFileChanges_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.pollFileChanges.length === 1) {
-    Q.fcall(this._handler.pollFileChanges.bind(this._handler), args.watchId)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_pollFileChanges_result({success: result});
-        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_pollFileChanges_result(err);
-          output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("pollFileChanges", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.pollFileChanges(args.watchId, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_pollFileChanges_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_stat = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_stat_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.stat.length === 1) {
-    Q.fcall(this._handler.stat.bind(this._handler), args.uri)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_stat_result({success: result});
-        output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_stat_result(err);
-          output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("stat", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.stat(args.uri, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_stat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("stat", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_lstat = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_lstat_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.lstat.length === 1) {
-    Q.fcall(this._handler.lstat.bind(this._handler), args.uri)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_lstat_result({success: result});
-        output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_lstat_result(err);
-          output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("lstat", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.lstat(args.uri, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_lstat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("lstat", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_readDirectory = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_readDirectory_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.readDirectory.length === 1) {
-    Q.fcall(this._handler.readDirectory.bind(this._handler), args.uri)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_readDirectory_result({success: result});
-        output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_readDirectory_result(err);
-          output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("readDirectory", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.readDirectory(args.uri, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_readDirectory_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("readDirectory", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_createDirectory = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_createDirectory_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.createDirectory.length === 1) {
-    Q.fcall(this._handler.createDirectory.bind(this._handler), args.uri)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_createDirectory_result({success: result});
-        output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_createDirectory_result(err);
-          output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("createDirectory", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.createDirectory(args.uri, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_createDirectory_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("createDirectory", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_readFile = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_readFile_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.readFile.length === 1) {
-    Q.fcall(this._handler.readFile.bind(this._handler), args.uri)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_readFile_result({success: result});
-        output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_readFile_result(err);
-          output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("readFile", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.readFile(args.uri, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_readFile_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("readFile", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_writeFile = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_writeFile_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.writeFile.length === 3) {
-    Q.fcall(this._handler.writeFile.bind(this._handler), args.uri, args.content, args.options)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_writeFile_result({success: result});
-        output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_writeFile_result(err);
-          output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("writeFile", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.writeFile(args.uri, args.content, args.options, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_writeFile_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("writeFile", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_deletePath = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_deletePath_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.deletePath.length === 2) {
-    Q.fcall(this._handler.deletePath.bind(this._handler), args.uri, args.options)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_deletePath_result({success: result});
-        output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_deletePath_result(err);
-          output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("deletePath", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.deletePath(args.uri, args.options, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_deletePath_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("deletePath", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_rename = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_rename_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.rename.length === 3) {
-    Q.fcall(this._handler.rename.bind(this._handler), args.oldUri, args.newUri, args.options)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_rename_result({success: result});
-        output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_rename_result(err);
-          output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("rename", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.rename(args.oldUri, args.newUri, args.options, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_rename_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("rename", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_copy = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_copy_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.copy.length === 3) {
-    Q.fcall(this._handler.copy.bind(this._handler), args.source, args.destination, args.options)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_copy_result({success: result});
-        output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_copy_result(err);
-          output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("copy", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.copy(args.source, args.destination, args.options, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_copy_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("copy", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_open = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_open_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.open.length === 3) {
-    Q.fcall(this._handler.open.bind(this._handler), args.path, args.permissionFlags, args.mode)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_open_result({success: result});
-        output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_open_result(err);
-          output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("open", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.open(args.path, args.permissionFlags, args.mode, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_open_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("open", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_close = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_close_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.close.length === 1) {
-    Q.fcall(this._handler.close.bind(this._handler), args.fd)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_close_result({success: result});
-        output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_close_result(err);
-          output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("close", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.close(args.fd, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_close_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("close", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_fsync = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_fsync_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.fsync.length === 1) {
-    Q.fcall(this._handler.fsync.bind(this._handler), args.fd)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_fsync_result({success: result});
-        output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_fsync_result(err);
-          output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("fsync", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.fsync(args.fd, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_fsync_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("fsync", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_fstat = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_fstat_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.fstat.length === 1) {
-    Q.fcall(this._handler.fstat.bind(this._handler), args.fd)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_fstat_result({success: result});
-        output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_fstat_result(err);
-          output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("fstat", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.fstat(args.fd, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_fstat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("fstat", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
-ThriftFileSystemServiceProcessor.prototype.process_ftruncate = function(seqid, input, output) {
-  var args = new ThriftFileSystemService_ftruncate_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.ftruncate.length === 2) {
-    Q.fcall(this._handler.ftruncate.bind(this._handler), args.fd, args.len)
-      .then(function(result) {
-        var result_obj = new ThriftFileSystemService_ftruncate_result({success: result});
-        output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
-        result_obj.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      }, function (err) {
-        var result;
-        if (err instanceof ttypes.Error) {
-          result = new ThriftFileSystemService_ftruncate_result(err);
-          output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
-        } else {
-          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-          output.writeMessageBegin("ftruncate", Thrift.MessageType.EXCEPTION, seqid);
-        }
-        result.write(output);
-        output.writeMessageEnd();
-        output.flush();
-      });
-  } else {
-    this._handler.ftruncate(args.fd, args.len, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
-        result_obj = new ThriftFileSystemService_ftruncate_result((err !== null || typeof err === 'undefined') ? err : {success: result});
-        output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-        output.writeMessageBegin("ftruncate", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  }
-};
+}
+;
 ThriftFileSystemServiceProcessor.prototype.process_chmod = function(seqid, input, output) {
   var args = new ThriftFileSystemService_chmod_args();
   args.read(input);
@@ -4455,6 +6427,1312 @@ ThriftFileSystemServiceProcessor.prototype.process_chown = function(seqid, input
     });
   }
 };
+ThriftFileSystemServiceProcessor.prototype.process_close = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_close_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.close.length === 1) {
+    Q.fcall(this._handler.close.bind(this._handler), args.fd)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_close_result({success: result});
+        output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+          result = new ThriftFileSystemService_close_result(err);
+          output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("close", Thrift.MessageType.EXCEPTION, seqid);
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+    this._handler.close(args.fd, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_close_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("close", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+ThriftFileSystemServiceProcessor.prototype.process_copy = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_copy_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.copy.length === 3) {
+    Q.fcall(this._handler.copy.bind(this._handler), args.source, args.destination, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_copy_result({success: result});
+        output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+          result = new ThriftFileSystemService_copy_result(err);
+          output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("copy", Thrift.MessageType.EXCEPTION, seqid);
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+    this._handler.copy(args.source, args.destination, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_copy_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("copy", Thrift.MessageType.EXCEPTION, seqid);
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+ThriftFileSystemServiceProcessor.prototype.process_createDirectory = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_createDirectory_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.createDirectory.length === 1) {
+    Q.fcall(this._handler.createDirectory.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_createDirectory_result({success: result});
+        output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_watch_result(err);
+          output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("watch", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_createDirectory_result(err);
+          output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("createDirectory", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.watch(args.uri, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_watch_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("watch", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.createDirectory(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_createDirectory_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("createDirectory", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_unwatch = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_unwatch_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.unwatch.length === 1) {
+    Q.fcall(this._handler.unwatch.bind(this._handler), args.watchId)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_unwatch_result({success: result});
+        output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_deletePath = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_deletePath_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.deletePath.length === 2) {
+    Q.fcall(this._handler.deletePath.bind(this._handler), args.uri, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_deletePath_result({success: result});
+        output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_unwatch_result(err);
+          output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("unwatch", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_deletePath_result(err);
+          output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("deletePath", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.unwatch(args.watchId, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_unwatch_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("unwatch", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.deletePath(args.uri, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_deletePath_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("deletePath", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_pollFileChanges = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_pollFileChanges_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.pollFileChanges.length === 1) {
+    Q.fcall(this._handler.pollFileChanges.bind(this._handler), args.watchId)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_pollFileChanges_result({success: result});
+        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_expandHomeDir = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_expandHomeDir_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.expandHomeDir.length === 1) {
+    Q.fcall(this._handler.expandHomeDir.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_expandHomeDir_result({success: result});
+        output.writeMessageBegin("expandHomeDir", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_pollFileChanges_result(err);
+          output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("pollFileChanges", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_expandHomeDir_result(err);
+          output.writeMessageBegin("expandHomeDir", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("expandHomeDir", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.pollFileChanges(args.watchId, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_pollFileChanges_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.expandHomeDir(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_expandHomeDir_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("expandHomeDir", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("expandHomeDir", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_stat = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_stat_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.stat.length === 1) {
+    Q.fcall(this._handler.stat.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_stat_result({success: result});
+        output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_fsync = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_fsync_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.fsync.length === 1) {
+    Q.fcall(this._handler.fsync.bind(this._handler), args.fd)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_fsync_result({success: result});
+        output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_stat_result(err);
+          output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("stat", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_fsync_result(err);
+          output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("fsync", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.stat(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_stat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("stat", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.fsync(args.fd, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_fsync_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("fsync", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_lstat = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_lstat_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.lstat.length === 1) {
+    Q.fcall(this._handler.lstat.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_lstat_result({success: result});
+        output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_fstat = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_fstat_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.fstat.length === 1) {
+    Q.fcall(this._handler.fstat.bind(this._handler), args.fd)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_fstat_result({success: result});
+        output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_lstat_result(err);
+          output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("lstat", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_fstat_result(err);
+          output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("fstat", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.lstat(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_lstat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("lstat", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.fstat(args.fd, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_fstat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("fstat", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_readDirectory = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_readDirectory_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.readDirectory.length === 1) {
+    Q.fcall(this._handler.readDirectory.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_readDirectory_result({success: result});
+        output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_ftruncate = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_ftruncate_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.ftruncate.length === 2) {
+    Q.fcall(this._handler.ftruncate.bind(this._handler), args.fd, args.len)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_ftruncate_result({success: result});
+        output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_readDirectory_result(err);
+          output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("readDirectory", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_ftruncate_result(err);
+          output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("ftruncate", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.readDirectory(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_readDirectory_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("readDirectory", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.ftruncate(args.fd, args.len, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_ftruncate_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("ftruncate", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_createDirectory = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_createDirectory_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.createDirectory.length === 1) {
+    Q.fcall(this._handler.createDirectory.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_createDirectory_result({success: result});
+        output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_lstat = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_lstat_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.lstat.length === 1) {
+    Q.fcall(this._handler.lstat.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_lstat_result({success: result});
+        output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_createDirectory_result(err);
+          output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("createDirectory", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_lstat_result(err);
+          output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("lstat", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.createDirectory(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_createDirectory_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("createDirectory", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("createDirectory", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.lstat(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_lstat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("lstat", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("lstat", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_readFile = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_readFile_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.readFile.length === 1) {
+    Q.fcall(this._handler.readFile.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_readFile_result({success: result});
+        output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_mkdirp = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_mkdirp_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.mkdirp.length === 1) {
+    Q.fcall(this._handler.mkdirp.bind(this._handler), args.path)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_mkdirp_result({success: result});
+        output.writeMessageBegin("mkdirp", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_readFile_result(err);
+          output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("readFile", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_mkdirp_result(err);
+          output.writeMessageBegin("mkdirp", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("mkdirp", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.readFile(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_readFile_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("readFile", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.mkdirp(args.path, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_mkdirp_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("mkdirp", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("mkdirp", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_writeFile = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_writeFile_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.writeFile.length === 3) {
+    Q.fcall(this._handler.writeFile.bind(this._handler), args.uri, args.content, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_writeFile_result({success: result});
+        output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_open = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_open_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.open.length === 3) {
+    Q.fcall(this._handler.open.bind(this._handler), args.path, args.permissionFlags, args.mode)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_open_result({success: result});
+        output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_writeFile_result(err);
+          output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("writeFile", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_open_result(err);
+          output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("open", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.writeFile(args.uri, args.content, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_writeFile_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("writeFile", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.open(args.path, args.permissionFlags, args.mode, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_open_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("open", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_deletePath = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_deletePath_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.deletePath.length === 2) {
+    Q.fcall(this._handler.deletePath.bind(this._handler), args.uri, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_deletePath_result({success: result});
+        output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_pollFileChanges = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_pollFileChanges_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.pollFileChanges.length === 1) {
+    Q.fcall(this._handler.pollFileChanges.bind(this._handler), args.watchId)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_pollFileChanges_result({success: result});
+        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_deletePath_result(err);
+          output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("deletePath", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_pollFileChanges_result(err);
+          output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("pollFileChanges", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.deletePath(args.uri, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_deletePath_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("deletePath", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("deletePath", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.pollFileChanges(args.watchId, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_pollFileChanges_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("pollFileChanges", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_rename = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_rename_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.rename.length === 3) {
+    Q.fcall(this._handler.rename.bind(this._handler), args.oldUri, args.newUri, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_rename_result({success: result});
+        output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_readDirectory = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_readDirectory_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.readDirectory.length === 1) {
+    Q.fcall(this._handler.readDirectory.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_readDirectory_result({success: result});
+        output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_rename_result(err);
+          output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("rename", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_readDirectory_result(err);
+          output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("readDirectory", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.rename(args.oldUri, args.newUri, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_rename_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("rename", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.readDirectory(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_readDirectory_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("readDirectory", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("readDirectory", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_copy = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_copy_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.copy.length === 3) {
+    Q.fcall(this._handler.copy.bind(this._handler), args.source, args.destination, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_copy_result({success: result});
+        output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_readFile = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_readFile_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.readFile.length === 1) {
+    Q.fcall(this._handler.readFile.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_readFile_result({success: result});
+        output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_copy_result(err);
+          output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("copy", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_readFile_result(err);
+          output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("readFile", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.copy(args.source, args.destination, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_copy_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("copy", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("copy", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.readFile(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_readFile_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("readFile", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("readFile", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_open = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_open_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.open.length === 3) {
+    Q.fcall(this._handler.open.bind(this._handler), args.path, args.permissionFlags, args.mode)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_open_result({success: result});
+        output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_realpath = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_realpath_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.realpath.length === 1) {
+    Q.fcall(this._handler.realpath.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_realpath_result({success: result});
+        output.writeMessageBegin("realpath", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_open_result(err);
+          output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("open", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_realpath_result(err);
+          output.writeMessageBegin("realpath", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("realpath", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.open(args.path, args.permissionFlags, args.mode, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_open_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("open", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("open", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.realpath(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_realpath_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("realpath", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("realpath", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_close = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_close_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.close.length === 1) {
+    Q.fcall(this._handler.close.bind(this._handler), args.fd)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_close_result({success: result});
+        output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_resolveRealPath = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_resolveRealPath_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.resolveRealPath.length === 1) {
+    Q.fcall(this._handler.resolveRealPath.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_resolveRealPath_result({success: result});
+        output.writeMessageBegin("resolveRealPath", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_close_result(err);
+          output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("close", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_resolveRealPath_result(err);
+          output.writeMessageBegin("resolveRealPath", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("resolveRealPath", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.close(args.fd, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_close_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("close", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("close", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.resolveRealPath(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_resolveRealPath_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("resolveRealPath", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("resolveRealPath", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_fsync = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_fsync_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.fsync.length === 1) {
+    Q.fcall(this._handler.fsync.bind(this._handler), args.fd)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_fsync_result({success: result});
+        output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_rename = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_rename_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.rename.length === 3) {
+    Q.fcall(this._handler.rename.bind(this._handler), args.oldUri, args.newUri, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_rename_result({success: result});
+        output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_fsync_result(err);
+          output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("fsync", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_rename_result(err);
+          output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("rename", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.fsync(args.fd, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_fsync_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("fsync", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("fsync", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.rename(args.oldUri, args.newUri, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_rename_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("rename", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("rename", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_fstat = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_fstat_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.fstat.length === 1) {
+    Q.fcall(this._handler.fstat.bind(this._handler), args.fd)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_fstat_result({success: result});
+        output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_stat = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_stat_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.stat.length === 1) {
+    Q.fcall(this._handler.stat.bind(this._handler), args.uri)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_stat_result({success: result});
+        output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_fstat_result(err);
+          output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("fstat", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_stat_result(err);
+          output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("stat", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.fstat(args.fd, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_fstat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("fstat", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("fstat", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.stat(args.uri, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_stat_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("stat", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("stat", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_ftruncate = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_ftruncate_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.ftruncate.length === 2) {
+    Q.fcall(this._handler.ftruncate.bind(this._handler), args.fd, args.len)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_ftruncate_result({success: result});
+        output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_unwatch = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_unwatch_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.unwatch.length === 1) {
+    Q.fcall(this._handler.unwatch.bind(this._handler), args.watchId)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_unwatch_result({success: result});
+        output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_ftruncate_result(err);
+          output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("ftruncate", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_unwatch_result(err);
+          output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("unwatch", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.ftruncate(args.fd, args.len, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_ftruncate_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("ftruncate", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("ftruncate", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.unwatch(args.watchId, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_unwatch_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("unwatch", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("unwatch", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_chmod = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_chmod_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.chmod.length === 2) {
+    Q.fcall(this._handler.chmod.bind(this._handler), args.path, args.mode)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_chmod_result({success: result});
+        output.writeMessageBegin("chmod", Thrift.MessageType.REPLY, seqid);
+=======
 ThriftFileSystemServiceProcessor.prototype.process_utimes = function(seqid, input, output) {
   var args = new ThriftFileSystemService_utimes_args();
   args.read(input);
@@ -4464,23 +7742,42 @@ ThriftFileSystemServiceProcessor.prototype.process_utimes = function(seqid, inpu
       .then(function(result) {
         var result_obj = new ThriftFileSystemService_utimes_result({success: result});
         output.writeMessageBegin("utimes", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
         result_obj.write(output);
         output.writeMessageEnd();
         output.flush();
       }, function (err) {
         var result;
         if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_chmod_result(err);
+          output.writeMessageBegin("chmod", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("chmod", Thrift.MessageType.EXCEPTION, seqid);
+=======
           result = new ThriftFileSystemService_utimes_result(err);
           output.writeMessageBegin("utimes", Thrift.MessageType.REPLY, seqid);
         } else {
           result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
           output.writeMessageBegin("utimes", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
         }
         result.write(output);
         output.writeMessageEnd();
         output.flush();
       });
   } else {
+<<<<<<< HEAD
+    this._handler.chmod(args.path, args.mode, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_chmod_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("chmod", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("chmod", Thrift.MessageType.EXCEPTION, seqid);
+=======
     this._handler.utimes(args.path, args.atime, args.mtime, function (err, result) {
       var result_obj;
       if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
@@ -4489,6 +7786,151 @@ ThriftFileSystemServiceProcessor.prototype.process_utimes = function(seqid, inpu
       } else {
         result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
         output.writeMessageBegin("utimes", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_chown = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_chown_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.chown.length === 3) {
+    Q.fcall(this._handler.chown.bind(this._handler), args.path, args.uid, args.gid)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_chown_result({success: result});
+        output.writeMessageBegin("chown", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_watch = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_watch_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.watch.length === 2) {
+    Q.fcall(this._handler.watch.bind(this._handler), args.uri, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_watch_result({success: result});
+        output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_chown_result(err);
+          output.writeMessageBegin("chown", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("chown", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_watch_result(err);
+          output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("watch", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.chown(args.path, args.uid, args.gid, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_chown_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("chown", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("chown", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.watch(args.uri, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_watch_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("watch", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("watch", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+      }
+      result_obj.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    });
+  }
+};
+<<<<<<< HEAD
+ThriftFileSystemServiceProcessor.prototype.process_utimes = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_utimes_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.utimes.length === 3) {
+    Q.fcall(this._handler.utimes.bind(this._handler), args.path, args.atime, args.mtime)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_utimes_result({success: result});
+        output.writeMessageBegin("utimes", Thrift.MessageType.REPLY, seqid);
+=======
+ThriftFileSystemServiceProcessor.prototype.process_writeFile = function(seqid, input, output) {
+  var args = new ThriftFileSystemService_writeFile_args();
+  args.read(input);
+  input.readMessageEnd();
+  if (this._handler.writeFile.length === 3) {
+    Q.fcall(this._handler.writeFile.bind(this._handler), args.uri, args.content, args.options)
+      .then(function(result) {
+        var result_obj = new ThriftFileSystemService_writeFile_result({success: result});
+        output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
+>>>>>>> Update
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }, function (err) {
+        var result;
+        if (err instanceof ttypes.Error) {
+<<<<<<< HEAD
+          result = new ThriftFileSystemService_utimes_result(err);
+          output.writeMessageBegin("utimes", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("utimes", Thrift.MessageType.EXCEPTION, seqid);
+=======
+          result = new ThriftFileSystemService_writeFile_result(err);
+          output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("writeFile", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
+        }
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+  } else {
+<<<<<<< HEAD
+    this._handler.utimes(args.path, args.atime, args.mtime, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_utimes_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("utimes", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("utimes", Thrift.MessageType.EXCEPTION, seqid);
+=======
+    this._handler.writeFile(args.uri, args.content, args.options, function (err, result) {
+      var result_obj;
+      if ((err === null || typeof err === 'undefined') || err instanceof ttypes.Error) {
+        result_obj = new ThriftFileSystemService_writeFile_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+        output.writeMessageBegin("writeFile", Thrift.MessageType.REPLY, seqid);
+      } else {
+        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("writeFile", Thrift.MessageType.EXCEPTION, seqid);
+>>>>>>> Update
       }
       result_obj.write(output);
       output.writeMessageEnd();

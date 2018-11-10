@@ -29,7 +29,11 @@ function _which() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AckHandler() {
   const data = require("./AckHandler");
@@ -92,12 +96,20 @@ async function resolveTool(tool) {
 }
 
 function searchWithTool(tool, params) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => resolveTool(tool)).switchMap(actualTool => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => resolveTool(tool)).switchMap(actualTool => {
+>>>>>>> Update
     if (actualTool != null) {
       const handler = searchToolHandlers[actualTool];
       return handler(params);
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   });
 }

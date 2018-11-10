@@ -40,7 +40,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _MessageRangeTracker() {
   const data = _interopRequireDefault(require("./MessageRangeTracker"));
@@ -119,7 +123,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class Activation {
   constructor() {
+<<<<<<< HEAD
     this._gatekeeperServices = new _RxMin.BehaviorSubject();
+=======
+    this._gatekeeperServices = new _rxjsCompatUmdMin.BehaviorSubject();
+>>>>>>> Update
     this._allLinterAdapters = new Set();
     const messageRangeTracker = new (_MessageRangeTracker().default)();
     this._store = (0, _createStore().default)(messageRangeTracker);
@@ -167,13 +175,21 @@ class Activation {
   _observeActivePaneItemAndMarkMessagesStale() {
     return this._gatekeeperServices.switchMap(gatekeeperService => {
       if (gatekeeperService == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(null);
+=======
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       return gatekeeperService.passesGK('nuclide_diagnostics_stale');
     }).filter(Boolean).switchMap(() => {
       return (0, _event().observableFromSubscribeFunction)(atom.workspace.observeActivePaneItem.bind(atom.workspace)).map(editor => (0, _textEditor().isValidTextEditor)(editor) ? editor : null).filter(Boolean).switchMap(editor => {
+<<<<<<< HEAD
         return (0, _event().observableFromSubscribeFunction)(editor.onDidStopChanging.bind(editor)).map(() => editor.getPath());
+=======
+        return (0, _event().observableFromSubscribeFunction)(editor.getBuffer().onDidChange.bind(editor.getBuffer())).map(() => editor.getPath());
+>>>>>>> Update
       });
     }).subscribe(filePath => {
       this._store.dispatch(Actions().markMessagesStale(filePath));

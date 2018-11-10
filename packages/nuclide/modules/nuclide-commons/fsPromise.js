@@ -410,9 +410,22 @@ async function writeFileAtomic(path, data, options) {
     // those two operations where the destination file might have the wrong permissions.
 
 
+<<<<<<< HEAD
     await copyFilePermissions(realPath, tempFilePath); // TODO: put renames into a queue so we don't write older save over new save.
     // Use mv as fs.rename doesn't work across partitions.
 
+=======
+    await copyFilePermissions(realPath, tempFilePath); // Ensure file has new permissions updated.
+
+    const mode = typeof options !== 'string' ? options === null || options === void 0 ? void 0 : options.mode : null;
+
+    if (mode != null) {
+      await chmod(tempFilePath, mode);
+    } // TODO: put renames into a queue so we don't write older save over new save.
+    // Use mv as fs.rename doesn't work across partitions.
+
+
+>>>>>>> Update
     await mv(tempFilePath, realPath, {
       mkdirp: true
     });

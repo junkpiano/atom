@@ -58,7 +58,11 @@ function _UniversalDisposable() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideRemoteConnection() {
   const data = require("../../nuclide-remote-connection");
@@ -109,14 +113,24 @@ const THROTTLE_TIME_MS = 500; // Exported for testing.
 function _observeConnectionState(connectionStream) {
   return connectionStream.switchMap(connections => {
     if (connections.length === 0) {
+<<<<<<< HEAD
       return _RxMin.Observable.of([]);
+=======
+      return _rxjsCompatUmdMin.Observable.of([]);
+>>>>>>> Update
     } // Observe the connection states of all connections simultaneously.
     // $FlowFixMe: add array signature to combineLatest
 
 
+<<<<<<< HEAD
     return _RxMin.Observable.combineLatest(connections.map(conn => {
       const heartbeat = conn.getHeartbeat();
       return _RxMin.Observable.of(heartbeat.isAway() ? _ConnectionState().default.DISCONNECTED : _ConnectionState().default.CONNECTED).concat(_RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(cb => heartbeat.onHeartbeat(cb)).mapTo(_ConnectionState().default.CONNECTED), (0, _event().observableFromSubscribeFunction)(cb => heartbeat.onHeartbeatError(cb)).mapTo(_ConnectionState().default.DISCONNECTED))).distinctUntilChanged() // Key the connection states by hostname.
+=======
+    return _rxjsCompatUmdMin.Observable.combineLatest(connections.map(conn => {
+      const heartbeat = conn.getHeartbeat();
+      return _rxjsCompatUmdMin.Observable.of(heartbeat.isAway() ? _ConnectionState().default.DISCONNECTED : _ConnectionState().default.CONNECTED).concat(_rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(cb => heartbeat.onHeartbeat(cb)).mapTo(_ConnectionState().default.CONNECTED), (0, _event().observableFromSubscribeFunction)(cb => heartbeat.onHeartbeatError(cb)).mapTo(_ConnectionState().default.DISCONNECTED))).distinctUntilChanged() // Key the connection states by hostname.
+>>>>>>> Update
       .map(state => [conn.getRemoteHostname(), state]);
     }));
   }).map(states => ({

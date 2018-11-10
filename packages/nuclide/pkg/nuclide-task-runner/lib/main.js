@@ -51,7 +51,11 @@ function _syncAtomCommands() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -110,6 +114,19 @@ function _reduxObservable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
 
@@ -180,7 +197,11 @@ function _reduxMin() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -231,16 +252,24 @@ class Activation {
     this._store = (0, _reduxMin().createStore)((0, _reduxMin().combineReducers)(Reducers()), {
       visible: initialVisibility
     }, (0, _reduxMin().applyMiddleware)((0, _reduxObservable().createEpicMiddleware)(rootEpic)));
+<<<<<<< HEAD
 
     const states = _RxMin.Observable.from(this._store).filter(state => state.initialPackagesActivated).distinctUntilChanged().share();
 
+=======
+    const states = (0, _observableFromReduxStore().default)(this._store).filter(state => state.initialPackagesActivated).distinctUntilChanged().share();
+>>>>>>> Update
     this._actionCreators = (0, _reduxMin().bindActionCreators)(Actions(), this._store.dispatch);
     this._panel = atom.workspace.addTopPanel({
       item: {
         getElement: (0, _memoize2().default)(() => {
           const props = (0, _getToolbarProps().default)(this._store);
           const StatefulToolbar = (0, _bindObservableAsProps().bindObservableAsProps)(props, _Toolbar().default);
+<<<<<<< HEAD
           return (0, _renderReactRoot().renderReactRoot)(React.createElement(StatefulToolbar, null));
+=======
+          return (0, _renderReactRoot().renderReactRoot)(React.createElement(StatefulToolbar, null), 'TaskRunnerToolbarRoot');
+>>>>>>> Update
         })
       },
       visible: false
@@ -321,10 +350,17 @@ class Activation {
         this._panel.hide();
       }
     }), // Add a "stop" command when a task is running.
+<<<<<<< HEAD
     states.map(state => state.runningTask != null).distinctUntilChanged().switchMap(taskIsRunning => taskIsRunning ? _RxMin.Observable.create(() => new (_UniversalDisposable().default)(atom.commands.add('atom-workspace', // eslint-disable-next-line nuclide-internal/atom-apis
     'nuclide-task-runner:stop-task', () => {
       this._actionCreators.stopTask();
     }))) : _RxMin.Observable.empty()).subscribe());
+=======
+    states.map(state => state.runningTask != null).distinctUntilChanged().switchMap(taskIsRunning => taskIsRunning ? _rxjsCompatUmdMin.Observable.create(() => new (_UniversalDisposable().default)(atom.commands.add('atom-workspace', // eslint-disable-next-line nuclide-internal/atom-apis
+    'nuclide-task-runner:stop-task', () => {
+      this._actionCreators.stopTask();
+    }))) : _rxjsCompatUmdMin.Observable.empty()).subscribe());
+>>>>>>> Update
   }
 
   dispose() {
@@ -371,8 +407,12 @@ class Activation {
       priority: 401
     });
     element.className += ' nuclide-task-runner-tool-bar-button';
+<<<<<<< HEAD
     const buttonUpdatesDisposable = new (_UniversalDisposable().default)( // $FlowFixMe: Update rx defs to accept ish with Symbol.observable
     _RxMin.Observable.from(this._store).subscribe(state => {
+=======
+    const buttonUpdatesDisposable = new (_UniversalDisposable().default)((0, _observableFromReduxStore().default)(this._store).subscribe(state => {
+>>>>>>> Update
       if (state.taskRunners.count() > 0) {
         element.removeAttribute('hidden');
       } else {
@@ -495,7 +535,11 @@ class Activation {
 function activateInitialPackagesObservable() {
   // $FlowFixMe(>=0.68.0) Flow suppress (T27187857)
   if (atom.packages.hasActivatedInitialPackages) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(undefined);
+=======
+    return _rxjsCompatUmdMin.Observable.of(undefined);
+>>>>>>> Update
   }
 
   return (0, _event().observableFromSubscribeFunction)(atom.packages.onDidActivateInitialPackages.bind(atom.packages));

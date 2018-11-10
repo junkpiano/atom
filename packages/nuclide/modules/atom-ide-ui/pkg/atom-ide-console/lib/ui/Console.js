@@ -95,6 +95,19 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../../../nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _RegExpFilter() {
   const data = require("../../../../../nuclide-commons-ui/RegExpFilter");
 
@@ -147,7 +160,11 @@ function _immutable() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -171,7 +188,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const WORKSPACE_VIEW_URI = 'atom://nuclide/console';
 exports.WORKSPACE_VIEW_URI = WORKSPACE_VIEW_URI;
 const ERROR_TRANSCRIBING_MESSAGE = "// Nuclide couldn't find the right text to display";
+<<<<<<< HEAD
 const INITIAL_RECORD_HEIGHT = 21;
+=======
+>>>>>>> Update
 const ALL_SEVERITIES = new Set(['error', 'warning', 'info']);
 /**
  * An Atom "view model" for the console. This object is responsible for creating a stateful view
@@ -180,7 +200,10 @@ const ALL_SEVERITIES = new Set(['error', 'warning', 'info']);
  */
 
 class Console {
+<<<<<<< HEAD
   // Associates Records with their display state (height, expansionStateId).
+=======
+>>>>>>> Update
   constructor(options) {
     this._getSourcesMemoized = (0, _memoizeUntilChanged().default)(getSources, opts => opts, (a, b) => (0, _shallowequal().default)(a, b));
 
@@ -193,7 +216,11 @@ class Console {
     };
 
     this._createPaste = async () => {
+<<<<<<< HEAD
       const displayableRecords = this._getDisplayableRecords();
+=======
+      const displayableRecords = Selectors().getAllRecords(this._store.getState()).toArray();
+>>>>>>> Update
 
       const createPasteImpl = this._store.getState().createPasteFunction;
 
@@ -243,6 +270,7 @@ class Console {
       });
     };
 
+<<<<<<< HEAD
     this._handleDisplayableRecordHeightChange = (recordId, newHeight, callback) => {
       const nextDisplayableRecords = Selectors().getAllRecords(this._store.getState()).map((record, i) => {
         let displayableRecord = this._toDisplayableRecord(record);
@@ -266,6 +294,8 @@ class Console {
       requestAnimationFrame(callback);
     };
 
+=======
+>>>>>>> Update
     const {
       store,
       initialFilterText,
@@ -281,11 +311,59 @@ class Console {
       selectedSeverities: initialUnselectedSeverities == null ? ALL_SEVERITIES : (0, _collection().setDifference)(ALL_SEVERITIES, initialUnselectedSeverities)
     });
     this._store = store;
+<<<<<<< HEAD
     this._nextRecordId = 0;
     this._displayableRecords = new WeakMap();
     this._destroyed = new _RxMin.ReplaySubject(1);
     this._titleChanges = _RxMin.Observable.combineLatest(this._model.toObservable(), // $FlowIssue: Flow doesn't know about Symbol.observable
     _RxMin.Observable.from(store)).takeUntil(this._destroyed).map(() => this.getTitle()).distinctUntilChanged().share();
+=======
+    this._destroyed = new _rxjsCompatUmdMin.ReplaySubject(1);
+    this._titleChanges = _rxjsCompatUmdMin.Observable.combineLatest(this._model.toObservable(), (0, _observableFromReduxStore().default)(store)).takeUntil(this._destroyed).map(() => this.getTitle()).distinctUntilChanged().share();
+  }
+
+  open(event) {
+    const unselectedSourceIds = new Set(this._model.state.unselectedSourceIds);
+
+    const currentlySelectedSources = this._getSources().map(s => s.id).filter(id => !unselectedSourceIds.has(id));
+
+    if (currentlySelectedSources.length === 0) {
+      this._selectSources([event.id]);
+    } else if (currentlySelectedSources.length === 1 && currentlySelectedSources[0] === event.id) {// do nothing because source is already visible and isolated
+    } else if (event.isolate) {
+      var _event$consoleAlready;
+
+      const consoleAlreadyOpen = (_event$consoleAlready = event.consoleAlreadyOpen) !== null && _event$consoleAlready !== void 0 ? _event$consoleAlready : true;
+
+      if (consoleAlreadyOpen) {
+        const allPanes = atom.workspace.getPanes();
+        const panes = allPanes.filter(p => p.getItems().filter(item => item._element === this._element).length !== 0);
+
+        if (!(panes.length === 1)) {
+          throw new Error("Invariant violation: \"panes.length === 1\"");
+        }
+
+        const consolePane = panes[0];
+        const consolePaneAllItems = consolePane.getItems();
+        const consolePaneItems = consolePaneAllItems.filter(cp => cp === this);
+
+        if (!(consolePaneItems.length === 1)) {
+          throw new Error("Invariant violation: \"consolePaneItems.length === 1\"");
+        }
+
+        this._selectSources(currentlySelectedSources.filter(id => id !== event.id));
+
+        const consoleObj = consolePaneItems[0];
+        const newConsoleObj = consoleObj.copy();
+        consolePane.addItem(newConsoleObj);
+      }
+
+      this._selectSources([event.id]);
+    } else if (currentlySelectedSources.includes(event.id)) {// do nothing because we do not need to isolate and this source is already visible
+    } else {
+      this._selectSources(currentlySelectedSources.concat([event.id]));
+    }
+>>>>>>> Update
   }
 
   getIconName() {
@@ -398,7 +476,11 @@ class Console {
     const {
       selectedSeverities
     } = this._model.state;
+<<<<<<< HEAD
     const filteredRecords = filterRecords(this._getDisplayableRecords(), selectedSourceIds, selectedSeverities, pattern, sources.length !== selectedSourceIds.length);
+=======
+    const filteredRecords = filterRecords(Selectors().getAllRecords(this._store.getState()).toArray(), selectedSourceIds, selectedSeverities, pattern, sources.length !== selectedSourceIds.length);
+>>>>>>> Update
     return {
       invalid,
       selectedSourceIds,
@@ -412,12 +494,20 @@ class Console {
       return this._element;
     }
 
+<<<<<<< HEAD
     const actionCreators = this._getBoundActionCreators(); // $FlowIssue: Flow doesn't know about Symbol.observable
 
 
     const globalStates = _RxMin.Observable.from(this._store);
 
     const props = _RxMin.Observable.combineLatest(this._model.toObservable(), globalStates) // Don't re-render when the console isn't visible.
+=======
+    const actionCreators = this._getBoundActionCreators();
+
+    const globalStates = (0, _observableFromReduxStore().default)(this._store);
+
+    const props = _rxjsCompatUmdMin.Observable.combineLatest(this._model.toObservable(), globalStates) // Don't re-render when the console isn't visible.
+>>>>>>> Update
     .let((0, _observable().toggle)((0, _observePaneItemVisibility().default)(this))).audit(() => _observable().nextAnimationFrame).map(([localState, globalState]) => {
       const {
         invalid,
@@ -439,7 +529,11 @@ class Console {
         unselectedSourceIds: localState.unselectedSourceIds,
         filterText: localState.filterText,
         enableRegExpFilter: localState.enableRegExpFilter,
+<<<<<<< HEAD
         displayableRecords: filteredRecords,
+=======
+        records: filteredRecords,
+>>>>>>> Update
         filteredRecordCount: Selectors().getAllRecords(globalState).size - filteredRecords.length,
         history: globalState.history,
         sources: this._getSources(),
@@ -448,7 +542,10 @@ class Console {
         executors: globalState.executors,
         getProvider: id => globalState.providers.get(id),
         updateFilter: this._updateFilter,
+<<<<<<< HEAD
         onDisplayableRecordHeightChange: this._handleDisplayableRecordHeightChange,
+=======
+>>>>>>> Update
         resetAllFilters: this._resetAllFilters,
         fontSize: globalState.fontSize,
         selectedSeverities,
@@ -485,6 +582,7 @@ class Console {
     });
   }
 
+<<<<<<< HEAD
   _getDisplayableRecords() {
     return Selectors().getAllRecords(this._store.getState()).map(record => this._toDisplayableRecord(record)).toArray();
   }
@@ -514,6 +612,8 @@ class Console {
     return newDisplayableRecord;
   }
 
+=======
+>>>>>>> Update
 }
 
 exports.Console = Console;
@@ -551,6 +651,7 @@ function getSources(options) {
   return Array.from(mapOfSources.values());
 }
 
+<<<<<<< HEAD
 function filterRecords(displayableRecords, selectedSourceIds, selectedSeverities, filterPattern, filterSources) {
   if (!filterSources && filterPattern == null && (0, _collection().areSetsEqual)(ALL_SEVERITIES, selectedSeverities)) {
     return displayableRecords;
@@ -559,6 +660,14 @@ function filterRecords(displayableRecords, selectedSourceIds, selectedSeverities
   return displayableRecords.filter(({
     record
   }) => {
+=======
+function filterRecords(records, selectedSourceIds, selectedSeverities, filterPattern, filterSources) {
+  if (!filterSources && filterPattern == null && (0, _collection().areSetsEqual)(ALL_SEVERITIES, selectedSeverities)) {
+    return records;
+  }
+
+  return records.filter(record => {
+>>>>>>> Update
     // Only filter regular messages
     if (record.kind !== 'message') {
       return true;
@@ -610,8 +719,12 @@ async function serializeRecordObject(executor, visited, data, text, level) {
 }
 
 async function createPaste(createPasteImpl, records) {
+<<<<<<< HEAD
   const linePromises = records.filter(displayable => displayable.record.kind === 'message' || displayable.record.kind === 'request' || displayable.record.kind === 'response').map(async displayable => {
     const record = displayable.record;
+=======
+  const linePromises = records.filter(record => record.kind === 'message' || record.kind === 'request' || record.kind === 'response').map(async record => {
+>>>>>>> Update
     const level = record.level != null ? record.level.toString().toUpperCase() : 'LOG';
     const timestamp = record.timestamp.toLocaleString();
     let text = record.text || record.data && record.data.value || ERROR_TRANSCRIBING_MESSAGE;

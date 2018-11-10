@@ -20,6 +20,19 @@ function _epicHelpers() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
 
@@ -94,8 +107,11 @@ function _reduxObservable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
+=======
+>>>>>>> Update
 function _bindObservableAsProps() {
   const data = require("../../../modules/nuclide-commons-ui/bindObservableAsProps");
 
@@ -107,7 +123,11 @@ function _bindObservableAsProps() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -177,8 +197,12 @@ class Activation {
       return this._requestEditDialog;
     }
 
+<<<<<<< HEAD
     const BoundEditDialog = (0, _bindObservableAsProps().bindObservableAsProps)( // $FlowFixMe -- Flow doesn't know about the Observable symbol used by from().
     _RxMin.Observable.from(this._store), _RequestEditDialog().RequestEditDialog);
+=======
+    const BoundEditDialog = (0, _bindObservableAsProps().bindObservableAsProps)((0, _observableFromReduxStore().default)(this._store), _RequestEditDialog().RequestEditDialog);
+>>>>>>> Update
     const container = document.createElement('div');
     const requestEditDialog = atom.workspace.addModalPanel({
       item: container,

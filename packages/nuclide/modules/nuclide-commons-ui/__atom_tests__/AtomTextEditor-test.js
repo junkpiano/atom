@@ -103,6 +103,7 @@ describe('nuclide-ui-atom-text-editor', () => {
       expect(element.getModel().getGrammar().scopeName).toEqual('text.test2');
     });
   });
+<<<<<<< HEAD
   describe('when `readOnly`', () => {
     let element;
     describe('is true', () => {
@@ -226,6 +227,8 @@ describe('nuclide-ui-atom-text-editor', () => {
       });
     });
   });
+=======
+>>>>>>> Update
   it('does not leak TextEditorComponent', async () => {
     const hostEl = document.createElement('div');
 

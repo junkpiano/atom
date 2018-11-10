@@ -134,7 +134,12 @@ class BuckToolbar extends React.Component {
       platformGroups,
       platformProviderUi,
       selectedDeploymentTarget,
+<<<<<<< HEAD
       taskSettings
+=======
+      taskSettings,
+      unsanitizedTaskSettings
+>>>>>>> Update
     } = this.props.appState;
 
     if (!(buckRoot != null)) {
@@ -208,9 +213,16 @@ class BuckToolbar extends React.Component {
       buckRoot: buckRoot,
       buckversionFileContents: buckversionFileContents,
       settings: taskSettings,
+<<<<<<< HEAD
       platformProviderSettings: extraSettings,
       onDismiss: () => this._hideSettings(),
       onSave: settings => this._saveSettings(settings)
+=======
+      unsanitizedSettings: unsanitizedTaskSettings,
+      platformProviderSettings: extraSettings,
+      onDismiss: () => this._hideSettings(),
+      onSave: (settings, unsanitizedSettings) => this._saveSettings(settings, unsanitizedSettings)
+>>>>>>> Update
     }) : null);
   }
 
@@ -226,8 +238,13 @@ class BuckToolbar extends React.Component {
     });
   }
 
+<<<<<<< HEAD
   _saveSettings(settings) {
     this.props.setTaskSettings(settings);
+=======
+  _saveSettings(settings, unsanitizedSettings) {
+    this.props.setTaskSettings(settings, unsanitizedSettings);
+>>>>>>> Update
 
     this._hideSettings();
   }

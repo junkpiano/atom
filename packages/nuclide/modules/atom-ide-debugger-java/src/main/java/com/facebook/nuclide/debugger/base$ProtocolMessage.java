@@ -12,10 +12,15 @@ import org.json.JSONObject;
 
 public abstract class base$ProtocolMessage {
   public static int nextSeq = 1;
+<<<<<<< HEAD
+=======
+  private static final Object nextSeqLock = new Object();
+>>>>>>> Update
   public int seq;
   private String type;
 
   public base$ProtocolMessage(String type) {
+<<<<<<< HEAD
     this.seq = nextSeq++;
     this.type = type;
   }
@@ -24,6 +29,25 @@ public abstract class base$ProtocolMessage {
     this.seq = seq;
     this.type = type;
     nextSeq++;
+=======
+    synchronized (nextSeqLock) {
+      this.seq = nextSeq++;
+    }
+    this.type = type;
+  }
+
+  public base$ProtocolMessage(JSONObject messageJSON) {
+    this.seq = messageJSON.getInt("seq");
+    this.type = messageJSON.getString("type");
+  }
+
+  public base$ProtocolMessage(int seq, String type) {
+    synchronized (nextSeqLock) {
+      this.seq = seq;
+      nextSeq++;
+    }
+    this.type = type;
+>>>>>>> Update
   }
 
   public JSONObject toJSON() {

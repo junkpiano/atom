@@ -77,7 +77,11 @@ function _UniversalDisposable() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AdbDeviceSelector() {
   const data = require("./AdbDeviceSelector");
@@ -269,7 +273,11 @@ var _initialiseProps = function () {
       if (device != null) {
         // If a device is selected, observe the Java processes on the device.
         const adbService = (0, _nuclideAdb().getAdbServiceByNuclideUri)(this.props.targetUri);
+<<<<<<< HEAD
         this._javaProcessSubscription = _RxMin.Observable.interval(2000).startWith(0).switchMap(() => adbService.getJavaProcesses(device.serial).refCount()).distinctUntilChanged((a, b) => (0, _collection().arrayEqual)(a, b, (x, y) => {
+=======
+        this._javaProcessSubscription = _rxjsCompatUmdMin.Observable.interval(2000).startWith(0).switchMap(() => adbService.getJavaProcesses(device.serial).refCount()).distinctUntilChanged((a, b) => (0, _collection().arrayEqual)(a, b, (x, y) => {
+>>>>>>> Update
           return x.user === y.user && x.pid === y.pid && x.name === y.name;
         })).subscribe(javaProcesses => {
           this._javaProcessListChanged(_expected().Expect.value(javaProcesses));

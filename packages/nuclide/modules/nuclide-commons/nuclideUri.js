@@ -445,6 +445,27 @@ function registerHostnameFormatter(formatter) {
     }
   };
 }
+<<<<<<< HEAD
+=======
+
+function hostnameToDisplayHostname(hostname) {
+  return hostFormatters.reduce((current, formatter) => {
+    const next = formatter(current);
+
+    if (next != null && next !== '') {
+      return next;
+    } else {
+      return current;
+    }
+  }, hostname);
+}
+
+function nuclideUriToDisplayHostname(uri) {
+  _testForIllegalUri(uri);
+
+  return isRemote(uri) ? hostnameToDisplayHostname(getHostname(uri)) : uri;
+}
+>>>>>>> Update
 /**
  * NuclideUris should never be shown to humans.
  * This function returns a human usable string.
@@ -454,6 +475,7 @@ function registerHostnameFormatter(formatter) {
 function nuclideUriToDisplayString(uri) {
   _testForIllegalUri(uri);
 
+<<<<<<< HEAD
   if (isRemote(uri)) {
     let hostname = getHostname(uri);
 
@@ -470,6 +492,9 @@ function nuclideUriToDisplayString(uri) {
   } else {
     return uri;
   }
+=======
+  return isRemote(uri) ? `${nuclideUriToDisplayHostname(uri)}:${getPath(uri)}` : uri;
+>>>>>>> Update
 }
 
 function ensureTrailingSeparator(uri) {
@@ -868,6 +893,11 @@ var _default = {
   contains,
   collapse,
   nuclideUriToDisplayString,
+<<<<<<< HEAD
+=======
+  nuclideUriToDisplayHostname,
+  hostnameToDisplayHostname,
+>>>>>>> Update
   registerHostnameFormatter,
   ensureTrailingSeparator,
   trimTrailingSeparator,

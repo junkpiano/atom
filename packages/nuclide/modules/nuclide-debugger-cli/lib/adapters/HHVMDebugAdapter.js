@@ -89,7 +89,24 @@ class HHVMDebugAdapter {
       commandLineArgs.set('cwd', _nuclideUri().default.resolve('.'));
     } else {
       if (!commandLineArgs.has('targetUri')) {
+<<<<<<< HEAD
         commandLineArgs.set('targetUri', _nuclideUri().default.resolve('.'));
+=======
+        let targetUri = null;
+
+        try {
+          // $FlowFB
+          const getDefaultTargetURI = require("./fb-HHVMTargetUri").getDefaultTargetURI;
+
+          targetUri = getDefaultTargetURI();
+        } catch (_) {}
+
+        if (targetUri == null) {
+          targetUri = _nuclideUri().default.resolve('.');
+        }
+
+        commandLineArgs.set('targetUri', targetUri);
+>>>>>>> Update
       }
     }
 
@@ -110,6 +127,20 @@ class HHVMDebugAdapter {
     });
   }
 
+<<<<<<< HEAD
+=======
+  transformExpression(exp, isCodeBlock) {
+    if (isCodeBlock) {
+      return exp;
+    } // NB This is the same hack that's done in classic hphpd to get around the
+    // fact that evaluating a code block like 'prep(genFoo())' returns the
+    // constant '1' rather than the asynchronously computed result of genFoo()
+
+
+    return exp; // `$_=${exp}`;
+  }
+
+>>>>>>> Update
   async canDebugFile(file) {
     // no special cases, just use file extension
     return false;

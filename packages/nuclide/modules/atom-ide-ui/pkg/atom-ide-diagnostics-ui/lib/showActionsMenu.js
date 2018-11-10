@@ -7,7 +7,11 @@ exports.default = showActionsMenu;
 
 var _electron = _interopRequireDefault(require("electron"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _collection() {
   const data = require("../../../../nuclide-commons/collection");
@@ -66,7 +70,11 @@ function showActionsMenu(editor, position, messagesAtPosition, diagnosticUpdater
   diagnosticUpdater.fetchCodeActions(editor, messagesAtPosition);
   return new (_UniversalDisposable().default)((0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeCodeActionsForMessage(cb)).filter(codeActionsForMessage => {
     return messagesAtPosition.every(message => codeActionsForMessage.has(message));
+<<<<<<< HEAD
   }).take(1).race(_RxMin.Observable.of(new WeakMap()).delay(CODE_ACTIONS_TIMEOUT)).subscribe(codeActionsForMessage => {
+=======
+  }).take(1).race(_rxjsCompatUmdMin.Observable.of(new WeakMap()).delay(CODE_ACTIONS_TIMEOUT)).subscribe(codeActionsForMessage => {
+>>>>>>> Update
     const menu = new remote.Menu();
     const fixes = (0, _collection().arrayCompact)(messagesAtPosition.map(message => {
       const {

@@ -5,6 +5,29 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FindReferencesViewModel = void 0;
 
+<<<<<<< HEAD
+=======
+function _goToLocation() {
+  const data = require("../../../../nuclide-commons-atom/go-to-location");
+
+  _goToLocation = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _bindObservableAsProps() {
+  const data = require("../../../../nuclide-commons-ui/bindObservableAsProps");
+
+  _bindObservableAsProps = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 var React = _interopRequireWildcard(require("react"));
 
 function _renderReactRoot() {
@@ -27,10 +50,17 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 function _FindReferencesView() {
   const data = _interopRequireDefault(require("./view/FindReferencesView"));
 
   _FindReferencesView = function () {
+=======
+function _ScrollableResults() {
+  const data = _interopRequireDefault(require("../../../../nuclide-commons-ui/ScrollableResults"));
+
+  _ScrollableResults = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -39,6 +69,11 @@ function _FindReferencesView() {
 
 var _crypto = _interopRequireDefault(require("crypto"));
 
+<<<<<<< HEAD
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -60,12 +95,19 @@ const DEFAULT_PANE_LOCATION = 'bottom';
 
 class FindReferencesViewModel {
   constructor(model) {
+<<<<<<< HEAD
     // Generate a unique ID for each panel.
     this._id = (_crypto.default.randomBytes(8) || '').toString('hex') || '';
     this._model = model;
     this._element = (0, _renderReactRoot().renderReactRoot)(React.createElement(_FindReferencesView().default, {
       model: this._model
     }));
+=======
+    this._controlsVisibleSubject = new _rxjsCompatUmdMin.Subject();
+    // Generate a unique ID for each panel.
+    this._id = (_crypto.default.randomBytes(8) || '').toString('hex') || '';
+    this._model = model;
+>>>>>>> Update
   }
 
   getTitle() {
@@ -99,7 +141,24 @@ class FindReferencesViewModel {
   }
 
   getElement() {
+<<<<<<< HEAD
     return this._element;
+=======
+    const BoundScrollableResults = (0, _bindObservableAsProps().bindObservableAsProps)(this._controlsVisibleSubject.startWith(true).map(controlsVisible => ({
+      count: this._model.getReferenceCount(),
+      fileResultsCount: this._model.getFileCount(),
+      exceededByteLimit: false,
+      controlsVisible,
+      onClick: (path, line, column) => (0, _goToLocation().goToLocation)(path, {
+        line,
+        column
+      }),
+      onToggleControls: () => this._controlsVisibleSubject.next(!controlsVisible),
+      query: null,
+      loadResults: (offset, limit) => this._model.getFileResults(offset, limit)
+    })), _ScrollableResults().default);
+    return (0, _renderReactRoot().renderReactRoot)(React.createElement(BoundScrollableResults, null));
+>>>>>>> Update
   }
 
 }

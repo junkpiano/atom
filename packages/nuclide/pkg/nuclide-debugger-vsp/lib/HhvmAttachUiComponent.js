@@ -67,7 +67,11 @@ function _Table() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _expected() {
   const data = require("../../../modules/nuclide-commons/expected");
@@ -147,7 +151,11 @@ class AttachUiComponent extends React.Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.fromPromise(this._getPathMenuItems()).subscribe(pathMenuItems => {
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.fromPromise(this._getPathMenuItems()).subscribe(pathMenuItems => {
+>>>>>>> Update
       (0, _nuclideDebuggerCommon().deserializeDebuggerConfig)(...this._getSerializationArgs(), (transientSettings, savedSettings) => {
         const items = pathMenuItems.getOrDefault([]);
         const savedPath = items.find(item => item.label === savedSettings.selectedPath);
@@ -169,7 +177,11 @@ class AttachUiComponent extends React.Component {
       }
     }));
 
+<<<<<<< HEAD
     this._attachTargetSub = _RxMin.Observable.interval(2000).switchMap(async () => {
+=======
+    this._attachTargetSub = _rxjsCompatUmdMin.Observable.interval(2000).switchMap(async () => {
+>>>>>>> Update
       await this._refreshTargetList();
     }).subscribe();
   }

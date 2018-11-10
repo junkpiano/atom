@@ -115,6 +115,12 @@ struct FileEntry {
   1: string fname,
   2: FileType ftype,
   3: FileStat fstat,
+<<<<<<< HEAD
+=======
+  // ftype/fstat data may represent what symlink points to, so add additional
+  // field
+  4: bool isSymbolicLink,
+>>>>>>> Update
 }
 
 struct WatchOpt {
@@ -145,6 +151,7 @@ struct CopyOpt{
 
 service ThriftFileSystemService {
 
+<<<<<<< HEAD
   /**
    * Initialize watcher for target file or directory.
    *
@@ -186,6 +193,52 @@ service ThriftFileSystemService {
    * @return The file metadata about the file.
    */
   FileStat stat(1: string uri) throws(1: Error error);
+=======
+  void chmod(1: string path, 2: i32 mode)
+    throws(1: Error error);
+
+  void chown(1: string path, 2: i32 uid, 3: i32 gid)
+    throws(1: Error error);
+
+  void close(1: i32 fd)
+    throws(1: Error error);
+
+  /**
+   * Copy files or folders.
+   *
+   * @param source The existing file.
+   * @param destination The destination location.
+   * @param options Defines if existing files should be overwriten.
+   */
+  void copy(1: string source, 2: string destination, 3: CopyOpt options)
+    throws(1: Error error);
+
+  /**
+   * Create a new directory.
+   *
+   * @param uri The uri of the new folder.
+   */
+  void createDirectory(1: string uri) throws(1: Error error);
+
+  /**
+   * Delete a file or a directory.
+   *
+   * @param uri The resource that is to be deleted.
+   * @param options Defines if deletion of folders is recursive.
+   */
+  void deletePath(1: string uri, 2: DeleteOpt options) throws(1: Error error);
+
+  /**
+   * Returns the specified file path with the home dir ~/ expanded.
+   */
+  string expandHomeDir(1: string uri) throws(1: Error error);
+
+  void fsync(1: i32 fd) throws(1: Error error);
+
+  FileStat fstat(1: i32 fd) throws(1: Error error);
+
+  void ftruncate(1: i32 fd, 2: i32 len) throws(1: Error error);
+>>>>>>> Update
 
   /**
    * Do not follow symlinks, the link itself is stat-ed, not the file
@@ -197,6 +250,7 @@ service ThriftFileSystemService {
   FileStat lstat(1: string uri) throws(1: Error error);
 
   /**
+<<<<<<< HEAD
    * Retrieve all entries of a directory.
    *
    * @param uri The uri of the folder.
@@ -210,6 +264,36 @@ service ThriftFileSystemService {
    * @param uri The uri of the new folder.
    */
   void createDirectory(1: string uri) throws(1: Error error);
+=======
+   * Runs the equivalent of `mkdir -p` with the given path.
+   *
+   * Like most implementations of mkdirp, if it fails, it is possible that
+   * directories were created for some prefix of the given path.
+   * @return true if the path was created; false if it already existed.
+   */
+  bool mkdirp(1: string path) throws(1: Error error);
+
+  i32 open(1: string path, 2: i32 permissionFlags, 3: i32 mode)
+    throws(1: Error error);
+
+  /**
+   * Collect and send file change events to client.
+   *
+   * The client will periodically call this function to poll file change Events
+   * in the watched file/directory. The server will keep a list of file change
+   * events and send them all to the client and then clear the list for future
+   * changes.
+   */
+  list<FileChangeEvent> pollFileChanges(1: string watchId) throws(1: Error error);
+
+  /**
+   * Retrieve all entries of a directory.
+   *
+   * @param uri The uri of the folder.
+   * @return An array of file entries
+   */
+  list<FileEntry> readDirectory(1: string uri) throws(1: Error error);
+>>>>>>> Update
 
   /**
    * Read the entire contents of a file.
@@ -220,6 +304,7 @@ service ThriftFileSystemService {
   binary readFile(1: string uri) throws(1: Error error);
 
   /**
+<<<<<<< HEAD
    * Write data to a file, replacing its entire contents.
    *
    * @param uri The uri of the file.
@@ -236,6 +321,19 @@ service ThriftFileSystemService {
    * @param options Defines if deletion of folders is recursive.
    */
   void deletePath(1: string uri, 2: DeleteOpt options) throws(1: Error error);
+=======
+   * Gets the real path of a file path.
+   * It could be different than the given path if the file is a symlink
+   * or exists in a symlinked directory.
+   */
+  string realpath(1: string uri) throws(1: Error error);
+
+  /**
+   * Gets the real path of a file path, while expanding tilde paths and symlinks
+   * like: ~/abc to its absolute path format.
+   */
+  string resolveRealPath(1: string uri) throws(1: Error error);
+>>>>>>> Update
 
   /**
    * Rename a file or folder.
@@ -248,6 +346,7 @@ service ThriftFileSystemService {
     throws(1: Error error);
 
   /**
+<<<<<<< HEAD
    * Copy files or folders.
    *
    * @param source The existing file.
@@ -280,4 +379,51 @@ service ThriftFileSystemService {
 
   void utimes(1: string path, 2: i32 atime, 3: i32 mtime)
     throws(1: Error error);
+=======
+   * Retrieve metadata about a file.
+   *
+   * Follow symlinks to fetch metadata of the files the symlinks refer to.
+   *
+   * @param uri The uri of the file to retrieve metadata about.
+   * @return The file metadata about the file.
+   */
+  FileStat stat(1: string uri) throws(1: Error error);
+
+  /**
+   * Stop watching target file or directory.
+   *
+   * @param watchId unique watch id
+   */
+  void unwatch(1: string watchId) throws(1: Error error);
+
+  void utimes(1: string path, 2: i32 atime, 3: i32 mtime)
+    throws(1: Error error);
+
+  /**
+   * Initialize watcher for target file or directory.
+   *
+   * The client will call this function to set watch for target files and
+   * folders. The options contains more details about watcher behavior, such
+   * as, what files/folders to exclude from watching and if subfolders,
+   * sub-subfolder, etc. should be watched (`recursive`).
+   *
+
+   * @param uri The uri of the file/directory to be watched.
+   * @param options Configures the watch function.
+   * @return unique watch id
+   */
+  string watch(1: string uri, 2: WatchOpt options) throws(1: Error error);
+
+
+  /**
+   * Write data to a file, replacing its entire contents.
+   *
+   * @param uri The uri of the file.
+   * @param content The new content of the file.
+   * @param options More details like if missing files should or must be created
+   */
+  void writeFile(1: string uri, 2: binary content, 3: WriteFileOpt options)
+    throws(1: Error error);
+
+>>>>>>> Update
 }

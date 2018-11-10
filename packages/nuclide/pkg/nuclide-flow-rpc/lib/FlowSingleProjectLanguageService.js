@@ -50,7 +50,11 @@ function _config() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _collection() {
   const data = require("../../../modules/nuclide-commons/collection");
@@ -336,7 +340,11 @@ class FlowSingleProjectLanguageService {
       } else {
         // if ideConnection is null, it means there is currently no connection. So, invalidate the
         // current diagnostics so we don't display stale data.
+<<<<<<< HEAD
         return _RxMin.Observable.of(null);
+=======
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
     }).scan(updateDiagnostics, emptyDiagnosticsState()).concatMap(getDiagnosticUpdates).catch(err => {
       logger.error(err);
@@ -595,7 +603,11 @@ class FlowSingleProjectLanguageService {
 
   findReferences(filePath, buffer, position) {
     // TODO check flow version
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this.customFindReferences(filePath, buffer, position, true, false));
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this.customFindReferences(filePath, buffer, position, true, false));
+>>>>>>> Update
   }
 
   rename(filePath, buffer, position, newName) {
@@ -833,7 +845,11 @@ function getDiagnosticUpdates(state) {
     updates.set(file, messages);
   }
 
+<<<<<<< HEAD
   return _RxMin.Observable.of(updates);
+=======
+  return _rxjsCompatUmdMin.Observable.of(updates);
+>>>>>>> Update
 }
 
 function collateDiagnostics(output) {

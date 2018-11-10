@@ -49,7 +49,10 @@ describe('DiagnosticsView', () => {
       gotoMessageLocation: () => {},
       hiddenGroups: new Set(),
       onFilterByActiveTextEditorChange: () => {},
+<<<<<<< HEAD
       onDismissNux: () => {},
+=======
+>>>>>>> Update
       isVisible: true,
       onShowTracesChange: () => {},
       onTextFilterChange: () => {},
@@ -58,7 +61,10 @@ describe('DiagnosticsView', () => {
       selectedMessage: null,
       showDirectoryColumn: false,
       showTraces: true,
+<<<<<<< HEAD
       showNuxContent: false,
+=======
+>>>>>>> Update
       supportedMessageKinds: new Set(),
       textFilter: {
         text: 'test',

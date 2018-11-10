@@ -38,7 +38,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../nuclide-commons/UniversalDisposable"));
@@ -218,6 +222,7 @@ async function _getPid(debugMode, config, adbServiceUri, deviceSerial, packageNa
   return pid;
 }
 
+<<<<<<< HEAD
 function _getResolvedTargetUri(targetUri, config) {
   const selectSources = config.selectSources;
   return selectSources != null ? selectSources : targetUri;
@@ -231,6 +236,13 @@ function _getAdbServiceUri(unresolvedTargetUri, config) {
 async function _getAndroidSdkSourcePaths(targetUri, adbServiceUri, deviceSerial) {
   const sdkVersion = await (0, _nuclideAdb().getAdbServiceByNuclideUri)(adbServiceUri).getAPIVersion(deviceSerial);
   const sdkSourcePath = sdkVersion !== '' ? await (0, _utils().getJavaDebuggerHelpersServiceByNuclideUri)(targetUri).getSdkVersionSourcePath(sdkVersion) : null;
+=======
+async function _getAndroidSdkSourcePaths(targetUri, adbServiceUri, deviceSerial) {
+  const sdkVersion = await (0, _nuclideAdb().getAdbServiceByNuclideUri)(adbServiceUri).getAPIVersion(deviceSerial);
+  const sdkSourcePath = sdkVersion !== '' ? await (0, _utils().getJavaDebuggerHelpersServiceByNuclideUri)(targetUri).getSdkVersionSourcePath(sdkVersion, {
+    useSdkManager: _nuclideUri().default.isLocal(targetUri)
+  }) : null;
+>>>>>>> Update
 
   if (sdkSourcePath == null) {
     atom.notifications.addInfo('Unable to find Android Sdk Sources for version: ' + sdkVersion + '. Check if they are installed. Nuclide can still debug your application, but source code for frames inside Android library routines will not be available.');
@@ -247,21 +259,41 @@ async function _getAndroidSdkSourcePaths(targetUri, adbServiceUri, deviceSerial)
 }
 
 async function resolveConfiguration(configuration) {
+<<<<<<< HEAD
+=======
+  var _config$adbServiceUri, _config$selectSources;
+
+>>>>>>> Update
   // adapterType === VsAdapterTypes.JAVA_ANDROID
   const {
     config,
     debugMode,
     targetUri
   } = configuration;
+<<<<<<< HEAD
 
   const adbServiceUri = _getAdbServiceUri(targetUri, config);
 
   const resolvedTargetUri = _getResolvedTargetUri(targetUri, config);
+=======
+  const adbServiceUri = (_config$adbServiceUri = config.adbServiceUri) !== null && _config$adbServiceUri !== void 0 ? _config$adbServiceUri : targetUri;
+  const resolvedTargetUri = (_config$selectSources = config.selectSources) !== null && _config$selectSources !== void 0 ? _config$selectSources : targetUri;
+>>>>>>> Update
 
   const packageName = _getPackageName(debugMode, config);
 
   const deviceSerial = _getDeviceSerial(debugMode, config);
 
+<<<<<<< HEAD
+=======
+  (0, _analytics().track)('atom-ide-debugger-java-android-configuration', {
+    adbServiceUri,
+    packageName,
+    deviceSerial,
+    debugMode
+  });
+
+>>>>>>> Update
   if (debugMode === 'launch') {
     const {
       service,
@@ -277,7 +309,11 @@ async function resolveConfiguration(configuration) {
   const subscriptions = new (_UniversalDisposable().default)();
   const attachPortTargetConfig = await (0, _AndroidJavaDebuggerHelpers().getAdbAttachPortTargetInfo)(deviceSerial, adbServiceUri, resolvedTargetUri, pid, subscriptions, packageName);
   const androidSdkSourcePaths = await _getAndroidSdkSourcePaths(resolvedTargetUri, adbServiceUri, deviceSerial);
+<<<<<<< HEAD
   const clickEvents = new _RxMin.Subject();
+=======
+  const clickEvents = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   const adapterExecutable = await (0, _utils().getJavaDebuggerHelpersServiceByNuclideUri)(resolvedTargetUri).getJavaVSAdapterExecutableInfo(false);
   let processName = packageName; // Gets rid of path to package.
 

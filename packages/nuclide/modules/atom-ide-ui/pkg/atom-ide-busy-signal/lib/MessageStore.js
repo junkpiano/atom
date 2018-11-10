@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MessageStore = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons/UniversalDisposable"));
@@ -61,7 +65,11 @@ class MessageStore {
     this._counter = 0;
     this._messages = new Set();
     this._currentVisibleMessages = [];
+<<<<<<< HEAD
     this._messageStream = new _RxMin.BehaviorSubject([]);
+=======
+    this._messageStream = new _rxjsCompatUmdMin.BehaviorSubject([]);
+>>>>>>> Update
   }
 
   getMessageStream() {

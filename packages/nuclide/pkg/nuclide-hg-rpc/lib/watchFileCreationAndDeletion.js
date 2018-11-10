@@ -36,7 +36,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84,10 +88,17 @@ function filesCreateOrDeleteToObserver(fileChanges) {
 
 
 function getFilesInstantaneousExistance(repoPath, fileNames) {
+<<<<<<< HEAD
   return _RxMin.Observable.merge(...fileNames.map(fileName => {
     const qualifiedFileName = _nuclideUri().default.join(repoPath, fileName);
 
     return _RxMin.Observable.fromPromise(_fsPromise().default.exists(qualifiedFileName)).map(exists => [fileName, exists]);
+=======
+  return _rxjsCompatUmdMin.Observable.merge(...fileNames.map(fileName => {
+    const qualifiedFileName = _nuclideUri().default.join(repoPath, fileName);
+
+    return _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.exists(qualifiedFileName)).map(exists => [fileName, exists]);
+>>>>>>> Update
   })).toArray().map(pairs => {
     return new Map(pairs);
   });
@@ -103,9 +114,15 @@ function subscribeToFilesCreateAndDelete(watchmanClient, repoPath, fileNames, su
     expression: ['name', fileNames, 'wholename'],
     defer_vcs: false
   });
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(filesSubscriptionPromise).switchMap(subscription => {
     (0, _log4js().getLogger)('nuclide-hg-rpc').debug(`Watchman create/delete subscription ${subscriptionName}` + ` established for files: ${fileNames.join(',')}`);
     return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(filesSubscriptionPromise).switchMap(subscription => {
+    (0, _log4js().getLogger)('nuclide-hg-rpc').debug(`Watchman create/delete subscription ${subscriptionName}` + ` established for files: ${fileNames.join(',')}`);
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       // Check each file being watched if it already exists. This is done
       // individually so that no watchman event can invalidate previously
       // checked files. We only bother updating if the file exists.

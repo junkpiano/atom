@@ -59,7 +59,11 @@ function getFbGatekeepers() {
 
   try {
     // $FlowFB
+<<<<<<< HEAD
     fbGatekeepers = require('../../pkg/commons-node/fb-gatekeeper-list.js'); // eslint-disable-line nuclide-internal/modules-dependencies
+=======
+    fbGatekeepers = require('../fb-gatekeeper-raw/fb-gatekeeper-list.js'); // eslint-disable-line nuclide-internal/modules-dependencies
+>>>>>>> Update
   } catch (_) {}
 
   fbGatekeepersLoaded = true;

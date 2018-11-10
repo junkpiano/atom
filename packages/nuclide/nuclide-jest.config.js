@@ -17,7 +17,11 @@ const path = require('path');
 module.exports = {
   jestBin: path.resolve(__dirname, 'node_modules/.bin/jest'),
   jestConfig: path.resolve(__dirname, 'jest.config.js'),
+<<<<<<< HEAD
   nodeBin: path.resolve(__dirname, '../third-party/node/bin/node'),
+=======
+  nodeBin: path.resolve(__dirname, '../js/scripts/node/node'),
+>>>>>>> Update
   rootDir: __dirname,
   testRegex: '__(atom_)?tests__\\/.*\\.js$',
   env: {JEST_ENVIRONMENT: 'nuclide:nuclide-test-runner'},

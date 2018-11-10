@@ -19,10 +19,17 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
 function _ReactMountRootElement() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-ui/ReactMountRootElement"));
 
   _ReactMountRootElement = function () {
+=======
+function _renderReactRoot() {
+  const data = require("../../../modules/nuclide-commons-ui/renderReactRoot");
+
+  _renderReactRoot = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -49,7 +56,21 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileTreeSidebarComponent() {
   const data = _interopRequireDefault(require("../components/FileTreeSidebarComponent"));
@@ -107,17 +128,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class ViewModel {
   constructor(store) {
+<<<<<<< HEAD
     this._disposed = new _RxMin.ReplaySubject(1);
     this._store = store;
     this._element = new (_ReactMountRootElement().default)();
 
     _reactDom.default.render(React.createElement(_FileTreeSidebarComponent().default, {
+=======
+    this._disposed = new _rxjsCompatUmdMin.ReplaySubject(1);
+    this._store = store;
+    this._element = (0, _renderReactRoot().renderReactRoot)(React.createElement(_FileTreeSidebarComponent().default, {
+>>>>>>> Update
       store: this._store,
       ref: component => {
         this._component = component;
       }
+<<<<<<< HEAD
     }), this._element);
 
+=======
+    }), 'FileTreeRoot');
+>>>>>>> Update
     this._disposable = new (_UniversalDisposable().default)((0, _observePaneItemVisibility().default)(this).filter(Boolean).subscribe(() => {
       // If "Reveal File on Switch" is enabled, ensure the scroll position is synced to where the
       // user expects when the side bar shows the file tree.
@@ -195,6 +226,7 @@ class ViewModel {
   }
 
   onDidChangeTitle(callback) {
+<<<<<<< HEAD
     return new (_UniversalDisposable().default)( // $FlowIgnore: Flow doesn't know about Symbol.observable
     _RxMin.Observable.from(this._store).map(Selectors().getSidebarTitle).distinctUntilChanged().takeUntil(this._disposed).subscribe(callback));
   }
@@ -202,6 +234,13 @@ class ViewModel {
   onDidChangePath(callback) {
     return new (_UniversalDisposable().default)( // $FlowIgnore: Flow doesn't know about Symbol.observable
     _RxMin.Observable.from(this._store).map(Selectors().getSidebarPath).distinctUntilChanged().takeUntil(this._disposed).subscribe(callback));
+=======
+    return new (_UniversalDisposable().default)((0, _observableFromReduxStore().default)(this._store).map(Selectors().getSidebarTitle).distinctUntilChanged().takeUntil(this._disposed).subscribe(callback));
+  }
+
+  onDidChangePath(callback) {
+    return new (_UniversalDisposable().default)((0, _observableFromReduxStore().default)(this._store).map(Selectors().getSidebarPath).distinctUntilChanged().takeUntil(this._disposed).subscribe(callback));
+>>>>>>> Update
   }
 
 }

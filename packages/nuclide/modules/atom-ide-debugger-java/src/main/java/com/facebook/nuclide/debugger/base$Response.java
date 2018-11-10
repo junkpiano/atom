@@ -11,7 +11,11 @@ package com.facebook.nuclide.debugger;
 import org.json.JSONObject;
 
 public abstract class base$Response extends base$ProtocolMessage {
+<<<<<<< HEAD
   private int request_seq;
+=======
+  public int request_seq;
+>>>>>>> Update
   public boolean success;
   public String command;
   private String message;
@@ -24,6 +28,17 @@ public abstract class base$Response extends base$ProtocolMessage {
     this.message = "";
   }
 
+<<<<<<< HEAD
+=======
+  public base$Response(JSONObject responseJSON) {
+    super(responseJSON);
+    this.request_seq = responseJSON.getInt("request_seq");
+    this.command = responseJSON.getString("command");
+    this.success = responseJSON.getBoolean("success");
+    this.message = responseJSON.optString("message");
+  }
+
+>>>>>>> Update
   public base$Response setSuccess(boolean success) {
     this.success = success;
     return this;

@@ -30,7 +30,11 @@ function _applyActionMiddleware() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _Commands() {
   const data = require("./Commands");
@@ -113,7 +117,11 @@ function _event() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -135,11 +143,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 function createStateStream(actions, initialState) {
+<<<<<<< HEAD
   const states = new _RxMin.BehaviorSubject(initialState);
   actions.scan(_accumulateState().accumulateState, initialState).catch(error => {
     (0, _log4js().getLogger)('nuclide-bookshelf').fatal('bookshelf middleware got broken', error);
     atom.notifications.addError('Nuclide bookshelf broke, please report a bug to help us fix it!');
     return _RxMin.Observable.empty();
+=======
+  const states = new _rxjsCompatUmdMin.BehaviorSubject(initialState); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+  actions.scan(_accumulateState().accumulateState, initialState).catch(error => {
+    (0, _log4js().getLogger)('nuclide-bookshelf').fatal('bookshelf middleware got broken', error);
+    atom.notifications.addError('Nuclide bookshelf broke, please report a bug to help us fix it!');
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }).subscribe(states);
   return states;
 }
@@ -155,7 +172,11 @@ class Activation {
       initialState = (0, _utils().getEmptBookShelfState)();
     }
 
+<<<<<<< HEAD
     const actions = new _RxMin.Subject();
+=======
+    const actions = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const states = this._states = createStateStream((0, _applyActionMiddleware().applyActionMiddleware)(actions, () => this._states.getValue()), initialState);
 
     const dispatch = action => {
@@ -168,7 +189,11 @@ class Activation {
       commands.addProjectRepository(repository);
     });
 
+<<<<<<< HEAD
     const paneStateChangeSubscription = _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(atom.workspace.onDidAddPaneItem.bind(atom.workspace)), (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidDestroyPaneItem.bind(atom.workspace))).subscribe(() => {
+=======
+    const paneStateChangeSubscription = _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(atom.workspace.onDidAddPaneItem.bind(atom.workspace)), (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidDestroyPaneItem.bind(atom.workspace))).subscribe(() => {
+>>>>>>> Update
       commands.updatePaneItemState();
     });
 
@@ -187,7 +212,11 @@ class Activation {
       switch (_featureConfig().default.get(_constants().ACTIVE_SHORTHEAD_CHANGE_BEHAVIOR_CONFIG)) {
         case _constants().ActiveShortHeadChangeBehavior.ALWAYS_IGNORE:
           (0, _nuclideAnalytics().track)('bookshelf-always-ignore');
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
 
         case _constants().ActiveShortHeadChangeBehavior.ALWAYS_RESTORE:
           (0, _nuclideAnalytics().track)('bookshelf-always-restore'); // The restore needs to wait for the change shorthead state update to complete
@@ -197,7 +226,11 @@ class Activation {
           process.nextTick(() => {
             commands.restorePaneItemState(repository, activeShortHead);
           });
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
 
         default:
           // Including ActiveShortHeadChangeBehavior.PROMPT_TO_RESTORE

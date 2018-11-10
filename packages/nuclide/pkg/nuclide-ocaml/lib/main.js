@@ -26,6 +26,19 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _passesGK() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+
+  _passesGK = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _CodeLensListener() {
   const data = require("./CodeLensListener");
 
@@ -71,6 +84,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let disposables = new (_UniversalDisposable().default)();
 
 async function activate() {
+<<<<<<< HEAD
+=======
+  if (await (0, _passesGK().default)('nuclide_fb_ocaml_vscode_ext')) {
+    return;
+  }
+
+>>>>>>> Update
   const ocamlLspLanguageService = (0, _OCamlLanguage().createLanguageService)();
   ocamlLspLanguageService.activate();
   disposables.add(ocamlLspLanguageService);

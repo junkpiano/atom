@@ -43,10 +43,17 @@ function _SimpleCache() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _nuclideAnalytics() {
   const data = require("../../../nuclide-analytics");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _nuclideAnalytics() {
+  const data = require("../../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -138,7 +145,11 @@ function pollDevicesEpic(actions, store) {
     return [store.getState(), action.payload.isActive];
   }).distinctUntilChanged(([stateA, isActiveA], [stateB, isActiveB]) => stateA.deviceType === stateB.deviceType && stateA.host === stateB.host && isActiveA === isActiveB).switchMap(([state, isActive]) => {
     if (state.deviceType == null || !isActive) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     for (const fetcher of (0, _providers().getProviders)().deviceList) {
@@ -147,7 +158,11 @@ function pollDevicesEpic(actions, store) {
       }
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   });
 }
 
@@ -158,7 +173,11 @@ function setDevicesEpic(actions, store) {
       (0, _nuclideAnalytics().track)('nuclide-device-panel:device-tasks:error', {
         error
       });
+<<<<<<< HEAD
       return _RxMin.Observable.of(new Map());
+=======
+      return _rxjsCompatUmdMin.Observable.of(new Map());
+>>>>>>> Update
     });
   }).map(tasks => Actions().setDeviceTasks(tasks));
 }
@@ -169,12 +188,20 @@ function pollProcessesEpic(actions, store) {
       throw new Error("Invariant violation: \"action.type === Actions.TOGGLE_PROCESS_POLLING\"");
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.of([store.getState(), action.payload.isActive]);
+=======
+    return _rxjsCompatUmdMin.Observable.of([store.getState(), action.payload.isActive]);
+>>>>>>> Update
   }).distinctUntilChanged(([stateA, isActiveA], [stateB, isActiveB]) => stateA.deviceType === stateB.deviceType && stateA.host === stateB.host && (0, _shallowequal().default)(stateA.device, stateB.device) && isActiveA === isActiveB).switchMap(([state, isActive]) => {
     const device = state.device;
 
     if (device == null || !isActive) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     const providers = Array.from((0, _providers().getProviders)().deviceProcesses).filter(provider => provider.getType() === state.deviceType);
@@ -183,7 +210,11 @@ function pollProcessesEpic(actions, store) {
       return providers[0].observe(state.host, device).map(processes => Actions().setProcesses(processes));
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   });
 }
 
@@ -194,7 +225,11 @@ function setDeviceEpic(actions, store) {
     }
 
     const state = store.getState();
+<<<<<<< HEAD
     return _RxMin.Observable.merge(getInfoTables(state).switchMap(infoTables => _RxMin.Observable.of(Actions().setInfoTables(infoTables))), getProcessTasks(state).switchMap(processTasks => _RxMin.Observable.of(Actions().setProcessTasks(processTasks))));
+=======
+    return _rxjsCompatUmdMin.Observable.merge(getInfoTables(state).switchMap(infoTables => _rxjsCompatUmdMin.Observable.of(Actions().setInfoTables(infoTables))), getProcessTasks(state).switchMap(processTasks => _rxjsCompatUmdMin.Observable.of(Actions().setProcessTasks(processTasks))));
+>>>>>>> Update
   });
 }
 
@@ -206,7 +241,11 @@ function setDeviceTypesEpic(actions, store) {
 
     const state = store.getState();
     const deviceType = state.deviceType != null ? state.deviceType : state.deviceTypes[0];
+<<<<<<< HEAD
     return _RxMin.Observable.merge(_RxMin.Observable.of(Actions().setDeviceType(deviceType)), _RxMin.Observable.of(Actions().toggleDevicePolling(state.isPollingDevices)));
+=======
+    return _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(Actions().setDeviceType(deviceType)), _rxjsCompatUmdMin.Observable.of(Actions().toggleDevicePolling(state.isPollingDevices)));
+>>>>>>> Update
   });
 }
 
@@ -217,14 +256,22 @@ const deviceTypeTaskCache = new (_SimpleCache().SimpleCache)({
 function setDeviceTypeEpic(actions, store) {
   return actions.ofType(Actions().SET_DEVICE_TYPE).switchMap(action => {
     const state = store.getState();
+<<<<<<< HEAD
     return _RxMin.Observable.of(Array.from((0, _providers().getProviders)().deviceTypeTask).filter(provider => provider.getType() === state.deviceType).map(provider => deviceTypeTaskCache.getOrCreate([state, provider.getName()], () => new (_DevicePanelTask().DevicePanelTask)(() => provider.getDeviceTypeTask(state.host), provider.getName())))).map(tasks => Actions().setDeviceTypeTasks(tasks.sort((a, b) => a.getName().localeCompare(b.getName()))));
+=======
+    return _rxjsCompatUmdMin.Observable.of(Array.from((0, _providers().getProviders)().deviceTypeTask).filter(provider => provider.getType() === state.deviceType).map(provider => deviceTypeTaskCache.getOrCreate([state, provider.getName()], () => new (_DevicePanelTask().DevicePanelTask)(() => provider.getDeviceTypeTask(state.host), provider.getName())))).map(tasks => Actions().setDeviceTypeTasks(tasks.sort((a, b) => a.getName().localeCompare(b.getName()))));
+>>>>>>> Update
   });
 }
 
 function setProcessesEpic(actions, store) {
   return actions.ofType(Actions().SET_PROCESSES).switchMap(action => {
     const state = store.getState();
+<<<<<<< HEAD
     return getProcessTasks(state).switchMap(processTasks => _RxMin.Observable.of(Actions().setProcessTasks(processTasks)));
+=======
+    return getProcessTasks(state).switchMap(processTasks => _rxjsCompatUmdMin.Observable.of(Actions().setProcessTasks(processTasks)));
+>>>>>>> Update
   });
 }
 
@@ -236,7 +283,11 @@ function setAppInfoEpic(actions, store) {
     } = store.getState();
 
     if (device == null || processNames.length === 0) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(new Map());
+=======
+      return _rxjsCompatUmdMin.Observable.of(new Map());
+>>>>>>> Update
     }
 
     const providers = Array.from((0, _providers().getProviders)().appInfo);
@@ -258,16 +309,27 @@ function setDeviceTypeComponentsEpic(actions, store) {
     } = store.getState();
 
     if (deviceType == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     const providers = Array.from((0, _providers().getProviders)().deviceTypeComponent).filter(provider => provider.getType() === deviceType);
 
     if (providers.length === 0) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     }
 
     const combinedComponents = _RxMin.Observable.from(providers.map(provider => _RxMin.Observable.create(observer => {
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    const combinedComponents = _rxjsCompatUmdMin.Observable.from(providers.map(provider => _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       const disposable = provider.observe(host, component => {
         observer.next(component);
       });
@@ -276,7 +338,11 @@ function setDeviceTypeComponentsEpic(actions, store) {
       };
     }).startWith(null).catch(e => {
       (0, _log4js().getLogger)().error(e);
+<<<<<<< HEAD
       return _RxMin.Observable.of(null);
+=======
+      return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
     })) // $FlowFixMe add combineAll to flow
     ).combineAll();
 
@@ -325,7 +391,11 @@ function observeAppInfoTables(processNames, providers, host, device) {
   (0, _collection().collect)((0, _collection().arrayFlatten)(multipleAppInfoRows).map(appInfoRow => [appInfoRow.appName, appInfoRow])); // $FlowFixMe - combineLatest type spec doesn't support spread operator.
 
 
+<<<<<<< HEAD
   return _RxMin.Observable.combineLatest(...observables, resultSelector);
+=======
+  return _rxjsCompatUmdMin.Observable.combineLatest(...observables, resultSelector);
+>>>>>>> Update
 }
 
 function observeAppInfoTable(tableProviders, host, device) {
@@ -347,10 +417,17 @@ function observeAppInfoTable(tableProviders, host, device) {
 const APP_INFO_UPDATE_INTERVAL = 3000;
 
 function observeAppInfoProviderValues(providers, host, device) {
+<<<<<<< HEAD
   const observables = providers.map(provider => _RxMin.Observable.timer(0, APP_INFO_UPDATE_INTERVAL).switchMap(() => {
     return provider.observe(host, device).map(value => ({
       value
     })).catch(error => _RxMin.Observable.of({
+=======
+  const observables = providers.map(provider => _rxjsCompatUmdMin.Observable.timer(0, APP_INFO_UPDATE_INTERVAL).switchMap(() => {
+    return provider.observe(host, device).map(value => ({
+      value
+    })).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       value: error.message,
       isError: true
     }));
@@ -362,13 +439,18 @@ function observeAppInfoProviderValues(providers, host, device) {
     }
   })); // $FlowFixMe - combineLatest type spec doesn't support spread operator.
 
+<<<<<<< HEAD
   return _RxMin.Observable.combineLatest(...observables);
+=======
+  return _rxjsCompatUmdMin.Observable.combineLatest(...observables);
+>>>>>>> Update
 }
 
 function getInfoTables(state) {
   const device = state.device;
 
   if (device == null) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(new Map());
   }
 
@@ -376,6 +458,15 @@ function getInfoTables(state) {
     return provider.isSupported(state.host).switchMap(isSupported => {
       if (!isSupported) {
         return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.of(new Map());
+  }
+
+  return _rxjsCompatUmdMin.Observable.merge(...Array.from((0, _providers().getProviders)().deviceInfo).filter(provider => provider.getType() === state.deviceType).map(provider => {
+    return provider.isSupported(state.host).switchMap(isSupported => {
+      if (!isSupported) {
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       return provider.fetch(state.host, device).map(list => ({
@@ -383,7 +474,11 @@ function getInfoTables(state) {
         list,
         priority: provider.getPriority === undefined ? -1 : provider.getPriority()
       }));
+<<<<<<< HEAD
     }).catch(() => _RxMin.Observable.empty());
+=======
+    }).catch(() => _rxjsCompatUmdMin.Observable.empty());
+>>>>>>> Update
   })).toArray().map(infoTables => infoTables.sort((a, b) => b.priority - a.priority).map(table => [table.title, table.list])).map(infoTables => new Map(infoTables));
 }
 
@@ -391,10 +486,17 @@ function getProcessTasks(state) {
   const device = state.device;
 
   if (device == null) {
+<<<<<<< HEAD
     return _RxMin.Observable.of([]);
   }
 
   return _RxMin.Observable.merge(...Array.from((0, _providers().getProviders)().processTask).filter(provider => provider.getType() === state.deviceType).map(provider => {
+=======
+    return _rxjsCompatUmdMin.Observable.of([]);
+  }
+
+  return _rxjsCompatUmdMin.Observable.merge(...Array.from((0, _providers().getProviders)().processTask).filter(provider => provider.getType() === state.deviceType).map(provider => {
+>>>>>>> Update
     const processes = state.processes.getOrDefault([]);
     return provider.getSupportedPIDs(state.host, device, processes).map(supportedSet => {
       return {
@@ -416,14 +518,22 @@ function getDeviceTasks(state) {
   } = state;
 
   if (deviceType == null) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }
 
   const providers = Array.from((0, _providers().getProviders)().deviceTask).filter(provider => provider.getType() === deviceType);
   const observablePerDevice = devices.getOrDefault([]).map(device => getDeviceTasksForDevice(providers, device, host));
 
   const combinedMapPairs = // $FlowIgnore combineAll
+<<<<<<< HEAD
   _RxMin.Observable.from(observablePerDevice).combineAll();
+=======
+  _rxjsCompatUmdMin.Observable.from(observablePerDevice).combineAll();
+>>>>>>> Update
 
   return combinedMapPairs.map(pairs => new Map(pairs));
 } // Generates a pair of device identifier + tasks for it. The identifier is always for the device passed in.
@@ -434,7 +544,11 @@ function getDeviceTasksForDevice(providers, device, host) {
   // A single observable per each provider for this device.
   const perProviderAndDevice = providers.map(provider => getDeviceTasksForProvider(device, provider, host)); // $FlowIgnore combineAll
 
+<<<<<<< HEAD
   const combinedForDevice = _RxMin.Observable.from(perProviderAndDevice).combineAll(); // Flatten the array (merge tasks from all providers into a single flat array)
+=======
+  const combinedForDevice = _rxjsCompatUmdMin.Observable.from(perProviderAndDevice).combineAll(); // Flatten the array (merge tasks from all providers into a single flat array)
+>>>>>>> Update
   // and put that array it into a tuple with identifier for this device.
 
 
@@ -444,7 +558,11 @@ function getDeviceTasksForDevice(providers, device, host) {
 }
 
 function getDeviceTasksForProvider(device, provider, host) {
+<<<<<<< HEAD
   return provider.getDeviceTasks(host, device).catch(() => _RxMin.Observable.of([])).defaultIfEmpty([]).map(tasks => {
+=======
+  return provider.getDeviceTasks(host, device).catch(() => _rxjsCompatUmdMin.Observable.of([])).defaultIfEmpty([]).map(tasks => {
+>>>>>>> Update
     return tasks.map( // TODO: Keep track of tasks after starting them
     t => new (_DevicePanelTask().DevicePanelTask)(() => t.getEvents(), t.getName()));
   });

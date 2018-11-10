@@ -9,7 +9,11 @@ exports.writeToStream = writeToStream;
 
 var _stream = _interopRequireDefault(require("stream"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("./UniversalDisposable"));
@@ -53,9 +57,15 @@ function observeStream(stream) {
 }
 
 function observeRawStream(stream) {
+<<<<<<< HEAD
   const error = _RxMin.Observable.fromEvent(stream, 'error').flatMap(_RxMin.Observable.throw);
 
   return _RxMin.Observable.fromEvent(stream, 'data').merge(error).takeUntil(_RxMin.Observable.fromEvent(stream, 'end'));
+=======
+  const error = _rxjsCompatUmdMin.Observable.fromEvent(stream, 'error').flatMap(_rxjsCompatUmdMin.Observable.throw);
+
+  return _rxjsCompatUmdMin.Observable.fromEvent(stream, 'data').merge(error).takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(stream, 'end'));
+>>>>>>> Update
 }
 /**
  * Write an observed readable stream into a writable stream. Effectively a pipe() for observables.
@@ -64,7 +74,11 @@ function observeRawStream(stream) {
 
 
 function writeToStream(source, destStream) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let byteCount = 0;
     const byteCounterStream = new _stream.default.Transform({
       transform(chunk, encoding, cb) {

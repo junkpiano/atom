@@ -2,7 +2,11 @@
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,7 +46,11 @@ describe('FlowProcess', () => {
     const runCommand = processModule.runCommand;
     jest.spyOn(processModule, 'runCommand').mockImplementation((command, args, options) => {
       if (args && args[0] === 'version' && args[1] === '--json') {
+<<<<<<< HEAD
         return new _RxMin.Observable.of(JSON.stringify({
+=======
+        return new _rxjsCompatUmdMin.Observable.of(JSON.stringify({
+>>>>>>> Update
           binary
         }));
       }
@@ -87,7 +95,11 @@ describe('FlowProcess', () => {
     const FlowExecInfoContainerModule = require("../lib/FlowExecInfoContainer");
 
     FlowExecInfoContainer = FlowExecInfoContainerModule.FlowExecInfoContainer;
+<<<<<<< HEAD
     fakeRunCommandDetailed = jest.fn().mockReturnValue(_RxMin.Observable.of({
+=======
+    fakeRunCommandDetailed = jest.fn().mockReturnValue(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       exitCode: FLOW_RETURN_CODES.ok
     }));
     flowProcess = new FlowProcess(root, new FlowExecInfoContainer(), null);
@@ -102,12 +114,20 @@ describe('FlowProcess', () => {
 
       fakeRunCommandDetailed = () => {
         if (called) {
+<<<<<<< HEAD
           return _RxMin.Observable.of({
+=======
+          return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
             exitCode: FLOW_RETURN_CODES.ok
           });
         } else {
           called = true;
+<<<<<<< HEAD
           return _RxMin.Observable.throw({
+=======
+          return _rxjsCompatUmdMin.Observable.throw({
+>>>>>>> Update
             exitCode: FLOW_RETURN_CODES.noServerRunning,
             stderr: "There is no flow server running\n'/path/to/flow/root'"
           });
@@ -178,7 +198,11 @@ describe('FlowProcess', () => {
     [FLOW_RETURN_CODES.buildIdMismatch, 'not running']];
     exitCodeStatusPairs.forEach(([exitCode, status]) => {
       it(`should be ${status} when Flow returns ${exitCode}`, async () => {
+<<<<<<< HEAD
         fakeRunCommandDetailed = () => _RxMin.Observable.of({
+=======
+        fakeRunCommandDetailed = () => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           exitCode
         });
 
@@ -196,17 +220,29 @@ describe('FlowProcess', () => {
       fakeRunCommandDetailed = () => {
         switch (currentStatus) {
           case 'unknown':
+<<<<<<< HEAD
             return _RxMin.Observable.of({
+=======
+            return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
               exitCode: FLOW_RETURN_CODES.noServerRunning
             });
 
           case 'not running':
+<<<<<<< HEAD
             return _RxMin.Observable.of({
+=======
+            return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
               exitCode: FLOW_RETURN_CODES.serverInitializing
             });
 
           case 'init':
+<<<<<<< HEAD
             return _RxMin.Observable.of({
+=======
+            return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
               exitCode: FLOW_RETURN_CODES.ok
             });
 

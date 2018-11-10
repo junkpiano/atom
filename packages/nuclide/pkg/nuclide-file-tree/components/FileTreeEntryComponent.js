@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _DraggableFile() {
+  const data = require("../../../modules/nuclide-commons-ui/DraggableFile");
+
+  _DraggableFile = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _reactRedux() {
   const data = require("react-redux");
 
@@ -149,7 +162,11 @@ function _PathWithFileIcon() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -168,6 +185,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const SUBSEQUENT_FETCH_SPINNER_DELAY = 500;
 const INITIAL_FETCH_SPINNER_DELAY = 25;
 const INDENT_LEVEL = 17;
+<<<<<<< HEAD
+=======
+const FILE_TREE_DRAG_SOURCE = 'file-tree';
+>>>>>>> Update
 
 class FileTreeEntryComponent extends React.Component {
   constructor(props) {
@@ -260,6 +281,7 @@ class FileTreeEntryComponent extends React.Component {
         return;
       }
 
+<<<<<<< HEAD
       const nodes = this.props.selectedNodes;
 
       if (!this.props.isPreview && nodes.size === 1 && (0, _nullthrows().default)(nodes.first()).isRoot) {
@@ -277,6 +299,29 @@ class FileTreeEntryComponent extends React.Component {
       }
 
       this.props.setDragHoveredNode();
+=======
+      if (!this.props.node.isContainer) {
+        return;
+      }
+
+      const {
+        selectedNodes
+      } = this.props;
+      const singleRootNodeIsSelected = !this.props.isPreview && selectedNodes.size === 1 && (0, _nullthrows().default)(selectedNodes.first()).isRoot;
+      const movableNodes = selectedNodes.filter(node => FileTreeHgHelpers().isValidRename(node.uri, this.props.node.uri));
+      const haveUploadableOSFiles = this.props.canTransferFiles && event.dataTransfer && event.dataTransfer.types.includes('Files');
+
+      if ((0, _DraggableFile().dragEventCameFromDraggableFile)(event)) {
+        // Ideally we would check to see if the rename was valid, but we don't have permission to peek inside the dataTransfer data.
+        this.props.setDragHoveredNode();
+      } else if (haveUploadableOSFiles) {
+        this.props.setDragHoveredNode();
+      } else if (singleRootNodeIsSelected) {
+        this.props.reorderDragInto();
+      } else if (movableNodes.size > 0) {
+        this.props.setDragHoveredNode();
+      }
+>>>>>>> Update
     };
 
     this._onDragLeave = event => {
@@ -319,7 +364,13 @@ class FileTreeEntryComponent extends React.Component {
         dataTransfer.effectAllowed = 'move';
         dataTransfer.setDragImage(fileIcon, -8, -4);
         dataTransfer.setData('initialPath', this.props.node.uri);
+<<<<<<< HEAD
       }
+=======
+        dataTransfer.setData('nuclideSource', FILE_TREE_DRAG_SOURCE);
+      } // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
       _observable().nextAnimationFrame.subscribe(() => {
         if (!(document.body != null)) {
@@ -350,10 +401,20 @@ class FileTreeEntryComponent extends React.Component {
 
       event.preventDefault();
       event.stopPropagation();
+<<<<<<< HEAD
       const dragNode = this.props.selectedNodes.size === 1 ? this.props.selectedNodes.first() : null;
       const files = (_event$dataTransfer = event.dataTransfer) === null || _event$dataTransfer === void 0 ? void 0 : _event$dataTransfer.files;
 
       if (files && files.length && this.props.canTransferFiles) {
+=======
+      const externalDragPath = getExternalDragPath(event);
+      const dragNode = this.props.selectedNodes.size === 1 ? this.props.selectedNodes.first() : null;
+      const files = (_event$dataTransfer = event.dataTransfer) === null || _event$dataTransfer === void 0 ? void 0 : _event$dataTransfer.files;
+
+      if (externalDragPath != null) {
+        this.props.movePathToNode(externalDragPath);
+      } else if (files && files.length && this.props.canTransferFiles) {
+>>>>>>> Update
         if (this.props.node.isContainer) {
           this.props.uploadDroppedFiles(files);
         } else {// TODO: Show warning
@@ -394,7 +455,11 @@ class FileTreeEntryComponent extends React.Component {
 
 
   shouldComponentUpdate(nextProps, nextState) {
+<<<<<<< HEAD
     return nextProps.node !== this.props.node || nextProps.isSelected !== this.props.isSelected || nextProps.isFocused !== this.props.isFocused || nextProps.isPreview !== this.props.isPreview || nextProps.usePreviewTabs !== this.props.usePreviewTabs || nextProps.isEditingWorkingSet !== this.props.isEditingWorkingSet || nextState.isLoading !== this.state.isLoading;
+=======
+    return nextProps.node !== this.props.node || nextProps.isSelected !== this.props.isSelected || nextProps.isFocused !== this.props.isFocused || nextProps.isPreview !== this.props.isPreview || nextProps.usePreviewTabs !== this.props.usePreviewTabs || nextProps.isEditingWorkingSet !== this.props.isEditingWorkingSet || nextProps.vcsStatusCode !== this.props.vcsStatusCode || nextState.isLoading !== this.state.isLoading;
+>>>>>>> Update
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -425,7 +490,11 @@ class FileTreeEntryComponent extends React.Component {
 
     this._disposables = new (_UniversalDisposable().default)( // Because this element can be inside of an Atom panel (which adds its own drag and drop
     // handlers) we need to sidestep React's event delegation.
+<<<<<<< HEAD
     _RxMin.Observable.fromEvent(el, 'dragenter').subscribe(this._onDragEnter), _RxMin.Observable.fromEvent(el, 'dragleave').subscribe(this._onDragLeave), _RxMin.Observable.fromEvent(el, 'dragstart').subscribe(this._onDragStart), _RxMin.Observable.fromEvent(el, 'dragover').subscribe(this._onDragOver), _RxMin.Observable.fromEvent(el, 'dragend').subscribe(this._onDragEnd), _RxMin.Observable.fromEvent(el, 'drop').subscribe(this._onDrop));
+=======
+    _rxjsCompatUmdMin.Observable.fromEvent(el, 'dragenter').subscribe(this._onDragEnter), _rxjsCompatUmdMin.Observable.fromEvent(el, 'dragleave').subscribe(this._onDragLeave), _rxjsCompatUmdMin.Observable.fromEvent(el, 'dragstart').subscribe(this._onDragStart), _rxjsCompatUmdMin.Observable.fromEvent(el, 'dragover').subscribe(this._onDragOver), _rxjsCompatUmdMin.Observable.fromEvent(el, 'dragend').subscribe(this._onDragEnd), _rxjsCompatUmdMin.Observable.fromEvent(el, 'drop').subscribe(this._onDrop));
+>>>>>>> Update
   }
 
   componentWillUnmount() {
@@ -443,7 +512,12 @@ class FileTreeEntryComponent extends React.Component {
   render() {
     const {
       node,
+<<<<<<< HEAD
       isSelected
+=======
+      isSelected,
+      vcsStatusCode
+>>>>>>> Update
     } = this.props;
     const outerClassName = (0, _classnames().default)('entry', {
       'file list-item': !node.isContainer,
@@ -464,8 +538,11 @@ class FileTreeEntryComponent extends React.Component {
     let statusClass;
 
     if (!this.props.isEditingWorkingSet) {
+<<<<<<< HEAD
       const vcsStatusCode = node.vcsStatusCode;
 
+=======
+>>>>>>> Update
       if (vcsStatusCode === _hgConstants().StatusCodeNumber.MODIFIED) {
         statusClass = 'status-modified';
       } else if (vcsStatusCode === _hgConstants().StatusCodeNumber.ADDED) {
@@ -623,9 +700,16 @@ class FileTreeEntryComponent extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   isSelected: Selectors().getSelectedNodes(state).includes(ownProps.node),
   isFocused: Selectors().getFocusedNodes(state).includes(ownProps.node),
+<<<<<<< HEAD
   usePreviewTabs: Selectors().getConf(state).usePreviewTabs,
   isEditingWorkingSet: Selectors().isEditingWorkingSet(state),
   canTransferFiles: Selectors().getCanTransferFiles(state)
+=======
+  usePreviewTabs: Selectors().getUsePreviewTabs(state),
+  isEditingWorkingSet: Selectors().isEditingWorkingSet(state),
+  canTransferFiles: Selectors().getCanTransferFiles(state),
+  vcsStatusCode: Selectors().getVcsStatus(state)(ownProps.node)
+>>>>>>> Update
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -691,9 +775,42 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   uploadDroppedFiles: files => {
     dispatch(Actions().uploadDroppedFiles(ownProps.node, files));
+<<<<<<< HEAD
   }
 });
 
+=======
+  },
+  movePathToNode: uri => {
+    dispatch(Actions().movePathToNode(uri, ownProps.node));
+  }
+});
+
+function getExternalDragPath(event) {
+  const {
+    dataTransfer
+  } = event;
+
+  if (dataTransfer == null) {
+    return null;
+  }
+
+  const nuclideSource = dataTransfer.getData('nuclideSource'); // For drag events within File Tree we use the selected nodes not `dataTransfer`.
+  // Ignore these events.
+
+  if (nuclideSource === FILE_TREE_DRAG_SOURCE) {
+    return null;
+  } // This is what <DraggableFile> uses.
+
+
+  const initialPath = dataTransfer.getData('initialPath'); // This is what https://github.com/atom/tabs uses.
+
+  const textPlain = dataTransfer.getData('text/plain'); // `dataTransfer.getData()` returns empty string if the value has not been set.
+
+  return initialPath || textPlain || null;
+}
+
+>>>>>>> Update
 var _default = (0, _reactRedux().connect)(mapStateToProps, mapDispatchToProps)(FileTreeEntryComponent);
 
 exports.default = _default;

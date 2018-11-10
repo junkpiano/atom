@@ -89,7 +89,11 @@ function _log4js() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -98,7 +102,11 @@ function _nuclideAnalytics() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _types() {
   const data = require("./types");
@@ -215,12 +223,16 @@ function _translateOptionsToBuckBuildArgs(options) {
     extraArguments
   } = baseOptions;
   let args = [test ? 'test' : doInstall ? 'install' : run ? 'run' : 'build'];
+<<<<<<< HEAD
   args = args.concat(buildTargets, _types().CLIENT_ID_ARGS);
 
   if (!run) {
     args.push('--keep-going');
   } // flowlint-next-line sketchy-null-string:off
 
+=======
+  args = args.concat(buildTargets, _types().CLIENT_ID_ARGS); // flowlint-next-line sketchy-null-string:off
+>>>>>>> Update
 
   if (pathToBuildReport) {
     args = args.concat(['--build-report', pathToBuildReport]);
@@ -253,6 +265,7 @@ function _translateOptionsToBuckBuildArgs(options) {
   return args;
 }
 
+<<<<<<< HEAD
 async function _build(rootPath, buildTargets, options) {
   const report = await _fsPromise().default.tempfile({
     suffix: '.json'
@@ -292,6 +305,35 @@ async function _build(rootPath, buildTargets, options) {
   } finally {
     _fsPromise().default.unlink(report);
   }
+=======
+function _build(rootPath, buildTargets, options) {
+  return _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.tempfile({
+    suffix: '.json'
+  })).switchMap(report => {
+    const args = _translateOptionsToBuckBuildArgs({
+      baseOptions: Object.assign({}, options),
+      pathToBuildReport: report,
+      buildTargets
+    });
+
+    return runBuckCommandFromProjectRoot(rootPath, args, options.commandOptions, false, // Do not add the client ID, since we already do it in the build args.
+    true // Build commands are blocking.
+    ).catch(e => {
+      // The build failed. However, because --keep-going was specified, the
+      // build report should have still been written unless any of the target
+      // args were invalid. We check the contents of the report file to be sure.
+      return _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.stat(report).catch(() => null)).filter(stat => stat == null || stat.size === 0).switchMapTo(_rxjsCompatUmdMin.Observable.throw(e));
+    }).ignoreElements().concat(_rxjsCompatUmdMin.Observable.defer(() => _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.readFile(report, {
+      encoding: 'UTF-8'
+    }))).map(json => {
+      try {
+        return JSON.parse(json);
+      } catch (e) {
+        throw new Error(`Failed to parse:\n${json}`);
+      }
+    })).finally(() => _fsPromise().default.unlink(report));
+  });
+>>>>>>> Update
 }
 
 function build(rootPath, buildTargets, options) {
@@ -328,7 +370,11 @@ function getRootForPath(file) {
 
 
 function runBuckCommandFromProjectRoot(rootPath, args, commandOptions, addClientId = true, readOnly = true) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(_getBuckCommandAndOptions(rootPath, commandOptions)).switchMap(({
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(_getBuckCommandAndOptions(rootPath, commandOptions)).switchMap(({
+>>>>>>> Update
     pathToBuck,
     buckCommandOptions: options
   }) => {
@@ -345,7 +391,11 @@ function runBuckCommandFromProjectRoot(rootPath, args, commandOptions, addClient
       // Catch and rethrow exceptions to be tracked in our timer.
       deferredTimer.reject(e);
       errored = true;
+<<<<<<< HEAD
       return _RxMin.Observable.throw(e);
+=======
+      return _rxjsCompatUmdMin.Observable.throw(e);
+>>>>>>> Update
     }).finally(() => {
       if (!errored) {
         deferredTimer.resolve();
@@ -357,8 +407,13 @@ function runBuckCommandFromProjectRoot(rootPath, args, commandOptions, addClient
 
 
 function query(rootPath, queryString, extraArguments, appendPreferredArgs = true) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(_getPreferredArgsForRepo(rootPath)).switchMap(fbRepoSpecificArgs => {
     const args = ['query', ...extraArguments, '--json', queryString, ...(appendPreferredArgs ? fbRepoSpecificArgs : [])];
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(_getPreferredArgsForRepo(rootPath)).switchMap(fbRepoSpecificArgs => {
+    const args = ['query', '--json', queryString, ...extraArguments, ...(appendPreferredArgs ? fbRepoSpecificArgs : [])];
+>>>>>>> Update
     return runBuckCommandFromProjectRoot(rootPath, args).map(JSON.parse);
   });
 }

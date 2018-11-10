@@ -55,7 +55,11 @@ function _goToLocation() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -74,7 +78,11 @@ function getActionsOfType(actions, type) {
 }
 
 function applyActionMiddleware(actions, getState) {
+<<<<<<< HEAD
   const output = _RxMin.Observable.merge( // Let the unhandled ActionTypes pass through.
+=======
+  const output = _rxjsCompatUmdMin.Observable.merge( // Let the unhandled ActionTypes pass through.
+>>>>>>> Update
   actions.filter(action => HANDLED_ACTION_TYPES.indexOf(action.type) === -1), getActionsOfType(actions, _constants().ActionType.ADD_PROJECT_REPOSITORY).flatMap(action => {
     if (!(action.type === _constants().ActionType.ADD_PROJECT_REPOSITORY)) {
       throw new Error("Invariant violation: \"action.type === ActionType.ADD_PROJECT_REPOSITORY\"");
@@ -110,7 +118,11 @@ function watchProjectRepository(action, getState) {
       },
       type: _constants().ActionType.UPDATE_REPOSITORY_BOOKMARKS
     };
+<<<<<<< HEAD
   }).takeUntil((0, _event().observableFromSubscribeFunction)(repository.onDidDestroy.bind(repository))).concat(_RxMin.Observable.of({
+=======
+  }).takeUntil((0, _event().observableFromSubscribeFunction)(repository.onDidDestroy.bind(repository))).concat(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     payload: {
       repository
     },
@@ -126,7 +138,11 @@ function restorePaneItemState(action, getState) {
   const repositoryState = getState().repositoryPathToState.get(repository.getWorkingDirectory());
 
   if (repositoryState == null) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   } // TODO(most): refactor to a `Set` all the way.
 
 
@@ -136,12 +152,20 @@ function restorePaneItemState(action, getState) {
   const editorsToReload = oldOpenEditors.filter(textEditor => fileUris.has(textEditor.getPath() || ''));
   const editorsToClose = oldOpenEditors.filter(textEditor => !fileUris.has(textEditor.getPath() || ''));
   const urisToOpen = Array.from(fileUris).filter(fileUri => oldOpenUris.indexOf(fileUri) === -1);
+<<<<<<< HEAD
   return _RxMin.Observable.concat(_RxMin.Observable.of({
+=======
+  return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     payload: {
       repository
     },
     type: _constants().ActionType.START_RESTORING_REPOSITORY_STATE
+<<<<<<< HEAD
   }), _RxMin.Observable.from(editorsToClose) // Close the open files from the old short head.
+=======
+  }), _rxjsCompatUmdMin.Observable.from(editorsToClose) // Close the open files from the old short head.
+>>>>>>> Update
   .map(textEditor => {
     const editorPane = atom.workspace.paneForItem(textEditor);
 
@@ -152,14 +176,22 @@ function restorePaneItemState(action, getState) {
     }
   }).catch(error => {
     (0, _log4js().getLogger)('nuclide-bookshelf').error('bookshelf failed to close some editors', error);
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
   }).ignoreElements(), // Note: the reloading step can be omitted if the file watchers are proven to be robust.
   // But that's not the case; hence, a reload on bookmark switch/restore doesn't hurt.
   _RxMin.Observable.from(editorsToReload).flatMap(textEditor => {
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+  }).ignoreElements(), // Note: the reloading step can be omitted if the file watchers are proven to be robust.
+  // But that's not the case; hence, a reload on bookmark switch/restore doesn't hurt.
+  _rxjsCompatUmdMin.Observable.from(editorsToReload).flatMap(textEditor => {
+>>>>>>> Update
     // Reload the open files that also exist to be in the current.
     if (textEditor.isModified()) {
       // If the filesystem version has changed while it's edited,
       // the user will be prompted to resolve the conflict: `file-watcher`.
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     } else {
       return _RxMin.Observable.fromPromise(textEditor.getBuffer().load());
@@ -173,6 +205,21 @@ function restorePaneItemState(action, getState) {
     (0, _log4js().getLogger)('nuclide-bookshelf').error('bookshelf failed to open some editors', error);
     return _RxMin.Observable.empty();
   }).ignoreElements(), _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    } else {
+      return _rxjsCompatUmdMin.Observable.fromPromise(textEditor.getBuffer().load());
+    }
+  }).catch(error => {
+    (0, _log4js().getLogger)('nuclide-bookshelf').error('bookshelf failed to reload some editors', error);
+    return _rxjsCompatUmdMin.Observable.empty();
+  }).ignoreElements(), _rxjsCompatUmdMin.Observable.from(urisToOpen).flatMap(fileUri => {
+    return _rxjsCompatUmdMin.Observable.fromPromise((0, _goToLocation().goToLocation)(fileUri));
+  }).catch(error => {
+    (0, _log4js().getLogger)('nuclide-bookshelf').error('bookshelf failed to open some editors', error);
+    return _rxjsCompatUmdMin.Observable.empty();
+  }).ignoreElements(), _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     payload: {
       repository
     },

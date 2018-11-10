@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _debounced() {
   const data = require("./debounced");
@@ -99,7 +103,11 @@ class ActiveEditorRegistry {
   constructor(resultFunction, eventSources = {}) {
     this._resultFunction = resultFunction;
     this._providerRegistry = new (_ProviderRegistry().default)();
+<<<<<<< HEAD
     this._newProviderEvents = new _RxMin.Subject();
+=======
+    this._newProviderEvents = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._resultsStream = this._createResultsStream({
       activeEditors: eventSources.activeEditors || (0, _debounced().observeActiveEditorsDebounced)(),
       savesForEditor: eventSources.savesForEditor || (editor => {
@@ -125,29 +133,50 @@ class ActiveEditorRegistry {
   _createResultsStream(eventSources) {
     const repeatedEditors = eventSources.activeEditors.switchMap(editor => {
       if (editor == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(editor);
       }
 
       return _RxMin.Observable.concat(_RxMin.Observable.of(editor), this._newProviderEvents.mapTo(editor));
+=======
+        return _rxjsCompatUmdMin.Observable.of(editor);
+      }
+
+      return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(editor), this._newProviderEvents.mapTo(editor));
+>>>>>>> Update
     });
     const results = repeatedEditors.switchMap(editorArg => {
       // Necessary so the type refinement holds in the callback later
       const editor = editorArg;
 
       if (editor == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           kind: 'not-text-editor'
         });
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.concat( // Emit a pane change event first, so that clients can do something while waiting for a
       // provider to give a result.
       _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.concat( // Emit a pane change event first, so that clients can do something while waiting for a
+      // provider to give a result.
+      _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'pane-change',
         editor
       }), // wait for pending panes to no longer be pending, or if they're not,
       // get the result right away.
+<<<<<<< HEAD
       ((0, _paneItem().isPending)(editor) ? (0, _paneItem().observePendingStateEnd)(editor).take(1) : _RxMin.Observable.of(null)).ignoreElements(), _RxMin.Observable.fromPromise(this._getResultForEditor(this._getProvidersForEditor(editor), editor)), this._resultsForEditor(editor, eventSources));
+=======
+      ((0, _paneItem().isPending)(editor) ? (0, _paneItem().observePendingStateEnd)(editor).take(1) : _rxjsCompatUmdMin.Observable.of(null)).ignoreElements(), _rxjsCompatUmdMin.Observable.fromPromise(this._getResultForEditor(this._getProvidersForEditor(editor), editor)), this._resultsForEditor(editor, eventSources));
+>>>>>>> Update
     });
     return (0, _observable().cacheWhileSubscribed)(results);
   }
@@ -155,6 +184,7 @@ class ActiveEditorRegistry {
   _resultsForEditor(editor, eventSources) {
     // It's possible that the active provider for an editor changes over time.
     // Thus, we have to subscribe to both edits and saves.
+<<<<<<< HEAD
     return _RxMin.Observable.merge(eventSources.savesForEditor(editor).map(() => 'save')).flatMap(event => {
       const providers = this._getProvidersForEditor(editor);
 
@@ -163,6 +193,16 @@ class ActiveEditorRegistry {
         kind: event,
         editor
       }), _RxMin.Observable.fromPromise(this._getResultForEditor(providers, editor)));
+=======
+    return _rxjsCompatUmdMin.Observable.merge(eventSources.savesForEditor(editor).map(() => 'save')).flatMap(event => {
+      const providers = this._getProvidersForEditor(editor);
+
+      return _rxjsCompatUmdMin.Observable.concat( // $FlowIssue: {kind: save}
+      _rxjsCompatUmdMin.Observable.of({
+        kind: event,
+        editor
+      }), _rxjsCompatUmdMin.Observable.fromPromise(this._getResultForEditor(providers, editor)));
+>>>>>>> Update
     });
   }
 

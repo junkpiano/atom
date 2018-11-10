@@ -15,7 +15,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -41,7 +45,11 @@ const eventToPoint = e => ({
 
 
 function areHovering(element, editorElement) {
+<<<<<<< HEAD
   return _RxMin.Observable.merge(_RxMin.Observable.fromEvent(element, 'mouseenter').mapTo(true), _RxMin.Observable.fromEvent(element, 'mouseleave').mapTo(false), editorScrolled(editorElement).mapTo(false));
+=======
+  return _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.fromEvent(element, 'mouseenter').mapTo(true), _rxjsCompatUmdMin.Observable.fromEvent(element, 'mouseleave').mapTo(false), editorScrolled(editorElement).mapTo(false));
+>>>>>>> Update
 }
 
 function findCorners(node) {
@@ -77,7 +85,11 @@ function areAiming(from, to) {
   // center of `from`
 
   const [cornerA, cornerB] = toBelowFrom ? [topRight, bottomLeft] : [topLeft, bottomRight];
+<<<<<<< HEAD
   return _RxMin.Observable.fromEvent(document, 'mousemove').map(eventToPoint).auditTime(VECTOR_DURATION).map(mouse => distance(mouse, cornerA) + distance(mouse, cornerB)).pairwise().map(([prevDist, currentDist]) => prevDist > currentDist).distinctUntilChanged();
+=======
+  return _rxjsCompatUmdMin.Observable.fromEvent(document, 'mousemove').map(eventToPoint).auditTime(VECTOR_DURATION).map(mouse => distance(mouse, cornerA) + distance(mouse, cornerB)).pairwise().map(([prevDist, currentDist]) => prevDist > currentDist).distinctUntilChanged();
+>>>>>>> Update
 }
 
 function editorScrolled(editorElement) {
@@ -85,7 +97,11 @@ function editorScrolled(editorElement) {
 }
 
 function hoveringOrAiming(from, to, editorElement) {
+<<<<<<< HEAD
   return _RxMin.Observable.concat(areHovering(from, editorElement).startWith(true).takeWhile(Boolean), _RxMin.Observable.combineLatest(areAiming(from, to).startWith(true), areHovering(to, editorElement).startWith(false), editorScrolled(editorElement).mapTo(true).startWith(false), (aiming, hovering, scrolled) => {
+=======
+  return _rxjsCompatUmdMin.Observable.concat(areHovering(from, editorElement).startWith(true).takeWhile(Boolean), _rxjsCompatUmdMin.Observable.combineLatest(areAiming(from, to).startWith(true), areHovering(to, editorElement).startWith(false), editorScrolled(editorElement).mapTo(true).startWith(false), (aiming, hovering, scrolled) => {
+>>>>>>> Update
     return (aiming || hovering) && !scrolled;
   })).distinctUntilChanged();
 }

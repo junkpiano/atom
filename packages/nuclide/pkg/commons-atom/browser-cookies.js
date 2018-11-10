@@ -30,7 +30,10 @@ if (!(remote != null)) {
 var _default = {
   getCookies(domain) {
     return new Promise((resolve, reject) => {
+<<<<<<< HEAD
       // $FlowFixMe: Add types for electron$WebContents
+=======
+>>>>>>> Update
       remote.getCurrentWindow().webContents.session.cookies.get({
         domain
       }, (error, cookies) => {
@@ -49,7 +52,10 @@ var _default = {
 
   setCookie(url, domain, name, value) {
     return new Promise((resolve, reject) => {
+<<<<<<< HEAD
       // $FlowFixMe: Add types for electron$WebContents
+=======
+>>>>>>> Update
       remote.getCurrentWindow().webContents.session.cookies.set({
         url,
         domain,

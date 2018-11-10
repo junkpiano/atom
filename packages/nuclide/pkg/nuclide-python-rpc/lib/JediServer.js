@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -138,7 +142,11 @@ async function getServerArgs() {
 
 class JediServer {
   constructor() {
+<<<<<<< HEAD
     const processStream = _RxMin.Observable.fromPromise(getServerArgs()).switchMap(({
+=======
+    const processStream = _rxjsCompatUmdMin.Observable.fromPromise(getServerArgs()).switchMap(({
+>>>>>>> Update
       pythonPath,
       paths
     }) => {

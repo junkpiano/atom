@@ -35,7 +35,11 @@ function _ssh() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _SftpClient() {
   const data = require("./SftpClient");
@@ -105,8 +109,13 @@ class SshClient {
   constructor(client, onKeyboard) {
     this._deferredContinue = null;
     this._client = client || new (_ssh().Client)();
+<<<<<<< HEAD
     this._onError = _RxMin.Observable.fromEvent(this._client, 'error');
     this._onClose = _RxMin.Observable.fromEvent(this._client, 'close', hadError => ({
+=======
+    this._onError = _rxjsCompatUmdMin.Observable.fromEvent(this._client, 'error');
+    this._onClose = _rxjsCompatUmdMin.Observable.fromEvent(this._client, 'close', hadError => ({
+>>>>>>> Update
       hadError
     }));
     this._closePromise = new (_promise().Deferred)();

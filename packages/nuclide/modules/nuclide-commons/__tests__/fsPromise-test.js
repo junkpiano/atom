@@ -221,6 +221,17 @@ describe('fsPromise test suite', () => {
       expect(_fs.default.statSync(pathToWriteFile).mode & 0o777).toEqual(0o666 & ~process.umask() // eslint-disable-line no-bitwise
       );
     });
+<<<<<<< HEAD
+=======
+    it('can write to a file with permissions', async () => {
+      await _fsPromise().default.writeFileAtomic(pathToWriteFile, "I'm a little teapot.\n", {
+        mode: 0o700
+      }); // eslint-disable-next-line no-bitwise
+
+      expect(_fs.default.statSync(pathToWriteFile).mode & 0o777).toEqual(0o700 // eslint-disable-line no-bitwise
+      );
+    });
+>>>>>>> Update
     it('calls mkdirp', async () => {
       const subPath = _nuclideUri().default.join(pathToWriteFile, 'test');
 

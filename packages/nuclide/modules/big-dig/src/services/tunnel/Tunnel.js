@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ReverseTunnel = exports.Tunnel = void 0;
 
+<<<<<<< HEAD
+=======
+function _ProxyConfigUtils() {
+  const data = require("./ProxyConfigUtils");
+
+  _ProxyConfigUtils = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _SocketManager() {
   const data = require("./SocketManager");
 
@@ -51,6 +64,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 class Tunnel extends _events.default {
+<<<<<<< HEAD
   constructor(id, proxy, localPort, remotePort, useIPv4, transport) {
     super();
     this._id = id;
@@ -58,6 +72,13 @@ class Tunnel extends _events.default {
     this._localPort = localPort;
     this._remotePort = remotePort;
     this._useIPv4 = useIPv4;
+=======
+  constructor(id, proxy, tunnelConfig, transport) {
+    super();
+    this._id = id;
+    this._proxy = proxy;
+    this._tunnelConfig = tunnelConfig;
+>>>>>>> Update
     this._transport = transport;
     this._isClosed = false;
     this._logger = (0, _log4js().getLogger)('tunnel');
@@ -70,6 +91,7 @@ class Tunnel extends _events.default {
     }
   }
 
+<<<<<<< HEAD
   static async createTunnel(localPort, remotePort, useIPv4, transport) {
     const tunnelId = generateId();
     const proxy = await _Proxy().Proxy.createProxy(tunnelId, localPort, remotePort, useIPv4, transport);
@@ -90,12 +112,46 @@ class Tunnel extends _events.default {
       remotePort: localPort
     }));
     return new ReverseTunnel(tunnelId, socketManager, localPort, remotePort, useIPv4, transport);
+=======
+  static async createTunnel(tunnelConfig, transport) {
+    const tunnelId = generateId();
+    const proxy = await _Proxy().Proxy.createProxy(tunnelId, tunnelConfig, transport);
+    return new Tunnel(tunnelId, proxy, tunnelConfig, transport);
+  }
+
+  static async createReverseTunnel(tunnelConfig, transport) {
+    const tunnelId = generateId();
+    const socketManager = new (_SocketManager().SocketManager)(tunnelId, tunnelConfig.local, transport);
+    transport.send(JSON.stringify({
+      event: 'createProxy',
+      tunnelId,
+      tunnelConfig: reverseTunnelConfig(tunnelConfig)
+    }));
+    return new ReverseTunnel(tunnelId, socketManager, tunnelConfig, transport);
+>>>>>>> Update
   }
 
   incrementRefCount() {
     this._refCount++;
   }
 
+<<<<<<< HEAD
+=======
+  isTunnelConfigEqual(tunnelConfig) {
+    return (0, _ProxyConfigUtils().isProxyConfigEqual)(tunnelConfig.local, this.getConfig().local) && (0, _ProxyConfigUtils().isProxyConfigEqual)(tunnelConfig.remote, this.getConfig().remote);
+  }
+
+  assertNoOverlap(tunnelConfig) {
+    if ((0, _ProxyConfigUtils().isProxyConfigOverlapping)(tunnelConfig.local, this.getConfig().local)) {
+      throw new Error(`there already exists a tunnel connecting to ${(0, _ProxyConfigUtils().getProxyConfigDescriptor)(tunnelConfig.local)}`);
+    }
+
+    if ((0, _ProxyConfigUtils().isProxyConfigOverlapping)(tunnelConfig.remote, this.getConfig().remote)) {
+      throw new Error(`there already exists a tunnel connecting to ${(0, _ProxyConfigUtils().getProxyConfigDescriptor)(tunnelConfig.remote)}`);
+    }
+  }
+
+>>>>>>> Update
   hasReferences() {
     return this._refCount > 0;
   }
@@ -110,6 +166,7 @@ class Tunnel extends _events.default {
     return this._id;
   }
 
+<<<<<<< HEAD
   getLocalPort() {
     return this._localPort;
   }
@@ -120,6 +177,10 @@ class Tunnel extends _events.default {
 
   getUseIPv4() {
     return this._useIPv4;
+=======
+  getConfig() {
+    return this._tunnelConfig;
+>>>>>>> Update
   }
 
   getRefCount() {
@@ -146,13 +207,25 @@ class Tunnel extends _events.default {
     }
   }
 
+<<<<<<< HEAD
+=======
+  isReverse() {
+    return false;
+  }
+
+>>>>>>> Update
 }
 
 exports.Tunnel = Tunnel;
 
 class ReverseTunnel extends Tunnel {
+<<<<<<< HEAD
   constructor(id, socketManager, localPort, remotePort, useIPv4, transport) {
     super(id, null, localPort, remotePort, useIPv4, transport);
+=======
+  constructor(id, socketManager, tunnelConfig, transport) {
+    super(id, null, tunnelConfig, transport);
+>>>>>>> Update
     this._socketManager = socketManager;
 
     this._socketManager.on('error', error => {
@@ -186,6 +259,13 @@ class ReverseTunnel extends Tunnel {
     }
   }
 
+<<<<<<< HEAD
+=======
+  isReverse() {
+    return true;
+  }
+
+>>>>>>> Update
 } // TODO: this should really be a UUID
 
 
@@ -194,4 +274,17 @@ let nextId = 1;
 
 function generateId() {
   return 'tunnel' + nextId++;
+<<<<<<< HEAD
+=======
+}
+
+function reverseTunnelConfig(tunnelConfig) {
+  return {
+    // NB: on the server, the remote port and local ports are reversed.
+    // We want to start the proxy on the remote port (relative to the
+    // client) and start the socket manager on the local port
+    local: tunnelConfig.remote,
+    remote: tunnelConfig.local
+  };
+>>>>>>> Update
 }

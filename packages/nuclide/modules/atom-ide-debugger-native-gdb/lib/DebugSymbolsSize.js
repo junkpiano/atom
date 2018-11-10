@@ -26,7 +26,11 @@ function _process() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72,7 +76,12 @@ async function debugSymSizeByBinary(binary) {
   const SIZE_COLUMN = 5;
   return new Promise((resolve, reject) => {
     try {
+<<<<<<< HEAD
       (0, _process().runCommand)('readelf', ['-WS', binary]).catch(_ => _RxMin.Observable.of('')).map(stdout => stdout.split(/\n/) // filter out just the section lines on [##]
+=======
+      // eslint-disable-next-line nuclide-internal/unused-subscription
+      (0, _process().runCommand)('readelf', ['-WS', binary]).catch(_ => _rxjsCompatUmdMin.Observable.of('')).map(stdout => stdout.split(/\n/) // filter out just the section lines on [##]
+>>>>>>> Update
       .filter(line => /\[\s*\d+\]/.test(line)) // Remove spaces from the single-digit section indices, so we can
       // safely split on spaces (i.e. '[ 1]' becomes '[1]')
       .map(line => line.replace(/\[\s*(\d+)\]/, '[$1]').trim().split(/\s+/)).filter(tuple => /(debug|stab)/.test(tuple[NAME_COLUMN])).reduce((sum, tuple) => sum + parseInt(tuple[SIZE_COLUMN], 16), 0)).subscribe(value => resolve(value));

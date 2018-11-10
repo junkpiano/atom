@@ -16,7 +16,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45,10 +49,14 @@ function attachEvent(emitter, eventName, callback) {
 }
 
 function observableFromSubscribeFunction(fn) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
     const disposable = fn(observer.next.bind(observer));
     return () => {
       disposable.dispose();
     };
   });
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => new (_UniversalDisposable().default)(fn(observer.next.bind(observer))));
+>>>>>>> Update
 }

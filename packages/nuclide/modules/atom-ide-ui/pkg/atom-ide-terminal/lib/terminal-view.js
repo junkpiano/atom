@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.deserializeTerminalView = deserializeTerminalView;
 exports.getSafeInitialInput = getSafeInitialInput;
+<<<<<<< HEAD
 exports.TerminalView = exports.URI_PREFIX = void 0;
+=======
+exports.TerminalView = void 0;
+>>>>>>> Update
 
 var _atom = require("atom");
 
@@ -51,7 +55,11 @@ function _observable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _url = _interopRequireDefault(require("url"));
 
@@ -165,6 +173,7 @@ function _config() {
   return data;
 }
 
+<<<<<<< HEAD
 function _nuclideTerminalUri() {
   const data = require("./nuclide-terminal-uri");
 
@@ -175,6 +184,8 @@ function _nuclideTerminalUri() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _sink() {
   const data = require("./sink");
 
@@ -200,9 +211,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 /* eslint-env browser */
+<<<<<<< HEAD
 const URI_PREFIX = 'atom://nuclide-terminal-view';
 exports.URI_PREFIX = URI_PREFIX;
 
+=======
+>>>>>>> Update
 class TerminalView {
   constructor(info) {
     this._syncFontAndFit = terminal => {
@@ -261,7 +275,11 @@ class TerminalView {
     const gkService = (0, _AtomServiceContainer().getGkService)();
     const preferDom = gkService != null ? gkService.passesGK('nuclide_terminal_prefer_dom') : Promise.resolve(false);
 
+<<<<<<< HEAD
     this._subscriptions.add(_RxMin.Observable.combineLatest(_RxMin.Observable.fromPromise(preferDom), (0, _observePaneItemVisibility().default)(this).filter(Boolean).first()).subscribe(([passesPreferDom]) => {
+=======
+    this._subscriptions.add(_rxjsCompatUmdMin.Observable.combineLatest(_rxjsCompatUmdMin.Observable.fromPromise(preferDom), (0, _observePaneItemVisibility().default)(this).filter(Boolean).first()).subscribe(([passesPreferDom]) => {
+>>>>>>> Update
       const rendererType = _featureConfig().default.get(_config().RENDERER_TYPE_CONFIG);
 
       const terminal = (0, _createTerminal().createTerminal)( // $FlowIgnore: rendererType config not yet added in flow typing
@@ -288,8 +306,13 @@ class TerminalView {
   }
 
   _subscribeFitEvents(terminal) {
+<<<<<<< HEAD
     return new (_UniversalDisposable().default)((0, _config().subscribeConfigChanges)(terminal), _RxMin.Observable.combineLatest((0, _observePaneItemVisibility().default)(this), _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(cb => atom.config.onDidChange('editor.fontSize', cb)), _featureConfig().default.observeAsStream(_config().FONT_SCALE_CONFIG).skip(1), _featureConfig().default.observeAsStream(_config().FONT_FAMILY_CONFIG).skip(1), _featureConfig().default.observeAsStream(_config().LINE_HEIGHT_CONFIG).skip(1), _RxMin.Observable.fromEvent(terminal, 'focus'), // Debounce resize observables to reduce lag.
     _RxMin.Observable.merge(_RxMin.Observable.fromEvent(window, 'resize'), new (_observableDom().ResizeObservable)(this._div)).let((0, _observable().fastDebounce)(100))).startWith(null)) // Don't emit syncs if the pane is not visible.
+=======
+    return new (_UniversalDisposable().default)((0, _config().subscribeConfigChanges)(terminal), _rxjsCompatUmdMin.Observable.combineLatest((0, _observePaneItemVisibility().default)(this), _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(cb => atom.config.onDidChange('editor.fontSize', cb)), _featureConfig().default.observeAsStream(_config().FONT_SCALE_CONFIG).skip(1), _featureConfig().default.observeAsStream(_config().FONT_FAMILY_CONFIG).skip(1), _featureConfig().default.observeAsStream(_config().LINE_HEIGHT_CONFIG).skip(1), _rxjsCompatUmdMin.Observable.fromEvent(terminal, 'focus'), // Debounce resize observables to reduce lag.
+    _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.fromEvent(window, 'resize'), new (_observableDom().ResizeObservable)(this._div)).let((0, _observable().fastDebounce)(100))).startWith(null)) // Don't emit syncs if the pane is not visible.
+>>>>>>> Update
     .filter(([visible]) => visible).subscribe(() => this._syncFontAndFit(terminal)));
   }
 
@@ -341,11 +364,18 @@ class TerminalView {
 
     if (process.platform === 'win32') {
       // On Windows, add Putty-style highlight and right click to copy, right click to paste.
+<<<<<<< HEAD
       this._subscriptions.add(_RxMin.Observable.fromEvent(this._div, 'contextmenu').subscribe(e => {
         // Note: Manipulating the clipboard directly because atom's core:copy and core:paste
         // commands are not working correctly with terminal selection.
         if (terminal.hasSelection()) {
           // $FlowFixMe: add types for clipboard
+=======
+      this._subscriptions.add(_rxjsCompatUmdMin.Observable.fromEvent(this._div, 'contextmenu').subscribe(e => {
+        // Note: Manipulating the clipboard directly because atom's core:copy and core:paste
+        // commands are not working correctly with terminal selection.
+        if (terminal.hasSelection()) {
+>>>>>>> Update
           _electron.clipboard.writeText(terminal.getSelection());
         } else {
           document.execCommand('paste');
@@ -355,6 +385,19 @@ class TerminalView {
         terminal.focus();
         e.stopPropagation();
       }));
+<<<<<<< HEAD
+=======
+    } else {
+      let copyOnSelect;
+
+      this._subscriptions.add(_featureConfig().default.observeAsStream(_config().COPY_ON_SELECT_CONFIG).subscribe(copyOnSelectConf => copyOnSelect = Boolean(copyOnSelectConf)), terminal.addDisposableListener('selection', () => {
+        if (copyOnSelect && terminal.hasSelection()) {
+          _electron.clipboard.writeText(terminal.getSelection());
+
+          terminal.focus();
+        }
+      }));
+>>>>>>> Update
     }
 
     this._subscriptions.add(atom.commands.add(this._div, 'core:copy', () => {
@@ -385,17 +428,32 @@ class TerminalView {
       startDelay: Math.round(now - this._startTime)
     });
 
+<<<<<<< HEAD
     this._subscriptions.add(this.dispose.bind(this), _RxMin.Observable.fromEvent(terminal, 'data').subscribe(this._onInput.bind(this)), _RxMin.Observable.fromEvent(terminal, 'title').subscribe(title => {
+=======
+    this._subscriptions.add(this.dispose.bind(this), _rxjsCompatUmdMin.Observable.fromEvent(terminal, 'data').subscribe(this._onInput.bind(this)), _rxjsCompatUmdMin.Observable.fromEvent(terminal, 'title').subscribe(title => {
+>>>>>>> Update
       this._setTitle(title);
 
       if (this._useTitleAsPath) {
         this._setPath(title);
       }
+<<<<<<< HEAD
     }), _RxMin.Observable.interval(60 * 60 * 1000).subscribe(() => (0, _analytics().track)('nuclide-terminal.hourly', this._statistics())), _RxMin.Observable.fromEvent(terminal, 'focus').subscribe(this._focused.bind(this)), _RxMin.Observable.fromEvent(terminal, 'blur').subscribe(this._blurred.bind(this)));
+=======
+    }), _rxjsCompatUmdMin.Observable.interval(60 * 60 * 1000).subscribe(() => (0, _analytics().track)('nuclide-terminal.hourly', this._statistics())), _rxjsCompatUmdMin.Observable.fromEvent(terminal, 'focus').subscribe(this._focused.bind(this)), _rxjsCompatUmdMin.Observable.fromEvent(terminal, 'blur').subscribe(this._blurred.bind(this)));
+>>>>>>> Update
 
     this._syncFontAndFit(terminal);
 
     this._subscriptions.add((0, _measurePerformance().default)(terminal));
+<<<<<<< HEAD
+=======
+
+    this._emitter.emit('spawn', {
+      success: true
+    });
+>>>>>>> Update
   }
 
   _focused() {
@@ -438,6 +496,13 @@ class TerminalView {
       startDelay: Math.round((0, _performanceNow().default)() - this._startTime),
       error: String(error)
     });
+<<<<<<< HEAD
+=======
+
+    this._emitter.emit('spawn', {
+      success: false
+    });
+>>>>>>> Update
   } // Since changing the font settings may resize the contents, we have to
   // trigger a re-fit when updating font settings.
 
@@ -637,6 +702,14 @@ class TerminalView {
 
   getPath() {
     return this._path;
+<<<<<<< HEAD
+=======
+  } // Breadcrumbs uses this to determine how to show the path.
+
+
+  getPathIsDirectory() {
+    return true;
+>>>>>>> Update
   }
 
   onDidChangePath(callback) {
@@ -647,6 +720,13 @@ class TerminalView {
     return this.on('did-change-title', callback);
   }
 
+<<<<<<< HEAD
+=======
+  onSpawn(callback) {
+    return this.on('spawn', callback);
+  }
+
+>>>>>>> Update
   on(name, callback) {
     if (this._subscriptions.disposed) {
       return new (_UniversalDisposable().default)();
@@ -668,11 +748,15 @@ class TerminalView {
 exports.TerminalView = TerminalView;
 
 function deserializeTerminalView(state) {
+<<<<<<< HEAD
   if (state.initialInfo != null) {
     return new TerminalView(state.initialInfo);
   }
 
   return new TerminalView((0, _nuclideTerminalUri().infoFromUri)(URI_PREFIX));
+=======
+  return new TerminalView(state.initialInfo);
+>>>>>>> Update
 }
 
 function registerLinkHandlers(terminal, cwd) {
@@ -720,11 +804,21 @@ function registerLinkHandlers(terminal, cwd) {
       if (replacedUrl !== '') {
         const commandClicked = process.platform === 'win32' ? event.ctrlKey : event.metaKey;
 
+<<<<<<< HEAD
         if (commandClicked && tryOpenInAtom(replacedUrl, cwd)) {
           return;
         }
 
         _electron.shell.openExternal(replacedUrl);
+=======
+        if (shouldOpenInAtom(replacedUrl)) {
+          if (commandClicked) {
+            tryOpenInAtom(replacedUrl, cwd);
+          }
+        } else {
+          _electron.shell.openExternal(replacedUrl);
+        }
+>>>>>>> Update
       }
     }, {
       matchIndex
@@ -732,6 +826,7 @@ function registerLinkHandlers(terminal, cwd) {
   }
 }
 
+<<<<<<< HEAD
 function tryOpenInAtom(link, cwd) {
   const parsed = _url.default.parse(link);
 
@@ -762,6 +857,38 @@ function tryOpenInAtom(link, cwd) {
   }
 
   return false;
+=======
+function shouldOpenInAtom(link) {
+  const parsed = _url.default.parse(link);
+
+  return parsed.protocol === 'open-file-object:';
+}
+
+function tryOpenInAtom(link, cwd) {
+  const parsed = _url.default.parse(link);
+
+  const path = parsed.path;
+
+  if (path != null) {
+    const fileLine = path.split(':');
+    let filePath = fileLine[0];
+    let line = 0;
+
+    if (fileLine.length > 1 && parseInt(fileLine[1], 10) > 0) {
+      line = parseInt(fileLine[1], 10) - 1;
+    }
+
+    if (cwd != null && _nuclideUri().default.isRemote(cwd)) {
+      const terminalLocation = _nuclideUri().default.parseRemoteUri(cwd);
+
+      filePath = _nuclideUri().default.createRemoteUri(terminalLocation.hostname, filePath);
+    }
+
+    (0, _goToLocation().goToLocation)(filePath, {
+      line
+    });
+  }
+>>>>>>> Update
 }
 
 function openLink(event, link) {

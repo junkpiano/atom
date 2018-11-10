@@ -91,7 +91,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 async function getDevices() {
+<<<<<<< HEAD
   const output = await (0, _process().runCommand)('fbsimctl', ['--json', '--format=%n%u%s%o%a', 'list']).toPromise();
+=======
+  const output = await (0, _process().runCommand)('fbsimctl', ['--json', '--format=%n%u%s%o%a', 'list']).catch(e => {
+    if (e.stdout != null) {
+      e.message += `\n\n${e.stdout}`;
+    }
+
+    throw e;
+  }).timeout(5000).toPromise();
+>>>>>>> Update
   return (0, _Parsing().parseFbsimctlJsonOutput)(output);
 }
 

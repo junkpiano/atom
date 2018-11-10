@@ -7,7 +7,11 @@ exports.combineEpics = combineEpics;
 exports.createEpicMiddleware = createEpicMiddleware;
 exports.ActionsObservable = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -47,15 +51,27 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
 function combineEpics(...epics) {
   return (actions, store, extra) => {
     const streams = epics.map(epic => epic(actions, store, extra));
+<<<<<<< HEAD
     return _RxMin.Observable.merge(...streams);
+=======
+    return _rxjsCompatUmdMin.Observable.merge(...streams);
+>>>>>>> Update
   };
 }
 
 function createEpicMiddleware(rootEpic) {
+<<<<<<< HEAD
   const actions = new _RxMin.Subject();
   const actionsObs = new ActionsObservable(actions);
   return store => next => {
     if (rootEpic != null) {
+=======
+  const actions = new _rxjsCompatUmdMin.Subject();
+  const actionsObs = new ActionsObservable(actions);
+  return store => next => {
+    if (rootEpic != null) {
+      // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
       rootEpic(actionsObs, store).subscribe(store.dispatch);
     }
 
@@ -67,7 +83,11 @@ function createEpicMiddleware(rootEpic) {
   };
 }
 
+<<<<<<< HEAD
 class ActionsObservable extends _RxMin.Observable {
+=======
+class ActionsObservable extends _rxjsCompatUmdMin.Observable {
+>>>>>>> Update
   constructor(actionsSubject) {
     super();
     this.source = actionsSubject;

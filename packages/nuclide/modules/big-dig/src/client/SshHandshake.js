@@ -187,6 +187,10 @@ class SshAuthError extends Error {
 
 class SshHandshake {
   constructor(delegate, connection) {
+<<<<<<< HEAD
+=======
+    this._tunnelIfNotSecure = false;
+>>>>>>> Update
     this._canceled = false;
     this._delegate = delegate;
     this._connection = new (_SshClient().SshClient)(connection ? connection : new (_ssh().Client)(), this._onKeyboardInteractive.bind(this));
@@ -667,7 +671,11 @@ class SshHandshake {
     const server = await this._setupServerPackage(this._config.remoteServer);
     await this._startRemoteServer(server); // Use an ssh tunnel if server is not secure
 
+<<<<<<< HEAD
     if (this._isSecure()) {
+=======
+    if (!this._tunnelIfNotSecure || this._isSecure()) {
+>>>>>>> Update
       if (!(this._remoteHost != null)) {
         throw new Error("Invariant violation: \"this._remoteHost != null\"");
       }

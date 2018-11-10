@@ -10,7 +10,11 @@ function _LogTailer() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -30,7 +34,11 @@ describe('LogTailer', () => {
   it('invokes the running callback when there\'s no "starting" status', () => {
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
+<<<<<<< HEAD
       messages: _RxMin.Observable.never(),
+=======
+      messages: _rxjsCompatUmdMin.Observable.never(),
+>>>>>>> Update
       trackingEvents: {
         start: 'logtailer-test-start',
         stop: 'logtailer-test-stop',
@@ -44,10 +52,17 @@ describe('LogTailer', () => {
     expect(handleRunning).toHaveBeenCalled();
   });
   it('invokes the running callback when there\'s a "starting" status', () => {
+<<<<<<< HEAD
     const ready = new _RxMin.Subject();
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages: _RxMin.Observable.never(),
+=======
+    const ready = new _rxjsCompatUmdMin.Subject();
+    const logTailer = new (_LogTailer().LogTailer)({
+      name: 'test',
+      messages: _rxjsCompatUmdMin.Observable.never(),
+>>>>>>> Update
       ready,
       trackingEvents: {
         start: 'logtailer-test-start',
@@ -65,8 +80,13 @@ describe('LogTailer', () => {
   });
   it("doesn't show an error notification when every start call has a running callback", () => {
     jest.spyOn(atom.notifications, 'addError').mockImplementation(() => {});
+<<<<<<< HEAD
     const ready = new _RxMin.Subject();
     const messages = new _RxMin.Subject();
+=======
+    const ready = new _rxjsCompatUmdMin.Subject();
+    const messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const err = new Error('Uh oh');
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
@@ -93,8 +113,13 @@ describe('LogTailer', () => {
   });
   it("shows an error notification when a running callback isn't registered", () => {
     jest.spyOn(atom.notifications, 'addError').mockImplementation(() => {});
+<<<<<<< HEAD
     const ready = new _RxMin.Subject();
     const messages = new _RxMin.Subject();
+=======
+    const ready = new _rxjsCompatUmdMin.Subject();
+    const messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const err = new Error('Uh oh');
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
@@ -118,8 +143,13 @@ describe('LogTailer', () => {
   it('invokes the running callback with a cancellation error when stopped before ready', () => {
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
+<<<<<<< HEAD
       messages: _RxMin.Observable.never(),
       ready: _RxMin.Observable.never(),
+=======
+      messages: _rxjsCompatUmdMin.Observable.never(),
+      ready: _rxjsCompatUmdMin.Observable.never(),
+>>>>>>> Update
       trackingEvents: {
         start: 'logtailer-test-start',
         stop: 'logtailer-test-stop',
@@ -136,11 +166,19 @@ describe('LogTailer', () => {
     expect(err.name).toBe('ProcessCancelledError');
   });
   it('invokes the running callback with a cancellation error when the source completes before ever' + ' becoming ready', () => {
+<<<<<<< HEAD
     const messages = new _RxMin.Subject();
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages,
       ready: _RxMin.Observable.never(),
+=======
+    const messages = new _rxjsCompatUmdMin.Subject();
+    const logTailer = new (_LogTailer().LogTailer)({
+      name: 'test',
+      messages,
+      ready: _rxjsCompatUmdMin.Observable.never(),
+>>>>>>> Update
       trackingEvents: {
         start: 'logtailer-test-start',
         stop: 'logtailer-test-stop',
@@ -157,10 +195,17 @@ describe('LogTailer', () => {
     expect(err.name).toBe('ProcessCancelledError');
   });
   it("invokes the running callback immediately if it's already running", () => {
+<<<<<<< HEAD
     const ready = new _RxMin.Subject();
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages: _RxMin.Observable.never(),
+=======
+    const ready = new _rxjsCompatUmdMin.Subject();
+    const logTailer = new (_LogTailer().LogTailer)({
+      name: 'test',
+      messages: _rxjsCompatUmdMin.Observable.never(),
+>>>>>>> Update
       ready,
       trackingEvents: {
         start: 'logtailer-test-start',
@@ -178,8 +223,13 @@ describe('LogTailer', () => {
   });
   it("shows an error notification if there's an error after it starts running", () => {
     jest.spyOn(atom.notifications, 'addError').mockImplementation(() => {});
+<<<<<<< HEAD
     const ready = new _RxMin.Subject();
     const messages = new _RxMin.Subject();
+=======
+    const ready = new _rxjsCompatUmdMin.Subject();
+    const messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages,
@@ -203,7 +253,11 @@ describe('LogTailer', () => {
   it('uses the error handler', () => {
     jest.spyOn(atom.notifications, 'addError').mockImplementation(() => {});
     const handleError = jest.fn();
+<<<<<<< HEAD
     const messages = new _RxMin.Subject();
+=======
+    const messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages,
@@ -224,7 +278,11 @@ describe('LogTailer', () => {
     const handleError = jest.fn().mockImplementation(err => {
       throw err;
     });
+<<<<<<< HEAD
     const messages = new _RxMin.Subject();
+=======
+    const messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages,
@@ -245,7 +303,11 @@ describe('LogTailer', () => {
     const handleError = jest.fn().mockImplementation(() => {
       throw new Error('Unexpected');
     });
+<<<<<<< HEAD
     const messages = new _RxMin.Subject();
+=======
+    const messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const logTailer = new (_LogTailer().LogTailer)({
       name: 'test',
       messages,

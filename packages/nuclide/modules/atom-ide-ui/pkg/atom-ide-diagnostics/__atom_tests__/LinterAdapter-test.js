@@ -12,7 +12,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons/UniversalDisposable"));
@@ -86,7 +90,11 @@ describe('LinterAdapter', () => {
   }
 
   beforeEach(() => {
+<<<<<<< HEAD
     textEventSubject = new _RxMin.Subject();
+=======
+    textEventSubject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     textEventSpy = jest.spyOn(require("../../../../nuclide-commons-atom/text-event"), 'observeTextEditorEvents').mockReturnValue(textEventSubject.asObservable());
     const fakeBuffer = {
       onDidDestroy(callback) {

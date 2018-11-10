@@ -55,7 +55,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -171,12 +175,20 @@ class CodeActionManager {
     return (0, _debounced().observeActiveEditorsDebounced)(0).switchMap( // Get selections for the active editor.
     editor => {
       if (editor == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const destroyEvents = (0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor));
       const selections = (0, _event().observableFromSubscribeFunction)(editor.onDidChangeSelectionRange.bind(editor)).switchMap(event => // Remove 0-character selections since it's just cursor movement.
+<<<<<<< HEAD
       event.newBufferRange.isEmpty() ? _RxMin.Observable.of(null) : _RxMin.Observable.of(event.newBufferRange).delay(TIP_DELAY_MS) // Delay the emission of the range.
+=======
+      event.newBufferRange.isEmpty() ? _rxjsCompatUmdMin.Observable.of(null) : _rxjsCompatUmdMin.Observable.of(event.newBufferRange).delay(TIP_DELAY_MS) // Delay the emission of the range.
+>>>>>>> Update
       .startWith(null) // null the range immediately when selection changes.
       ).distinctUntilChanged().takeUntil(destroyEvents);
       return selections.map(range => range == null ? null : {
@@ -186,7 +198,11 @@ class CodeActionManager {
     }).switchMap( // Get a message for the provided selection.
     selection => {
       if (selection == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(null);
+=======
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       const {
@@ -196,11 +212,19 @@ class CodeActionManager {
       const file = editor.getBuffer().getPath();
 
       if (file == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
       }
 
       const diagnostics = this._diagnosticUpdater == null ? [] : this._diagnosticUpdater.getFileMessageUpdates(file).messages.filter(message => message.range && message.range.intersectsWith(range));
       return _RxMin.Observable.fromPromise(this._genAllCodeActions(editor, range, diagnostics)).switchMap(actions => {
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+
+      const diagnostics = this._diagnosticUpdater == null ? [] : this._diagnosticUpdater.getFileMessageUpdates(file).messages.filter(message => message.range && message.range.intersectsWith(range));
+      return _rxjsCompatUmdMin.Observable.fromPromise(this._genAllCodeActions(editor, range, diagnostics)).switchMap(actions => {
+>>>>>>> Update
         // Only produce a message if we have actions to display.
         if (actions.length > 0) {
           return actionsToMessage({
@@ -208,7 +232,11 @@ class CodeActionManager {
             position: range
           }, actions);
         } else {
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }
       });
     }).distinctUntilChanged().catch((e, caught) => {

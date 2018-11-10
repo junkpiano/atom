@@ -19,7 +19,11 @@ function _observable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../nuclide-commons/event");
@@ -95,7 +99,11 @@ function editorScrollTopDebounced(editor, debounceInterval = DEFAULT_EDITOR_DEBO
 // otherwise yields events on each move of the primary cursor within any Editor.
 function observeTextEditorsPositions(editorDebounceInterval = DEFAULT_EDITOR_DEBOUNCE_INTERVAL_MS, positionDebounceInterval = DEFAULT_POSITION_DEBOUNCE_INTERVAL_MS) {
   return observeActiveEditorsDebounced(editorDebounceInterval).switchMap(editor => {
+<<<<<<< HEAD
     return editor == null ? _RxMin.Observable.of(null) : (0, _textEditor().getCursorPositions)(editor).let((0, _observable().fastDebounce)(positionDebounceInterval)).map(position => {
+=======
+    return editor == null ? _rxjsCompatUmdMin.Observable.of(null) : (0, _textEditor().getCursorPositions)(editor).let((0, _observable().fastDebounce)(positionDebounceInterval)).map(position => {
+>>>>>>> Update
       if (!(editor != null)) {
         throw new Error("Invariant violation: \"editor != null\"");
       }

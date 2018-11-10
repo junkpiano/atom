@@ -5,30 +5,51 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 function _analytics() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/analytics"));
 
   _analytics = function () {
+=======
+function _ProviderRegistry() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/ProviderRegistry"));
+
+  _ProviderRegistry = function () {
+>>>>>>> Update
     return data;
   };
 
   return data;
 }
 
+<<<<<<< HEAD
 function _getFragmentGrammar() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/getFragmentGrammar"));
 
   _getFragmentGrammar = function () {
+=======
+function _analytics() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/analytics"));
+
+  _analytics = function () {
+>>>>>>> Update
     return data;
   };
 
   return data;
 }
 
+<<<<<<< HEAD
 function _collection() {
   const data = require("../../../modules/nuclide-commons/collection");
 
   _collection = function () {
+=======
+function _getFragmentGrammar() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/getFragmentGrammar"));
+
+  _getFragmentGrammar = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -76,17 +97,25 @@ class TypeHintManager {
    * shows a type hint, otherwise it hides the current typehint.
    */
   constructor() {
+<<<<<<< HEAD
     this._typeHintProviders = [];
+=======
+    this._providers = new (_ProviderRegistry().default)();
+>>>>>>> Update
   }
 
   async datatip(editor, position) {
     const grammar = editor.getGrammar();
+<<<<<<< HEAD
     const {
       scopeName
     } = grammar;
 
     const matchingProviders = this._getMatchingProvidersForScopeName(scopeName);
 
+=======
+    const matchingProviders = [...this._providers.getAllProvidersForEditor(editor)];
+>>>>>>> Update
     return (0, _promise().asyncFind)(matchingProviders.map(provider => this._getDatatipFromProvider(editor, position, grammar, provider)), x => x);
   }
 
@@ -152,6 +181,7 @@ class TypeHintManager {
     };
   }
 
+<<<<<<< HEAD
   _getMatchingProvidersForScopeName(scopeName) {
     return this._typeHintProviders.filter(provider => {
       const providerGrammars = provider.selector.split(/, ?/);
@@ -167,6 +197,10 @@ class TypeHintManager {
 
   removeProvider(provider) {
     (0, _collection().arrayRemove)(this._typeHintProviders, provider);
+=======
+  addProvider(provider) {
+    return this._providers.addProvider(provider);
+>>>>>>> Update
   }
 
 }

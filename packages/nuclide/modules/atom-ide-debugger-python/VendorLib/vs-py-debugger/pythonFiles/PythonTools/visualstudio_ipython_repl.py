@@ -21,8 +21,13 @@ __version__ = "3.0.0.0"
 
 import re
 import sys
+<<<<<<< HEAD
 from visualstudio_py_repl import BasicReplBackend, ReplBackend, UnsupportedReplException, _command_line_to_args_list
 from visualstudio_py_util import to_bytes
+=======
+from ptvsd.visualstudio_py_repl import BasicReplBackend, ReplBackend, UnsupportedReplException, _command_line_to_args_list
+from ptvsd.visualstudio_py_util import to_bytes
+>>>>>>> Update
 try:
     import thread
 except:
@@ -401,7 +406,11 @@ exec(compile(%(contents)r, %(filename)r, 'exec'))
 def __visualstudio_debugger_init():    
     import sys
     sys.path.append(''' + repr(path.dirname(__file__)) + ''')
+<<<<<<< HEAD
     import visualstudio_py_debugger
+=======
+    import ptvsd.visualstudio_py_debugger as visualstudio_py_debugger
+>>>>>>> Update
     new_thread = visualstudio_py_debugger.new_thread()
     sys.settrace(new_thread.trace_func)
     visualstudio_py_debugger.intercept_threads(True)
@@ -413,7 +422,11 @@ del __visualstudio_debugger_init
     def attach_process(self, port, debugger_id):
         self.run_command('''
 def __visualstudio_debugger_attach():
+<<<<<<< HEAD
     import visualstudio_py_debugger
+=======
+    import ptvsd.visualstudio_py_debugger as visual_studio_py_debugger
+>>>>>>> Update
 
     def do_detach():
         visualstudio_py_debugger.DETACH_CALLBACKS.remove(do_detach)
@@ -427,4 +440,8 @@ del __visualstudio_debugger_attach
 
 class IPythonBackendWithoutPyLab(IPythonBackend):
     def get_extra_arguments(self):
+<<<<<<< HEAD
         return []
+=======
+        return []
+>>>>>>> Update

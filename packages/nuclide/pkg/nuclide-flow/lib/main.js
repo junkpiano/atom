@@ -15,10 +15,17 @@ function _mouseToPosition() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _nuclideAnalytics() {
   const data = require("../../nuclide-analytics");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _nuclideAnalytics() {
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -58,7 +65,11 @@ function _registerGrammar() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = _interopRequireWildcard(require("../../commons-node/passesGK"));
+=======
+  const data = _interopRequireWildcard(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -197,7 +208,11 @@ class Activation {
   }
 
   _onGKInitialized() {
+<<<<<<< HEAD
     if (this._disposed) {
+=======
+    if (this._disposed || (0, _passesGK().isGkEnabled)('nuclide_fb_flow_vscode_ext')) {
+>>>>>>> Update
       return;
     }
 
@@ -280,11 +295,18 @@ async function activateLsp() {
       analyticsEventName: 'flow.coverage',
       icon: 'nuclicon-flow'
     },
+<<<<<<< HEAD
     findReferences: (await shouldEnableFindRefs()) ? {
       version: '0.1.0',
       analyticsEventName: 'flow.find-references' // TODO(nmote): support indirect-find-refs here
 
     } : undefined,
+=======
+    findReferences: {
+      version: '0.1.0',
+      analyticsEventName: 'flow.find-references'
+    },
+>>>>>>> Update
     status: {
       version: '0.1.0',
       priority: 99,
@@ -359,6 +381,7 @@ function getConnectionCache() {
 
 async function activateLegacy() {
   connectionCache = new (_nuclideRemoteConnection().ConnectionCache)(connectionToFlowService);
+<<<<<<< HEAD
   const disposables = new (_UniversalDisposable().default)(connectionCache, () => {
     connectionCache = null;
   }, new (_FlowServiceWatcher().FlowServiceWatcher)(connectionCache), atom.commands.add('atom-workspace', 'nuclide-flow:restart-flow-server', allowFlowServerRestart), _RxMin.Observable.fromPromise(getLanguageServiceConfig()).subscribe(lsConfig => {
@@ -372,6 +395,14 @@ async function activateLegacy() {
 
     disposables.add(flowLanguageService);
   }), atom.packages.serviceHub.consume('atom-ide-busy-signal', '0.1.0', // When the package becomes available to us, it invokes this callback:
+=======
+  const lsConfig = getLanguageServiceConfig();
+  const flowLanguageService = new (_nuclideLanguageService().AtomLanguageService)(connection => getConnectionCache().get(connection), lsConfig);
+  flowLanguageService.activate();
+  const disposables = new (_UniversalDisposable().default)(connectionCache, () => {
+    connectionCache = null;
+  }, new (_FlowServiceWatcher().FlowServiceWatcher)(connectionCache), atom.commands.add('atom-workspace', 'nuclide-flow:restart-flow-server', allowFlowServerRestart), flowLanguageService, atom.packages.serviceHub.consume('atom-ide-busy-signal', '0.1.0', // When the package becomes available to us, it invokes this callback:
+>>>>>>> Update
   service => {
     const disposableForBusyService = consumeBusySignal(service); // When the package becomes no longer available to us, it disposes this object:
 
@@ -411,13 +442,21 @@ function serverStatusUpdatesToBusyMessages(statusUpdates, busySignal) {
         const readableStatus = nextStatus.status === 'init' ? 'initializing' : 'busy'; // Use an observable to encapsulate clearing the message.
         // The switchMap above will ensure that messages get cleared.
 
+<<<<<<< HEAD
         return _RxMin.Observable.create(observer => {
+=======
+        return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
           const disposable = busySignal.reportBusy(`Flow server is ${readableStatus} (${readablePath})`);
           return () => disposable.dispose();
         });
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }));
   }).subscribe();
 }
@@ -438,6 +477,7 @@ function consumeBusySignal(service) {
 }
 
 function consumeFindReferencesView(service) {
+<<<<<<< HEAD
   const promise = registerMultiHopFindReferencesCommand(service);
   return new (_UniversalDisposable().default)(() => {
     promise.then(disposable => disposable.dispose());
@@ -451,6 +491,10 @@ async function registerMultiHopFindReferencesCommand(service) {
 
   let lastMouseEvent = null;
   atom.contextMenu.add({
+=======
+  let lastMouseEvent = null;
+  return new (_UniversalDisposable().default)(atom.contextMenu.add({
+>>>>>>> Update
     'atom-text-editor[data-grammar="source js jsx"]': [{
       label: 'Find Indirect References (slower)',
       command: 'nuclide-flow:find-indirect-references',
@@ -458,8 +502,12 @@ async function registerMultiHopFindReferencesCommand(service) {
         lastMouseEvent = event;
       }
     }]
+<<<<<<< HEAD
   });
   return atom.commands.add('atom-text-editor', 'nuclide-flow:find-indirect-references', async () => {
+=======
+  }), atom.commands.add('atom-text-editor', 'nuclide-flow:find-indirect-references', async () => {
+>>>>>>> Update
     const editor = atom.workspace.getActiveTextEditor();
 
     if (editor == null) {
@@ -514,7 +562,11 @@ async function registerMultiHopFindReferencesCommand(service) {
         atom.notifications.addWarning(`Flow find-indirect-references issued an error: "${result.message}"`);
       }
     });
+<<<<<<< HEAD
   });
+=======
+  }));
+>>>>>>> Update
 }
 
 async function allowFlowServerRestart() {
@@ -525,10 +577,16 @@ async function allowFlowServerRestart() {
   }
 }
 
+<<<<<<< HEAD
 async function getLanguageServiceConfig() {
   const excludeLowerPriority = Boolean(_featureConfig().default.get('nuclide-flow.excludeOtherAutocomplete'));
   const flowResultsFirst = Boolean(_featureConfig().default.get('nuclide-flow.flowAutocompleteResultsFirst'));
   const enableFindRefs = await shouldEnableFindRefs();
+=======
+function getLanguageServiceConfig() {
+  const excludeLowerPriority = Boolean(_featureConfig().default.get('nuclide-flow.excludeOtherAutocomplete'));
+  const flowResultsFirst = Boolean(_featureConfig().default.get('nuclide-flow.flowAutocompleteResultsFirst'));
+>>>>>>> Update
   return {
     name: 'Flow',
     grammars: _constants().JS_GRAMMARS,
@@ -579,6 +637,7 @@ async function getLanguageServiceConfig() {
       priority: 1,
       analyticsEventName: 'nuclide-flow.typeHint'
     },
+<<<<<<< HEAD
     findReferences: enableFindRefs ? {
       version: '0.1.0',
       analyticsEventName: 'flow.find-references'
@@ -592,6 +651,16 @@ async function shouldEnableFindRefs() {
 }
 
 async function shouldEnableRename() {
+=======
+    findReferences: {
+      version: '0.1.0',
+      analyticsEventName: 'flow.find-references'
+    }
+  };
+}
+
+function shouldEnableRename() {
+>>>>>>> Update
   return (0, _passesGK().default)('nuclide_flow_rename', // Wait 15 seconds for the gk check
   15 * 1000);
 }

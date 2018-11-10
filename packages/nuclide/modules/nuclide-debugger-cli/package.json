@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "async-to-generator": "1.1.0",
+<<<<<<< HEAD
     "idx": "1.2.0",
     "line-by-line": "0.1.5",
     "log4js": "1.1.1",
@@ -20,6 +21,17 @@
     "nuclide-debugger-common": "0.7.3-dev",
     "nullthrows": "1.0.0",
     "rxjs": "5.5.5",
+=======
+    "blessed": "0.1.81",
+    "idx": "1.2.0",
+    "line-by-line": "0.1.5",
+    "log4js": "1.1.1",
+    "nuclide-analytics": "0.7.3-dev",
+    "nuclide-commons": "0.7.3-dev",
+    "nuclide-debugger-common": "0.7.3-dev",
+    "nullthrows": "1.0.0",
+    "rxjs-compat": "6.3.3",
+>>>>>>> Update
     "v8-compile-cache": "1.1.0",
     "vscode-debugprotocol": "1.24.0",
     "yargs": "3.32.0"

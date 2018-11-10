@@ -35,7 +35,21 @@ function Immutable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+function _uuid() {
+  const data = _interopRequireDefault(require("uuid"));
+
+  _uuid = function () {
+    return data;
+  };
+
+  return data;
+}
+
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -106,7 +120,13 @@ describe('createStateStream', () => {
   describe('RECORD_UPDATED', () => {
     let finalState;
     let initialRecords;
+<<<<<<< HEAD
     beforeEach(() => {
+=======
+    let messageIds = [];
+    beforeEach(() => {
+      messageIds = [];
+>>>>>>> Update
       initialRecords = Immutable().List();
       const initialState = Object.assign({}, emptyAppState, {
         maxMessageCount: 2,
@@ -115,6 +135,10 @@ describe('createStateStream', () => {
       const actions = [];
 
       for (let i = 0; i < 2; i++) {
+<<<<<<< HEAD
+=======
+        messageIds[i] = _uuid().default.v4();
+>>>>>>> Update
         actions.push({
           type: Actions().RECORD_RECEIVED,
           payload: {
@@ -122,7 +146,11 @@ describe('createStateStream', () => {
               level: 'info',
               text: i.toString(),
               incomplete: true,
+<<<<<<< HEAD
               messageId: i
+=======
+              messageId: messageIds[i]
+>>>>>>> Update
             }
           }
         });
@@ -133,7 +161,11 @@ describe('createStateStream', () => {
       actions.push({
         type: Actions().RECORD_UPDATED,
         payload: {
+<<<<<<< HEAD
           messageId: 0,
+=======
+          messageId: messageIds[0],
+>>>>>>> Update
           appendText: '!',
           overrideLevel: 'warning',
           setComplete: false
@@ -143,7 +175,11 @@ describe('createStateStream', () => {
       actions.push({
         type: Actions().RECORD_UPDATED,
         payload: {
+<<<<<<< HEAD
           messageId: 0,
+=======
+          messageId: messageIds[0],
+>>>>>>> Update
           appendText: '!',
           overrideLevel: 'warning',
           setComplete: false
@@ -160,7 +196,11 @@ describe('createStateStream', () => {
         throw new Error("Invariant violation: \"message0 != null\"");
       }
 
+<<<<<<< HEAD
       expect(message0.messageId).toBe(0);
+=======
+      expect(message0.messageId).toBe(messageIds[0]);
+>>>>>>> Update
       expect(message0.text).toBe('0!!');
       expect(message0.level).toBe('warning');
       expect(message0.incomplete).toBe(true); // Message 1 was not mutated.
@@ -171,7 +211,11 @@ describe('createStateStream', () => {
         throw new Error("Invariant violation: \"message1 != null\"");
       }
 
+<<<<<<< HEAD
       expect(message1.messageId).toBe(1);
+=======
+      expect(message1.messageId).toBe(messageIds[1]);
+>>>>>>> Update
       expect(message1.text).toBe('1');
       expect(message1.level).toBe('info');
       expect(message1.incomplete).toBe(true);
@@ -180,7 +224,11 @@ describe('createStateStream', () => {
       let newState = [{
         type: Actions().RECORD_UPDATED,
         payload: {
+<<<<<<< HEAD
           messageId: 0,
+=======
+          messageId: messageIds[0],
+>>>>>>> Update
           appendText: null,
           overrideLevel: null,
           setComplete: true
@@ -197,7 +245,11 @@ describe('createStateStream', () => {
           throw new Error("Invariant violation: \"message0 != null\"");
         }
 
+<<<<<<< HEAD
         expect(message0.messageId).toBe(0);
+=======
+        expect(message0.messageId).toBe(messageIds[0]);
+>>>>>>> Update
         expect(message0.text).toBe('0!!');
         expect(message0.level).toBe('warning');
         expect(message0.incomplete).toBe(false);
@@ -206,7 +258,11 @@ describe('createStateStream', () => {
           throw new Error("Invariant violation: \"message1 != null\"");
         }
 
+<<<<<<< HEAD
         expect(message1.messageId).toBe(1);
+=======
+        expect(message1.messageId).toBe(messageIds[1]);
+>>>>>>> Update
         expect(message1.text).toBe('1');
         expect(message1.level).toBe('info');
         expect(message1.incomplete).toBe(true);
@@ -221,7 +277,11 @@ describe('createStateStream', () => {
         newState = [{
           type: Actions().RECORD_UPDATED,
           payload: {
+<<<<<<< HEAD
             messageId: 0,
+=======
+            messageId: messageIds[0],
+>>>>>>> Update
             appendText: '!',
             overrideLevel: null,
             setComplete: true
@@ -250,7 +310,11 @@ describe('createStateStream', () => {
         payload: {
           source: {
             id: 'test',
+<<<<<<< HEAD
             records: _RxMin.Observable.empty()
+=======
+            records: _rxjsCompatUmdMin.Observable.empty()
+>>>>>>> Update
           }
         }
       }];
@@ -269,7 +333,12 @@ describe('createStateStream', () => {
     beforeEach(() => {
       initialRecords = Immutable().List([{
         kind: 'message',
+<<<<<<< HEAD
         sourceId: 'Test',
+=======
+        sourceId: 'test-source',
+        sourceName: 'Test',
+>>>>>>> Update
         level: 'info',
         text: 'test',
         scopeName: null,
@@ -343,6 +412,10 @@ function createDummyExecutor(id) {
     name: id,
     scopeName: () => 'text.plain',
     send: code => {},
+<<<<<<< HEAD
     output: _RxMin.Observable.create(observer => {})
+=======
+    output: _rxjsCompatUmdMin.Observable.create(observer => {})
+>>>>>>> Update
   };
 }

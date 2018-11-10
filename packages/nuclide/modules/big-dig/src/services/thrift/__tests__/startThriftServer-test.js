@@ -10,7 +10,11 @@ function processModule() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _which() {
   const data = _interopRequireDefault(require("../../../../../nuclide-commons/which"));
@@ -72,7 +76,14 @@ describe('startThriftServer', () => {
             name: 'thriftservername',
             remoteCommand: 'test',
             remoteCommandArgs: ['--server-port', String(serverPort)],
+<<<<<<< HEAD
             remotePort: serverPort,
+=======
+            remoteConnection: {
+              type: 'tcp',
+              port: serverPort
+            },
+>>>>>>> Update
             killOldThriftServerProcess: true
           };
           resolve();
@@ -96,7 +107,11 @@ describe('startThriftServer', () => {
 
       jest.spyOn(processModule(), 'observeProcess').mockImplementation(command => {
         if (command === 'test') {
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }
 
         throw new Error('invalid command');

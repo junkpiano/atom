@@ -19,6 +19,10 @@ exports.fetchFileContentAtRevision = fetchFileContentAtRevision;
 exports.batchFetchFileContentsAtRevision = batchFetchFileContentsAtRevision;
 exports.fetchFilesChangedAtRevision = fetchFilesChangedAtRevision;
 exports.fetchRevisionInfoBetweenHeadAndBase = fetchRevisionInfoBetweenHeadAndBase;
+<<<<<<< HEAD
+=======
+exports.fetchHeadRevisionInfo = fetchHeadRevisionInfo;
+>>>>>>> Update
 exports.fetchSmartlogRevisions = fetchSmartlogRevisions;
 exports.getBaseRevision = getBaseRevision;
 exports.getBlameAtHead = getBlameAtHead;
@@ -145,7 +149,11 @@ function _hgConstants() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _hgDiffOutputParser() {
   const data = require("./hg-diff-output-parser");
@@ -273,10 +281,13 @@ const NUM_FETCH_STATUSES_LIMIT = 200; // Suffixes of hg error messages that indi
 
 const IGNORABLE_ERROR_SUFFIXES = ['abort: no files to copy', 'No such file or directory', 'does not exist!'];
 const DEFAULT_HG_COMMIT_TITLE_REGEX = /^<Replace this line with a title. Use 1 line only, 67 chars or less>/;
+<<<<<<< HEAD
 /**
  * These are status codes used by Mercurial's output.
  * Documented in http://selenic.com/hg/help/status.
  */
+=======
+>>>>>>> Update
 
 async function logWhenSubscriptionEstablished(sub, subName) {
   await sub;
@@ -365,6 +376,7 @@ class HgRepositorySubscriptions {
 
   constructor(workingDirectory) {
     this._workingDirectory = workingDirectory;
+<<<<<<< HEAD
     this._filesDidChangeObserver = new _RxMin.Subject();
     this._hgActiveBookmarkDidChangeObserver = new _RxMin.Subject();
     this._lockFilesDidChange = _RxMin.Observable.empty();
@@ -373,11 +385,26 @@ class HgRepositorySubscriptions {
     this._hgConflictStateDidChangeObserver = new _RxMin.Subject();
     this._hgRepoCommitsDidChangeObserver = new _RxMin.Subject();
     this._hgOperationProgressDidChangeObserver = new _RxMin.Subject();
+=======
+    this._filesDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+    this._hgActiveBookmarkDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+    this._lockFilesDidChange = _rxjsCompatUmdMin.Observable.empty();
+    this._watchmanHealth = _rxjsCompatUmdMin.Observable.empty();
+    this._hgBookmarksDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+    this._hgRepoStateDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+    this._hgConflictStateDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+    this._hgRepoCommitsDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+    this._hgOperationProgressDidChangeObserver = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._isInConflict = false;
     this._debouncedCheckConflictChange = (0, _debounce().default)(() => {
       this._checkConflictChange();
     }, CHECK_CONFLICT_DELAY_MS);
+<<<<<<< HEAD
     this._disposeObserver = new _RxMin.ReplaySubject();
+=======
+    this._disposeObserver = new _rxjsCompatUmdMin.ReplaySubject();
+>>>>>>> Update
   }
 
   async dispose() {
@@ -464,7 +491,12 @@ class HgRepositorySubscriptions {
       defer_vcs: false
     });
     logWhenSubscriptionEstablished(progressSubscriptionPromise, WATCHMAN_SUBSCRIPTION_NAME_PROGRESS);
+<<<<<<< HEAD
     this._lockFilesDidChange = (0, _watchFileCreationAndDeletion().subscribeToFilesCreateAndDelete)(watchmanClient, workingDirectory, _hgConstants().LockFilesList, WATCHMAN_SUBSCRIPTION_NAME_LOCK_FILES).publish().refCount(); // Those files' changes indicate a commit-changing action has been applied to the repository,
+=======
+    this._lockFilesDidChange = (0, _watchFileCreationAndDeletion().subscribeToFilesCreateAndDelete)(watchmanClient, workingDirectory, _hgConstants().LockFilesList, WATCHMAN_SUBSCRIPTION_NAME_LOCK_FILES).publish().refCount();
+    this._watchmanHealth = watchmanClient.observeHealth(); // Those files' changes indicate a commit-changing action has been applied to the repository,
+>>>>>>> Update
     // Watchman currently (v4.7) ignores `.hg/store` file updates.
     // Hence, we here use node's filesystem watchers instead.
 
@@ -545,6 +577,13 @@ class HgRepositorySubscriptions {
   _hgOperationProgressDidChange() {
     this._hgOperationProgressDidChangeObserver.next();
   }
+<<<<<<< HEAD
+=======
+
+  observeWatchmanHealth() {
+    return this._watchmanHealth.takeUntil(this._disposeObserver).publish();
+  }
+>>>>>>> Update
   /**
    * Observes one of more files has changed. Applies to all files except
    * .hgignore files. (See ::onHgIgnoreFileDidChange.)
@@ -591,12 +630,21 @@ class HgRepositorySubscriptions {
 
 
   observeHgOperationProgressDidChange() {
+<<<<<<< HEAD
     return this._hgOperationProgressDidChangeObserver.let((0, _observable().fastDebounce)(50)).switchMap(() => _RxMin.Observable.fromPromise(_fsPromise().default.readFile(_nuclideUri().default.join(this._workingDirectory, '.hg', 'progress'), 'utf8')).catch(() => {
       (0, _log4js().getLogger)('nuclide-hg-rpc').error('.hg/progress changed but could not be read');
       return _RxMin.Observable.empty();
     }).filter(content => content.length > 0).map(content => JSON.parse(content)).catch(() => {
       (0, _log4js().getLogger)('nuclide-hg-rpc').error('.hg/progress changed but its contents could not be parsed as JSON');
       return _RxMin.Observable.empty();
+=======
+    return this._hgOperationProgressDidChangeObserver.let((0, _observable().fastDebounce)(50)).switchMap(() => _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.readFile(_nuclideUri().default.join(this._workingDirectory, '.hg', 'progress'), 'utf8')).catch(() => {
+      (0, _log4js().getLogger)('nuclide-hg-rpc').error('.hg/progress changed but could not be read');
+      return _rxjsCompatUmdMin.Observable.empty();
+    }).filter(content => content.length > 0).map(content => JSON.parse(content)).catch(() => {
+      (0, _log4js().getLogger)('nuclide-hg-rpc').error('.hg/progress changed but its contents could not be parsed as JSON');
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     })).publish();
   }
   /**
@@ -671,7 +719,11 @@ function fetchStackStatuses(workingDirectory) {
   // Note: an alternative which doesn't depend upon reading .arcconfig in getForkBaseName is:
   //   return fetchStatuses(workingDirectory, ('ancestor(ancestor((not public()) and (:: .))^ or .)')
   // Both the code below and the alternative above have identical performance.
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(getForkBaseName(workingDirectory)) // e.g. "master"
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(getForkBaseName(workingDirectory)) // e.g. "master"
+>>>>>>> Update
   .switchMap(forkBaseName => {
     const root = (0, _hgRevisionExpressionHelpers().expressionForCommonAncestor)(forkBaseName); // e.g. "ancestor(master, .)"
 
@@ -863,6 +915,13 @@ async function fetchRevisionInfoBetweenHeadAndBase(workingDirectory) {
   return revisionsInfo;
 }
 
+<<<<<<< HEAD
+=======
+function fetchHeadRevisionInfo(workingDirectory) {
+  return (0, _hgRevisionExpressionHelpers().fetchHeadRevisionInfo)(workingDirectory);
+}
+
+>>>>>>> Update
 function fetchSmartlogRevisions(workingDirectory) {
   return (0, _hgRevisionExpressionHelpers().fetchSmartlogRevisions)(workingDirectory);
 }
@@ -984,8 +1043,12 @@ async function getSmartlog(workingDirectory, ttyOutput, concise) {
 
 function _commitCode(workingDirectory, message, args) {
   // TODO(T17463635)
+<<<<<<< HEAD
   let editMergeConfigs;
   return _RxMin.Observable.fromPromise((async () => {
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise((async () => {
+>>>>>>> Update
     if (message == null) {
       return args;
     } else {
@@ -996,12 +1059,15 @@ function _commitCode(workingDirectory, message, args) {
     const execOptions = {
       cwd: workingDirectory
     };
+<<<<<<< HEAD
 
     if (editMergeConfigs != null) {
       execArgs.push(...editMergeConfigs.args);
       execOptions.HGEDITOR = editMergeConfigs.hgEditor;
     }
 
+=======
+>>>>>>> Update
     return (0, _hgUtils().hgObserveExecution)(execArgs, execOptions);
   });
 }
@@ -1157,7 +1223,11 @@ function diff(workingDirectory, revision, unified, diffCommitted, noPrefix, noDa
 
 
 function purge(workingDirectory) {
+<<<<<<< HEAD
   return _runSimpleInWorkingDirectory(workingDirectory, 'purge', []);
+=======
+  return _runSimpleInWorkingDirectory(workingDirectory, 'purge', ['--files']);
+>>>>>>> Update
 }
 /**
  * Undoes the effect of a local commit, specifically the working directory parent.
@@ -1362,7 +1432,11 @@ function fetchMergeConflicts(workingDirectory) {
       conflicts
     });
   }) // `resolve --all` returns a non-zero exit code when there's no conflicts.
+<<<<<<< HEAD
   .catch(() => _RxMin.Observable.of(null)).publish();
+=======
+  .catch(() => _rxjsCompatUmdMin.Observable.of(null)).publish();
+>>>>>>> Update
 }
 
 function markConflictedFile(workingDirectory, filePath, resolved) {

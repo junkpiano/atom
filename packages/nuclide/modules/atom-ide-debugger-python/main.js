@@ -156,11 +156,27 @@ function getPythonAutoGenConfig() {
     required: false,
     visible: true
   };
+<<<<<<< HEAD
+=======
+  const consoleEnum = {
+    name: 'console',
+    type: 'enum',
+    enums: ['internalConsole', 'integratedTerminal'],
+    description: '',
+    defaultValue: 'internalConsole',
+    required: true,
+    visible: true
+  };
+>>>>>>> Update
   return {
     launch: {
       launch: true,
       vsAdapterType: _nuclideDebuggerCommon().VsAdapterTypes.PYTHON,
+<<<<<<< HEAD
       properties: [program, pythonPath, cwd, args, stopOnEntry, debugOptions, env],
+=======
+      properties: [program, pythonPath, cwd, args, stopOnEntry, debugOptions, env, consoleEnum],
+>>>>>>> Update
       scriptPropertyName: 'program',
       scriptExtension: '.py',
       cwdPropertyName: 'cwd',

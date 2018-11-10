@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/feature-config"));
@@ -83,7 +87,11 @@ describe('RemoteDirectorySearcher.processPaths', () => {
   });
   it('does not search directories excluded by working set', () => {
     jest.spyOn(serviceSpy, 'remoteAtomSearch').mockReturnValue({
+<<<<<<< HEAD
       refCount: () => _RxMin.Observable.empty()
+=======
+      refCount: () => _rxjsCompatUmdMin.Observable.empty()
+>>>>>>> Update
     });
     jest.spyOn(_featureConfig().default, 'get').mockReturnValue({
       remoteTool: 'grep',

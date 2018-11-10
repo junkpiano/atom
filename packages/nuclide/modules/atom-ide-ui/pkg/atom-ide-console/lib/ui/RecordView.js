@@ -47,6 +47,19 @@ function _SimpleValueComponent() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _FullWidthProgressBar() {
+  const data = _interopRequireDefault(require("../../../../../nuclide-commons-ui/FullWidthProgressBar"));
+
+  _FullWidthProgressBar = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
 
@@ -87,20 +100,34 @@ function _debounce() {
   return data;
 }
 
+<<<<<<< HEAD
 function _observable() {
   const data = require("../../../../../nuclide-commons/observable");
 
   _observable = function () {
+=======
+function _parseText() {
+  const data = _interopRequireDefault(require("../parseText"));
+
+  _parseText = function () {
+>>>>>>> Update
     return data;
   };
 
   return data;
 }
 
+<<<<<<< HEAD
 function _parseText() {
   const data = _interopRequireDefault(require("../parseText"));
 
   _parseText = function () {
+=======
+function _nullthrows() {
+  const data = _interopRequireDefault(require("nullthrows"));
+
+  _nullthrows = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -141,6 +168,7 @@ class RecordView extends React.Component {
     // the height change once everything has settled down
 
     this.measureAndNotifyHeight = () => {
+<<<<<<< HEAD
       // This method is called after the necessary DOM mutations have
       // already occurred, however it is possible that the updates have
       // not been flushed to the screen. So the height change update
@@ -167,6 +195,16 @@ class RecordView extends React.Component {
           onHeightChange(displayableRecord.id, offsetHeight);
         }
       });
+=======
+      if (this._wrapper == null) {
+        return;
+      }
+
+      const {
+        offsetHeight
+      } = this._wrapper;
+      this.props.onHeightChange(this.props.record, offsetHeight);
+>>>>>>> Update
     };
 
     this._handleRecordWrapper = wrapper => {
@@ -182,6 +220,7 @@ class RecordView extends React.Component {
     this.measureAndNotifyHeight();
   }
 
+<<<<<<< HEAD
   componentWillUnmount() {
     if (this._rafDisposable != null) {
       this._rafDisposable.unsubscribe();
@@ -192,6 +231,24 @@ class RecordView extends React.Component {
     const {
       record
     } = displayableRecord;
+=======
+  componentDidUpdate(prevProps) {
+    // Record is an immutable object, so any change that would affect a height
+    // change should result in us getting a new object.
+    if (this.props.record !== prevProps.record) {
+      this.measureAndNotifyHeight();
+    }
+  }
+
+  componentWillUnmount() {
+    this._debouncedMeasureAndNotifyHeight.dispose();
+  }
+
+  _renderContent() {
+    const {
+      record
+    } = this.props;
+>>>>>>> Update
 
     if (record.kind === 'request') {
       // TODO: We really want to use a text editor to render this so that we can get syntax
@@ -200,10 +257,17 @@ class RecordView extends React.Component {
       return React.createElement("pre", null, record.text || ' ');
     } else if (record.kind === 'response') {
       const executor = this.props.getExecutor(record.sourceId);
+<<<<<<< HEAD
       return this._renderNestedValueComponent(displayableRecord, executor);
     } else if (record.data != null) {
       const provider = this.props.getProvider(record.sourceId);
       return this._renderNestedValueComponent(displayableRecord, provider);
+=======
+      return this._renderNestedValueComponent(executor);
+    } else if (record.data != null) {
+      const provider = this.props.getProvider(record.sourceId);
+      return this._renderNestedValueComponent(provider);
+>>>>>>> Update
     } else {
       // If there's not text, use a space to make sure the row doesn't collapse.
       const text = record.text || ' ';
@@ -222,6 +286,7 @@ class RecordView extends React.Component {
     return !(0, _shallowequal().default)(this.props, nextProps);
   }
 
+<<<<<<< HEAD
   _renderNestedValueComponent(displayableRecord, provider) {
     const {
       record,
@@ -247,11 +312,90 @@ class RecordView extends React.Component {
     const {
       record
     } = displayableRecord;
+=======
+  _renderNestedValueComponent(provider) {
+    const {
+      record,
+      expansionStateId
+    } = this.props;
+    const getProperties = provider == null ? null : provider.getProperties;
+    const type = record.data == null ? null : record.data.type;
+
+    if (type === 'objects') {
+      // Render multiple objects.
+      const children = [];
+
+      for (const [index, object] of (0, _nullthrows().default)((_record$data = record.data) === null || _record$data === void 0 ? void 0 : _record$data.objects).entries()) {
+        var _record$data;
+
+        const evaluationResult = {
+          description: object.description,
+          type: object.type || '',
+          // $FlowFixMe: that isn't an object ID,
+          objectId: object.expression
+        };
+        const simpleValueComponent = getComponent(object.type); // Each child must have it's own expansion state ID.
+
+        const expansionStateKey = 'child' + index;
+
+        if (!expansionStateId[expansionStateKey]) {
+          expansionStateId[expansionStateKey] = {};
+        }
+
+        if (object.expression.reference === 0) {
+          children.push(React.createElement(_SimpleValueComponent().default, {
+            expression: null,
+            evaluationResult: {
+              type: object.type != null ? object.type : 'text',
+              value: object.expression.getValue()
+            }
+          }));
+        } else {
+          children.push(React.createElement(_LazyNestedValueComponent().LazyNestedValueComponent, {
+            className: "console-lazy-nested-value",
+            evaluationResult: evaluationResult,
+            fetchChildren: getProperties,
+            simpleValueComponent: simpleValueComponent,
+            shouldCacheChildren: true,
+            expansionStateId: expansionStateId[expansionStateKey]
+          }));
+        }
+      }
+
+      return React.createElement("span", {
+        className: "console-multiple-objects"
+      }, children);
+    } else {
+      // Render single object.
+      const simpleValueComponent = getComponent(type);
+      return React.createElement(_LazyNestedValueComponent().LazyNestedValueComponent, {
+        className: "console-lazy-nested-value",
+        evaluationResult: record.data,
+        fetchChildren: getProperties,
+        simpleValueComponent: simpleValueComponent,
+        shouldCacheChildren: true,
+        expansionStateId: expansionStateId
+      });
+    }
+  }
+
+  render() {
+    var _sourceName;
+
+    const {
+      record
+    } = this.props;
+>>>>>>> Update
     const {
       level,
       kind,
       timestamp,
+<<<<<<< HEAD
       sourceId
+=======
+      sourceId,
+      sourceName
+>>>>>>> Update
     } = record;
     const classNames = (0, _classnames().default)('console-record', `level-${level || 'log'}`, {
       request: kind === 'request',
@@ -264,7 +408,11 @@ class RecordView extends React.Component {
     }) : null;
     const sourceLabel = this.props.showSourceLabel ? React.createElement("span", {
       className: `console-record-source-label ${getHighlightClassName(level)}`
+<<<<<<< HEAD
     }, sourceId) : null;
+=======
+    }, (_sourceName = sourceName) !== null && _sourceName !== void 0 ? _sourceName : sourceId) : null;
+>>>>>>> Update
     let renderedTimestamp;
 
     if (timestamp != null) {
@@ -281,11 +429,22 @@ class RecordView extends React.Component {
       className: classNames
     }, icon, React.createElement("div", {
       className: "console-record-content-wrapper"
+<<<<<<< HEAD
     }, displayableRecord.record.repeatCount > 1 && React.createElement("div", {
       className: "console-record-duplicate-number"
     }, displayableRecord.record.repeatCount), React.createElement("div", {
       className: "console-record-content"
     }, this._renderContent(displayableRecord))), sourceLabel, renderedTimestamp));
+=======
+    }, record.repeatCount > 1 && React.createElement("div", {
+      className: "console-record-duplicate-number"
+    }, record.repeatCount), React.createElement("div", {
+      className: "console-record-content"
+    }, this._renderContent())), sourceLabel, renderedTimestamp, React.createElement(_FullWidthProgressBar().default, {
+      progress: null,
+      visible: record.incomplete
+    })));
+>>>>>>> Update
   }
 
 }

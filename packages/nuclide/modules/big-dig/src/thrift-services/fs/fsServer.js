@@ -35,6 +35,7 @@ function _ThriftFileSystemServiceHandler() {
   return data;
 }
 
+<<<<<<< HEAD
 function _ports() {
   const data = require("../../common/ports");
 
@@ -45,6 +46,8 @@ function _ports() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _log4js() {
   const data = require("log4js");
 
@@ -84,11 +87,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * e.g. initialze(), close() etc.
  */
 class RemoteFileSystemServer {
+<<<<<<< HEAD
   constructor(port) {
     this._port = port;
     this._logger = (0, _log4js().getLogger)('fs-thrift-server');
     this._watcher = new (_nuclideWatchmanHelpers().WatchmanClient)();
     this._serviceHandler = new (_ThriftFileSystemServiceHandler().ThriftFileSystemServiceHandler)(this._watcher);
+=======
+  constructor(portOrPath) {
+    this._portOrPath = portOrPath;
+    this._logger = (0, _log4js().getLogger)('fs-thrift-server');
+    this._watcher = new (_nuclideWatchmanHelpers().WatchmanClient)();
+    this._thriftFileSystemserviceHandler = new (_ThriftFileSystemServiceHandler().ThriftFileSystemServiceHandler)(this._watcher);
+>>>>>>> Update
   }
 
   async initialize() {
@@ -96,6 +107,7 @@ class RemoteFileSystemServer {
       return;
     }
 
+<<<<<<< HEAD
     this._server = _thrift().default.createServer(_ThriftFileSystemService().default, {
       watch: (uri, options) => {
         return this._serviceHandler.watch(uri, options);
@@ -155,11 +167,15 @@ class RemoteFileSystemServer {
         return this._serviceHandler.chown(uri, uid, gid);
       }
     });
+=======
+    this._server = _thrift().default.createServer(_ThriftFileSystemService().default, this._thriftFileSystemserviceHandler);
+>>>>>>> Update
 
     this._server.on('error', error => {
       throw error;
     });
 
+<<<<<<< HEAD
     const isServerListening = await (0, _ports().scanPortsToListen)(this._server, String(this._port));
 
     if (!isServerListening) {
@@ -169,6 +185,9 @@ class RemoteFileSystemServer {
 
   getPort() {
     return this._server.address().port;
+=======
+    this._server.listen(this._portOrPath);
+>>>>>>> Update
   }
 
   close() {
@@ -178,7 +197,11 @@ class RemoteFileSystemServer {
 
     this._watcher.dispose();
 
+<<<<<<< HEAD
     this._serviceHandler.dispose();
+=======
+    this._thriftFileSystemserviceHandler.dispose();
+>>>>>>> Update
   }
 
 }

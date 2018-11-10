@@ -149,7 +149,11 @@ function provideFullImportCompletions(importInformation, importsFormatter, autoI
         label: id,
         filterText: textEdit.newText,
         kind: _protocol().CompletionItemKind.Module,
+<<<<<<< HEAD
         inlineDetail: importsFormatter.stripLeadingDots(importPath),
+=======
+        detail: importsFormatter.stripLeadingDots(importPath),
+>>>>>>> Update
         textEdit
       };
     }));

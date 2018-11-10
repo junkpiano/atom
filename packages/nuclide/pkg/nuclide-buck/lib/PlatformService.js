@@ -15,7 +15,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -44,7 +48,11 @@ const PROVIDER_TIMEOUT = 5000; // 5s
 class PlatformService {
   constructor() {
     this._registeredProviders = [];
+<<<<<<< HEAD
     this._providersChanged = new _RxMin.Subject();
+=======
+    this._providersChanged = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   register(platformProvider) {
@@ -63,6 +71,7 @@ class PlatformService {
 
   getPlatformGroups(buckRoot, ruleType, buildTarget) {
     return this._providersChanged.startWith(undefined).switchMap(() => {
+<<<<<<< HEAD
       const observables = this._registeredProviders.map(provider => provider(buckRoot, ruleType, buildTarget).race(_RxMin.Observable.timer(PROVIDER_TIMEOUT).switchMap(() => _RxMin.Observable.throw('Timed out'))).catch(error => {
         (0, _log4js().getLogger)('nuclide-buck').error(`Getting buck platform groups from ${provider.name} failed:`, error);
         return _RxMin.Observable.of(null);
@@ -71,6 +80,15 @@ class PlatformService {
       return _RxMin.Observable.from(observables) // $FlowFixMe: type combineAll
       .combineAll().map(platformGroups => {
         return platformGroups.filter(p => p != null).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()));
+=======
+      const observables = this._registeredProviders.map(provider => provider(buckRoot, ruleType, buildTarget).race(_rxjsCompatUmdMin.Observable.timer(PROVIDER_TIMEOUT).switchMap(() => _rxjsCompatUmdMin.Observable.throw('Timed out'))).catch(error => {
+        (0, _log4js().getLogger)('nuclide-buck').error(`Getting buck platform groups from ${provider.name} failed:`, error);
+        return _rxjsCompatUmdMin.Observable.of(null);
+      }).defaultIfEmpty(null));
+
+      return _rxjsCompatUmdMin.Observable.from(observables).combineAll().map(platformGroups => {
+        return platformGroups.filter(Boolean).sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()));
+>>>>>>> Update
       });
     });
   }

@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FlowServiceWatcher = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/feature-config"));
@@ -43,8 +47,13 @@ const WARN_NOT_INSTALLED_CONFIG = 'nuclide-flow.warnOnNotInstalled';
 
 class FlowServiceWatcher {
   constructor(connectionCache) {
+<<<<<<< HEAD
     this._subscription = new _RxMin.Subscription();
     const flowLanguageServices = connectionCache.observeValues().mergeMap(p => _RxMin.Observable.fromPromise(p));
+=======
+    this._subscription = new _rxjsCompatUmdMin.Subscription();
+    const flowLanguageServices = connectionCache.observeValues().mergeMap(p => _rxjsCompatUmdMin.Observable.fromPromise(p));
+>>>>>>> Update
     const serverStatusUpdates = flowLanguageServices.mergeMap(ls => {
       return ls.getServerStatusUpdates().refCount();
     }).share();

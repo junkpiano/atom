@@ -45,8 +45,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getLabelFromPath(path) {
   const basename = _nuclideUri().default.basename(path);
 
+<<<<<<< HEAD
   const parts = basename.split('.');
   return humanizeProjectName(parts[0] || basename);
+=======
+  const parts = basename.split('.').filter(Boolean);
+  const name = parts.length >= 2 ? parts.slice(0, Math.max(1, parts.length - 2)).join(' ') : basename;
+  return humanizeProjectName(name);
+>>>>>>> Update
 }
 
 function formatProjectNameWord(word) {
@@ -63,6 +69,14 @@ function formatProjectNameWord(word) {
 }
 
 function humanizeProjectName(name) {
+<<<<<<< HEAD
+=======
+  // Special case some projects.
+  if (name === 'www' || name.startsWith('fb')) {
+    return name;
+  }
+
+>>>>>>> Update
   const hasCapitalLetters = /[A-Z]/.test(name);
 
   const id = x => x;

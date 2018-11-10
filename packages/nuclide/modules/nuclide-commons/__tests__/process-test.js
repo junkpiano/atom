@@ -24,7 +24,11 @@ function _promise() {
 
 var _child_process = _interopRequireDefault(require("child_process"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../process");
@@ -246,7 +250,11 @@ describe('commons-node/process', () => {
         expect(proc).toBeUndefined();
         expect(err.code).toBe('ENOENT');
         expect(err.message).toBe('spawn fakeCommand ENOENT');
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }).toPromise();
     });
     it('leaves an error handler when you unsubscribe', async () => {
@@ -260,7 +268,11 @@ describe('commons-node/process', () => {
         dontLogInNuclide: true
       }) // If we subscribe synchronously, and it emits synchronously, `sub` won't have been
       // assigned yet in our `subscribe()` callback, so we use the async scheduler.
+<<<<<<< HEAD
       .subscribeOn(_RxMin.Scheduler.async).subscribe(proc => {
+=======
+      .subscribeOn(_rxjsCompatUmdMin.Scheduler.async).subscribe(proc => {
+>>>>>>> Update
         // As soon as we have a process, unsubscribe. This will happen before the error is
         // thrown.
         sub.unsubscribe(); // Make sure that the error handler is still registered. If it isn't, and the process
@@ -409,7 +421,11 @@ describe('commons-node/process', () => {
       expect(output).toBe('hello');
     });
     it('sends a stream of stdin to the process', async () => {
+<<<<<<< HEAD
       const input = new _RxMin.Subject();
+=======
+      const input = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const outputPromise = (0, _process().runCommand)('cat', [], {
         input
       }).toPromise();

@@ -31,7 +31,11 @@ function _addTooltip() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _Constants() {
   const data = require("../lib/Constants");
@@ -244,7 +248,11 @@ function _goToLocation() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -460,7 +468,11 @@ class FileTreeSidebarComponent extends React.Component {
     this._showOpenConfigValues = (0, _observable().cacheWhileSubscribed)(_featureConfig().default.observeAsStream(_Constants().SHOW_OPEN_FILE_CONFIG_KEY));
     this._showUncommittedConfigValue = (0, _observable().cacheWhileSubscribed)(_featureConfig().default.observeAsStream(_Constants().SHOW_UNCOMMITTED_CHANGES_CONFIG_KEY));
     this._showUncommittedKindConfigValue = FileTreeHelpers().observeUncommittedChangesKindConfigKey();
+<<<<<<< HEAD
     this._scrollerElements = new _RxMin.Subject();
+=======
+    this._scrollerElements = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._scrollerRef = null;
     this._disposables = new (_UniversalDisposable().default)(this._emitter, this._subscribeToResizeEvents());
   }
@@ -483,9 +495,15 @@ class FileTreeSidebarComponent extends React.Component {
     })), this._showUncommittedKindConfigValue.subscribe(showUncommittedChangesKind => this.setState({
       showUncommittedChangesKind
     })), // Customize the context menu to remove items that match the 'atom-pane' selector.
+<<<<<<< HEAD
     _RxMin.Observable.fromEvent(componentDOMNode, 'contextmenu').switchMap(event => {
       if (event.button !== 2) {
         return _RxMin.Observable.never();
+=======
+    _rxjsCompatUmdMin.Observable.fromEvent(componentDOMNode, 'contextmenu').switchMap(event => {
+      if (event.button !== 2) {
+        return _rxjsCompatUmdMin.Observable.never();
+>>>>>>> Update
       }
 
       event.preventDefault();
@@ -503,7 +521,11 @@ class FileTreeSidebarComponent extends React.Component {
       }); // Wrap the disposable in an observable. This way we don't have to manually track these
       // disposables, they'll be managed for us.
 
+<<<<<<< HEAD
       return _RxMin.Observable.create(() => (0, _ContextMenu().showMenuForEvent)(event, menuTemplate));
+=======
+      return _rxjsCompatUmdMin.Observable.create(() => (0, _ContextMenu().showMenuForEvent)(event, menuTemplate));
+>>>>>>> Update
     }).subscribe());
   }
 
@@ -532,7 +554,11 @@ class FileTreeSidebarComponent extends React.Component {
   _subscribeToResizeEvents() {
     const scrollerRects = this._scrollerElements.switchMap(scroller => {
       if (scroller == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       return new (_observableDom().ResizeObservable)(scroller).map(arr => {
@@ -594,6 +620,10 @@ class FileTreeSidebarComponent extends React.Component {
       selectedFile: this.state.activeUri,
       hideEmptyFolders: true,
       onFileChosen: this._onFileChosen,
+<<<<<<< HEAD
+=======
+      onFileOpen: this._onFileChosen,
+>>>>>>> Update
       openInDiffViewOption: true,
       onClickAdd: uri => {
         const repo = (0, _nuclideVcsBase().repositoryForPath)(uri);
@@ -766,9 +796,15 @@ All the changes across your entire stacked diff.
 exports.default = FileTreeSidebarComponent;
 
 function observeAllModifiedStatusChanges() {
+<<<<<<< HEAD
   const paneItemChangeEvents = _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(atom.workspace.onDidAddPaneItem.bind(atom.workspace)), (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidDestroyPaneItem.bind(atom.workspace))).startWith(undefined);
 
   return paneItemChangeEvents.map(getCurrentBuffers).switchMap(buffers => _RxMin.Observable.merge(...buffers.map(buffer => {
+=======
+  const paneItemChangeEvents = _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(atom.workspace.onDidAddPaneItem.bind(atom.workspace)), (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidDestroyPaneItem.bind(atom.workspace))).startWith(undefined);
+
+  return paneItemChangeEvents.map(getCurrentBuffers).switchMap(buffers => _rxjsCompatUmdMin.Observable.merge(...buffers.map(buffer => {
+>>>>>>> Update
     return (0, _event().observableFromSubscribeFunction)(buffer.onDidChangeModified.bind(buffer));
   })));
 }

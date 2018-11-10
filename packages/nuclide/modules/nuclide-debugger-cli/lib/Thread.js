@@ -5,6 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function DebugProtocol() {
+  const data = _interopRequireWildcard(require("vscode-debugprotocol"));
+
+  DebugProtocol = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -18,6 +33,10 @@ exports.default = void 0;
  */
 class Thread {
   constructor(id, name) {
+<<<<<<< HEAD
+=======
+    this._stack = [];
+>>>>>>> Update
     this._id = id;
     this._name = name;
     this._stopped = false;
@@ -53,6 +72,10 @@ class Thread {
   }
 
   setRunning() {
+<<<<<<< HEAD
+=======
+    this._stack = [];
+>>>>>>> Update
     this._stopped = false;
   }
 
@@ -60,6 +83,17 @@ class Thread {
     this._stopped = true;
   }
 
+<<<<<<< HEAD
+=======
+  getStackFrames() {
+    return this._stack;
+  }
+
+  addStackFrames(frames) {
+    this._stack = this._stack.concat(frames);
+  }
+
+>>>>>>> Update
 }
 
 exports.default = Thread;

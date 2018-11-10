@@ -12,6 +12,14 @@
 
 /* eslint nuclide-internal/no-commonjs: 0 */
 
+<<<<<<< HEAD
+=======
+try {
+  // $FlowFB
+  require('./fb-addReactDOMProfiling')();
+} catch (e) {}
+
+>>>>>>> Update
 const {__DEV__} = require('../modules/nuclide-node-transpiler/lib/env');
 
 if (__DEV__) {

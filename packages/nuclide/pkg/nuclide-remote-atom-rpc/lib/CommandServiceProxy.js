@@ -13,7 +13,11 @@ module.exports = _client => {
         location: {
           type: "source",
           fileName: "rpc-types.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 97
+>>>>>>> Update
         },
         name: "MultiConnectionAtomCommands"
       }), "getConnectionCount", "promise", _client.marshalArguments(Array.from(arguments), [])).then(value => {
@@ -29,7 +33,11 @@ module.exports = _client => {
         location: {
           type: "source",
           fileName: "rpc-types.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 97
+>>>>>>> Update
         },
         name: "MultiConnectionAtomCommands"
       }), "openFile", "observable", _client.marshalArguments(Array.from(arguments), [{
@@ -67,7 +75,11 @@ module.exports = _client => {
         location: {
           type: "source",
           fileName: "rpc-types.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 97
+>>>>>>> Update
         },
         name: "MultiConnectionAtomCommands"
       }), "openRemoteFile", "observable", _client.marshalArguments(Array.from(arguments), [{
@@ -104,7 +116,11 @@ module.exports = _client => {
         location: {
           type: "source",
           fileName: "rpc-types.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 97
+>>>>>>> Update
         },
         name: "MultiConnectionAtomCommands"
       }), "addProject", "promise", _client.marshalArguments(Array.from(arguments), [{
@@ -131,7 +147,11 @@ module.exports = _client => {
         location: {
           type: "source",
           fileName: "rpc-types.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 97
+>>>>>>> Update
         },
         name: "MultiConnectionAtomCommands"
       }), "getProjectStates", "promise", _client.marshalArguments(Array.from(arguments), [])).then(value => {
@@ -151,7 +171,11 @@ module.exports = _client => {
         location: {
           type: "source",
           fileName: "rpc-types.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 97
+>>>>>>> Update
         },
         name: "MultiConnectionAtomCommands"
       }), "addNotification", "promise", _client.marshalArguments(Array.from(arguments), [{
@@ -167,6 +191,46 @@ module.exports = _client => {
       });
     }
 
+<<<<<<< HEAD
+=======
+    getClipboardContents() {
+      return _client.callRemoteMethod(_client.marshal(this, {
+        kind: "named",
+        location: {
+          type: "source",
+          fileName: "rpc-types.js",
+          line: 97
+        },
+        name: "MultiConnectionAtomCommands"
+      }), "getClipboardContents", "promise", _client.marshalArguments(Array.from(arguments), [])).then(value => {
+        return _client.unmarshal(value, {
+          kind: "string"
+        });
+      });
+    }
+
+    setClipboardContents(arg0) {
+      return _client.callRemoteMethod(_client.marshal(this, {
+        kind: "named",
+        location: {
+          type: "source",
+          fileName: "rpc-types.js",
+          line: 97
+        },
+        name: "MultiConnectionAtomCommands"
+      }), "setClipboardContents", "promise", _client.marshalArguments(Array.from(arguments), [{
+        name: "text",
+        type: {
+          kind: "string"
+        }
+      }])).then(value => {
+        return _client.unmarshal(value, {
+          kind: "void"
+        });
+      });
+    }
+
+>>>>>>> Update
     dispose() {
       return _client.disposeRemoteObject(this);
     }
@@ -380,7 +444,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "rpc-types.js",
+<<<<<<< HEAD
         line: 87
+=======
+        line: 97
+>>>>>>> Update
       },
       staticMethods: {},
       instanceMethods: {
@@ -388,7 +456,11 @@ Object.defineProperty(module.exports, "defs", {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 89
+=======
+            line: 99
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [],
@@ -403,7 +475,11 @@ Object.defineProperty(module.exports, "defs", {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 95
+=======
+            line: 105
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [{
@@ -440,7 +516,11 @@ Object.defineProperty(module.exports, "defs", {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 107
+=======
+            line: 117
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [{
@@ -476,7 +556,11 @@ Object.defineProperty(module.exports, "defs", {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 123
+=======
+            line: 133
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [{
@@ -502,7 +586,11 @@ Object.defineProperty(module.exports, "defs", {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 129
+=======
+            line: 139
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [],
@@ -521,7 +609,11 @@ Object.defineProperty(module.exports, "defs", {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 134
+=======
+            line: 144
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [{
@@ -538,11 +630,53 @@ Object.defineProperty(module.exports, "defs", {
             }
           }
         },
+<<<<<<< HEAD
+=======
+        getClipboardContents: {
+          location: {
+            type: "source",
+            fileName: "rpc-types.js",
+            line: 149
+          },
+          kind: "function",
+          argumentTypes: [],
+          returnType: {
+            kind: "promise",
+            type: {
+              kind: "string"
+            }
+          }
+        },
+        setClipboardContents: {
+          location: {
+            type: "source",
+            fileName: "rpc-types.js",
+            line: 154
+          },
+          kind: "function",
+          argumentTypes: [{
+            name: "text",
+            type: {
+              kind: "string"
+            }
+          }],
+          returnType: {
+            kind: "promise",
+            type: {
+              kind: "void"
+            }
+          }
+        },
+>>>>>>> Update
         dispose: {
           location: {
             type: "source",
             fileName: "rpc-types.js",
+<<<<<<< HEAD
             line: 136
+=======
+            line: 156
+>>>>>>> Update
           },
           kind: "function",
           argumentTypes: [],
@@ -582,7 +716,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "rpc-types.js",
+<<<<<<< HEAD
         line: 139
+=======
+        line: 159
+>>>>>>> Update
       },
       name: "ConnectionDetails",
       definition: {

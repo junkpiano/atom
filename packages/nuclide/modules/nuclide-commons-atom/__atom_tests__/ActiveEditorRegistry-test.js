@@ -10,7 +10,11 @@ function _testHelpers() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ActiveEditorRegistry() {
   const data = _interopRequireDefault(require("../ActiveEditorRegistry"));
@@ -56,8 +60,13 @@ describe('ActiveEditorRegistry', () => {
   }
 
   beforeEach(async () => {
+<<<<<<< HEAD
     activeEditors = new _RxMin.Subject();
     editorSaves = new _RxMin.Subject();
+=======
+    activeEditors = new _rxjsCompatUmdMin.Subject();
+    editorSaves = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     shouldProviderError = false;
     resultFunction = jest.fn().mockImplementation(async () => {
       if (shouldProviderError) {

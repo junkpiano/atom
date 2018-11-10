@@ -116,7 +116,12 @@ class ThriftClientManager {
     this._clientByClientId = new Map();
     this._tunnelByServiceConfigId = new Map();
 
+<<<<<<< HEAD
     const observable = this._transport.onMessage();
+=======
+    const observable = this._transport.onMessage(); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
     observable.subscribe({
       // TODO(terryltang): Temporarily use json format for readability, later
@@ -152,9 +157,15 @@ class ThriftClientManager {
       throw new Error('big-dig thrift client manager close!');
     }
 
+<<<<<<< HEAD
     const tunnel = await this._getOrCreateTunnel(serviceConfig);
     const clientId = `${serviceConfig.name}\0${this._clientIndex++}`;
     const client = (0, _createThriftClient().createThriftClient)(serviceConfig, tunnel.getLocalPort());
+=======
+    const port = await this._getOrCreateTunnel(serviceConfig);
+    const clientId = `${serviceConfig.name}\0${this._clientIndex++}`;
+    const client = (0, _createThriftClient().createThriftClient)(serviceConfig, port);
+>>>>>>> Update
 
     const clientDispose = () => {
       this._clientByClientId.delete(clientId);
@@ -191,7 +202,11 @@ class ThriftClientManager {
         }
 
         if (message.payload.success) {
+<<<<<<< HEAD
           resolve(message.payload.port);
+=======
+          resolve(message.payload.connectionOptions);
+>>>>>>> Update
         } else {
           reject(new Error(message.payload.error));
         }
@@ -237,10 +252,23 @@ class ThriftClientManager {
       this._logger.info(`Creating a new tunnel for ${serviceConfig.name}`);
 
       const serverConfig = (0, _configUtils().convertToServerConfig)(serviceConfig);
+<<<<<<< HEAD
       const remotePort = await this._createRemoteServer(serverConfig);
       const localPort = await (0, _serverPort().getAvailableServerPort)();
       const useIPv4 = false;
       tunnel = await this._tunnelManager.createTunnel(localPort, remotePort, useIPv4);
+=======
+      const remoteConnectionOptions = await this._createRemoteServer(serverConfig);
+      const localPort = await (0, _serverPort().getAvailableServerPort)();
+      const useIPv4 = false;
+      tunnel = await this._tunnelManager.createTunnel({
+        local: {
+          port: localPort,
+          useIPv4
+        },
+        remote: remoteConnectionOptions
+      });
+>>>>>>> Update
 
       this._tunnelByServiceConfigId.set(serviceConfigId, {
         tunnel,
@@ -248,7 +276,17 @@ class ThriftClientManager {
       });
     }
 
+<<<<<<< HEAD
     return tunnel;
+=======
+    const localProxyConfig = tunnel.getConfig().local;
+
+    if (localProxyConfig.path === undefined) {
+      return localProxyConfig.port;
+    }
+
+    throw new Error('Big Dig has no IPC Socket support at this time for Thrift clients.');
+>>>>>>> Update
   }
 
   async _closeTunnel(serviceConfig) {

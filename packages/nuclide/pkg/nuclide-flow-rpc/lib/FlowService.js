@@ -7,7 +7,11 @@ exports.dispose = dispose;
 exports.initialize = initialize;
 exports.flowGetAst = flowGetAst;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _config() {
   const data = require("./config");
@@ -138,7 +142,11 @@ class FlowLanguageService extends _nuclideLanguageServiceRpc().MultiProjectLangu
   }
 
   customFindReferences(fileVersion, position, global_, multiHop) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(async () => {
+=======
+    return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
       const ls = await this.getLanguageServiceForFile(fileVersion.filePath);
 
       if (ls == null) {

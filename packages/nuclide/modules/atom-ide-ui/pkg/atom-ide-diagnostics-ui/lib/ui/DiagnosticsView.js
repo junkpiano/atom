@@ -97,6 +97,19 @@ function _ToolbarRight() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
+=======
+function _shallowequal() {
+  const data = _interopRequireDefault(require("shallowequal"));
+
+  _shallowequal = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _Button() {
   const data = require("../../../../../nuclide-commons-ui/Button");
 
@@ -147,6 +160,7 @@ function _SettingsModal() {
   return data;
 }
 
+<<<<<<< HEAD
 function _DiagnosticsTableNux() {
   const data = _interopRequireDefault(require("./DiagnosticsTableNux"));
 
@@ -157,6 +171,8 @@ function _DiagnosticsTableNux() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -218,7 +234,11 @@ class DiagnosticsView extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
+<<<<<<< HEAD
     return nextProps.isVisible;
+=======
+    return nextProps.isVisible && !(0, _shallowequal().default)(this.props, nextProps);
+>>>>>>> Update
   }
 
   componentDidMount() {
@@ -233,7 +253,10 @@ class DiagnosticsView extends React.Component {
     const {
       diagnostics,
       showDirectoryColumn,
+<<<<<<< HEAD
       showNuxContent,
+=======
+>>>>>>> Update
       showTraces
     } = this.props;
     const groups = ['errors', 'warnings', 'info'];
@@ -257,9 +280,13 @@ class DiagnosticsView extends React.Component {
         flexDirection: 'column',
         width: '100%'
       }
+<<<<<<< HEAD
     }, showNuxContent ? React.createElement(_DiagnosticsTableNux().default, {
       onDismiss: this.props.onDismissNux
     }) : null, React.createElement(_Toolbar().Toolbar, {
+=======
+    }, React.createElement(_Toolbar().Toolbar, {
+>>>>>>> Update
       location: "top"
     }, React.createElement(_ToolbarLeft().ToolbarLeft, null, React.createElement(_ButtonGroup().ButtonGroup, {
       className: "inline-block"

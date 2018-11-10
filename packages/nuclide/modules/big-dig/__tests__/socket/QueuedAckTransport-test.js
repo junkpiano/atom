@@ -20,7 +20,11 @@ function _eventKit() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -34,7 +38,11 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
  * @format
  * @emails oncall+nuclide
  */
+<<<<<<< HEAD
 function makeUnreliableTransport(receiver = new _RxMin.Subject()) {
+=======
+function makeUnreliableTransport(receiver = new _rxjsCompatUmdMin.Subject()) {
+>>>>>>> Update
   let isClosed = false;
   const transport = new (_eventKit().Emitter)();
   transport.send = jest.fn(data => {
@@ -90,7 +98,11 @@ describe('QueuedAckTransport', () => {
   let transport;
   let q;
   beforeEach(() => {
+<<<<<<< HEAD
     receiver = new _RxMin.Subject();
+=======
+    receiver = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     transport = makeUnreliableTransport(receiver);
     q = new (_QueuedAckTransport().QueuedAckTransport)('42', transport);
   });

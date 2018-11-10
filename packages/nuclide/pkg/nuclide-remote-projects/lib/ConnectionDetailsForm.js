@@ -89,6 +89,29 @@ function _nuclideRemoteConnection() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _Message() {
+  const data = require("../../../modules/nuclide-commons-ui/Message");
+
+  _Message = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _Link() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons-ui/Link"));
+
+  _Link = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -103,6 +126,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
+=======
+// @fb-only: const PKEY_LINK = 'https://fburl.com/deprecationnotice';
+const PKEY_LINK = null; // @oss-only
+
+>>>>>>> Update
 const {
   SupportedMethods
 } = _nuclideRemoteConnection().SshHandshake;
@@ -337,7 +366,15 @@ class ConnectionDetailsForm extends React.Component {
       optionLabels: [passwordLabel, sshAgentLabel, privateKeyLabel],
       onSelectedChange: this._handleAuthMethodChange,
       selectedIndex: this.state.selectedAuthMethodIndex
+<<<<<<< HEAD
     })), React.createElement("div", {
+=======
+    }), PKEY_LINK != null && this.state.selectedAuthMethodIndex === 2 && React.createElement(_Message().Message, {
+      type: "warning"
+    }, "Private keys are going away soon. Please see", ' ', React.createElement(_Link().default, {
+      href: PKEY_LINK
+    }, "this post"), ".")), React.createElement("div", {
+>>>>>>> Update
       className: "form-group"
     }, React.createElement("label", null, "Remote Server Command:"), React.createElement(_AtomInput().AtomInput, {
       initialValue: this.state.remoteServerCommand,

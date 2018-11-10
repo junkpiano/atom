@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BuckBuildSystem = void 0;
 
+<<<<<<< HEAD
+=======
+function _log4js() {
+  const data = require("log4js");
+
+  _log4js = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _consumeFirstProvider() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/consumeFirstProvider"));
 
@@ -16,7 +29,11 @@ function _consumeFirstProvider() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../commons-node/passesGK"));
+=======
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -25,7 +42,11 @@ function _passesGK() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -47,6 +68,7 @@ function _tasks() {
   return data;
 }
 
+<<<<<<< HEAD
 function _log4js() {
   const data = require("log4js");
 
@@ -57,6 +79,8 @@ function _log4js() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _nuclideRemoteConnection() {
   const data = require("../../nuclide-remote-connection");
 
@@ -103,8 +127,19 @@ const SOCKET_TIMEOUT = 30000;
 
 class BuckBuildSystem {
   constructor() {
+<<<<<<< HEAD
     this._diagnosticUpdates = new _RxMin.Subject();
     this._diagnosticInvalidations = new _RxMin.Subject();
+=======
+    this._diagnosticUpdates = new _rxjsCompatUmdMin.Subject();
+    this._diagnosticInvalidations = new _rxjsCompatUmdMin.Subject();
+    this._statusMemory = {
+      // we'll only add one "target" to the "Building... " title
+      addedBuildTargetToTitle: false,
+      title: 'No events from buck...',
+      body: ''
+    };
+>>>>>>> Update
   }
 
   build(opts) {
@@ -140,6 +175,7 @@ class BuckBuildSystem {
     });
 
     const buckService = (0, _nuclideRemoteConnection().getBuckServiceByNuclideUri)(buckRoot);
+<<<<<<< HEAD
     const buildArguments = taskSettings.buildArguments || [];
     const runArguments = taskSettings.runArguments || [];
     const targetString = getCommandStringForResolvedBuildTarget(buildTarget);
@@ -147,6 +183,13 @@ class BuckBuildSystem {
       (0, _log4js().getLogger)('nuclide-buck').warn(`Failed to get httpPort for ${_nuclideUri().default.getPath(buckRoot)}`, err);
       return _RxMin.Observable.of(-1);
     }).switchMap(httpPort => {
+=======
+    let buildArguments = taskSettings.buildArguments || [];
+    const runArguments = taskSettings.runArguments || [];
+    const keepGoing = taskSettings.keepGoing == null ? true : taskSettings.keepGoing;
+    const targetString = getCommandStringForResolvedBuildTarget(buildTarget);
+    return _rxjsCompatUmdMin.Observable.fromPromise(Promise.all([buckService.getHTTPServerPort(buckRoot), (0, _passesGK().default)('nuclide_buck_superconsole')])).switchMap(([httpPort, useSuperconsole]) => {
+>>>>>>> Update
       let socketEvents = null;
       let buildId = null;
       const socketStream = buckService.getWebSocketStream(buckRoot, httpPort).refCount().map(message => message) // The do() and filter() ensures that we only listen to messages
@@ -164,7 +207,20 @@ class BuckBuildSystem {
         socketEvents = (0, _BuckEventStream().getEventsFromSocket)(socketStream).share();
       }
 
+<<<<<<< HEAD
       const args = runArguments.length > 0 && (subcommand === 'run' || subcommand === 'install' || subcommand === 'test') ? buildArguments.concat(['--']).concat(runArguments) : buildArguments;
+=======
+      if (useSuperconsole) {
+        buildArguments = buildArguments.concat(['--config', 'ui.superconsole=enabled', '--config', 'color.ui=always']);
+      }
+
+      let args = keepGoing && subcommand !== 'run' ? buildArguments.concat(['--keep-going']) : buildArguments;
+
+      if (runArguments.length > 0 && (subcommand === 'run' || subcommand === 'install' || subcommand === 'test')) {
+        args = args.concat(['--']).concat(runArguments);
+      }
+
+>>>>>>> Update
       const processMessages = runBuckCommand(buckService, buckRoot, targetString, subcommand, args, isDebug, udid, skipLaunchAfterInstall).share();
       const processEvents = (0, _BuckEventStream().getEventsFromProcess)(processMessages).share();
       let httpRecommendation;
@@ -176,17 +232,30 @@ class BuckBuildSystem {
         httpRecommendation = (0, _tasks().createMessage)('For better logs, set httpserver.port in your Buck config and restart Nuclide.', 'info');
       } else {
         mergedEvents = (0, _BuckEventStream().combineEventStreams)(subcommand, socketEvents, processEvents).share();
+<<<<<<< HEAD
         httpRecommendation = _RxMin.Observable.empty();
       }
 
       return _RxMin.Observable.concat(httpRecommendation, // Wait until the socket starts up before triggering the Buck process.
       socketEvents == null ? _RxMin.Observable.empty() : socketEvents.filter(event => event.type === 'socket-connected').take(1).timeout(SOCKET_TIMEOUT).catch(err => {
         if (err instanceof _RxMin.TimeoutError) {
+=======
+        httpRecommendation = _rxjsCompatUmdMin.Observable.empty();
+      }
+
+      return _rxjsCompatUmdMin.Observable.concat(httpRecommendation, // Wait until the socket starts up before triggering the Buck process.
+      socketEvents == null ? _rxjsCompatUmdMin.Observable.empty() : socketEvents.filter(event => event.type === 'socket-connected').take(1).timeout(SOCKET_TIMEOUT).catch(err => {
+        if (err instanceof _rxjsCompatUmdMin.TimeoutError) {
+>>>>>>> Update
           throw new Error('Timed out connecting to Buck server.');
         }
 
         throw err;
+<<<<<<< HEAD
       }).ignoreElements(), this._consumeEventStream(_RxMin.Observable.merge(mergedEvents, _featureConfig().default.get('nuclide-buck.compileErrorDiagnostics') ? (0, _BuckEventStream().getDiagnosticEvents)(mergedEvents, buckRoot) : _RxMin.Observable.empty(), processEventCallback != null ? processEventCallback(processMessages) : _RxMin.Observable.empty()), buckRoot));
+=======
+      }).ignoreElements(), this._consumeEventStream(_rxjsCompatUmdMin.Observable.merge(mergedEvents, _featureConfig().default.get('nuclide-buck.compileErrorDiagnostics') ? (0, _BuckEventStream().getDiagnosticEvents)(mergedEvents, buckRoot) : _rxjsCompatUmdMin.Observable.empty(), processEventCallback != null ? processEventCallback(processMessages) : _rxjsCompatUmdMin.Observable.empty()), buckRoot));
+>>>>>>> Update
     }).share();
   }
 
@@ -196,6 +265,123 @@ class BuckBuildSystem {
       invalidations: this._diagnosticInvalidations
     };
   }
+<<<<<<< HEAD
+=======
+  /*
+  * _processStatusEvent recieves an ANSI-stripped line of Buck superconsole
+  *  stdout as input with flags set by the ANSI. This function combines the
+  *  _statusMemory to reconstruct the buck superconsole. State is also used
+  *  for summarized title for the element. The TaskEvent we return contains:
+  *  title: the summarized one-line info based on buck state (max len: 35)
+  *  body: the combined stream inbetween reset flags which constitutes the
+  *         state that the buck superconsole wants to represent.
+  *
+  * TODO refactor this logic into a react scoped class that can construct
+  *  these as react elements.
+  */
+
+
+  _processStatusEvent(event) {
+    if (event == null || event.type !== 'buck-status') {
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    const result = event.reset ? _rxjsCompatUmdMin.Observable.of({
+      type: 'status',
+      status: {
+        type: 'bulletin',
+        bulletin: {
+          title: this._statusMemory.title.slice(),
+          body: this._statusMemory.body.slice()
+        }
+      }
+    }) : _rxjsCompatUmdMin.Observable.empty();
+
+    if (event.reset) {
+      this._statusMemory.addedBuildTargetToTitle = false;
+      this._statusMemory.body = '';
+    }
+
+    const PARSING_BUCK_FILES_REGEX = /(Pars.* )([\d:]+\d*\.?\d*)\s(min|sec)/g;
+    const CREATING_ACTION_GRAPH_REGEX = /(Creat.* )([\d:]+\d*\.?\d*)\s(min|sec)/g;
+    const BUILDING_REGEX = /(Buil.* )([\d:]+\d*\.?\d*)\s(min|sec)/g;
+    const BUILD_TARGET_REGEX = /\s-\s.*\/(?!.*\/)(.*)\.\.\.\s([\d:]+\d*\.?\d*)\s(min|sec)/g;
+    const STARTING_BUCK_REGEX = /(Starting.*)/g;
+    /* We'll attempt to match the event.message to a few known regex matches,
+    * otherwise we'll ignore it. When we find a match, we'll parse it for
+    * length, markup, and set the title.
+    */
+
+    let match = PARSING_BUCK_FILES_REGEX.exec(event.message);
+
+    if (match == null) {
+      match = CREATING_ACTION_GRAPH_REGEX.exec(event.message);
+    }
+
+    if (match == null) {
+      match = BUILDING_REGEX.exec(event.message);
+    }
+
+    if (match != null && match.length > 1) {
+      let prefix = match[1];
+
+      if (prefix.length > 24) {
+        prefix = prefix.slice(0, 24);
+      } // TODO refactor this logic into a react scoped class that can construct
+      // these as react elements.
+
+
+      this._statusMemory.title = `${prefix}<span>${match[2]}</span> ${match[3]}`;
+    }
+    /* this block parses the first subsequent Building... line
+    * (i.e. " - fldr/com/facebook/someTarget:someTarget#header-info 2.3 sec")
+    * into: "Building... someTarget:som 2.3 sec". & gates itself with addedBuildTargetToTitle
+    */
+
+
+    if (match == null && !this._statusMemory.addedBuildTargetToTitle) {
+      match = BUILD_TARGET_REGEX.exec(event.message);
+
+      if (match != null) {
+        let target = match[1].split('#')[0];
+
+        if (target.length > 12) {
+          target = target.slice(0, 12);
+        }
+
+        this._statusMemory.title = `Building ../${target} <span>${match[2]}</span> ${match[3]}`;
+        this._statusMemory.addedBuildTargetToTitle = true;
+      }
+    }
+
+    if (match == null) {
+      match = STARTING_BUCK_REGEX.exec(event.message);
+
+      if (match != null) {
+        let target = match[0];
+
+        if (target.length > 35) {
+          target = target.slice(0, 35);
+        }
+
+        this._statusMemory.title = target;
+      }
+    }
+
+    if (event.error) {
+      this._statusMemory.title = event.message.slice(0, 35);
+    } // logging lines that don't match our REGEX so we can manually add them later
+
+
+    if (match == null && !event.error) {
+      (0, _log4js().getLogger)('nuclide-buck-superconsole').warn('no match:' + event.message);
+    } // body is cleared by event.reset, otherwise we append a newline & message
+
+
+    this._statusMemory.body = event.reset ? event.message.trim() : this._statusMemory.body + '<br/>' + event.message.trim();
+    return result;
+  }
+>>>>>>> Update
   /**
    * Processes side diagnostics, converts relevant events to TaskEvents.
    */
@@ -208,9 +394,17 @@ class BuckBuildSystem {
     // Real exceptions will not be handled by this, of course.
 
     let errorMessage = null;
+<<<<<<< HEAD
     return _RxMin.Observable.concat(events.flatMap(event => {
       if (event.type === 'progress') {
         return _RxMin.Observable.of(event);
+=======
+    return _rxjsCompatUmdMin.Observable.concat(events.flatMap(event => {
+      if (event.type === 'progress') {
+        return _rxjsCompatUmdMin.Observable.of(event);
+      } else if (event.type === 'buck-status') {
+        return this._processStatusEvent(event);
+>>>>>>> Update
       } else if (event.type === 'log') {
         return (0, _tasks().createMessage)(event.message, event.level);
       } else if (event.type === 'build-output') {
@@ -219,7 +413,11 @@ class BuckBuildSystem {
           path,
           successType
         } = event.output;
+<<<<<<< HEAD
         return _RxMin.Observable.concat((0, _tasks().createMessage)(`Target: ${target}`, 'log'), (0, _tasks().createMessage)(`Output: ${path}`, 'log'), (0, _tasks().createMessage)(`Success type: ${successType}`, 'log'), (0, _tasks().createResult)(Object.assign({}, event.output, {
+=======
+        return _rxjsCompatUmdMin.Observable.concat((0, _tasks().createMessage)(`Target: ${target}`, 'log'), (0, _tasks().createMessage)(`Output: ${path}`, 'log'), (0, _tasks().createMessage)(`Success type: ${successType}`, 'log'), (0, _tasks().createResult)(Object.assign({}, event.output, {
+>>>>>>> Update
           path: _nuclideUri().default.join(buckRoot, path)
         })));
       } else if (event.type === 'diagnostics') {
@@ -248,6 +446,7 @@ class BuckBuildSystem {
         errorMessage = event.message;
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     }), _RxMin.Observable.defer(() => {
       if (fileDiagnostics.size > 0) {
@@ -256,11 +455,25 @@ class BuckBuildSystem {
         return _RxMin.Observable.empty();
       }
     }), _RxMin.Observable.defer(() => {
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    }), _rxjsCompatUmdMin.Observable.defer(() => {
+      if (fileDiagnostics.size > 0) {
+        return (0, _tasks().createMessage)('Compilation errors detected: open the Diagnostics pane to jump to them.', 'info');
+      } else {
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+    }), _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       if (errorMessage != null) {
         throw new Error(errorMessage);
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }));
   }
 
@@ -285,7 +498,11 @@ function runBuckCommand(buckService, buckRoot, buildTarget, subcommand, args, de
       signal: null
     };
     return openExopackageTunnelIfNeeded(buckRoot, simulator).switchMap(() => {
+<<<<<<< HEAD
       return buckService.installWithOutput(buckRoot, targets, args, simulator, !skipLaunchAfterInstall, debug).refCount().concat(_RxMin.Observable.of(SENTINEL));
+=======
+      return buckService.installWithOutput(buckRoot, targets, args, simulator, !skipLaunchAfterInstall, debug).refCount().concat(_rxjsCompatUmdMin.Observable.of(SENTINEL));
+>>>>>>> Update
     }) // We need to do this to make sure that we close the
     // openExopackageTunnelIfNeeded observable once
     // buckService.installWithOutput finishes so we can close the tunnel.
@@ -323,6 +540,7 @@ function openExopackageTunnelIfNeeded(host, simulator) {
   // buck expects this port to be open. We don't need it in the case of
   // installing to One World though because it's handled by adbmux.
   if (!_nuclideUri().default.isRemote(host) || isOneWorldDevice(simulator)) {
+<<<<<<< HEAD
     return _RxMin.Observable.of('ready');
   }
 
@@ -331,6 +549,16 @@ function openExopackageTunnelIfNeeded(host, simulator) {
       return _RxMin.Observable.of('ready');
     } else {
       return _RxMin.Observable.defer(async () => (0, _consumeFirstProvider().default)('nuclide.ssh-tunnel')).switchMap(service => service.openTunnels([{
+=======
+    return _rxjsCompatUmdMin.Observable.of('ready');
+  }
+
+  return _rxjsCompatUmdMin.Observable.defer(async () => (0, _passesGK().default)('nuclide_adb_exopackage_tunnel')).mergeMap(shouldTunnel => {
+    if (!shouldTunnel) {
+      return _rxjsCompatUmdMin.Observable.of('ready');
+    } else {
+      return _rxjsCompatUmdMin.Observable.defer(async () => (0, _consumeFirstProvider().default)('nuclide.ssh-tunnel')).switchMap(service => service.openTunnels([{
+>>>>>>> Update
         description: 'exopackage',
         from: {
           host,

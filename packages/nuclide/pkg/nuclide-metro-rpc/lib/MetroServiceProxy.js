@@ -319,7 +319,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 709
+=======
+        line: 721
+>>>>>>> Update
       },
       name: "Level",
       definition: {
@@ -350,7 +354,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 710
+=======
+        line: 722
+>>>>>>> Update
       },
       name: "Message",
       definition: {
@@ -376,7 +384,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 712
+=======
+        line: 724
+>>>>>>> Update
       },
       name: "MessageEvent",
       definition: {

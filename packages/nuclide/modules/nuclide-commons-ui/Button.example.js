@@ -61,6 +61,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
  * @format
  */
 const ButtonSizeExample = () => React.createElement(_Block().Block, null, React.createElement(_Button().Button, {
+<<<<<<< HEAD
   className: "inline-block",
   size: "EXTRA_SMALL"
 }, "extra_small"), React.createElement(_Button().Button, {
@@ -69,6 +70,28 @@ const ButtonSizeExample = () => React.createElement(_Block().Block, null, React.
 }, "small"), React.createElement(_Button().Button, {
   className: "inline-block"
 }, "regular"), React.createElement(_Button().Button, {
+=======
+  tooltip: {
+    title: 'An Extra Small Tooltip'
+  },
+  className: "inline-block",
+  size: "EXTRA_SMALL"
+}, "extra_small"), React.createElement(_Button().Button, {
+  tooltip: {
+    title: 'A Small Tooltip'
+  },
+  className: "inline-block",
+  size: "SMALL"
+}, "small"), React.createElement(_Button().Button, {
+  tooltip: {
+    title: 'A Regular Sized Tooltip'
+  },
+  className: "inline-block"
+}, "regular"), React.createElement(_Button().Button, {
+  tooltip: {
+    title: 'A Large Tooltip'
+  },
+>>>>>>> Update
   className: "inline-block",
   size: "LARGE"
 }, "large"));

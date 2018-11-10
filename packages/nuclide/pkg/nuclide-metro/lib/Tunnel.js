@@ -35,7 +35,11 @@ function _consumeFirstProvider() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,10 +55,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function openTunnel(serviceUri, behavior, port) {
   if (!_nuclideUri().default.isRemote(serviceUri) || behavior === 'do_not_open_tunnel') {
+<<<<<<< HEAD
     return _RxMin.Observable.of('ready').concat(_RxMin.Observable.never());
   }
 
   return _RxMin.Observable.defer(() => (0, _nullthrows().default)((0, _consumeFirstProvider().default)('nuclide.ssh-tunnel'))).switchMap(service => {
+=======
+    return _rxjsCompatUmdMin.Observable.of('ready').concat(_rxjsCompatUmdMin.Observable.never());
+  }
+
+  return _rxjsCompatUmdMin.Observable.defer(() => (0, _nullthrows().default)((0, _consumeFirstProvider().default)('nuclide.ssh-tunnel'))).switchMap(service => {
+>>>>>>> Update
     const desired = _desiredTunnelTo(serviceUri, port);
 
     for (const tunnel of service.getOpenTunnels()) {
@@ -79,7 +90,11 @@ function openTunnel(serviceUri, behavior, port) {
 }
 
 function _askToRequestTunnel(service, tunnel) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let subscription;
     const notification = atom.notifications.addSuccess('Open tunnel?', {
       detail: `Open a new tunnel so Metro becomes available at localhost:${tunnel.from.port}?`,

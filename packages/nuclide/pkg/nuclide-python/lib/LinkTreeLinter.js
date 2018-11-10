@@ -65,7 +65,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
@@ -78,7 +82,11 @@ function _shallowequal() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -147,13 +155,18 @@ class LinkTreeLinter {
       const path = editor.getPath();
 
       if (path == null || this._disposedPaths.has(path) || !_constants().GRAMMAR_SET.has(editor.getGrammar().scopeName)) {
+<<<<<<< HEAD
         return _RxMin.Observable.of([]);
+=======
+        return _rxjsCompatUmdMin.Observable.of([]);
+>>>>>>> Update
       } // If the CWD doesn't contain the file, Buck isn't going to work.
 
 
       const cwd = this._cwdApi == null ? null : this._cwdApi.getCwd();
 
       if (cwd != null && !_nuclideUri().default.contains(cwd, path)) {
+<<<<<<< HEAD
         return _RxMin.Observable.of([]);
       }
 
@@ -167,6 +180,21 @@ class LinkTreeLinter {
 
         const position = [[0, 0], [0, editor.lineTextForBufferRow(0).length]];
         const disposed = new _RxMin.Subject(); // If the user happened to build a viable target - great!
+=======
+        return _rxjsCompatUmdMin.Observable.of([]);
+      }
+
+      const pythonService = (0, _nuclideRemoteConnection().getPythonServiceByNuclideUri)(path);
+      return _rxjsCompatUmdMin.Observable.fromPromise(pythonService.getBuildableTargets(path)).filter(targets => targets.length > 0).switchMap(targets => {
+        const buckService = this._buckTaskRunnerService;
+
+        if (buckService == null || editor.getLineCount() === 0) {
+          return _rxjsCompatUmdMin.Observable.of([]);
+        }
+
+        const position = [[0, 0], [0, editor.lineTextForBufferRow(0).length]];
+        const disposed = new _rxjsCompatUmdMin.Subject(); // If the user happened to build a viable target - great!
+>>>>>>> Update
 
         const taskCompleted = (0, _event().observableFromSubscribeFunction)(cb => buckService.onDidCompleteTask(task => {
           if (targets.includes(task.buildTarget)) {
@@ -205,7 +233,11 @@ class LinkTreeLinter {
             disposed.next();
           }
         });
+<<<<<<< HEAD
         return _RxMin.Observable.of([{
+=======
+        return _rxjsCompatUmdMin.Observable.of([{
+>>>>>>> Update
           kind: 'action',
           severity: 'info',
           location: {
@@ -214,8 +246,13 @@ class LinkTreeLinter {
           },
           excerpt: 'For better language services, build a binary or unittest\n' + 'that uses this file with Buck. Suggestions:',
           solutions
+<<<<<<< HEAD
         }]).concat(_RxMin.Observable.never()).takeUntil(disposed).takeUntil(taskCompleted);
       }).takeUntil((0, _event().observableFromSubscribeFunction)(cb => editor.onDidDestroy(cb))).concat(_RxMin.Observable.of([]));
+=======
+        }]).concat(_rxjsCompatUmdMin.Observable.never()).takeUntil(disposed).takeUntil(taskCompleted);
+      }).takeUntil((0, _event().observableFromSubscribeFunction)(cb => editor.onDidDestroy(cb))).concat(_rxjsCompatUmdMin.Observable.of([]));
+>>>>>>> Update
     }).catch((err, continuation) => {
       (0, _log4js().getLogger)('LinkTreeLinter').error(err);
       return continuation;

@@ -40,7 +40,11 @@ function _nuclideRpc() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _waits_for() {
   const data = _interopRequireDefault(require("../../../jest/waits_for"));
@@ -82,7 +86,11 @@ describe('RpcProcess', () => {
       preserveFunctionNames: true
     }]);
     const processStream = (0, _process().spawn)('python', [PROCESS_PATH], OPTS) // For the sake of our tests, simulate creating the process asynchronously.
+<<<<<<< HEAD
     .subscribeOn(_RxMin.Scheduler.async);
+=======
+    .subscribeOn(_rxjsCompatUmdMin.Scheduler.async);
+>>>>>>> Update
     server = new (_RpcProcess().RpcProcess)('Dummy IO Server', serviceRegistry, processStream);
   });
   afterEach(() => {
@@ -142,7 +150,11 @@ describe('RpcProcess', () => {
         throw new Error('Fail - expected promise to reject');
       }
     } catch (e) {
+<<<<<<< HEAD
       expect(e.message.startsWith('Remote Error: Connection Closed processing message')).toBeTruthy();
+=======
+      expect(e.message).toEqual('Connection Closed');
+>>>>>>> Update
     }
 
     expect((await message).exitCode).toBe(0);

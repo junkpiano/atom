@@ -32,8 +32,16 @@ const FS_SERVICE_CONFIG = {
   name: 'thrift-rfs',
   remoteUri: '',
   remoteCommand: 'node',
+<<<<<<< HEAD
   remoteCommandArgs: ['{BIG_DIG_SERVICES_PATH}/src/thrift-services/fs/launchServer-entry.js', '{PORT}'],
   remotePort: 0,
+=======
+  remoteCommandArgs: ['{BIG_DIG_SERVICES_PATH}/src/thrift-services/fs/launchServer-entry.js', '{IPC_PATH}'],
+  remoteConnection: {
+    type: 'ipcSocket',
+    path: ''
+  },
+>>>>>>> Update
   thriftTransport: 'buffered',
   thriftProtocol: 'binary',
   thriftService: _ThriftFileSystemService().default,

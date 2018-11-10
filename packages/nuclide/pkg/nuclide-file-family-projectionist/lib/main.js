@@ -30,7 +30,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ProjectionistFileFamilyProvider() {
   const data = _interopRequireDefault(require("./ProjectionistFileFamilyProvider"));
@@ -56,7 +60,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class Activation {
   constructor() {
+<<<<<<< HEAD
     this._cwdApis = new _RxMin.BehaviorSubject(null);
+=======
+    this._cwdApis = new _rxjsCompatUmdMin.BehaviorSubject(null);
+>>>>>>> Update
   }
 
   activate() {

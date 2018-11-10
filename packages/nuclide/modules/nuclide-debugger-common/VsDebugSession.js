@@ -35,7 +35,11 @@ function _V8Protocol() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _analytics() {
   const data = require("../nuclide-commons/analytics");
@@ -99,6 +103,7 @@ class VsDebugSession extends _V8Protocol().default {
       debuggerSessionId: (0, _uuid().default)()
     });
     this._adapterErrorOutput = '';
+<<<<<<< HEAD
     this._onDidInitialize = new _RxMin.Subject();
     this._onDidStop = new _RxMin.Subject();
     this._onDidContinued = new _RxMin.Subject();
@@ -112,6 +117,22 @@ class VsDebugSession extends _V8Protocol().default {
     this._onDidLoadSource = new _RxMin.Subject();
     this._onDidCustom = new _RxMin.Subject();
     this._onDidEvent = new _RxMin.Subject();
+=======
+    this._onDidInitialize = new _rxjsCompatUmdMin.Subject();
+    this._onDidStop = new _rxjsCompatUmdMin.Subject();
+    this._onDidContinued = new _rxjsCompatUmdMin.Subject();
+    this._onDidTerminateDebugee = new _rxjsCompatUmdMin.Subject();
+    this._onDidExitDebugee = new _rxjsCompatUmdMin.Subject();
+    this._onDidExitAdapter = new _rxjsCompatUmdMin.Subject();
+    this._onDidThread = new _rxjsCompatUmdMin.Subject();
+    this._onDidOutput = new _rxjsCompatUmdMin.Subject();
+    this._onDidBreakpoint = new _rxjsCompatUmdMin.Subject();
+    this._onDidModule = new _rxjsCompatUmdMin.Subject();
+    this._onDidLoadSource = new _rxjsCompatUmdMin.Subject();
+    this._onDidCustom = new _rxjsCompatUmdMin.Subject();
+    this._onDidEvent = new _rxjsCompatUmdMin.Subject();
+    this._onDidEvaluate = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this.capabilities = {};
     this._runInTerminalHandler = runInTerminalHandler || null;
   }
@@ -164,6 +185,13 @@ class VsDebugSession extends _V8Protocol().default {
     return this._onDidCustom.asObservable();
   }
 
+<<<<<<< HEAD
+=======
+  observeEvaluations() {
+    return this._onDidEvaluate.asObservable();
+  }
+
+>>>>>>> Update
   observeAllEvents() {
     return this._onDidEvent.asObservable();
   }
@@ -456,6 +484,7 @@ class VsDebugSession extends _V8Protocol().default {
     if (this._adapterProcessSubscription != null && !this._disconnected) {
       // point of no return: from now on don't report any errors
       this._disconnected = true;
+<<<<<<< HEAD
       await _RxMin.Observable.fromPromise(this.send('disconnect', {
         restart
       })).timeout(5000).catch(err => {
@@ -464,6 +493,16 @@ class VsDebugSession extends _V8Protocol().default {
         }
 
         return _RxMin.Observable.empty();
+=======
+      await _rxjsCompatUmdMin.Observable.fromPromise(this.send('disconnect', {
+        restart
+      })).timeout(5000).catch(err => {
+        if (!(err instanceof _rxjsCompatUmdMin.TimeoutError)) {
+          throw err;
+        }
+
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }).toPromise();
 
       this._stopServer();
@@ -494,6 +533,13 @@ class VsDebugSession extends _V8Protocol().default {
     return this.send('exceptionInfo', args);
   }
 
+<<<<<<< HEAD
+=======
+  info(args) {
+    return this.send('info', args);
+  }
+
+>>>>>>> Update
   scopes(args) {
     return this.send('scopes', args);
   }
@@ -511,7 +557,15 @@ class VsDebugSession extends _V8Protocol().default {
   }
 
   evaluate(args) {
+<<<<<<< HEAD
     return this.send('evaluate', args);
+=======
+    return this.send('evaluate', args).then(result => {
+      this._onDidEvaluate.next(result);
+
+      return result;
+    });
+>>>>>>> Update
   }
 
   stepBack(args) {

@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideTestHelpers() {
   const data = require("../../nuclide-test-helpers");
@@ -139,7 +143,11 @@ describe('PathSetUpdater', () => {
         jest.spyOn(mockWatchmanClient, 'watchDirectoryRecursive');
         mockWatchmanClient.unwatch = jest.fn();
       });
+<<<<<<< HEAD
       jest.spyOn(hgUtils(), 'hgRunCommand').mockImplementation(() => _RxMin.Observable.of('[{ "path": "e", "status": "I"}]')); // Attach the pathSetUpdater to the pathSet.
+=======
+      jest.spyOn(hgUtils(), 'hgRunCommand').mockImplementation(() => _rxjsCompatUmdMin.Observable.of('[{ "path": "e", "status": "I"}]')); // Attach the pathSetUpdater to the pathSet.
+>>>>>>> Update
 
       if (!pathSetUpdater) {
         throw new Error("Invariant violation: \"pathSetUpdater\"");

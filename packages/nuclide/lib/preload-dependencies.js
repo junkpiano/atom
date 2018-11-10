@@ -34,7 +34,11 @@ require('react-dom');
 
 require("redux/dist/redux.min.js");
 
+<<<<<<< HEAD
 require("rxjs/bundles/Rx.min.js"); // Single out fs-plus since we can probably remove it one day.
+=======
+require("rxjs-compat/bundles/rxjs-compat.umd.min.js"); // Single out fs-plus since we can probably remove it one day.
+>>>>>>> Update
 
 
 require('fs-plus');

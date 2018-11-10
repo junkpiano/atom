@@ -160,7 +160,11 @@ const SHOW_IN_MENU_PRIORITY = 7000;
  *       callback() {
  *         Array.from(contextMenu.getSelectedNodes())
  *           .filter(node => !node.isContainer)
+<<<<<<< HEAD
  *           .forEach((node: FileTreeNode) => {
+=======
+ *           .forEach((node: FileTreeContextMenuNode) => {
+>>>>>>> Update
  *             const uri = node.uri;
  *             // DO WHAT YOU LIKE WITH THE URI!
  *           });
@@ -195,7 +199,11 @@ class FileTreeContextMenu {
     this._disposables.add(this._contextMenu);
 
     const shouldDisplaySetToCurrentWorkingRootOption = () => {
+<<<<<<< HEAD
       const node = Selectors().getSingleSelectedNode(this._store.getState());
+=======
+      const node = this.getSingleSelectedNode();
+>>>>>>> Update
       return node != null && node.isContainer && Selectors().hasCwd(this._store.getState()) && !node.isCwd;
     };
 
@@ -260,7 +268,11 @@ class FileTreeContextMenu {
       label: 'Source Control',
       parent: this._contextMenu,
       shouldDisplay: e => {
+<<<<<<< HEAD
         return !this._sourceControlMenu.isEmpty() && !Selectors().getSelectedNodes(this._store.getState()).isEmpty();
+=======
+        return !this._sourceControlMenu.isEmpty() && !this.getSelectedNodes().isEmpty();
+>>>>>>> Update
       }
     });
 
@@ -284,7 +296,11 @@ class FileTreeContextMenu {
       label: 'Rename',
       command: 'tree-view:rename-selection',
       shouldDisplay: () => {
+<<<<<<< HEAD
         const node = Selectors().getSingleSelectedNode(this._store.getState()); // For now, rename does not apply to root nodes.
+=======
+        const node = this.getSingleSelectedNode(); // For now, rename does not apply to root nodes.
+>>>>>>> Update
 
         return node != null && !node.isRoot;
       }
@@ -485,11 +501,23 @@ class FileTreeContextMenu {
   }
 
   getSelectedNodes() {
+<<<<<<< HEAD
     return Selectors().getTargetNodes(this._store.getState());
   }
 
   getSingleSelectedNode() {
     return Selectors().getSingleTargetNode(this._store.getState());
+=======
+    const state = this._store.getState();
+
+    return Selectors().getTargetNodes(state).map(node => (0, _nullthrows().default)(Selectors().getFileTreeContextMenuNode(state)(node)));
+  }
+
+  getSingleSelectedNode() {
+    const state = this._store.getState();
+
+    return Selectors().getFileTreeContextMenuNode(state)(Selectors().getSingleTargetNode(state));
+>>>>>>> Update
   }
 
   dispose() {

@@ -38,7 +38,11 @@ function _UniversalDisposable() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = require("../../commons-node/passesGK");
+=======
+  const data = require("../../../modules/nuclide-commons/passesGK");
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -68,7 +72,11 @@ function _log4js() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;

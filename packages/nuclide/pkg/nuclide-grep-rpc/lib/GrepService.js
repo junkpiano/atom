@@ -15,7 +15,11 @@ function _replaceInFile() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30,12 +34,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 function grepReplace(filePaths, regex, replacementText, concurrency = 4) {
+<<<<<<< HEAD
   return _RxMin.Observable.from(filePaths).mergeMap(filePath => (0, _replaceInFile().default)(filePath, regex, replacementText).map(replacements => ({
+=======
+  return _rxjsCompatUmdMin.Observable.from(filePaths).mergeMap(filePath => (0, _replaceInFile().default)(filePath, regex, replacementText).map(replacements => ({
+>>>>>>> Update
     type: 'success',
     filePath,
     replacements
   })).catch(err => {
+<<<<<<< HEAD
     return _RxMin.Observable.of({
+=======
+    return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       type: 'error',
       filePath,
       message: err.message

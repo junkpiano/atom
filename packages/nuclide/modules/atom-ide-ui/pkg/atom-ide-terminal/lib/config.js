@@ -7,7 +7,11 @@ exports.getFontSize = getFontSize;
 exports.setTerminalOption = setTerminalOption;
 exports.subscribeConfigChanges = subscribeConfigChanges;
 exports.syncTerminalFont = syncTerminalFont;
+<<<<<<< HEAD
 exports.FONT_SCALE_CONFIG = exports.FONT_FAMILY_CONFIG = exports.RENDERER_TYPE_CONFIG = exports.CHAR_ATLAS_CONFIG = exports.TRANSPARENCY_CONFIG = exports.OPTION_IS_META_CONFIG = exports.ADD_ESCAPE_COMMAND = exports.DOCUMENTATION_MESSAGE_CONFIG = exports.LINE_HEIGHT_CONFIG = exports.CURSOR_BLINK_CONFIG = exports.CURSOR_STYLE_CONFIG = exports.SCROLLBACK_CONFIG = exports.PRESERVED_COMMANDS_CONFIG = exports.COLOR_CONFIGS = void 0;
+=======
+exports.COPY_ON_SELECT_CONFIG = exports.FONT_SCALE_CONFIG = exports.FONT_FAMILY_CONFIG = exports.RENDERER_TYPE_CONFIG = exports.CHAR_ATLAS_CONFIG = exports.TRANSPARENCY_CONFIG = exports.OPTION_IS_META_CONFIG = exports.ADD_ESCAPE_COMMAND = exports.DOCUMENTATION_MESSAGE_CONFIG = exports.LINE_HEIGHT_CONFIG = exports.CURSOR_BLINK_CONFIG = exports.CURSOR_STYLE_CONFIG = exports.SCROLLBACK_CONFIG = exports.PRESERVED_COMMANDS_CONFIG = exports.COLOR_CONFIGS = void 0;
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/feature-config"));
@@ -83,12 +87,21 @@ const TRANSPARENCY_CONFIG = 'atom-ide-terminal.allowTransparency';
 exports.TRANSPARENCY_CONFIG = TRANSPARENCY_CONFIG;
 const CHAR_ATLAS_CONFIG = 'atom-ide-terminal.charAtlas';
 exports.CHAR_ATLAS_CONFIG = CHAR_ATLAS_CONFIG;
+<<<<<<< HEAD
 const RENDERER_TYPE_CONFIG = 'atom-ide-terminal.rendererType';
+=======
+const RENDERER_TYPE_CONFIG = 'atom-ide-terminal.renderer';
+>>>>>>> Update
 exports.RENDERER_TYPE_CONFIG = RENDERER_TYPE_CONFIG;
 const FONT_FAMILY_CONFIG = 'atom-ide-terminal.fontFamily';
 exports.FONT_FAMILY_CONFIG = FONT_FAMILY_CONFIG;
 const FONT_SCALE_CONFIG = 'atom-ide-terminal.fontScale';
 exports.FONT_SCALE_CONFIG = FONT_SCALE_CONFIG;
+<<<<<<< HEAD
+=======
+const COPY_ON_SELECT_CONFIG = 'atom-ide-terminal.copyOnSelect';
+exports.COPY_ON_SELECT_CONFIG = COPY_ON_SELECT_CONFIG;
+>>>>>>> Update
 
 function getFontSize() {
   return parseFloat(_featureConfig().default.get(FONT_SCALE_CONFIG)) * parseFloat(atom.config.get('editor.fontSize'));

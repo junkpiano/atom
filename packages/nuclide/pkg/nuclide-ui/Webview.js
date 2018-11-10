@@ -33,6 +33,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * 
  * @format
  */
+<<<<<<< HEAD
+=======
+
+/* eslint-enable react/no-unused-prop-types */
+>>>>>>> Update
 class Webview extends React.Component {
   constructor(props) {
     super(props);

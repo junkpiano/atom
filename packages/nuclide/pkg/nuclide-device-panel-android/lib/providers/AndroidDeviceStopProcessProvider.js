@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AndroidDeviceStopProcessProvider = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _utils() {
   const data = require("../../../../modules/nuclide-adb/lib/utils");
@@ -45,7 +49,11 @@ class AndroidDeviceStopProcessProvider {
   }
 
   getSupportedPIDs(host, device, procs) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(new Set(procs.map(proc => proc.pid)));
+=======
+    return _rxjsCompatUmdMin.Observable.of(new Set(procs.map(proc => proc.pid)));
+>>>>>>> Update
   }
 
   async run(host, device, proc) {

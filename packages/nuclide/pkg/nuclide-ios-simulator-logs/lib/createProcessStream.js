@@ -37,7 +37,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57,7 +61,11 @@ function createProcessStream() {
   const currentDeviceUdids = (0, _process().observeProcess)('bash', ['-c', WATCH_CURRENT_UDID_SCRIPT], {
     /* TODO(T17353599) */
     isExitError: () => false
+<<<<<<< HEAD
   }).catch(error => _RxMin.Observable.of({
+=======
+  }).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     kind: 'error',
     error
   })) // TODO(T17463635)
@@ -83,7 +91,11 @@ function createProcessStream() {
     return (0, _process().observeProcess)(_featureConfig().default.get('nuclide-ios-simulator-logs.pathToSyslog'), ['-w', '-F', 'xml', '-d', logDir], {
       /* TODO(T17353599) */
       isExitError: () => false
+<<<<<<< HEAD
     }).catch(error => _RxMin.Observable.of({
+=======
+    }).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       kind: 'error',
       error
     })) // TODO(T17463635)

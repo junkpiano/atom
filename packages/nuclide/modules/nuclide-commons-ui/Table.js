@@ -29,7 +29,11 @@ function _classnames() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
@@ -140,20 +144,105 @@ const DefaultEmptyComponent = () => React.createElement("div", {
  * minimum widths of the columns. (Ideally, the table would scroll horizontally in this case.)
  */
 class Table extends React.Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props);
     this._resizeStarts = new _RxMin.Subject();
+=======
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const newState = {};
+
+    if (nextProps.columns !== prevState.lastColumns) {
+      newState.lastColumns = nextProps.columns;
+    } // Did the columns change? If so, we need to recalculate the widths.
+
+
+    const currentColumns = prevState.lastColumns;
+    const nextColumns = nextProps.columns;
+
+    if (currentColumns == null) {
+      return newState;
+    }
+
+    if (nextColumns.length !== currentColumns.length || // If the columns just changed order, we want to keep their widths.
+    !(0, _collection().areSetsEqual)(new Set(currentColumns.map(column => column.key)), new Set(nextColumns.map(column => column.key)))) {
+      newState.preferredColumnWidths = getInitialPreferredColumnWidths(nextColumns);
+    }
+
+    return newState;
+  }
+
+  constructor(props) {
+    super(props);
+
+    this._selectRow = options => {
+      const {
+        index: selectedIndex,
+        event,
+        confirm
+      } = options;
+      const {
+        onSelect,
+        onWillSelect,
+        rows
+      } = this.props;
+
+      if (onSelect == null) {
+        return;
+      }
+
+      const selectedRow = rows[selectedIndex];
+      const selectedItem = selectedRow.data;
+
+      if (onWillSelect != null) {
+        if (onWillSelect(selectedItem, selectedIndex, event) === false) {
+          return;
+        }
+      }
+
+      onSelect(selectedItem, selectedIndex, event);
+
+      if (confirm && this.props.onConfirm != null) {
+        this.props.onConfirm(selectedItem, selectedIndex);
+      }
+    };
+
+    this._handleSortByColumn = sortedBy => {
+      const {
+        onSort,
+        sortDescending,
+        sortedColumn
+      } = this.props;
+
+      if (onSort == null) {
+        return;
+      }
+
+      onSort(sortedBy, sortDescending == null || sortedBy !== sortedColumn ? false : !sortDescending);
+    };
+
+    this._resizeStarts = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this.state = {
       preferredColumnWidths: getInitialPreferredColumnWidths(props.columns),
       resizeOffset: null,
       tableWidth: 0,
+<<<<<<< HEAD
       usingKeyboard: false
+=======
+      usingKeyboard: false,
+      lastColumns: null
+>>>>>>> Update
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     // If the state changed, we need to re-render.
+<<<<<<< HEAD
     if (!(0, _shallowequal().default)(nextState, this.state)) {
+=======
+    if (!(0, _shallowequal().default)(nextState, this.state, compareState)) {
+>>>>>>> Update
       return true;
     }
 
@@ -184,10 +273,17 @@ class Table extends React.Component {
       resizerLocation
     }) => {
       const startX = startEvent.pageX;
+<<<<<<< HEAD
       return _RxMin.Observable.fromEvent(document, 'mousemove').takeUntil(_RxMin.Observable.fromEvent(document, 'mouseup')).map(event => ({
         deltaPx: event.pageX - startX,
         resizerLocation
       })).concat(_RxMin.Observable.of(null));
+=======
+      return _rxjsCompatUmdMin.Observable.fromEvent(document, 'mousemove').takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(document, 'mouseup')).map(event => ({
+        deltaPx: event.pageX - startX,
+        resizerLocation
+      })).concat(_rxjsCompatUmdMin.Observable.of(null));
+>>>>>>> Update
     }).subscribe(resizeOffset => {
       if (resizeOffset == null) {
         // Finalize the resize by updating the user's preferred column widths to account for
@@ -276,7 +372,11 @@ class Table extends React.Component {
       }
 
       if (this.state.usingKeyboard) {
+<<<<<<< HEAD
         this._mouseMoveDisposable = new (_UniversalDisposable().default)(_RxMin.Observable.fromEvent(document, 'mousemove').take(1).subscribe(() => {
+=======
+        this._mouseMoveDisposable = new (_UniversalDisposable().default)(_rxjsCompatUmdMin.Observable.fromEvent(document, 'mousemove').take(1).subscribe(() => {
+>>>>>>> Update
           this.setState({
             usingKeyboard: false
           });
@@ -304,6 +404,7 @@ class Table extends React.Component {
     this._tableBody.focus();
   }
 
+<<<<<<< HEAD
   UNSAFE_componentWillReceiveProps(nextProps) {
     // Did the columns change? If so, we need to recalculate the widths.
     const currentColumns = this.props.columns;
@@ -317,6 +418,8 @@ class Table extends React.Component {
     }
   }
 
+=======
+>>>>>>> Update
   _moveSelection(offset, event) {
     const {
       selectedIndex
@@ -338,6 +441,7 @@ class Table extends React.Component {
     });
   }
 
+<<<<<<< HEAD
   _selectRow(options) {
     const {
       index: selectedIndex,
@@ -385,6 +489,9 @@ class Table extends React.Component {
   } // Just a bound version of the `_calculateColumnWidths` function for convenience.
 
 
+=======
+  // Just a bound version of the `_calculateColumnWidths` function for convenience.
+>>>>>>> Update
   _calculateColumnWidths() {
     return _calculateColumnWidths({
       preferredWidths: this.state.preferredColumnWidths,
@@ -395,10 +502,13 @@ class Table extends React.Component {
     });
   }
 
+<<<<<<< HEAD
   _renderEmptyCellContent() {
     return React.createElement("div", null);
   }
 
+=======
+>>>>>>> Update
   render() {
     return React.createElement("div", {
       className: this.props.className,
@@ -414,10 +524,22 @@ class Table extends React.Component {
 
     const {
       alternateBackground,
+<<<<<<< HEAD
       columns,
       headerElement,
       headerTitle,
       maxBodyHeight,
+=======
+      collapsable,
+      columns,
+      enableKeyboardNavigation,
+      emptyComponent,
+      headerElement,
+      headerTitle,
+      maxBodyHeight,
+      onBodyBlur,
+      onBodyFocus,
+>>>>>>> Update
       rows,
       selectable,
       selectedIndex,
@@ -428,6 +550,7 @@ class Table extends React.Component {
 
     const columnWidths = this._calculateColumnWidths();
 
+<<<<<<< HEAD
     const header = headerElement != null || headerTitle != null ? React.createElement("div", {
       className: "nuclide-ui-table-header-cell nuclide-ui-table-full-header"
     }, headerElement != null ? headerElement : headerTitle) : columns.map((column, i) => {
@@ -521,10 +644,123 @@ class Table extends React.Component {
 
         if (width != null) {
           cellStyle.width = `${width * 100}%`;
+=======
+    return React.createElement(React.Fragment, null, React.createElement(TableHeader, {
+      columns: columns,
+      columnWidths: columnWidths,
+      headerElement: headerElement,
+      headerTitle: headerTitle,
+      onSortByColumn: this._handleSortByColumn,
+      resizeStarts: this._resizeStarts,
+      sortable: sortable,
+      sortedColumn: sortedColumn,
+      sortDescending: sortDescending
+    }), React.createElement(TableBody, {
+      emptyComponent: emptyComponent,
+      enableKeyboardNavigation: enableKeyboardNavigation,
+      rows: rows,
+      columns: columns,
+      columnWidths: columnWidths,
+      selectable: selectable,
+      usingKeyboard: this.state.usingKeyboard,
+      selectRow: this._selectRow,
+      onBodyBlur: onBodyBlur,
+      onBodyFocus: onBodyFocus,
+      alternateBackground: alternateBackground,
+      collapsable: collapsable,
+      selectedIndex: selectedIndex,
+      maxBodyHeight: maxBodyHeight,
+      tableRef: el => {
+        this._tableBody = el;
+      }
+    }));
+  }
+
+}
+
+exports.Table = Table;
+
+function EmptyCellContent() {
+  return React.createElement("div", null);
+}
+
+class TableHeader extends React.PureComponent {
+  render() {
+    const {
+      columns,
+      columnWidths,
+      headerElement,
+      headerTitle,
+      onSortByColumn,
+      resizeStarts,
+      sortable,
+      sortDescending,
+      sortedColumn
+    } = this.props;
+    let inner;
+
+    if (headerElement != null || headerTitle != null) {
+      inner = React.createElement("div", {
+        className: "nuclide-ui-table-header-cell nuclide-ui-table-full-header"
+      }, headerElement != null ? headerElement : headerTitle);
+    } else {
+      inner = columns.map((column, i) => {
+        const {
+          title,
+          key,
+          shouldRightAlign,
+          cellClassName
+        } = column;
+        let resizer;
+
+        if (i < columns.length - 1) {
+          resizer = React.createElement("div", {
+            className: "nuclide-ui-table-header-resize-handle",
+            onMouseDown: event => {
+              resizeStarts.next({
+                event,
+                resizerLocation: i
+              });
+            },
+            onClick: e => {
+              // Prevent sortable column header click event from firing.
+              e.stopPropagation();
+            }
+          });
+        }
+
+        const width = columnWidths[key];
+        const optionalHeaderCellProps = {};
+
+        if (width != null) {
+          optionalHeaderCellProps.style = {
+            width: `${width * 100}%`
+          };
+        }
+
+        let sortIndicator;
+        let titleOverlay = title;
+
+        if (sortable) {
+          optionalHeaderCellProps.onClick = () => {
+            onSortByColumn(key);
+          };
+
+          titleOverlay += ' – click to sort';
+
+          if (sortedColumn === key) {
+            sortIndicator = React.createElement("span", {
+              className: "nuclide-ui-table-sort-indicator"
+            }, React.createElement(_Icon().Icon, {
+              icon: sortDescending ? 'triangle-down' : 'triangle-up'
+            }));
+          }
+>>>>>>> Update
         }
 
         return React.createElement("div", Object.assign({
           className: (0, _classnames().default)(cellClassName, {
+<<<<<<< HEAD
             'nuclide-ui-table-body-cell': true,
             'nuclide-ui-table-cell-text-align-right': shouldRightAlign
           }),
@@ -590,6 +826,137 @@ class Table extends React.Component {
     if (maxBodyHeight != null) {
       scrollableBodyStyle.maxHeight = maxBodyHeight;
       scrollableBodyStyle.overflowY = 'auto';
+=======
+            'nuclide-ui-table-cell-text-align-right': shouldRightAlign,
+            'nuclide-ui-table-header-cell': true,
+            'nuclide-ui-table-header-cell-sortable': sortable
+          }),
+          title: titleOverlay,
+          key: key
+        }, optionalHeaderCellProps), title, sortIndicator, resizer);
+      });
+    }
+
+    return React.createElement("div", {
+      key: "header",
+      className: "nuclide-ui-table"
+    }, React.createElement("div", {
+      className: "nuclide-ui-table-header"
+    }, inner));
+  }
+
+}
+
+class TableBody extends React.PureComponent {
+  render() {
+    const {
+      alternateBackground,
+      collapsable,
+      columns,
+      columnWidths,
+      emptyComponent,
+      enableKeyboardNavigation,
+      maxBodyHeight,
+      rows,
+      selectable,
+      selectedIndex,
+      selectRow,
+      tableRef,
+      usingKeyboard
+    } = this.props;
+    let body;
+
+    if (rows.length === 0) {
+      var _emptyComponent;
+
+      const EmptyComponent = (_emptyComponent = emptyComponent) !== null && _emptyComponent !== void 0 ? _emptyComponent : DefaultEmptyComponent;
+      body = React.createElement(EmptyComponent, null);
+    } else {
+      body = rows.map((row, i) => {
+        const {
+          className: rowClassName,
+          data,
+          rowAttributes
+        } = row;
+        const renderedRow = columns.map((column, j) => {
+          const {
+            key,
+            cellClassName,
+            component: Component,
+            shouldRightAlign
+          } = column;
+          let datum = data[key];
+
+          if (Component != null) {
+            datum = React.createElement(Component, {
+              data: datum
+            });
+          } else if (datum == null) {
+            datum = React.createElement(EmptyCellContent, null);
+          }
+
+          const cellStyle = {};
+          const width = columnWidths[key];
+
+          if (width != null) {
+            cellStyle.width = `${width * 100}%`;
+          }
+
+          return React.createElement("div", Object.assign({
+            className: (0, _classnames().default)(cellClassName, {
+              'nuclide-ui-table-body-cell': true,
+              'nuclide-ui-table-cell-text-align-right': shouldRightAlign
+            }),
+            key: j,
+            style: cellStyle,
+            title: typeof datum !== 'object' ? String(datum) : null
+          }, rowAttributes), datum);
+        });
+        const selectableRow = typeof selectable === 'function' ? selectable(row.data) : selectable;
+        const rowProps = selectableRow ? {
+          onClick: event => {
+            switch (event.detail) {
+              // This (`event.detail === 0`) shouldn't happen normally but does when the click is
+              // triggered by the integration test.
+              case 0:
+              case 1:
+                selectRow({
+                  index: i,
+                  event
+                });
+                return;
+
+              case 2:
+                // We need to check `event.detail` (instead of using `onDoubleClick`) because
+                // (for some reason) `onDoubleClick` is only firing sporadically.
+                // TODO: Figure out why. Repros in the diagnostic table with React 16.0.0 and
+                // Atom 1.22.0-beta1 (Chrome 56.0.2924.87). This may be because we're swapping out
+                // the component on the click so a different one is receiving the second?
+                selectRow({
+                  index: i,
+                  event,
+                  confirm: true
+                });
+                return;
+            }
+          }
+        } : {};
+        const isSelectedRow = selectedIndex != null && i === selectedIndex;
+        return React.createElement("div", Object.assign({
+          className: (0, _classnames().default)(rowClassName, {
+            'nuclide-ui-table-row': true,
+            'nuclide-ui-table-row-selectable': selectableRow,
+            'nuclide-ui-table-row-disabled': typeof selectable === 'function' && !selectableRow,
+            'nuclide-ui-table-row-using-keyboard-nav': usingKeyboard,
+            'nuclide-ui-table-row-selected': isSelectedRow,
+            'nuclide-ui-table-row-alternate': alternateBackground !== false && i % 2 === 1,
+            'nuclide-ui-table-collapsed-row': collapsable && !isSelectedRow
+          }),
+          "data-row-index": i,
+          key: i
+        }, rowProps), renderedRow);
+      });
+>>>>>>> Update
     }
 
     const bodyClassNames = (0, _classnames().default)('nuclide-ui-table', 'nuclide-ui-table-body', {
@@ -599,6 +966,7 @@ class Table extends React.Component {
       // support copy text selection
       'nuclide-ui-table-body-selectable-text': true,
       // Using native-key-bindings prevents the up and down arrows from being captured.
+<<<<<<< HEAD
       'native-key-bindings': !this.props.enableKeyboardNavigation
     });
     return [React.createElement("div", {
@@ -608,6 +976,18 @@ class Table extends React.Component {
       className: "nuclide-ui-table-header"
     }, header)), React.createElement("div", {
       key: "body",
+=======
+      'native-key-bindings': !enableKeyboardNavigation
+    });
+    const scrollableBodyStyle = {};
+
+    if (maxBodyHeight != null) {
+      scrollableBodyStyle.maxHeight = maxBodyHeight;
+      scrollableBodyStyle.overflowY = 'auto';
+    }
+
+    return React.createElement("div", {
+>>>>>>> Update
       style: scrollableBodyStyle,
       onFocus: event => {
         if (this.props.onBodyFocus != null) {
@@ -620,12 +1000,19 @@ class Table extends React.Component {
         }
       }
     }, React.createElement("div", {
+<<<<<<< HEAD
       ref: el => {
         this._tableBody = el;
       },
       className: bodyClassNames,
       tabIndex: "-1"
     }, body))];
+=======
+      ref: tableRef,
+      className: bodyClassNames,
+      tabIndex: "-1"
+    }, body));
+>>>>>>> Update
   }
 
 }
@@ -634,8 +1021,11 @@ class Table extends React.Component {
  */
 
 
+<<<<<<< HEAD
 exports.Table = Table;
 
+=======
+>>>>>>> Update
 function getInitialPreferredColumnWidths(columns) {
   const columnWidthRatios = {};
   let assignedWidth = 0;
@@ -847,4 +1237,22 @@ function compareCheapProps(a, b, key) {
     default:
       return a === b;
   }
+<<<<<<< HEAD
+=======
+}
+
+function compareState(a, b, key) {
+  switch (key) {
+    case undefined:
+      return undefined;
+
+    case 'lastColumns':
+      // `lastColumns` isn't used to render anything and only exists for
+      // `getDerivedStateFromProps`. Don't count this toward rerendering.
+      return true;
+
+    default:
+      return a === b;
+  }
+>>>>>>> Update
 }

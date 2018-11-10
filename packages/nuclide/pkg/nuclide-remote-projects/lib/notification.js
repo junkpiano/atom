@@ -168,7 +168,12 @@ function notifySshHandshakeError(errorType, error, config) {
   } = humanizeErrorMessage(errorType, error, config);
   let buttons = [];
 
+<<<<<<< HEAD
   if (errorType === 'SSH_AUTHENTICATION' && config.authMethod === 'CERT_NOT_YET_VALID') {
+=======
+  if (errorType === 'SSH_AUTHENTICATION' && // $FlowFixMe (>= v0.84.0) When a variable is equality-checked with a literal, the variable's type is refined.
+  config.authMethod === 'CERT_NOT_YET_VALID') {
+>>>>>>> Update
     buttons = [{
       className: 'icon icon-watch',
       text: 'Sync System Clock with Time Server',

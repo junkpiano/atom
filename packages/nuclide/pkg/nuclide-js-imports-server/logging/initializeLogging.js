@@ -36,8 +36,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _os = _interopRequireDefault(require("os"));
 
+=======
+>>>>>>> Update
 function _vscodeLanguageserver() {
   const data = require("vscode-languageserver");
 
@@ -63,7 +66,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const MAX_LOG_SIZE = 16 * 1024;
 const MAX_LOG_BACKUPS = 1;
 
+<<<<<<< HEAD
 const LOG_FILE_PATH = _nuclideUri().default.join(_os.default.tmpdir(), 'nuclide-js-imports-server.log'); // Configure log4js to not log to console, since
+=======
+const LOG_FILE_PATH = _nuclideUri().default.join((0, _nuclideLogging().getPathToLogDir)(), 'nuclide-js-imports-server.log'); // Configure log4js to not log to console, since
+>>>>>>> Update
 // writing arbitrary data to stdout will break JSON RPC if we're running over
 // stdout.
 //
@@ -77,7 +84,11 @@ function initializeLogging(connection) {
   _log4js().default.configure({
     appenders: [{
       type: 'logLevelFilter',
+<<<<<<< HEAD
       level: 'DEBUG',
+=======
+      level: 'WARN',
+>>>>>>> Update
       appender: {
         connection,
         type: require.resolve("../../nuclide-lsp-implementation-common/connectionConsoleAppender")

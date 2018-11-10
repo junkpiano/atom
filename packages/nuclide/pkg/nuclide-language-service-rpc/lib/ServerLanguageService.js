@@ -16,7 +16,11 @@ function _nuclideOpenFilesRpc() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -89,9 +93,15 @@ class ServerLanguageService {
 
   findReferences(fileVersion, position) {
     const filePath = fileVersion.filePath;
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise((0, _nuclideOpenFilesRpc().getBufferAtVersion)(fileVersion)).concatMap(buffer => {
       if (buffer == null) {
         return _RxMin.Observable.of(null);
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise((0, _nuclideOpenFilesRpc().getBufferAtVersion)(fileVersion)).concatMap(buffer => {
+      if (buffer == null) {
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       return this._service.findReferences(filePath, buffer, position);
@@ -100,9 +110,15 @@ class ServerLanguageService {
 
   rename(fileVersion, position, newName) {
     const filePath = fileVersion.filePath;
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise((0, _nuclideOpenFilesRpc().getBufferAtVersion)(fileVersion)).concatMap(buffer => {
       if (buffer == null) {
         return _RxMin.Observable.of(null);
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise((0, _nuclideOpenFilesRpc().getBufferAtVersion)(fileVersion)).concatMap(buffer => {
+      if (buffer == null) {
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       return this._service.rename(filePath, buffer, position, newName);
@@ -255,13 +271,21 @@ class ServerLanguageService {
   }
 
   observeStatus(fileVersion) {
+<<<<<<< HEAD
     return _RxMin.Observable.of({
+=======
+    return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       kind: 'null'
     }).publish();
   }
 
   onWillSave(fileVersion) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty().publish();
+=======
+    return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
   }
 
   async clickStatus(fileVersion, id, button) {}
@@ -271,7 +295,11 @@ class ServerLanguageService {
   async sendLspNotification(method, params) {}
 
   observeLspNotifications(notificationMethod) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty().publish();
+=======
+    return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
   }
 
   dispose() {
@@ -298,9 +326,15 @@ function ensureInvalidations(logger, diagnostics) {
     }
   });
 
+<<<<<<< HEAD
   const fileInvalidations = _RxMin.Observable.defer(() => {
     logger.debug('Clearing errors after stream closed');
     return _RxMin.Observable.of(new Map(Array.from(filesWithErrors).map(file => {
+=======
+  const fileInvalidations = _rxjsCompatUmdMin.Observable.defer(() => {
+    logger.debug('Clearing errors after stream closed');
+    return _rxjsCompatUmdMin.Observable.of(new Map(Array.from(filesWithErrors).map(file => {
+>>>>>>> Update
       logger.debug(`Clearing errors for ${file} after connection closed`);
       return [file, []];
     })));

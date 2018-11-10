@@ -1,5 +1,18 @@
 "use strict";
 
+<<<<<<< HEAD
+=======
+function _fsPromise() {
+  const data = _interopRequireDefault(require("../../../../../nuclide-commons/fsPromise"));
+
+  _fsPromise = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _serverPort() {
   const data = require("../../../../../nuclide-commons/serverPort");
 
@@ -10,7 +23,11 @@ function _serverPort() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _TunnelManager() {
   const data = require("../TunnelManager");
@@ -24,6 +41,11 @@ function _TunnelManager() {
 
 var _net = _interopRequireDefault(require("net"));
 
+<<<<<<< HEAD
+=======
+var _path = _interopRequireDefault(require("path"));
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -44,8 +66,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * simulate a BigDig connection.
  */
 function createTransport() {
+<<<<<<< HEAD
   const clientStream = new _RxMin.Subject();
   const serverStream = new _RxMin.Subject();
+=======
+  const clientStream = new _rxjsCompatUmdMin.Subject();
+  const serverStream = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   return {
     client: {
       send(message) {
@@ -74,7 +101,11 @@ function createTransport() {
  */
 
 
+<<<<<<< HEAD
 function createEchoServer(port) {
+=======
+function createEchoServer(options) {
+>>>>>>> Update
   return new Promise((resolve, reject) => {
     const server = _net.default.createServer(connection => {
       connection.on('end', () => {});
@@ -84,7 +115,11 @@ function createEchoServer(port) {
     server.on('error', err => {
       throw err;
     });
+<<<<<<< HEAD
     server.listen(String(port), () => {
+=======
+    server.listen(options, () => {
+>>>>>>> Update
       resolve(server);
     });
   });
@@ -126,8 +161,24 @@ test('creates a tunnel', async () => {
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server = await createEchoServer(remotePort);
   const tunnel = await clientTunnelManager.createTunnel(localPort, remotePort);
+=======
+  const server = await createEchoServer({
+    port: remotePort
+  });
+  const tunnel = await clientTunnelManager.createTunnel({
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  });
+>>>>>>> Update
   expect((await echo(localPort, 'message1'))).toBe('message1');
   expect((await echo(localPort, 'message2'))).toBe('message2');
   server.close();
@@ -141,8 +192,24 @@ test('creates a reverse tunnel', async () => {
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server = await createEchoServer(localPort);
   const tunnel = await clientTunnelManager.createReverseTunnel(localPort, remotePort);
+=======
+  const server = await createEchoServer({
+    port: localPort
+  });
+  const tunnel = await clientTunnelManager.createReverseTunnel({
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  });
+>>>>>>> Update
   expect((await echo(remotePort, 'message1'))).toBe('message1');
   expect((await echo(remotePort, 'message2'))).toBe('message2');
   server.close();
@@ -156,14 +223,46 @@ test('creates multiple tunnels', async () => {
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort1 = await (0, _serverPort().getAvailableServerPort)();
   const remotePort1 = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server1 = await createEchoServer(remotePort1);
   const tunnel1 = await clientTunnelManager.createTunnel(localPort1, remotePort1);
+=======
+  const server1 = await createEchoServer({
+    port: remotePort1
+  });
+  const tunnel1 = await clientTunnelManager.createTunnel({
+    local: {
+      port: localPort1,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort1,
+      useIPv4: false
+    }
+  });
+>>>>>>> Update
   expect((await echo(localPort1, 'message1'))).toBe('message1');
   expect((await echo(localPort1, 'message2'))).toBe('message2');
   const localPort2 = await (0, _serverPort().getAvailableServerPort)();
   const remotePort2 = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server2 = await createEchoServer(remotePort2);
   const tunnel2 = await clientTunnelManager.createTunnel(localPort2, remotePort2);
+=======
+  const server2 = await createEchoServer({
+    port: remotePort2
+  });
+  const tunnel2 = await clientTunnelManager.createTunnel({
+    local: {
+      port: localPort2,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort2,
+      useIPv4: false
+    }
+  });
+>>>>>>> Update
   expect((await echo(localPort2, 'message3'))).toBe('message3');
   expect((await echo(localPort2, 'message4'))).toBe('message4');
   server1.close();
@@ -180,9 +279,27 @@ test('throws an error if tunnel manager is closed', async () => {
   clientTunnelManager.close();
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server = await createEchoServer(localPort);
   await expect(clientTunnelManager.createTunnel(localPort, remotePort)).rejects.toThrowErrorMatchingSnapshot();
   await expect(clientTunnelManager.createReverseTunnel(remotePort, localPort)).rejects.toThrowErrorMatchingSnapshot();
+=======
+  const server = await createEchoServer({
+    port: localPort
+  });
+  const tunnelConfig = {
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  };
+  await expect(clientTunnelManager.createTunnel(tunnelConfig)).rejects.toThrowErrorMatchingSnapshot();
+  await expect(clientTunnelManager.createReverseTunnel(tunnelConfig)).rejects.toThrowErrorMatchingSnapshot();
+>>>>>>> Update
   server.close();
   serverTunnelManager.close();
 });
@@ -192,12 +309,35 @@ test('throws an error if either port is already bound', async () => {
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const localServer = await createEchoServer(localPort);
   await expect(clientTunnelManager.createTunnel(localPort, remotePort)).rejects.toThrow('listen EADDRINUSE :::' + localPort);
   await new Promise((res, rej) => localServer.close(() => res())); // TODO: cvreateReverseTunnel should throw an instance of error
 
   const remoteServer = await createEchoServer(remotePort);
   await expect(clientTunnelManager.createReverseTunnel(localPort, remotePort)).rejects.toEqual({
+=======
+  const localServer = await createEchoServer({
+    port: localPort
+  });
+  const tunnelConfig = {
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  };
+  await expect(clientTunnelManager.createTunnel(tunnelConfig)).rejects.toThrow('listen EADDRINUSE :::' + localPort);
+  await new Promise((res, rej) => localServer.close(() => res())); // TODO: createReverseTunnel should throw an instance of error
+
+  const remoteServer = await createEchoServer({
+    port: remotePort
+  });
+  await expect(clientTunnelManager.createReverseTunnel(tunnelConfig)).rejects.toEqual({
+>>>>>>> Update
     code: 'EADDRINUSE',
     errno: 'EADDRINUSE',
     syscall: 'listen',
@@ -215,9 +355,27 @@ test('should return an the existing tunnel if it already exists', async () => {
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server = await createEchoServer(remotePort);
   const tunnel1 = await clientTunnelManager.createTunnel(localPort, remotePort);
   const tunnel2 = await clientTunnelManager.createTunnel(localPort, remotePort);
+=======
+  const server = await createEchoServer({
+    port: remotePort
+  });
+  const tunnelConfig = {
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  };
+  const tunnel1 = await clientTunnelManager.createTunnel(tunnelConfig);
+  const tunnel2 = await clientTunnelManager.createTunnel(tunnelConfig);
+>>>>>>> Update
   expect(tunnel1).toEqual(tunnel2);
   server.close();
   tunnel1.close();
@@ -231,9 +389,27 @@ test('should not close a tunnel until all references are removed', async () => {
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server = await createEchoServer(remotePort);
   const tunnel1 = await clientTunnelManager.createTunnel(localPort, remotePort);
   const tunnel2 = await clientTunnelManager.createTunnel(localPort, remotePort);
+=======
+  const server = await createEchoServer({
+    port: remotePort
+  });
+  const tunnelConfig = {
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  };
+  const tunnel1 = await clientTunnelManager.createTunnel(tunnelConfig);
+  const tunnel2 = await clientTunnelManager.createTunnel(tunnelConfig);
+>>>>>>> Update
   expect(tunnel1).toEqual(tunnel2);
   expect((await echo(localPort, 'message1'))).toBe('message1');
   tunnel1.close();
@@ -250,12 +426,58 @@ test('should correctly close tunnels when the tunnel manager is closed', async (
   const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
   const localPort = await (0, _serverPort().getAvailableServerPort)();
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
+<<<<<<< HEAD
   const server = await createEchoServer(remotePort);
   const tunnel = await clientTunnelManager.createTunnel(localPort, remotePort);
+=======
+  const server = await createEchoServer({
+    port: remotePort
+  });
+  const tunnel = await clientTunnelManager.createTunnel({
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      port: remotePort,
+      useIPv4: false
+    }
+  });
+>>>>>>> Update
   clientTunnelManager.close();
   await expect(echo(localPort, 'message3')).rejects.toThrow(new RegExp(`connect ECONNREFUSED .*:${localPort}`));
   server.close();
   tunnel.close();
   serverTunnelManager.close();
   clientTunnelManager.close();
+<<<<<<< HEAD
+=======
+});
+test('creates a tunnel using socket domain', async () => {
+  const tunnelTransport = createTransport();
+  const serverTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.server);
+  const clientTunnelManager = new (_TunnelManager().TunnelManager)(tunnelTransport.client);
+  const localPort = await (0, _serverPort().getAvailableServerPort)();
+
+  const remotePath = _path.default.join((await _fsPromise().default.tempdir()), 'socket');
+
+  const server = await createEchoServer({
+    path: remotePath
+  });
+  const tunnel = await clientTunnelManager.createTunnel({
+    local: {
+      port: localPort,
+      useIPv4: false
+    },
+    remote: {
+      path: remotePath
+    }
+  });
+  expect((await echo(localPort, 'message1'))).toBe('message1');
+  expect((await echo(localPort, 'message2'))).toBe('message2');
+  server.close();
+  tunnel.close();
+  serverTunnelManager.close();
+  clientTunnelManager.close();
+>>>>>>> Update
 });

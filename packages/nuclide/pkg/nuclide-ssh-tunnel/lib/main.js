@@ -178,11 +178,27 @@ class Activation {
     }));
   }
 
+<<<<<<< HEAD
   consumeOutputService(api) {
     this._disposables.add(api.registerOutputProvider({
       id: 'Nuclide tunnels',
       messages: this._store.getState().consoleOutput
     }));
+=======
+  consumeConsole(consoleService) {
+    let consoleApi = consoleService({
+      id: 'Nuclide tunnels',
+      name: 'Nuclide tunnels'
+    });
+    const disposable = new (_UniversalDisposable().default)(() => {
+      consoleApi != null && consoleApi.dispose();
+      consoleApi = null;
+    }, this._store.getState().consoleOutput.subscribe(message => consoleApi != null && consoleApi.append(message)));
+
+    this._disposables.add(disposable);
+
+    return disposable;
+>>>>>>> Update
   }
 
 }

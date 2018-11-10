@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = debounceDeletes;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _observable() {
   const data = require("../../../modules/nuclide-commons/observable");
@@ -45,10 +49,17 @@ function debounceDeletes(resultStream) {
   return shared.mergeMap(change => {
     switch (change.type) {
       case 'change':
+<<<<<<< HEAD
         return _RxMin.Observable.of(change);
 
       case 'delete':
         return _RxMin.Observable.of(change).delay(DELETE_DELAY).takeUntil(shared);
+=======
+        return _rxjsCompatUmdMin.Observable.of(change);
+
+      case 'delete':
+        return _rxjsCompatUmdMin.Observable.of(change).delay(DELETE_DELAY).takeUntil(shared);
+>>>>>>> Update
     }
 
     throw new Error('unknown change type');

@@ -38,7 +38,11 @@ function _VcsLogGadget() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _projects() {
   const data = require("../../../modules/nuclide-commons-atom/projects");
@@ -93,7 +97,11 @@ function _util() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -316,7 +324,11 @@ function createLogPaneForPath(path) {
   }
 
   const title = `${repository.getType()} log ${(0, _string().maybeToString)((0, _projects().getAtomProjectRelativePath)(path))}`;
+<<<<<<< HEAD
   const currentDiff = new _RxMin.BehaviorSubject({
+=======
+  const currentDiff = new _rxjsCompatUmdMin.BehaviorSubject({
+>>>>>>> Update
     oldId: null,
     newId: null
   });
@@ -339,19 +351,31 @@ function createLogPaneForPath(path) {
     } = ids;
 
     if (oldId == null || newId == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         oldContent: null,
         newContent: null,
         error: null
       });
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.forkJoin(oldId !== '' ? repository.fetchFileContentAtRevision(path, oldId) : _RxMin.Observable.of(''), newId !== '' ? repository.fetchFileContentAtRevision(path, newId) : _RxMin.Observable.of('')).startWith([null, null]).map(([oldContent, newContent]) => ({
+=======
+    return _rxjsCompatUmdMin.Observable.forkJoin(oldId !== '' ? repository.fetchFileContentAtRevision(path, oldId) : _rxjsCompatUmdMin.Observable.of(''), newId !== '' ? repository.fetchFileContentAtRevision(path, newId) : _rxjsCompatUmdMin.Observable.of('')).startWith([null, null]).map(([oldContent, newContent]) => ({
+>>>>>>> Update
       oldContent,
       newContent,
       error: null
     })).catch(error => {
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         oldContent: null,
         newContent: null,
         error: error.toString()
@@ -359,7 +383,11 @@ function createLogPaneForPath(path) {
     });
   });
 
+<<<<<<< HEAD
   const props = _RxMin.Observable.combineLatest(_RxMin.Observable.fromPromise(repository.log([path], NUM_LOG_RESULTS)).map(log => log.entries).startWith(null), contentLoader).map(([logEntries, content]) => {
+=======
+  const props = _rxjsCompatUmdMin.Observable.combineLatest(_rxjsCompatUmdMin.Observable.fromPromise(repository.log([path], NUM_LOG_RESULTS)).map(log => log.entries).startWith(null), contentLoader).map(([logEntries, content]) => {
+>>>>>>> Update
     return {
       files: [path],
       showDifferentialRevision,

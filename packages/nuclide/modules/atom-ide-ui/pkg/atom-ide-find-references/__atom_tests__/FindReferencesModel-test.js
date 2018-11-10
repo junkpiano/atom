@@ -69,7 +69,11 @@ describe.skip('FindReferencesModel', () => {
     const model = new (_FindReferencesModel().default)('/test', 'testFunction', 'title', refs);
     expect(model.getReferenceCount()).toEqual(3);
     expect(model.getFileCount()).toEqual(2);
+<<<<<<< HEAD
     const result = await model.getFileReferences(0, 100); // Note the 1 line of context in the previews (but make sure it doesn't overflow)
+=======
+    const result = await model.getFileResults(0, 100); // Note the 1 line of context in the previews (but make sure it doesn't overflow)
+>>>>>>> Update
 
     const expectedResult = [{
       uri: TEST1,
@@ -96,8 +100,13 @@ describe.skip('FindReferencesModel', () => {
     }];
     expect(result).toEqual(expectedResult); // It should also work if we fetch each one separately.
 
+<<<<<<< HEAD
     const res1 = await model.getFileReferences(0, 1);
     const res2 = await model.getFileReferences(1, 1);
+=======
+    const res1 = await model.getFileResults(0, 1);
+    const res2 = await model.getFileResults(1, 1);
+>>>>>>> Update
     expect(res1.concat(res2)).toEqual(expectedResult);
   });
   it('should group overlapping references', async () => {
@@ -140,7 +149,11 @@ describe.skip('FindReferencesModel', () => {
     const model = new (_FindReferencesModel().default)('/test', 'testFunction', 'title', refs);
     expect(model.getReferenceCount()).toEqual(7);
     expect(model.getFileCount()).toEqual(2);
+<<<<<<< HEAD
     const result = await model.getFileReferences(0, 100);
+=======
+    const result = await model.getFileResults(0, 100);
+>>>>>>> Update
     expect(result).toEqual([{
       uri: TEST1,
       grammar: nullGrammar,
@@ -178,7 +191,11 @@ describe.skip('FindReferencesModel', () => {
     const model = new (_FindReferencesModel().default)('/test', 'testFunction', 'title', refs);
     expect(model.getReferenceCount()).toEqual(2);
     expect(model.getFileCount()).toEqual(2);
+<<<<<<< HEAD
     const result = await model.getFileReferences(0, 100); // Bad file should be silently hidden.
+=======
+    const result = await model.getFileResults(0, 100); // Bad file should be silently hidden.
+>>>>>>> Update
 
     expect(result).toEqual([{
       uri: TEST1,

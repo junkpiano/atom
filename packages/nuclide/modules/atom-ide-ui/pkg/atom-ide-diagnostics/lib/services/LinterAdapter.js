@@ -20,7 +20,11 @@ function _projects() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _textEvent() {
   const data = require("../../../../../nuclide-commons-atom/text-event");
@@ -271,6 +275,7 @@ function linterMessagesToDiagnosticUpdate(currentPath, msgs, providerName) {
 class LinterAdapter {
   constructor(provider, busyReporter) {
     this._provider = provider;
+<<<<<<< HEAD
     this._updates = new _RxMin.Subject();
     this._invalidations = new _RxMin.Subject();
     this._disposables = new (_UniversalDisposable().default)((0, _textEvent().observeTextEditorEvents)(this._provider.grammarScopes[0] === '*' ? 'all' : this._provider.grammarScopes, this._provider.lintsOnChange || this._provider.lintOnFly ? 'changes' : 'saves') // Group text editor events by their underlying text buffer.
@@ -281,12 +286,29 @@ class LinterAdapter {
     .switchMap(editor => {
       if (editor == null) {
         return _RxMin.Observable.of(null);
+=======
+    this._updates = new _rxjsCompatUmdMin.Subject();
+    this._invalidations = new _rxjsCompatUmdMin.Subject();
+    this._disposables = new (_UniversalDisposable().default)((0, _textEvent().observeTextEditorEvents)(this._provider.grammarScopes[0] === '*' ? 'all' : this._provider.grammarScopes, this._provider.lintsOnChange || this._provider.lintOnFly ? 'changes' : 'saves') // Group text editor events by their underlying text buffer.
+    // Each grouped stream lasts until the buffer gets destroyed.
+    .groupBy(editor => editor.getBuffer(), editor => editor, grouped => (0, _event().observableFromSubscribeFunction)(cb => grouped.key.onDidDestroy(cb)).take(1)).mergeMap(bufferObservable => // Run the linter on each buffer event.
+    _rxjsCompatUmdMin.Observable.concat(bufferObservable, // When the buffer gets destroyed, immediately stop linting and invalidate.
+    _rxjsCompatUmdMin.Observable.of(null)) // switchMap ensures that earlier lints are overridden by later ones.
+    .switchMap(editor => {
+      if (editor == null) {
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       const path = editor.getPath();
       const basename = path == null ? '(untitled)' : _nuclideUri().default.basename(path);
+<<<<<<< HEAD
       const startLinting = (0, _paneItem().isPending)(editor) ? (0, _paneItem().observePendingStateEnd)(editor).timeoutWith(PENDING_PANE_LINT_DEBOUNCE, _RxMin.Observable.of(null)) : _RxMin.Observable.of(null);
       return startLinting.switchMap(() => _RxMin.Observable.using(() => new (_UniversalDisposable().default)(busyReporter(`${this._provider.name}: running on "${basename}"`)), () => this._runLint(editor)));
+=======
+      const startLinting = (0, _paneItem().isPending)(editor) ? (0, _paneItem().observePendingStateEnd)(editor).timeoutWith(PENDING_PANE_LINT_DEBOUNCE, _rxjsCompatUmdMin.Observable.of(null)) : _rxjsCompatUmdMin.Observable.of(null);
+      return startLinting.switchMap(() => _rxjsCompatUmdMin.Observable.using(() => new (_UniversalDisposable().default)(busyReporter(`${this._provider.name}: running on "${basename}"`)), () => this._runLint(editor)));
+>>>>>>> Update
     }) // Track the previous update so we can invalidate its results.
     // (Prevents dangling diagnostics when a linter affects multiple files).
     .scan((acc, update) => ({
@@ -302,11 +324,19 @@ class LinterAdapter {
   }
 
   _runLint(editor) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => {
       const lintPromise = this._provider.lint(editor);
 
       if (lintPromise == null) {
         return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => {
+      const lintPromise = this._provider.lint(editor);
+
+      if (lintPromise == null) {
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       return Promise.resolve(lintPromise).catch(error => {
@@ -316,11 +346,19 @@ class LinterAdapter {
       });
     }).switchMap(linterMessages => {
       if (linterMessages == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
       }
 
       const update = linterMessagesToDiagnosticUpdate(editor.getPath(), linterMessages, this._provider.name);
       return _RxMin.Observable.of(update);
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+
+      const update = linterMessagesToDiagnosticUpdate(editor.getPath(), linterMessages, this._provider.name);
+      return _rxjsCompatUmdMin.Observable.of(update);
+>>>>>>> Update
     });
   }
 

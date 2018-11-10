@@ -15,7 +15,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../../../../nuclide-commons/event");
@@ -94,7 +98,11 @@ class CodeHighlightManager {
   _highlightEditors() {
     return (0, _debounced().observeActiveEditorsDebounced)(0).do(() => this._destroyMarkers()).switchMap(editor => {
       if (editor == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const cursorPositions = (0, _event().observableFromSubscribeFunction)(editor.onDidChangeCursorPosition.bind(editor)).filter( // If we're moving around inside highlighted ranges, that's fine.
@@ -105,7 +113,11 @@ class CodeHighlightManager {
 
       const changeEvents = (0, _event().observableFromSubscribeFunction)(editor.onDidChange.bind(editor)).do(() => this._destroyMarkers()).share();
 
+<<<<<<< HEAD
       const changeToggles = _RxMin.Observable.merge(_RxMin.Observable.of(true), changeEvents.mapTo(false), changeEvents.let((0, _observable().fastDebounce)(CHANGE_TOGGLE_MS)).mapTo(true));
+=======
+      const changeToggles = _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(true), changeEvents.mapTo(false), changeEvents.let((0, _observable().fastDebounce)(CHANGE_TOGGLE_MS)).mapTo(true));
+>>>>>>> Update
 
       const destroyEvents = (0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor));
       return cursorPositions.let((0, _observable().toggle)(changeToggles)).switchMap(async position => {

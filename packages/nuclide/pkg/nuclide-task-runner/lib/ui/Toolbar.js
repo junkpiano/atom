@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _passesGK() {
+  const data = _interopRequireDefault(require("../../../../modules/nuclide-commons/passesGK"));
+
+  _passesGK = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _BuckTaskRunner() {
   const data = require("../../../nuclide-buck/lib/BuckTaskRunner");
 
@@ -75,6 +88,19 @@ function _SplitButtonDropdown() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _TaskRunnerStatusComponent() {
+  const data = _interopRequireDefault(require("../../../nuclide-buck/lib/ui/TaskRunnerStatusComponent"));
+
+  _TaskRunnerStatusComponent = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _TaskRunnerButton() {
   const data = require("./TaskRunnerButton");
 
@@ -142,9 +168,54 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 // eslint-disable-next-line nuclide-internal/no-cross-atom-imports
+<<<<<<< HEAD
 const DEBUG_TASK_TYPE_KEY = 'nuclide-task-runner.debugTaskType';
 
 class Toolbar extends React.Component {
+=======
+// eslint-disable-next-line nuclide-internal/no-cross-atom-imports
+const DEBUG_TASK_TYPE_KEY = 'nuclide-task-runner.debugTaskType';
+
+class Toolbar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      taskbarStatusComponentGK: false,
+      bulletin: {
+        title: '',
+        body: ''
+      }
+    };
+
+    this._setTaskBarStatusGk();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.status == null || prevProps.status.type !== 'bulletin') {
+      return;
+    }
+
+    if (prevProps.status.bulletin.title !== this.state.bulletin.title || prevProps.status.bulletin.body !== this.state.bulletin.body) {
+      this.setState({
+        bulletin: {
+          body: prevProps.status.bulletin.body,
+          title: prevProps.status.bulletin.title
+        }
+      });
+    }
+  }
+
+  async _setTaskBarStatusGk() {
+    const passedGk = await (0, _passesGK().default)('nuclide_buck_superconsole');
+
+    if (passedGk) {
+      this.setState({
+        taskbarStatusComponentGK: true
+      });
+    }
+  }
+
+>>>>>>> Update
   render() {
     const className = (0, _classnames().default)('nuclide-task-runner-toolbar', {
       disabled: this.props.toolbarDisabled
@@ -158,6 +229,10 @@ class Toolbar extends React.Component {
     let dropdownVisibility = {
       visibility: 'hidden'
     };
+<<<<<<< HEAD
+=======
+    let taskbarVisible = false;
+>>>>>>> Update
 
     if (taskRunners.count() === 0 && !this.props.toolbarDisabled) {
       dropdownVisibility = {
@@ -178,6 +253,10 @@ class Toolbar extends React.Component {
 
         taskRunnerSpecificContent = [extraUi, taskButtons];
         dropdownVisibility = {};
+<<<<<<< HEAD
+=======
+        taskbarVisible = true;
+>>>>>>> Update
       }
     }
 
@@ -186,6 +265,27 @@ class Toolbar extends React.Component {
       iconComponent: this.props.iconComponent
     }));
 
+<<<<<<< HEAD
+=======
+    let statusComponentContent = null;
+    let fullWidthProgressBar = null;
+
+    if (this.state.taskbarStatusComponentGK) {
+      statusComponentContent = React.createElement(_TaskRunnerStatusComponent().default, {
+        title: this.state.bulletin.title,
+        body: this.state.bulletin.body,
+        progress: this.props.progress,
+        taskbarVisible: taskbarVisible,
+        taskIsRunning: this.props.taskIsRunning
+      });
+    } else {
+      fullWidthProgressBar = React.createElement(_FullWidthProgressBar().default, {
+        progress: this.props.progress,
+        visible: this.props.taskIsRunning
+      });
+    }
+
+>>>>>>> Update
     return React.createElement("div", {
       className: `${className} padded`
     }, React.createElement("div", {
@@ -201,10 +301,14 @@ class Toolbar extends React.Component {
         this.props.selectTaskRunner(value);
       },
       size: "sm"
+<<<<<<< HEAD
     })), taskRunnerSpecificContent), React.createElement(_FullWidthProgressBar().default, {
       progress: this.props.progress,
       visible: this.props.taskIsRunning
     }));
+=======
+    })), taskRunnerSpecificContent, statusComponentContent), fullWidthProgressBar);
+>>>>>>> Update
   }
 
   _renderTaskButtons() {
@@ -259,7 +363,11 @@ class Toolbar extends React.Component {
       });
     };
 
+<<<<<<< HEAD
     const debugTasks = state.tasks.filter(task => (0, _BuckTaskRunner().isDebugTask)(task.type));
+=======
+    const debugTasks = state.tasks.filter(task => task.type.includes('debug'));
+>>>>>>> Update
     const enabledDebugTasks = debugTasks.filter(t => !t.disabled);
     let debugElement;
 
@@ -311,7 +419,11 @@ class Toolbar extends React.Component {
       debugElement = React.createElement(DebugSectionComponent, null);
     }
 
+<<<<<<< HEAD
     return state.tasks.filter(task => !(0, _BuckTaskRunner().isDebugTask)(task.type) && task.hidden !== true).map(task => getTaskButton(task)).concat([debugElement]);
+=======
+    return state.tasks.filter(task => !task.type.includes('debug') && task.hidden !== true).map(task => getTaskButton(task)).concat([debugElement]);
+>>>>>>> Update
   }
 
 }

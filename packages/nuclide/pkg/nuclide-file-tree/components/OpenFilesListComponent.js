@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.OpenFilesListComponent = void 0;
 
+<<<<<<< HEAD
+=======
+function _DraggableFile() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons-ui/DraggableFile"));
+
+  _DraggableFile = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
 
@@ -78,7 +91,11 @@ function _DragResizeContainer() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -304,6 +321,12 @@ class OpenFilesListComponent extends React.PureComponent {
         name: e.name // eslint-disable-next-line nuclide-internal/jsx-simple-callback-refs
         ,
         ref: e.isSelected ? this._handleSelectedRow : null
+<<<<<<< HEAD
+=======
+      }, React.createElement(_DraggableFile().default, {
+        uri: e.uri,
+        trackingSource: "open-files"
+>>>>>>> Update
       }, React.createElement("span", {
         className: (0, _classnames().default)('icon', {
           'icon-primitive-dot': e.isModified && !isHoveredUri,
@@ -313,7 +336,11 @@ class OpenFilesListComponent extends React.PureComponent {
         onClick: this._onCloseClick.bind(this, e)
       }), React.createElement(_PathWithFileIcon().default, {
         path: e.name
+<<<<<<< HEAD
       }));
+=======
+      })));
+>>>>>>> Update
     }))))));
   }
 

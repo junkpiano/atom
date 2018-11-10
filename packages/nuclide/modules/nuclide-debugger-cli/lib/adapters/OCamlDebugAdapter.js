@@ -97,6 +97,13 @@ class OCamlDebugAdapter {
     return args || {};
   }
 
+<<<<<<< HEAD
+=======
+  transformExpression(exp, isCodeBlock) {
+    return exp;
+  }
+
+>>>>>>> Update
   async canDebugFile(file) {
     // no special cases, just use file extension
     return false;

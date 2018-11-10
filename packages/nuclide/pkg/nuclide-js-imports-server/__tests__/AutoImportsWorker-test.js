@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _testHelpers() {
   const data = require("../../../modules/nuclide-commons/test-helpers");
@@ -105,7 +109,11 @@ describe('AutoImportsWorker node_modules indexer', () => {
   beforeEach(async () => {
     dirPath = await (0, _testHelpers().generateFixture)('main_tests', new Map([['node_modules/log4js/package.json', '{"main": "./lib/log4js.js"}'], ['node_modules/log4js/lib/log4js.js', 'module.exports = {getLogger: () => {}}'], ['node_modules/left-pad/package.json', '{"main": "./lib"}'], ['node_modules/left-pad/lib/index.js', 'module.exports = {};']])); // Deliberately sabotage spawn() to exercise the glob indexer.
 
+<<<<<<< HEAD
     const spawnSpy = jest.spyOn(require("../../../modules/nuclide-commons/process"), 'spawn').mockReturnValue(_RxMin.Observable.throw());
+=======
+    const spawnSpy = jest.spyOn(require("../../../modules/nuclide-commons/process"), 'spawn').mockReturnValue(_rxjsCompatUmdMin.Observable.throw());
+>>>>>>> Update
     fileIndex = await (0, _fileIndex().getFileIndex)(dirPath, configFromFlow);
     expect(spawnSpy).toHaveBeenCalled();
   });

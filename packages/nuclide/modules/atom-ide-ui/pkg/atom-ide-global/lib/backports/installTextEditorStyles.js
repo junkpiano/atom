@@ -25,7 +25,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _semver() {
   const data = _interopRequireDefault(require("semver"));
@@ -59,7 +63,11 @@ function installTextEditorStyles() {
   }
 
   let styleSheetDisposable = new (_UniversalDisposable().default)();
+<<<<<<< HEAD
   return new (_UniversalDisposable().default)(() => styleSheetDisposable.dispose(), _RxMin.Observable.combineLatest((0, _event().observableFromSubscribeFunction)(atom.config.observe.bind(atom.config, 'editor.fontSize')), (0, _event().observableFromSubscribeFunction)(atom.config.observe.bind(atom.config, 'editor.fontFamily')), (0, _event().observableFromSubscribeFunction)(atom.config.observe.bind(atom.config, 'editor.lineHeight'))).subscribe(([fontSize, fontFamily, lineHeight]) => {
+=======
+  return new (_UniversalDisposable().default)(() => styleSheetDisposable.dispose(), _rxjsCompatUmdMin.Observable.combineLatest((0, _event().observableFromSubscribeFunction)(atom.config.observe.bind(atom.config, 'editor.fontSize')), (0, _event().observableFromSubscribeFunction)(atom.config.observe.bind(atom.config, 'editor.fontFamily')), (0, _event().observableFromSubscribeFunction)(atom.config.observe.bind(atom.config, 'editor.lineHeight'))).subscribe(([fontSize, fontFamily, lineHeight]) => {
+>>>>>>> Update
     if (!(typeof fontSize === 'number' && typeof fontFamily === 'string' && typeof lineHeight === 'number')) {
       throw new Error("Invariant violation: \"typeof fontSize === 'number' &&\\n          typeof fontFamily === 'string' &&\\n          typeof lineHeight === 'number'\"");
     }

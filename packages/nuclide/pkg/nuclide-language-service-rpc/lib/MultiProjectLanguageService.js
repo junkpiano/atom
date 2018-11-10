@@ -45,7 +45,11 @@ function _cache() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -143,6 +147,7 @@ class MultiProjectLanguageService {
       });
     });
 
+<<<<<<< HEAD
     this._resources.add(host, this._processes); // Observe projects as they are opened
 
 
@@ -151,6 +156,9 @@ class MultiProjectLanguageService {
     this._resources.add(configObserver, configObserver.observeConfigs().subscribe(configs => {
       this._ensureProcesses(configs);
     }));
+=======
+    this._resources.add(host, this._processes);
+>>>>>>> Update
 
     this._resources.add(() => {
       this._closeProcesses();
@@ -206,6 +214,7 @@ class MultiProjectLanguageService {
       }
     });
     return process;
+<<<<<<< HEAD
   } // Ensures that the only attached LanguageServices are those
   // for the given configPaths.
   // Closes all LanguageServices not in configPaths, and starts
@@ -216,6 +225,8 @@ class MultiProjectLanguageService {
     this._logger.info(`MultiProjectLanguageService ensureProcesses. ${Array.from(configPaths).join(', ')}`);
 
     this._processes.setKeys(configPaths);
+=======
+>>>>>>> Update
   } // Closes all LanguageServices for this fileCache.
 
 
@@ -228,7 +239,11 @@ class MultiProjectLanguageService {
   observeLanguageServices() {
     this._logger.info('observing connections');
 
+<<<<<<< HEAD
     return (0, _observable().compact)(this._processes.observeValues().switchMap(process => _RxMin.Observable.fromPromise(process)));
+=======
+    return (0, _observable().compact)(this._processes.observeValues().switchMap(process => _rxjsCompatUmdMin.Observable.fromPromise(process)));
+>>>>>>> Update
   }
 
   async getAllLanguageServices() {
@@ -253,7 +268,11 @@ class MultiProjectLanguageService {
       return (0, _ServerLanguageService().ensureInvalidations)(this._logger, process.observeDiagnostics().refCount().catch(error => {
         this._logger.error('Error: observeDiagnostics', error);
 
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }));
     }).publish();
   }
@@ -265,7 +284,11 @@ class MultiProjectLanguageService {
   observeStatus(fileVersion) {
     this._observeStatusPromiseResolver();
 
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).flatMap(ls => ls.observeStatus(fileVersion).refCount()).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).flatMap(ls => ls.observeStatus(fileVersion).refCount()).publish();
+>>>>>>> Update
   }
 
   async clickStatus(fileVersion, id, button) {
@@ -292,11 +315,19 @@ class MultiProjectLanguageService {
   }
 
   findReferences(fileVersion, position) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).concatMap(ls => ls.findReferences(fileVersion, position).refCount()).publish();
   }
 
   rename(fileVersion, position, newName) {
     return _RxMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).concatMap(ls => ls.rename(fileVersion, position, newName).refCount()).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).concatMap(ls => ls.findReferences(fileVersion, position).refCount()).publish();
+  }
+
+  rename(fileVersion, position, newName) {
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).concatMap(ls => ls.rename(fileVersion, position, newName).refCount()).publish();
+>>>>>>> Update
   }
 
   async getCoverage(filePath) {
@@ -407,7 +438,11 @@ class MultiProjectLanguageService {
   }
 
   onWillSave(fileVersion) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).flatMap(languageService => languageService.onWillSave(fileVersion).refCount()).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._getLanguageServiceForFile(fileVersion.filePath)).flatMap(languageService => languageService.onWillSave(fileVersion).refCount()).publish();
+>>>>>>> Update
   }
 
   async sendLspRequest(filePath, method, params) {
@@ -423,7 +458,11 @@ class MultiProjectLanguageService {
     return this.observeLanguageServices().mergeMap(process => process.observeLspNotifications(notificationMethod).refCount().catch(error => {
       this._logger.error('Error: observeLspNotifications', error);
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     })).publish();
   }
 

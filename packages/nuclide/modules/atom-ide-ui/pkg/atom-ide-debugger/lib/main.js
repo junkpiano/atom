@@ -523,6 +523,7 @@ class Activation {
       focusedProcess
     } = this._service.viewModel;
 
+<<<<<<< HEAD
     if (focusedProcess == null || focusedStackFrame == null) {
       return [];
     } else if (!Boolean(focusedProcess.session.capabilities.supportsCompletionsRequest)) {
@@ -531,6 +532,10 @@ class Activation {
         text: scope.name,
         type: 'variable'
       }));
+=======
+    if (focusedProcess == null || focusedStackFrame == null || !Boolean(focusedProcess.session.capabilities.supportsCompletionsRequest)) {
+      return [];
+>>>>>>> Update
     } else {
       const completions = await focusedProcess.completions(focusedStackFrame.frameId, text, request.bufferPosition, 0);
       return completions.map(item => ({
@@ -939,7 +944,12 @@ class Activation {
     } = this._service.viewModel;
 
     if (focusedThread != null) {
+<<<<<<< HEAD
       let callstackText = '';
+=======
+      let callstackText = ''; // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
       focusedThread.getFullCallStack().filter(expectedStack => !expectedStack.isPending).take(1).subscribe(expectedStack => {
         expectedStack.getOrDefault([]).forEach((item, i) => {
           const path = _nuclideUri().default.basename(item.source.uri);

@@ -81,7 +81,11 @@ function _ExportManager() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AutoImportsManager() {
   const data = require("./AutoImportsManager");
@@ -205,9 +209,15 @@ async function main() {
   const newCache = new (_ExportCache().default)({
     root,
     configFromFlow
+<<<<<<< HEAD
   });
 
   _RxMin.Observable.merge(indexDirectory(index, hasteSettings), indexNodeModules(index)).subscribe(message => {
+=======
+  }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+  _rxjsCompatUmdMin.Observable.merge(indexDirectory(index, hasteSettings), indexNodeModules(index)).subscribe(message => {
+>>>>>>> Update
     sendUpdatesBatched(message);
     message.forEach(update => {
       if (update.sha1 != null) {
@@ -255,6 +265,10 @@ function disposeForGC(index, cache) {
 
 
 function watchDirectoryRecursively(root, hasteSettings) {
+<<<<<<< HEAD
+=======
+  // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
   (0, _fileIndex().watchDirectory)(root).mergeMap(fileChange => handleFileChange(root, fileChange, hasteSettings), CONCURRENCY).subscribe(() => {}, error => {
     logger.error(`Failed to watch ${root}`, error);
   });
@@ -324,7 +338,11 @@ function indexDirectory({
   const numWorkers = Math.min(Math.max(1, Math.floor(files.length / MIN_FILES_PER_WORKER)), maxWorkers);
   const filesPerWorker = Math.ceil(files.length / numWorkers);
 
+<<<<<<< HEAD
   const workerMessages = _RxMin.Observable.range(0, numWorkers).mergeMap(workerId => {
+=======
+  const workerMessages = _rxjsCompatUmdMin.Observable.range(0, numWorkers).mergeMap(workerId => {
+>>>>>>> Update
     return (0, _nice().niceSafeSpawn)(process.execPath, [_nuclideUri().default.join(__dirname, 'AutoImportsWorker-entry.js'), '--child', root], {
       stdio: ['inherit', 'inherit', 'inherit', 'ipc']
     });
@@ -334,6 +352,7 @@ function indexDirectory({
     } // For Flow
 
 
+<<<<<<< HEAD
     const updateStream = _RxMin.Observable.fromEvent(worker, 'message').takeUntil(_RxMin.Observable.fromEvent(worker, 'error').do(error => {
       logger.warn(`Worker ${workerId} had received`, error);
     })).takeUntil(_RxMin.Observable.fromEvent(worker, 'exit').do(() => {
@@ -341,13 +360,26 @@ function indexDirectory({
     }));
 
     return _RxMin.Observable.merge(updateStream, _RxMin.Observable.timer(0).do(() => {
+=======
+    const updateStream = _rxjsCompatUmdMin.Observable.fromEvent(worker, 'message').takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(worker, 'error').do(error => {
+      logger.warn(`Worker ${workerId} had received`, error);
+    })).takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(worker, 'exit').do(() => {
+      logger.debug(`Worker ${workerId} terminated.`);
+    }));
+
+    return _rxjsCompatUmdMin.Observable.merge(updateStream, _rxjsCompatUmdMin.Observable.timer(0).do(() => {
+>>>>>>> Update
       worker.send({
         files: files.slice(workerId * filesPerWorker, Math.min((workerId + 1) * filesPerWorker, files.length))
       });
     }).ignoreElements());
   });
 
+<<<<<<< HEAD
   return _RxMin.Observable.of(cachedUpdates).concat(workerMessages).map(message => {
+=======
+  return _rxjsCompatUmdMin.Observable.of(cachedUpdates).concat(workerMessages).map(message => {
+>>>>>>> Update
     // Inject the main files at this point, since we have a list of all map files.
     // This could be pure but it's just not worth the cost.
     message.forEach(update => {
@@ -519,7 +551,11 @@ function indexNodeModules({
   exportCache,
   nodeModulesPackageJsonFiles
 }) {
+<<<<<<< HEAD
   return _RxMin.Observable.from(nodeModulesPackageJsonFiles).mergeMap(file => handleNodeModule(root, file, exportCache), MAX_WORKERS).let(_observable().compact).bufferCount(BATCH_SIZE);
+=======
+  return _rxjsCompatUmdMin.Observable.from(nodeModulesPackageJsonFiles).mergeMap(file => handleNodeModule(root, file, exportCache), MAX_WORKERS).let(_observable().compact).bufferCount(BATCH_SIZE);
+>>>>>>> Update
 }
 
 async function handleNodeModule(root, packageJsonFile, exportCache) {
@@ -621,9 +657,15 @@ function runChild() {
   process.on('message', message => {
     const {
       files
+<<<<<<< HEAD
     } = message;
 
     _RxMin.Observable.from(files).concatMap((file, index) => {
+=======
+    } = message; // eslint-disable-next-line nuclide-internal/unused-subscription
+
+    _rxjsCompatUmdMin.Observable.from(files).concatMap((file, index) => {
+>>>>>>> Update
       // Note that we explicitly skip the main check here.
       // The parent process has a index of main files which is more efficient!
       return getExportsForFile(_nuclideUri().default.join(root, file), hasteSettings);

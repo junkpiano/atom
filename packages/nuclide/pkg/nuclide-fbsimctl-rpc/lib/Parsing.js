@@ -80,6 +80,10 @@ function typeFromArch(arch) {
     case 'i386':
       return 'simulator';
 
+<<<<<<< HEAD
+=======
+    case 'arm64e':
+>>>>>>> Update
     case 'arm64':
     case 'armv7':
     case 'armv7s':

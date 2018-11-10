@@ -38,7 +38,11 @@ function _FileSystemService() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -142,8 +146,13 @@ function mergeSearchResults(codeSearchResults) {
   return results // Limit the total result size.
   .merge(results.scan((size, {
     match
+<<<<<<< HEAD
   }) => size + match.lineText.length + match.matchText.length, 0).filter(size => size > MATCH_BYTE_LIMIT).switchMapTo(_RxMin.Observable.throw(Error(`Too many results, truncating to ${MATCH_BYTE_LIMIT} bytes`))).ignoreElements()) // Buffer results by file. Flush when the file changes, or on completion.
   .buffer(_RxMin.Observable.concat(results.distinct(result => result.filePath), _RxMin.Observable.of(null))).filter(buffer => buffer.length > 0).map(buffer => ({
+=======
+  }) => size + match.lineText.length + match.matchText.length, 0).filter(size => size > MATCH_BYTE_LIMIT).switchMapTo(_rxjsCompatUmdMin.Observable.throw(Error(`Too many results, truncating to ${MATCH_BYTE_LIMIT} bytes`))).ignoreElements()) // Buffer results by file. Flush when the file changes, or on completion.
+  .buffer(_rxjsCompatUmdMin.Observable.concat(results.distinct(result => result.filePath), _rxjsCompatUmdMin.Observable.of(null))).filter(buffer => buffer.length > 0).map(buffer => ({
+>>>>>>> Update
     filePath: buffer[0].filePath,
     matches: buffer.map(x => x.match)
   }));

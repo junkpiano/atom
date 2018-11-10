@@ -25,6 +25,7 @@ function FileTreeHelpers() {
   return data;
 }
 
+<<<<<<< HEAD
 function _hgConstants() {
   const data = require("../../nuclide-hg-rpc/lib/hg-constants");
 
@@ -35,6 +36,8 @@ function _hgConstants() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -76,6 +79,7 @@ class MemoizedFieldsDeriver {
   constructor(uri, rootUri) {
     this._uri = uri;
     this._rootUri = rootUri;
+<<<<<<< HEAD
     this._isRoot = uri === rootUri;
     this._name = FileTreeHelpers().keyToName(uri);
     this._isContainer = FileTreeHelpers().isDirOrArchiveKey(uri);
@@ -84,6 +88,11 @@ class MemoizedFieldsDeriver {
     this._splitPath = _nuclideUri().default.split(uri);
     this._getRepo = memoize(this._repoGetter.bind(this));
     this._getVcsStatusCode = memoize(this._vcsStatusCodeGetter.bind(this));
+=======
+    this._isContainer = FileTreeHelpers().isDirOrArchiveKey(uri);
+    this._splitPath = _nuclideUri().default.split(uri);
+    this._getRepo = memoize(this._repoGetter.bind(this));
+>>>>>>> Update
     this._getIsIgnored = memoize(this._isIgnoredGetter.bind(this));
     this._getCheckedStatus = memoize(this._checkedStatusGetter.bind(this));
     this._getContainedInWorkingSet = memoize(this._containedInWorkingSetGetter.bind(this));
@@ -101,6 +110,7 @@ class MemoizedFieldsDeriver {
     return cache.repo;
   }
 
+<<<<<<< HEAD
   _vcsStatusCodeGetter(conf, cache) {
     if (cache.vcsStatuses !== conf.vcsStatuses) {
       cache.vcsStatuses = conf.vcsStatuses;
@@ -111,6 +121,8 @@ class MemoizedFieldsDeriver {
     return cache.vcsStatusCode;
   }
 
+=======
+>>>>>>> Update
   _isIgnoredGetter(conf, cache) {
     const repo = this._getRepo(conf);
 
@@ -222,6 +234,7 @@ class MemoizedFieldsDeriver {
 
   buildDerivedFields(conf) {
     return {
+<<<<<<< HEAD
       isRoot: this._isRoot,
       name: this._name,
       isContainer: this._isContainer,
@@ -229,6 +242,10 @@ class MemoizedFieldsDeriver {
       localPath: this._localPath,
       repo: this._getRepo(conf),
       vcsStatusCode: this._getVcsStatusCode(conf),
+=======
+      isContainer: this._isContainer,
+      repo: this._getRepo(conf),
+>>>>>>> Update
       isIgnored: this._getIsIgnored(conf),
       checkedStatus: this._getCheckedStatus(conf),
       shouldBeShown: this._getShouldBeShown(conf),

@@ -117,7 +117,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -158,17 +162,28 @@ class CodeFormatManager {
       const editor = atom.workspace.getActiveTextEditor();
 
       if (!editor) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
       }
 
       return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         type: 'command',
         editor
       });
     }); // Events from editor actions (saving, typing).
 
     const editorEvents = (0, _event().observableFromSubscribeFunction)(cb => atom.workspace.observeTextEditors(cb)).mergeMap(editor => this._getEditorEventStream(editor));
+<<<<<<< HEAD
     return _RxMin.Observable.merge(commandEvents, editorEvents) // Group events by buffer to prevent simultaneous formatting operations.
+=======
+    return _rxjsCompatUmdMin.Observable.merge(commandEvents, editorEvents) // Group events by buffer to prevent simultaneous formatting operations.
+>>>>>>> Update
     .groupBy(event => event.editor.getBuffer(), event => event, grouped => (0, _event().observableFromSubscribeFunction)(callback => grouped.key.onDidDestroy(callback))).mergeMap(events => // Make sure we halt everything when the editor gets destroyed.
     events.let((0, _observable().completingSwitchMap)(event => this._handleEvent(event)))).subscribe();
   }
@@ -183,11 +198,19 @@ class CodeFormatManager {
     // attempting to save a destroyed editor!)
 
     const willDestroyEvents = (0, _event().observableFromSubscribeFunction)(cb => atom.workspace.onWillDestroyPaneItem(cb)).filter(event => event.item === editor);
+<<<<<<< HEAD
     return _RxMin.Observable.merge(changeEvents.map(edit => ({
       type: 'type',
       editor,
       edit
     }))).takeUntil(_RxMin.Observable.merge((0, _textEditor().observeEditorDestroy)(editor), willDestroyEvents));
+=======
+    return _rxjsCompatUmdMin.Observable.merge(changeEvents.map(edit => ({
+      type: 'type',
+      editor,
+      edit
+    }))).takeUntil(_rxjsCompatUmdMin.Observable.merge((0, _textEditor().observeEditorDestroy)(editor), willDestroyEvents));
+>>>>>>> Update
   }
 
   _handleEvent(event) {
@@ -207,17 +230,29 @@ class CodeFormatManager {
           atom.notifications.addError(`Failed to format code: ${err.message}`, {
             detail: err.detail
           });
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         });
 
       case 'type':
         return this._formatCodeOnTypeInTextEditor(editor, event.edit).catch(err => {
           (0, _log4js().getLogger)('code-format').warn('Failed to format code on type:', err);
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
         });
 
       default:
         return _RxMin.Observable.throw(`unknown event type ${event.type}`);
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+        });
+
+      default:
+        return _rxjsCompatUmdMin.Observable.throw(`unknown event type ${event.type}`);
+>>>>>>> Update
     }
   } // Checks whether contents are same in the buffer post-format, throwing if
   // anything has changed.
@@ -231,7 +266,11 @@ class CodeFormatManager {
 
 
   _formatCodeInTextEditor(editor, range) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => {
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       const buffer = editor.getBuffer();
       const selectionRange = range || editor.getSelectedBufferRange();
       const {
@@ -258,6 +297,7 @@ class CodeFormatManager {
       const fileProviders = [...this._fileProviders.getAllProvidersForEditor(editor)];
       const contents = editor.getText();
 
+<<<<<<< HEAD
       if (rangeProviders.length > 0 && ( // When formatting the entire file, prefer file-based providers.
       !formatRange.isEqual(buffer.getRange()) || fileProviders.length === 0)) {
         return _RxMin.Observable.defer(() => this._reportBusy(editor, Promise.all(rangeProviders.map(p => p.formatCode(editor, formatRange))))).switchMap(allEdits => {
@@ -291,20 +331,66 @@ class CodeFormatManager {
       } else {
         return _RxMin.Observable.empty();
       }
+=======
+      const rangeEdits = _rxjsCompatUmdMin.Observable.defer(() => this._reportBusy(editor, Promise.all(rangeProviders.map(p => p.formatCode(editor, formatRange))))).switchMap(allEdits => {
+        const firstNonEmpty = allEdits.find(edits => edits.length > 0);
+
+        if (firstNonEmpty == null) {
+          return _rxjsCompatUmdMin.Observable.empty();
+        } else {
+          return _rxjsCompatUmdMin.Observable.of(firstNonEmpty);
+        }
+      });
+
+      const fileEdits = _rxjsCompatUmdMin.Observable.defer(() => this._reportBusy(editor, Promise.all(fileProviders.map(p => p.formatEntireFile(editor, formatRange))))).switchMap(allResults => {
+        const firstNonNull = allResults.find(result => result != null);
+
+        if (firstNonNull == null) {
+          return _rxjsCompatUmdMin.Observable.empty();
+        } else {
+          return _rxjsCompatUmdMin.Observable.of(firstNonNull);
+        }
+      }).map(({
+        _,
+        formatted
+      }) => {
+        return [{
+          oldRange: editor.getBuffer().getRange(),
+          newText: formatted,
+          oldText: contents
+        }];
+      }); // When formatting the entire file, prefer file-based providers.
+
+
+      const preferFileEdits = formatRange.isEqual(buffer.getRange());
+      const edits = preferFileEdits ? fileEdits.concat(rangeEdits) : rangeEdits.concat(fileEdits);
+      return edits.first(Boolean, []);
+>>>>>>> Update
     });
   }
 
   _formatCodeOnTypeInTextEditor(editor, aggregatedEvent) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => {
       // Don't try to format changes with multiple cursors.
       if (aggregatedEvent.changes.length !== 1) {
         return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => {
+      // Don't try to format changes with multiple cursors.
+      if (aggregatedEvent.changes.length !== 1) {
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const event = aggregatedEvent.changes[0]; // This also ensures the non-emptiness of event.newText for below.
 
       if (!shouldFormatOnType(event) || !(0, _config().getFormatOnType)()) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       } // In the case of bracket-matching, we use the last character because that's
       // the character that will usually cause a reformat (i.e. `}` instead of `{`).
 
@@ -313,7 +399,11 @@ class CodeFormatManager {
       const providers = [...this._onTypeProviders.getAllProvidersForEditor(editor)];
 
       if (providers.length === 0) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const contents = editor.getText();
@@ -334,9 +424,15 @@ class CodeFormatManager {
         const firstNonEmptyIndex = allEdits.findIndex(edits => edits.length > 0);
 
         if (firstNonEmptyIndex === -1) {
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
         } else {
           return _RxMin.Observable.of({
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+        } else {
+          return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
             edits: (0, _nullthrows().default)(allEdits[firstNonEmptyIndex]),
             provider: providers[firstNonEmptyIndex]
           });
@@ -380,6 +476,7 @@ class CodeFormatManager {
     const saveProviders = [...this._onSaveProviders.getAllProvidersForEditor(editor)];
 
     if (saveProviders.length > 0) {
+<<<<<<< HEAD
       return _RxMin.Observable.defer(() => this._reportBusy(editor, Promise.all(saveProviders.map(p => p.formatOnSave(editor))), false)).switchMap(allEdits => {
         const firstNonEmpty = allEdits.find(edits => edits.length > 0);
 
@@ -394,6 +491,22 @@ class CodeFormatManager {
     }
 
     return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.defer(() => this._reportBusy(editor, Promise.all(saveProviders.map(p => p.formatOnSave(editor))), false)).switchMap(allEdits => {
+        const firstNonEmpty = allEdits.find(edits => edits.length > 0);
+
+        if (firstNonEmpty == null) {
+          return _rxjsCompatUmdMin.Observable.empty();
+        } else {
+          return _rxjsCompatUmdMin.Observable.of(firstNonEmpty);
+        }
+      }).flatMap(edits => _rxjsCompatUmdMin.Observable.of(...edits));
+    } else if ((0, _config().getFormatOnSave)(editor)) {
+      return this._formatCodeInTextEditor(editor, editor.getBuffer().getRange()).flatMap(edits => _rxjsCompatUmdMin.Observable.of(...edits));
+    }
+
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }
 
   _reportBusy(editor, promise, revealTooltip = true) {

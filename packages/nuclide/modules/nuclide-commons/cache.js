@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DISPOSE_VALUE = exports.Cache = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -24,7 +28,11 @@ class Cache {
     this._values = new Map();
     this._factory = factory;
     this._disposeValue = disposeValue;
+<<<<<<< HEAD
     this._entriesSubject = new _RxMin.Subject();
+=======
+    this._entriesSubject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   has(key) {
@@ -78,7 +86,11 @@ class Cache {
   }
 
   observeEntries() {
+<<<<<<< HEAD
     return _RxMin.Observable.concat(_RxMin.Observable.from(this._values.entries()), this._entriesSubject);
+=======
+    return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.from(this._values.entries()), this._entriesSubject);
+>>>>>>> Update
   }
 
   observeKeys() {

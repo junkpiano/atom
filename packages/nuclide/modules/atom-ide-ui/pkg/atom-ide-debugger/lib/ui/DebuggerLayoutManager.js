@@ -236,6 +236,7 @@ class DebuggerLayoutManager {
         service: this._service
       }),
       onPaneResize: (dockPane, newFlexScale) => {
+<<<<<<< HEAD
         // If the debugger is stopped, let the controls pane keep its default
         // layout to make room for the buttons and additional content. Otherwise,
         // override the layout to shrink the pane and remove extra vertical whitespace.
@@ -244,6 +245,9 @@ class DebuggerLayoutManager {
         if (debuggerMode !== _constants().DebuggerMode.STOPPED) {
           this._overridePaneInitialHeight(dockPane, newFlexScale, 250);
         } // If newFlexScale !== 1, that means the user must have resized this pane.
+=======
+        this._overridePaneInitialHeight(dockPane, newFlexScale, 135); // If newFlexScale !== 1, that means the user must have resized this pane.
+>>>>>>> Update
         // Return true to unhook this callback and let the pane resize per Atom's
         // default behavior. The user is now responsible for the pane's height.
 

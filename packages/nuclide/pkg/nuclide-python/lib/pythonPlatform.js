@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.providePythonPlatformGroup = providePythonPlatformGroup;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -24,6 +28,10 @@ function providePythonPlatformGroup(buckRoot, ruleType, buildTarget) {
 
     return fbPythonPlatform.providePythonPlatformGroup(buckRoot, ruleType, buildTarget);
   } catch (error) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(null);
+=======
+    return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
   }
 }

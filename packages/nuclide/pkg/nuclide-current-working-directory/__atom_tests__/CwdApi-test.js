@@ -22,6 +22,19 @@ function _CwdApi() {
 
 var _atom = require("atom");
 
+<<<<<<< HEAD
+=======
+function _UniversalDisposable() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
+
+  _UniversalDisposable = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -126,6 +139,10 @@ describe('CwdApi event handling', () => {
 
     const onDidChangePaths = cb => {
       callback = cb;
+<<<<<<< HEAD
+=======
+      return new (_UniversalDisposable().default)();
+>>>>>>> Update
     };
 
     jest.spyOn(atom.project, 'onDidChangePaths').mockImplementation(onDidChangePaths); // The initial path does not exist, so observeCwd is initially undefined.

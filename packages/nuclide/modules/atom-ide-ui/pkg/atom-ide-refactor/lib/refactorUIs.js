@@ -31,7 +31,11 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _atom = require("atom");
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _RenameComponent() {
   const data = _interopRequireDefault(require("./components/RenameComponent"));
@@ -247,7 +251,11 @@ class InlineRenameRenderer {
     return new (_UniversalDisposable().default)(() => overlayMarker.destroy(), () => _reactDom.default.unmountComponentAtNode(container), // The editor may not mount the marker until the next update.
     // It's not safe to render anything until that point, as overlayed containers
     // often need to measure their size in the DOM.
+<<<<<<< HEAD
     _RxMin.Observable.from(editor.getElement().getNextUpdatePromise()).subscribe(() => {
+=======
+    _rxjsCompatUmdMin.Observable.from(editor.getElement().getNextUpdatePromise()).subscribe(() => {
+>>>>>>> Update
       container.style.display = 'block';
 
       _reactDom.default.render(element, container);

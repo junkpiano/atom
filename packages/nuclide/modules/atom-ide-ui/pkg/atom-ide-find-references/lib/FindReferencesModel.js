@@ -5,10 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 function _getFragmentGrammar() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/getFragmentGrammar"));
 
   _getFragmentGrammar = function () {
+=======
+function _FileResults() {
+  const data = require("../../../../nuclide-commons/FileResults");
+
+  _FileResults = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -25,6 +32,7 @@ function _projects() {
   return data;
 }
 
+<<<<<<< HEAD
 function _collection() {
   const data = require("../../../../nuclide-commons/collection");
 
@@ -35,6 +43,8 @@ function _collection() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _log4js() {
   const data = require("log4js");
 
@@ -45,8 +55,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+=======
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -110,9 +123,14 @@ class FindReferencesModel {
    */
 
 
+<<<<<<< HEAD
   async getFileReferences(offset, limit) {
     const fileReferences = await Promise.all(this._references.slice(offset, offset + limit).map(this._makeFileReferences.bind(this)));
     return (0, _collection().arrayCompact)(fileReferences);
+=======
+  getFileResults(offset, limit) {
+    return Promise.all(this._references.slice(offset, offset + limit).map(this._makeFileReferences.bind(this)));
+>>>>>>> Update
   }
 
   getBasePath() {
@@ -200,6 +218,7 @@ class FindReferencesModel {
 
   async _makeFileReferences(fileReferences) {
     const uri = fileReferences[0];
+<<<<<<< HEAD
     let refGroups = fileReferences[1];
     const fileContents = await readFileContents(uri); // flowlint-next-line sketchy-null-string:off
 
@@ -213,6 +232,17 @@ class FindReferencesModel {
       const {
         references
       } = group;
+=======
+    const refGroups = fileReferences[1];
+    const fileContents = await readFileContents(uri); // flowlint-next-line sketchy-null-string:off
+
+    if (!fileContents) {
+      return new (_FileResults().FileResults)(uri, []);
+    }
+
+    const fileLines = fileContents.split('\n');
+    const lineGroups = refGroups.map(group => {
+>>>>>>> Update
       let {
         startLine,
         endLine
@@ -229,6 +259,7 @@ class FindReferencesModel {
         endLine--;
       }
 
+<<<<<<< HEAD
       previewText.push(fileLines.slice(startLine, endLine + 1).join('\n'));
       return {
         references,
@@ -242,6 +273,16 @@ class FindReferencesModel {
       previewText,
       refGroups
     };
+=======
+      return {
+        // ScrollableResults expects this line to be 1-based.
+        startLine: startLine + 1,
+        lines: fileLines.slice(startLine, endLine + 1),
+        matches: group.references.map(ref => ref.range)
+      };
+    });
+    return new (_FileResults().FileResults)(uri, lineGroups);
+>>>>>>> Update
   }
 
 }

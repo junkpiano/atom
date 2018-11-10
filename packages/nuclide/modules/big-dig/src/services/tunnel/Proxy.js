@@ -29,6 +29,19 @@ function _log4js() {
 
 var _events = _interopRequireDefault(require("events"));
 
+<<<<<<< HEAD
+=======
+function _ProxyConfigUtils() {
+  const data = require("./ProxyConfigUtils");
+
+  _ProxyConfigUtils = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -45,6 +58,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const logger = (0, _log4js().getLogger)('tunnel-proxy');
 
 class Proxy extends _events.default {
+<<<<<<< HEAD
   constructor(tunnelId, localPort, remotePort, useIPv4, transport) {
     super();
     this._tunnelId = tunnelId;
@@ -52,12 +66,24 @@ class Proxy extends _events.default {
     this._remotePort = remotePort;
     this._transport = transport;
     this._useIPv4 = useIPv4;
+=======
+  constructor(tunnelId, tunnelConfig, transport) {
+    super();
+    this._tunnelId = tunnelId;
+    this._tunnelConfig = tunnelConfig;
+    this._transport = transport;
+>>>>>>> Update
     this._server = null;
     this._socketByClientId = new Map();
   }
 
+<<<<<<< HEAD
   static async createProxy(tunnelId, localPort, remotePort, useIPv4, transport) {
     const proxy = new Proxy(tunnelId, localPort, remotePort, useIPv4, transport);
+=======
+  static async createProxy(tunnelId, tunnelConfig, transport) {
+    const proxy = new Proxy(tunnelId, tunnelConfig, transport);
+>>>>>>> Update
     await proxy.startListening();
     return proxy;
   }
@@ -69,6 +95,7 @@ class Proxy extends _events.default {
 
         this._sendMessage({
           event: 'connection',
+<<<<<<< HEAD
           clientId
         }); // forward events over the transport
 
@@ -80,6 +107,45 @@ class Proxy extends _events.default {
               arg,
               clientId
             });
+=======
+          clientId,
+          tunnelId: this._tunnelId
+        }); // forward events over the transport
+        // NOTE: Needs to be explicit otherwise Flow will complain about the
+        // type. We prefer this as opposed to using `any` types in such important infra code.
+
+
+        socket.on('timeout', arg => {
+          this._sendMessage({
+            event: 'timeout',
+            arg,
+            clientId,
+            tunnelId: this._tunnelId
+          });
+        });
+        socket.on('end', arg => {
+          this._sendMessage({
+            event: 'end',
+            arg,
+            clientId,
+            tunnelId: this._tunnelId
+          });
+        });
+        socket.on('close', arg => {
+          this._sendMessage({
+            event: 'close',
+            arg,
+            clientId,
+            tunnelId: this._tunnelId
+          });
+        });
+        socket.on('data', arg => {
+          this._sendMessage({
+            event: 'data',
+            arg,
+            clientId,
+            tunnelId: this._tunnelId
+>>>>>>> Update
           });
         });
         socket.on('error', error => {
@@ -88,6 +154,10 @@ class Proxy extends _events.default {
           this._sendMessage({
             event: 'error',
             error,
+<<<<<<< HEAD
+=======
+            tunnelId: this._tunnelId,
+>>>>>>> Update
             clientId
           });
 
@@ -99,6 +169,7 @@ class Proxy extends _events.default {
       });
 
       this._server.on('error', error => {
+<<<<<<< HEAD
         logger.error(`error when listening on port ${this._localPort}: `, error);
 
         this._sendMessage({
@@ -107,6 +178,15 @@ class Proxy extends _events.default {
           useIpv4: this._useIPv4,
           remotePort: this._remotePort,
           error
+=======
+        logger.error(`error when listening on ${(0, _ProxyConfigUtils().getProxyConfigDescriptor)(this._tunnelConfig.local)}: `, error);
+
+        this._sendMessage({
+          event: 'proxyError',
+          tunnelConfig: this._tunnelConfig,
+          error,
+          tunnelId: this._tunnelId
+>>>>>>> Update
         });
 
         reject(error);
@@ -116,6 +196,7 @@ class Proxy extends _events.default {
         throw new Error("Invariant violation: \"this._server\"");
       }
 
+<<<<<<< HEAD
       this._server.listen({
         port: this._localPort
       }, () => {
@@ -126,6 +207,15 @@ class Proxy extends _events.default {
           port: this._localPort,
           useIPv4: this._useIPv4,
           remotePort: this._remotePort
+=======
+      this._server.listen(this._tunnelConfig.local, () => {
+        logger.info(`successfully started listening on ${(0, _ProxyConfigUtils().getProxyConfigDescriptor)(this._tunnelConfig.local)}`); // send a message to create the SocketManager
+
+        this._sendMessage({
+          event: 'proxyCreated',
+          proxyConfig: this._tunnelConfig.remote,
+          tunnelId: this._tunnelId
+>>>>>>> Update
         });
 
         resolve();
@@ -138,6 +228,7 @@ class Proxy extends _events.default {
   }
 
   receive(msg) {
+<<<<<<< HEAD
     const {
       clientId
     } = msg;
@@ -166,6 +257,31 @@ class Proxy extends _events.default {
       this._destroySocket(clientId, msg.error);
     } else if (msg.event === 'end') {
       this._endSocket(clientId);
+=======
+    switch (msg.event) {
+      case 'data':
+        this._forwardData(msg.clientId, msg.arg);
+
+        return;
+
+      case 'close':
+        this._ensureSocketClosed(msg.clientId);
+
+        return;
+
+      case 'error':
+        this._destroySocket(msg.clientId, msg.error);
+
+        return;
+
+      case 'end':
+        this._endSocket(msg.clientId);
+
+        return;
+
+      default:
+        throw new Error(`Invalid tunnel message: ${msg.event}`);
+>>>>>>> Update
     }
   }
 
@@ -223,9 +339,13 @@ class Proxy extends _events.default {
   }
 
   _sendMessage(msg) {
+<<<<<<< HEAD
     this._transport.send(_Encoder().default.encode(Object.assign({
       tunnelId: this._tunnelId
     }, msg)));
+=======
+    this._transport.send(_Encoder().default.encode(msg));
+>>>>>>> Update
   }
 
   close() {
@@ -242,7 +362,12 @@ class Proxy extends _events.default {
     this.removeAllListeners();
 
     this._sendMessage({
+<<<<<<< HEAD
       event: 'proxyClosed'
+=======
+      event: 'proxyClosed',
+      tunnelId: this._tunnelId
+>>>>>>> Update
     });
   }
 

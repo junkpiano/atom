@@ -40,7 +40,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _consumeFirstProvider() {
   const data = _interopRequireDefault(require("../../nuclide-commons-atom/consumeFirstProvider"));
@@ -85,15 +89,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
 
 /* eslint
  no-console: 0,
 */
+=======
+>>>>>>> Update
 let passesGK = async _ => false;
 
 try {
   const fbPassesGK = // eslint-disable-next-line nuclide-internal/modules-dependencies
+<<<<<<< HEAD
   require("../../../pkg/commons-node/passesGK");
+=======
+  require("../../nuclide-commons/passesGK");
+>>>>>>> Update
 
   passesGK = fbPassesGK.default;
 } catch (e) {}
@@ -109,7 +120,11 @@ exports.VERSION_MISMATCH_ERROR = VERSION_MISMATCH_ERROR;
 
 function startTunnelingAdb(uri, options = {}) {
   if (!_nuclideUri().default.isRemote(uri)) {
+<<<<<<< HEAD
     return _RxMin.Observable.of('ready').concat(_RxMin.Observable.never());
+=======
+    return _rxjsCompatUmdMin.Observable.of('ready').concat(_rxjsCompatUmdMin.Observable.never());
+>>>>>>> Update
   }
 
   const {
@@ -122,7 +137,11 @@ function startTunnelingAdb(uri, options = {}) {
     const adbService = (0, _utils().getAdbServiceByNuclideUri)(serviceUri);
     const localAdbService = (0, _utils().getAdbServiceByNuclideUri)('');
 
+<<<<<<< HEAD
     const observable = _RxMin.Observable.defer(async () => {
+=======
+    const observable = _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
       try {
         const [adbVersion, localAdbVersion] = await Promise.all([adbService.getVersion().catch(e => {
           e.host = serviceUri;
@@ -159,6 +178,7 @@ function startTunnelingAdb(uri, options = {}) {
           host: uri,
           error: e
         });
+<<<<<<< HEAD
         let detail;
         const buttons = [];
 
@@ -190,6 +210,37 @@ function startTunnelingAdb(uri, options = {}) {
             buttons
           });
         }
+=======
+
+        if (e.name === MISSING_ADB_ERROR) {
+          return;
+        }
+
+        let detail;
+        const buttons = [];
+
+        if (e.name === VERSION_MISMATCH_ERROR) {
+          detail = e.message;
+          const {
+            adbUpgradeLink
+          } = options;
+
+          if (e.name === VERSION_MISMATCH_ERROR && adbUpgradeLink != null) {
+            buttons.push({
+              text: 'View upgrade instructions',
+              onDidClick: () => _electron.shell.openExternal(adbUpgradeLink)
+            });
+          }
+        } else {
+          detail = "Your local devices won't be available on this host." + (e.name != null && e.name !== 'Error' ? `\n \n${e.name}` : '');
+        }
+
+        atom.notifications.addError('Failed to tunnel Android devices', {
+          dismissable: true,
+          detail,
+          buttons
+        });
+>>>>>>> Update
       }
     }).add(() => {
       if (adbmuxPort != null) {
@@ -222,10 +273,17 @@ const activeTunnels = new (_SimpleCache().SimpleCache)({
   keyFactory: uri => _nuclideUri().default.createRemoteUri(_nuclideUri().default.getHostname(uri), '/'),
   dispose: value => value.subscription.unsubscribe()
 });
+<<<<<<< HEAD
 const changes = new _RxMin.Subject();
 
 function checkInToAdbmux(host) {
   return _RxMin.Observable.defer(async () => {
+=======
+const changes = new _rxjsCompatUmdMin.Subject();
+
+function checkInToAdbmux(host) {
+  return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
     const getService = (0, _consumeFirstProvider().default)('nuclide.ssh-tunnel');
     const [service, avoidPrecreatingExopackageTunnel] = await Promise.all([getService, passesGK('nuclide_adb_exopackage_tunnel')]);
 
@@ -281,7 +339,11 @@ function checkInToAdbmux(host) {
 
 function openTunnelsManually(host) {
   let retries = 3;
+<<<<<<< HEAD
   return _RxMin.Observable.defer(async () => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
     await (0, _utils().getAdbServiceByNuclideUri)(host).killServer();
     const service = await (0, _consumeFirstProvider().default)('nuclide.ssh-tunnel');
 

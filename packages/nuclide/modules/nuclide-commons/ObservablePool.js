@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -52,14 +56,23 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
  */
 class ObservablePool {
   constructor(concurrency) {
+<<<<<<< HEAD
     this._requests = new _RxMin.Subject();
+=======
+    this._requests = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._responseListeners = new Map();
     this._subscription = this._handleEvents(concurrency);
   }
 
   schedule(executor) {
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
       const unsubscribed = new _RxMin.Subject();
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+      const unsubscribed = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const tag = {}; // Just a unique object.
 
       this._responseListeners.set(tag, {
@@ -105,7 +118,11 @@ class ObservablePool {
 
 
       if (listener == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const {
@@ -114,7 +131,11 @@ class ObservablePool {
       } = listener;
       let result;
 
+<<<<<<< HEAD
       if (executor instanceof _RxMin.Observable) {
+=======
+      if (executor instanceof _rxjsCompatUmdMin.Observable) {
+>>>>>>> Update
         result = executor;
       } else {
         try {
@@ -122,6 +143,7 @@ class ObservablePool {
         } catch (err) {
           // Catch errors from executor().
           observer.error(err);
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
         }
       }
@@ -134,6 +156,20 @@ class ObservablePool {
         // In the absence of cancellation, assume the worst.
         return _RxMin.Observable.from(result) // $FlowFixMe: Flow doesn't like this.
         .do(observer).catch(() => _RxMin.Observable.empty());
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+        }
+      }
+
+      if (result instanceof _rxjsCompatUmdMin.Observable) {
+        // We can safely forward unsubscriptions!
+        return result.takeUntil(unsubscribed) // $FlowFixMe: Flow doesn't like this.
+        .do(observer).catch(() => _rxjsCompatUmdMin.Observable.empty());
+      } else {
+        // In the absence of cancellation, assume the worst.
+        return _rxjsCompatUmdMin.Observable.from(result) // $FlowFixMe: Flow doesn't like this.
+        .do(observer).catch(() => _rxjsCompatUmdMin.Observable.empty());
+>>>>>>> Update
       }
     }, concurrency).subscribe();
   }

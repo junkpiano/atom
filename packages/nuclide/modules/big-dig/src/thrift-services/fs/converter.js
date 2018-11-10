@@ -129,10 +129,19 @@ function createThriftErrorWithCode(rawErrorCode, errorCode, details = {}) {
   return error;
 }
 
+<<<<<<< HEAD
 function convertToThriftFileEntry(fname, statData) {
   return {
     fname,
     ftype: statData.ftype,
     fstat: statData
+=======
+function convertToThriftFileEntry(fname, statData, isSymbolicLink) {
+  return {
+    fname,
+    ftype: statData.ftype,
+    fstat: statData,
+    isSymbolicLink
+>>>>>>> Update
   };
 }

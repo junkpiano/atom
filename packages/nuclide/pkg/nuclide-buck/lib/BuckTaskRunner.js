@@ -47,7 +47,11 @@ function _reduxMin() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _tasks() {
   const data = require("../../commons-node/tasks");
@@ -99,6 +103,19 @@ function _reduxObservable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _bindObservableAsProps() {
   const data = require("../../../modules/nuclide-commons-ui/bindObservableAsProps");
 
@@ -211,6 +228,7 @@ const TASKS = [{
   description: 'Test the specified Buck target',
   icon: 'check'
 }, {
+<<<<<<< HEAD
   type: 'debug',
   label: 'Build and launch debugger',
   description: 'Build, launch and debug the specified Buck target',
@@ -224,6 +242,21 @@ const TASKS = [{
   type: 'debug-attach',
   label: 'Attach Debugger',
   description: 'Attach the debugger to the specified Buck target',
+=======
+  type: 'build-launch-debug',
+  label: 'Build, launch && debug',
+  description: 'Build, launch and debug the specified Buck target',
+  icon: 'nuclicon-debugger'
+}, {
+  type: 'launch-debug',
+  label: 'Launch && debug (skip build)',
+  description: 'Launch and debug the specified Buck target (skip building)',
+  icon: 'nuclicon-debugger'
+}, {
+  type: 'attach-debug',
+  label: 'Attach to running',
+  description: 'Attemp to find a running specified Buck target and attach debugger',
+>>>>>>> Update
   icon: 'nuclicon-debugger'
 }]; // This must match URI defined in ../../nuclide-console/lib/ui/ConsoleContainer
 
@@ -240,18 +273,32 @@ function shouldEnableTask(taskType, ruleType) {
     case 'run':
       return ruleType.endsWith('binary');
 
+<<<<<<< HEAD
     case 'debug':
     case 'debug-attach':
     case 'debug-launch-no-build':
       return ruleType.endsWith('binary') || ruleType.endsWith('test');
 
+=======
+    case 'build-launch-debug':
+    case 'attach-debug':
+      return ruleType.endsWith('binary') || ruleType.endsWith('test');
+
+    case 'launch-debug':
+      return false;
+
+>>>>>>> Update
     default:
       return false;
   }
 }
 
 function isDebugTask(taskType) {
+<<<<<<< HEAD
   return taskType.startsWith('debug');
+=======
+  return taskType === 'build-launch-debug' || taskType === 'launch-debug' || taskType === 'attach-debug';
+>>>>>>> Update
 }
 
 function getBuckSubcommandForTaskType(taskType) {
@@ -270,7 +317,11 @@ class BuckTaskRunner {
     this._serializedState = initialState;
     this._disposables = new (_UniversalDisposable().default)();
     this._platformService = new (_PlatformService().PlatformService)();
+<<<<<<< HEAD
     this._completedTasksObservable = new _RxMin.Subject();
+=======
+    this._completedTasksObservable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   getExtraUi() {
@@ -280,10 +331,16 @@ class BuckTaskRunner {
       const boundActions = {
         setBuildTarget: buildTarget => store.dispatch(Actions().setBuildTarget(buildTarget)),
         setDeploymentTarget: deploymentTarget => store.dispatch(Actions().setDeploymentTarget(deploymentTarget)),
+<<<<<<< HEAD
         setTaskSettings: settings => store.dispatch(Actions().setTaskSettings(settings))
       };
       this._extraUi = (0, _bindObservableAsProps().bindObservableAsProps)( // $FlowFixMe: type symbol-observable
       _RxMin.Observable.from(store).map(appState => Object.assign({
+=======
+        setTaskSettings: (settings, unsanizitedSettings) => store.dispatch(Actions().setTaskSettings(settings, unsanizitedSettings))
+      };
+      this._extraUi = (0, _bindObservableAsProps().bindObservableAsProps)((0, _observableFromReduxStore().default)(store).map(appState => Object.assign({
+>>>>>>> Update
         appState
       }, boundActions)).filter(props => props.appState.buckRoot != null), _BuckToolbar().default);
     }
@@ -329,9 +386,13 @@ class BuckTaskRunner {
   }
 
   setProjectRoot(projectRoot, callback) {
+<<<<<<< HEAD
     // $FlowFixMe: type symbol-observable
     const storeReady = _RxMin.Observable.from(this._getStore()).distinctUntilChanged().filter(state => !state.isLoadingBuckProject && state.projectRoot === projectRoot).share();
 
+=======
+    const storeReady = (0, _observableFromReduxStore().default)(this._getStore()).distinctUntilChanged().filter(state => !state.isLoadingBuckProject && state.projectRoot === projectRoot).share();
+>>>>>>> Update
     const enabledObservable = storeReady.map(state => state.buckRoot != null).distinctUntilChanged();
     const tasksObservable = storeReady.map(state => {
       const {
@@ -364,7 +425,11 @@ class BuckTaskRunner {
       });
     }).distinctUntilChanged((a, b) => (0, _collection().arrayEqual)(a, b, _shallowequal().default));
 
+<<<<<<< HEAD
     const subscription = _RxMin.Observable.combineLatest(enabledObservable, tasksObservable).subscribe(([enabled, tasks]) => callback(enabled, tasks));
+=======
+    const subscription = _rxjsCompatUmdMin.Observable.combineLatest(enabledObservable, tasksObservable).subscribe(([enabled, tasks]) => callback(enabled, tasks));
+>>>>>>> Update
 
     this._getStore().dispatch(Actions().setProjectRoot(projectRoot));
 
@@ -395,7 +460,12 @@ class BuckTaskRunner {
         lastSessionPlatformGroupName: this._serializedState.selectedPlatformGroupName,
         lastSessionPlatformName: this._serializedState.selectedPlatformName,
         lastSessionDeviceGroupName: this._serializedState.selectedDeviceGroupName,
+<<<<<<< HEAD
         lastSessionDeviceName: this._serializedState.selectedDeviceName
+=======
+        lastSessionDeviceName: this._serializedState.selectedDeviceName,
+        unsanitizedTaskSettings: this._serializedState.unsanitizedTaskSettings || {}
+>>>>>>> Update
       };
       const rootEpic = (0, _epicHelpers().combineEpicsFromImports)(Epics(), 'nuclide-buck');
       this._store = (0, _reduxMin().createStore)(_Reducers().default, initialState, (0, _reduxMin().applyMiddleware)((0, _reduxObservable().createEpicMiddleware)(rootEpic)));
@@ -432,11 +502,19 @@ class BuckTaskRunner {
     return empty;
   }
 
+<<<<<<< HEAD
   runTask(taskType) {
+=======
+  runTask(rawTask) {
+>>>>>>> Update
     // eslint-disable-next-line nuclide-internal/atom-apis
     atom.workspace.open(CONSOLE_VIEW_URI, {
       searchAllPanes: true
     });
+<<<<<<< HEAD
+=======
+    const taskType = rawTask;
+>>>>>>> Update
 
     const state = this._getStore().getState();
 
@@ -456,9 +534,19 @@ class BuckTaskRunner {
       throw new Error("Invariant violation: \"buildRuleType\"");
     }
 
+<<<<<<< HEAD
     const deploymentTargetString = (0, _DeploymentTarget().formatDeploymentTarget)(selectedDeploymentTarget);
     const deploymentString = deploymentTargetString === '' ? '' : ` on "${deploymentTargetString}"`;
     const task = (0, _tasks().taskFromObservable)(_RxMin.Observable.concat((0, _tasks().createMessage)(`Resolving ${taskType} command for "${buildTarget}"${deploymentString}`, 'log'), _RxMin.Observable.defer(() => {
+=======
+    if (!taskType) {
+      throw new Error("Invariant violation: \"taskType\"");
+    }
+
+    const deploymentTargetString = (0, _DeploymentTarget().formatDeploymentTarget)(selectedDeploymentTarget);
+    const deploymentString = deploymentTargetString === '' ? '' : ` on "${deploymentTargetString}"`;
+    const task = (0, _tasks().taskFromObservable)(_rxjsCompatUmdMin.Observable.concat((0, _tasks().createMessage)(`Resolving ${taskType} command for "${buildTarget}"${deploymentString}`, 'log'), _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       const trace = _nuclideArtillery().NuclideArtilleryTrace.begin('nuclide_buck', taskType);
 
       if (selectedDeploymentTarget) {
@@ -537,7 +625,12 @@ class BuckTaskRunner {
 
     const {
       buildTarget,
+<<<<<<< HEAD
       taskSettings
+=======
+      taskSettings,
+      unsanitizedTaskSettings
+>>>>>>> Update
     } = state;
     const target = state.selectedDeploymentTarget;
     let selectedPlatformGroupName;
@@ -564,7 +657,12 @@ class BuckTaskRunner {
       selectedPlatformGroupName,
       selectedPlatformName,
       selectedDeviceGroupName,
+<<<<<<< HEAD
       selectedDeviceName
+=======
+      selectedDeviceName,
+      unsanitizedTaskSettings
+>>>>>>> Update
     };
   }
 

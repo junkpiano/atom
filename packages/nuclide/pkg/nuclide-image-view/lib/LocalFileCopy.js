@@ -91,7 +91,11 @@ function _nullthrows() {
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _temp() {
   const data = _interopRequireDefault(require("temp"));
@@ -131,9 +135,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class LocalFileCopy {
   constructor(filePath) {
+<<<<<<< HEAD
     this._remoteFile = new _RxMin.BehaviorSubject();
     this._tmpFile = new _RxMin.BehaviorSubject();
     this._disposed = new _RxMin.ReplaySubject(1);
+=======
+    this._remoteFile = new _rxjsCompatUmdMin.BehaviorSubject();
+    this._tmpFile = new _rxjsCompatUmdMin.BehaviorSubject();
+    this._disposed = new _rxjsCompatUmdMin.ReplaySubject(1);
+>>>>>>> Update
     this._initialFilePath = filePath;
     getRemoteFile(filePath).takeUntil(this._disposed).subscribe(remoteFile => {
       this._remoteFile.next(remoteFile);
@@ -145,7 +155,11 @@ class LocalFileCopy {
         dismissable: true
       });
       (0, _log4js().getLogger)('nuclide-image-view').error(err);
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     })).takeUntil(this._disposed).subscribe(tmpFile => {
       this._tmpFile.next(tmpFile);
     });
@@ -196,7 +210,11 @@ class LocalFileCopy {
 exports.default = LocalFileCopy;
 
 function copyToLocalTempFile(remotePath) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(async () => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
     const fsService = (0, _nuclideRemoteConnection().getFileSystemServiceByNuclideUri)(remotePath);
     const {
       mtime
@@ -223,9 +241,15 @@ function copyToLocalTempFile(remotePath) {
 
     const tmpFilePath = _nuclideUri().default.join(cacheDir, `${name}-${hash}-${mtime.getTime()}${extname}`);
 
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(_fsPromise().default.exists(tmpFilePath)).switchMap(exists => {
       if (exists) {
         return _RxMin.Observable.of(new _atom.File(tmpFilePath));
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(_fsPromise().default.exists(tmpFilePath)).switchMap(exists => {
+      if (exists) {
+        return _rxjsCompatUmdMin.Observable.of(new _atom.File(tmpFilePath));
+>>>>>>> Update
       }
 
       return fsService.createReadStream(remotePath).refCount().let(writeToTempFile(tmpFilePath));
@@ -234,10 +258,17 @@ function copyToLocalTempFile(remotePath) {
 }
 
 const writeToTempFile = targetPath => source => {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
     const writeStream = _temp().default.createWriteStream();
 
     return (0, _stream().writeToStream)(source, writeStream).ignoreElements().concat(_RxMin.Observable.defer(async () => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+    const writeStream = _temp().default.createWriteStream();
+
+    return (0, _stream().writeToStream)(source, writeStream).ignoreElements().concat(_rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
       // Move the file to the final destination.
       await _fsPromise().default.mkdirp(_nuclideUri().default.dirname(targetPath));
       await _fsPromise().default.mv(writeStream.path, targetPath);
@@ -250,7 +281,11 @@ const writeToTempFile = targetPath => source => {
 function getRemoteFile(path) {
   return (0, _event().observableFromSubscribeFunction)(cb => atom.packages.serviceHub.consume('nuclide-remote-projects', '0.0.0', cb)).switchMap(service => {
     if (service == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(null);
+=======
+      return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
     }
 
     return (0, _event().observableFromSubscribeFunction)(cb => service.waitForRemoteProjectReload(cb)).map(() => (0, _projects().getFileForPath)(path));

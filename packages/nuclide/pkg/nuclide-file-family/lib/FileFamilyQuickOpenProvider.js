@@ -37,7 +37,11 @@ function _nuclideFuzzyNative() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileFamilyAggregator() {
   const data = _interopRequireDefault(require("./FileFamilyAggregator"));
@@ -155,7 +159,11 @@ class FileFamilyQuickOpenProvider {
       }]);
     }
 
+<<<<<<< HEAD
     const results = _RxMin.Observable.defer(() => aggregator.getRelatedFiles(activeUri)).map(graph => {
+=======
+    const results = _rxjsCompatUmdMin.Observable.defer(() => aggregator.getRelatedFiles(activeUri)).map(graph => {
+>>>>>>> Update
       const cwd = this._cwds.getValue();
 
       const projectUri = cwd && cwd.getCwd();

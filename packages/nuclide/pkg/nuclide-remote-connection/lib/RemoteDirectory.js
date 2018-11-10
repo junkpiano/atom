@@ -56,7 +56,11 @@ function _log4js() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -382,7 +386,11 @@ class RemoteDirectory {
 
       const uri = _nuclideUri().default.createRemoteUri(this._host, this._joinLocalPath(name));
 
+<<<<<<< HEAD
       if (isFile || isSymlink) {
+=======
+      if (isFile) {
+>>>>>>> Update
         files.push(this._server.createFile(uri, isSymlink));
       } else {
         directories.push(this._server.createDirectory(uri, this._hgRepositoryDescription, isSymlink));

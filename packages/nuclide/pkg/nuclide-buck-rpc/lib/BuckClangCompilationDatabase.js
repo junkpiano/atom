@@ -5,6 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getCompilationDatabaseHandler = getCompilationDatabaseHandler;
 
+<<<<<<< HEAD
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+>>>>>>> Update
 function _SimpleCache() {
   const data = require("../../../modules/nuclide-commons/SimpleCache");
 
@@ -92,7 +97,13 @@ const DEFAULT_HEADERS_TARGET = '__default_headers__';
 class BuckClangCompilationDatabaseHandler {
   // Ensure that we can clear targetCache for a given file.
   constructor(params) {
+<<<<<<< HEAD
     this._targetCache = new (_SimpleCache().SimpleCache)();
+=======
+    this._targetCache = new (_SimpleCache().SimpleCache)({
+      keyFactory: JSON.stringify
+    });
+>>>>>>> Update
     this._sourceCache = new (_SimpleCache().SimpleCache)();
     this._sourceToTargetKey = new Map();
     this._params = params;
@@ -119,6 +130,7 @@ class BuckClangCompilationDatabaseHandler {
   }
 
   getCompilationDatabase(file) {
+<<<<<<< HEAD
     return this._sourceCache.getOrCreate(file, async () => {
       if ((0, _utils().isHeaderFile)(file)) {
         const source = await ClangService().getRelatedSourceOrHeader(file);
@@ -137,10 +149,31 @@ class BuckClangCompilationDatabaseHandler {
         }
       } else {
         return this._getCompilationDatabase(file);
+=======
+    return this._sourceCache.getOrCreate(file, () => {
+      if ((0, _utils().isHeaderFile)(file)) {
+        return _rxjsCompatUmdMin.Observable.fromPromise(ClangService().getRelatedSourceOrHeader(file)).switchMap(source => {
+          if (source != null) {
+            logger.info(`${file} is a header, thus using ${source} for getting the compilation flags.`);
+            return this.getCompilationDatabase(source);
+          } else {
+            logger.error(`Couldn't find a corresponding source file for ${file}, thus there are no compilation flags available.`);
+            return _rxjsCompatUmdMin.Observable.fromPromise((0, _utils().guessBuildFile)(file)).map(flagsFile => ({
+              file: null,
+              flagsFile,
+              libclangPath: null,
+              warnings: [`I could not find a corresponding source file for ${file}.`]
+            })).publishLast().refCount();
+          }
+        });
+      } else {
+        return this._getCompilationDatabase(file).publishLast().refCount();
+>>>>>>> Update
       }
     });
   }
 
+<<<<<<< HEAD
   async _getCompilationDatabase(file) {
     const buckRoot = await BuckService().getRootForPath(file);
     return this._loadCompilationDatabaseFromBuck(file, buckRoot).catch(err => {
@@ -246,6 +279,92 @@ class BuckClangCompilationDatabaseHandler {
       warnings: []
     };
     return this._processCompilationDb(compilationDB, buckProjectRoot, extraArgs);
+=======
+  _getCompilationDatabase(file) {
+    return _rxjsCompatUmdMin.Observable.fromPromise(BuckService().getRootForPath(file)).switchMap(buckRoot => this._loadCompilationDatabaseFromBuck(file, buckRoot).catch(err => {
+      logger.error('Error getting flags from Buck for file ', file, err);
+      throw err;
+    }).do(db => {
+      if (db != null) {
+        this._cacheFilesToCompilationDB(db);
+      }
+    }));
+  }
+
+  _loadCompilationDatabaseFromBuck(src, buckRoot) {
+    if (buckRoot == null) {
+      return _rxjsCompatUmdMin.Observable.of(null);
+    }
+
+    return (this._params.args.length === 0 ? _rxjsCompatUmdMin.Observable.fromPromise(BuckService()._getPreferredArgsForRepo(buckRoot)) : _rxjsCompatUmdMin.Observable.of(this._params.args)).switchMap(extraArgs => {
+      return _rxjsCompatUmdMin.Observable.fromPromise(BuckService().getOwners(buckRoot, src, extraArgs, TARGET_KIND_REGEX, false)).map(owners => owners.filter(x => x.indexOf(DEFAULT_HEADERS_TARGET) === -1)).map(owners => {
+        // Deprioritize Android-related targets because they build with gcc and
+        // require gcc intrinsics that cause libclang to throw bad diagnostics.
+        owners.sort((a, b) => {
+          const aAndroid = a.endsWith('Android');
+          const bAndroid = b.endsWith('Android');
+
+          if (aAndroid && !bAndroid) {
+            return 1;
+          } else if (!aAndroid && bAndroid) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        return owners[0];
+      }).switchMap(target => {
+        if (target == null) {
+          // Even if we can't get flags, return a flagsFile to watch
+          return _rxjsCompatUmdMin.Observable.fromPromise((0, _utils().guessBuildFile)(src)).map(flagsFile => flagsFile != null ? {
+            file: null,
+            flagsFile,
+            libclangPath: null,
+            warnings: [`I could not find owner target of ${src}`, `Is there an error in ${flagsFile}?`]
+          } : null);
+        } else {
+          this._sourceToTargetKey.set(src, this._targetCache.keyForArgs([buckRoot, target, extraArgs]));
+
+          return this._targetCache.getOrCreate([buckRoot, target, extraArgs], () => this._loadCompilationDatabaseForBuckTarget(buckRoot, target, extraArgs).publishLast().refCount());
+        }
+      }).catch(err => {
+        logger.error('Failed getting the target from buck', err);
+        return _rxjsCompatUmdMin.Observable.of(null);
+      });
+    });
+  }
+
+  _loadCompilationDatabaseForBuckTarget(buckProjectRoot, target, extraArgs) {
+    const flavors = ['compilation-database', ...this._params.flavorsForTarget];
+    return (this._params.useDefaultPlatform ? _rxjsCompatUmdMin.Observable.fromPromise(BuckService().getDefaultPlatform(buckProjectRoot, target, extraArgs, false)).map(platform => flavors.concat([platform])) : _rxjsCompatUmdMin.Observable.of(flavors)).map(allFlavors => target + '#' + allFlavors.join(',')).switchMap(buildTarget => {
+      return BuckService().build(buckProjectRoot, [// Small builds, like those used for a compilation database, can degrade overall
+      // `buck build` performance by unnecessarily invalidating the Action Graph cache.
+      // See https://buckbuild.com/concept/buckconfig.html#client.skip-action-graph-cache
+      // for details on the importance of using skip-action-graph-cache=true.
+      '--config', 'client.skip-action-graph-cache=true', buildTarget, ...extraArgs], {
+        commandOptions: {
+          timeout: BUCK_TIMEOUT
+        }
+      }).switchMap(buildReport => {
+        if (!buildReport.success) {
+          const error = new Error(`Failed to build ${buildTarget}`);
+          logger.error(error);
+          throw error;
+        }
+
+        const firstResult = Object.keys(buildReport.results)[0];
+        let pathToCompilationDatabase = buildReport.results[firstResult].output;
+        pathToCompilationDatabase = _nuclideUri().default.join(buckProjectRoot, pathToCompilationDatabase);
+        return _rxjsCompatUmdMin.Observable.fromPromise(BuckService().getBuildFile(buckProjectRoot, target, extraArgs)).switchMap(buildFile => _rxjsCompatUmdMin.Observable.fromPromise(this._processCompilationDb({
+          file: pathToCompilationDatabase,
+          flagsFile: buildFile,
+          libclangPath: null,
+          target,
+          warnings: []
+        }, buckProjectRoot, extraArgs)));
+      });
+    });
+>>>>>>> Update
   }
 
   async _processCompilationDb(db, buckRoot, args) {
@@ -271,7 +390,12 @@ class BuckClangCompilationDatabaseHandler {
     }
 
     return new Promise((resolve, reject) => {
+<<<<<<< HEAD
       ClangService().loadFilesFromCompilationDatabaseAndCacheThem(file, db.flagsFile).refCount().subscribe(path => this._sourceCache.set(path, Promise.resolve(db)), reject, // on error
+=======
+      // eslint-disable-next-line nuclide-internal/unused-subscription
+      ClangService().loadFilesFromCompilationDatabaseAndCacheThem(file, db.flagsFile).refCount().subscribe(path => this._sourceCache.set(path, _rxjsCompatUmdMin.Observable.of(db)), reject, // on error
+>>>>>>> Update
       resolve // on complete
       );
     });

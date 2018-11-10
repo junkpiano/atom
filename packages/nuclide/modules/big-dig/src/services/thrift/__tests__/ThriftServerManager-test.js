@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _jest_mock_utils() {
   const data = require("../../../../../../jest/jest_mock_utils");
@@ -64,7 +68,14 @@ describe('ThriftServerManager', () => {
     name: 'thrift-rfs',
     remoteCommand: '',
     remoteCommandArgs: [],
+<<<<<<< HEAD
     remotePort: mockPort,
+=======
+    remoteConnection: {
+      type: 'tcp',
+      port: mockPort
+    },
+>>>>>>> Update
     killOldThriftServerProcess: true
   };
   const startServerMessage = {
@@ -92,6 +103,7 @@ describe('ThriftServerManager', () => {
     }
 
     mockCloseServerFn = jest.fn();
+<<<<<<< HEAD
     mockGetPortFn = jest.fn().mockReturnValue(mockPort);
     (0, _jest_mock_utils().getMock)(_createThriftServer().createThriftServer).mockImplementation(() => {
       return {
@@ -101,6 +113,20 @@ describe('ThriftServerManager', () => {
     });
     serverMessage = new _RxMin.Subject();
     clientMessage = new _RxMin.Subject();
+=======
+    mockGetPortFn = jest.fn().mockReturnValue({
+      port: mockPort,
+      useIPv4: false
+    });
+    (0, _jest_mock_utils().getMock)(_createThriftServer().createThriftServer).mockImplementation(() => {
+      return {
+        getConnectionOptions: mockGetPortFn,
+        close: mockCloseServerFn
+      };
+    });
+    serverMessage = new _rxjsCompatUmdMin.Subject();
+    clientMessage = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     mockedTransport = new MockedTransport(); // eslint-disable-next-line no-new
 
     new (_ThriftServerManager().ThriftServerManager)(mockedTransport);
@@ -114,7 +140,14 @@ describe('ThriftServerManager', () => {
       payload: {
         type: 'response',
         success: true,
+<<<<<<< HEAD
         port: String(mockPort)
+=======
+        connectionOptions: {
+          port: mockPort,
+          useIPv4: false
+        }
+>>>>>>> Update
       }
     };
     const responsePromise = serverMessage.take(1).toPromise();
@@ -226,7 +259,14 @@ describe('ThriftServerManager', () => {
       payload: {
         type: 'response',
         success: true,
+<<<<<<< HEAD
         port: String(mockPort)
+=======
+        connectionOptions: {
+          port: mockPort,
+          useIPv4: false
+        }
+>>>>>>> Update
       }
     };
     const secondResponsePromise = serverMessage.take(1).toPromise();

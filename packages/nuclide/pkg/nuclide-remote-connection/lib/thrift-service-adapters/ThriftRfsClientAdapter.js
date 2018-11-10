@@ -81,16 +81,21 @@ function _filesystem_types() {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const BUFFER_ENCODING = 'utf-8';
+<<<<<<< HEAD
 const logger = (0, _log4js().getLogger)('thrift-rfs-adapters'); // including all supported remote file system function names
 
 const SUPPORTED_THRIFT_RFS_FUNCTIONS = new Set(['stat', 'lstat', 'exists', 'readFile', 'writeFile', 'writeFileBuffer', 'mkdir', 'mkdirp', 'newFile', 'unlink', 'rmdir', 'rmdirAll', 'rename', 'move', 'readdir', 'readdirSorted', 'copy', 'copyDir']);
 exports.SUPPORTED_THRIFT_RFS_FUNCTIONS = SUPPORTED_THRIFT_RFS_FUNCTIONS;
+=======
+const logger = (0, _log4js().getLogger)('thrift-rfs-adapters');
+>>>>>>> Update
 
 class ThriftRfsClientAdapter {
   constructor(client) {
     this._client = client;
   }
 
+<<<<<<< HEAD
   async _statPath(path) {
     const thriftFileStat = await this._client.stat(path);
     return (0, _util().convertToFsFileStat)(thriftFileStat);
@@ -108,6 +113,62 @@ class ThriftRfsClientAdapter {
     try {
       const thriftFileStat = await this._client.lstat(_nuclideUri().default.getPath(uri));
       return (0, _util().convertToFsFileStat)(thriftFileStat);
+=======
+  async chmod(uri, mode) {
+    return this._client.chmod(uri, mode);
+  }
+
+  async chown(uri, uid, gid) {
+    return this._client.chown(uri, uid, gid);
+  }
+
+  async close(fd) {
+    return this._client.close(fd);
+  }
+  /**
+   * Runs the equivalent of `cp sourceUri destinationUri`.
+   * @return true if the operation was successful; false if it wasn't.
+   */
+
+
+  async copy(sourceUri, destinationUri) {
+    try {
+      await this._client.copy(_nuclideUri().default.getPath(sourceUri), _nuclideUri().default.getPath(destinationUri), {
+        overwrite: false
+      });
+    } catch (err) {
+      if (err.code === 'EEXIST') {
+        // expected if the targetPath already exists
+        return false;
+      }
+
+      throw err;
+    }
+
+    return true;
+  }
+  /**
+   * Runs the equivalent of `cp -R sourceUri destinationUri`.
+   * @return true if the operation was successful; false if it wasn't.
+   */
+
+
+  async copyDir(sourceUri, destinationUri) {
+    try {
+      const oldContents = (await Promise.all([this.mkdir(destinationUri), this.readdir(sourceUri)]))[1];
+      const didCopyAll = await Promise.all(oldContents.map(([file, isFile]) => {
+        const oldItem = _nuclideUri().default.join(sourceUri, file);
+
+        const newItem = _nuclideUri().default.join(destinationUri, file);
+
+        if (isFile) {
+          return this.copy(oldItem, newItem);
+        }
+
+        return this.copyDir(oldItem, newItem);
+      }));
+      return didCopyAll.every(b => b);
+>>>>>>> Update
     } catch (err) {
       throw err;
     }
@@ -126,6 +187,7 @@ class ThriftRfsClientAdapter {
     }
   }
 
+<<<<<<< HEAD
   async readFile(uri, options) {
     try {
       const path = _nuclideUri().default.getPath(uri);
@@ -151,6 +213,29 @@ class ThriftRfsClientAdapter {
 
       const writeOptions = options || {};
       await this._client.writeFile(path, data, writeOptions);
+=======
+  async expandHomeDir(uri) {
+    return this._client.expandHomeDir(uri);
+  }
+
+  async fstat(fd) {
+    const statData = await this._client.fstat(fd);
+    return (0, _util().convertToFsFileStat)(statData);
+  }
+
+  async fsync(fd) {
+    return this._client.fsync(fd);
+  }
+
+  async ftruncate(fd, len) {
+    return this._client.ftruncate(fd, len);
+  }
+
+  async lstat(uri) {
+    try {
+      const thriftFileStat = await this._client.lstat(_nuclideUri().default.getPath(uri));
+      return (0, _util().convertToFsFileStat)(thriftFileStat);
+>>>>>>> Update
     } catch (err) {
       throw err;
     }
@@ -166,13 +251,32 @@ class ThriftRfsClientAdapter {
 
   async mkdirp(uri) {
     try {
+<<<<<<< HEAD
       await this._client.createDirectory(_nuclideUri().default.getPath(uri));
+=======
+      await this._client.mkdirp(_nuclideUri().default.getPath(uri));
+>>>>>>> Update
       return true;
     } catch (err) {
       logger.error(err);
       return false;
     }
   }
+<<<<<<< HEAD
+=======
+  /**
+   * Moves all sourceUris into the specified destDir, assumed to be a directory name.
+   */
+
+
+  async move(sourceUris, destDir) {
+    await Promise.all(sourceUris.map(uri => {
+      const destUri = _nuclideUri().default.join(destDir, _nuclideUri().default.basename(uri));
+
+      return this.rename(uri, destUri);
+    }));
+  }
+>>>>>>> Update
 
   async newFile(uri) {
     try {
@@ -189,6 +293,7 @@ class ThriftRfsClientAdapter {
       throw err;
     }
   }
+<<<<<<< HEAD
   /**
    * Removes files. Does not fail if the file doesn't exist.
    */
@@ -203,6 +308,58 @@ class ThriftRfsClientAdapter {
       }
     }
   }
+=======
+
+  async open(uri, permissionFlags, mode) {
+    const fd = await this._client.open(uri, permissionFlags, mode);
+    return fd;
+  }
+  /**
+   * Lists all children of the given directory.
+   */
+
+
+  async readdir(uri) {
+    try {
+      const entries = await this._client.readDirectory(_nuclideUri().default.getPath(uri));
+      return (0, _util().convertToFsDirectoryEntries)(entries);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async rmdirAll(uris) {
+    await Promise.all(uris.map(uri => this.rmdir(uri)));
+  }
+  /**
+   * Sorts the result of readdir() by alphabetical order (case-insensitive).
+   */
+
+
+  async readdirSorted(uri) {
+    return (await this.readdir(uri)).sort((a, b) => {
+      return a[0].toLowerCase().localeCompare(b[0].toLowerCase());
+    });
+  }
+
+  async readFile(uri, options) {
+    try {
+      const path = _nuclideUri().default.getPath(uri);
+
+      return await this._client.readFile(path);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async realpath(uri) {
+    return this._client.realpath(uri);
+  }
+
+  async resolveRealPath(uri) {
+    return this._client.resolveRealPath(uri);
+  }
+>>>>>>> Update
   /**
    * Removes directories even if they are non-empty. Does not fail if the
    * directory doesn't exist.
@@ -218,10 +375,13 @@ class ThriftRfsClientAdapter {
       throw err;
     }
   }
+<<<<<<< HEAD
 
   async rmdirAll(uris) {
     await Promise.all(uris.map(uri => this.rmdir(uri)));
   }
+=======
+>>>>>>> Update
   /**
    * Runs the equivalent of `mv sourceUri destinationUri`.
    */
@@ -236,6 +396,7 @@ class ThriftRfsClientAdapter {
       throw err;
     }
   }
+<<<<<<< HEAD
   /**
    * Moves all sourceUris into the specified destDir, assumed to be a directory name.
    */
@@ -257,11 +418,23 @@ class ThriftRfsClientAdapter {
     try {
       const entries = await this._client.readDirectory(_nuclideUri().default.getPath(uri));
       return (0, _util().convertToFsDirectoryEntries)(entries);
+=======
+
+  async _statPath(path) {
+    const thriftFileStat = await this._client.stat(path);
+    return (0, _util().convertToFsFileStat)(thriftFileStat);
+  }
+
+  async stat(uri) {
+    try {
+      return await this._statPath(_nuclideUri().default.getPath(uri));
+>>>>>>> Update
     } catch (err) {
       throw err;
     }
   }
   /**
+<<<<<<< HEAD
    * Sorts the result of readdir() by alphabetical order (case-insensitive).
    */
 
@@ -314,6 +487,41 @@ class ThriftRfsClientAdapter {
         return this.copyDir(oldItem, newItem);
       }));
       return didCopyAll.every(b => b);
+=======
+   * Removes files. Does not fail if the file doesn't exist.
+   */
+
+
+  async unlink(uri) {
+    try {
+      await this._client.deletePath(_nuclideUri().default.getPath(uri), {});
+    } catch (error) {
+      if (error.code !== _filesystem_types().default.ErrorCode.ENOENT) {
+        throw error;
+      }
+    }
+  }
+
+  async utimes(uri, atime, mtime) {
+    return this._client.utimes(uri, atime, mtime);
+  }
+
+  async writeFile(uri, content, options) {
+    try {
+      const data = new Buffer(content, BUFFER_ENCODING);
+      await this.writeFileBuffer(uri, data, options);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async writeFileBuffer(uri, data, options) {
+    try {
+      const path = _nuclideUri().default.getPath(uri);
+
+      const writeOptions = options || {};
+      await this._client.writeFile(path, data, writeOptions);
+>>>>>>> Update
     } catch (err) {
       throw err;
     }
@@ -321,6 +529,12 @@ class ThriftRfsClientAdapter {
 
 }
 
+<<<<<<< HEAD
+=======
+const SUPPORTED_THRIFT_RFS_FUNCTIONS = new Set(Object.getOwnPropertyNames(ThriftRfsClientAdapter.prototype).filter(i => !i.startsWith('_')));
+exports.SUPPORTED_THRIFT_RFS_FUNCTIONS = SUPPORTED_THRIFT_RFS_FUNCTIONS;
+
+>>>>>>> Update
 async function getOrCreateRfsClientAdapter(bigDigClient) {
   const thriftClient = await getOrCreateThriftClient(bigDigClient);
   return getOrCreateAdapter(thriftClient);

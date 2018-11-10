@@ -71,7 +71,11 @@ function _performanceNow() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -268,7 +272,11 @@ function mountDatatipWithMarker(editor, element, range, renderedProviders, posit
   return new (_UniversalDisposable().default)(() => highlightMarker.destroy(), () => overlayMarker.destroy(), // The editor may not mount the marker until the next update.
   // It's not safe to render anything until that point, as datatips
   // often need to measure their size in the DOM.
+<<<<<<< HEAD
   _RxMin.Observable.from(editor.getElement().getNextUpdatePromise()).subscribe(() => {
+=======
+  _rxjsCompatUmdMin.Observable.from(editor.getElement().getNextUpdatePromise()).subscribe(() => {
+>>>>>>> Update
     editor.decorateMarker(overlayMarker, {
       type: 'overlay',
       class: 'datatip-overlay',
@@ -316,17 +324,29 @@ class DatatipManagerForEditor {
     this._lastFetchedFromCursorPosition = false;
     this._shouldDropNextMouseMoveAfterFocus = false;
 
+<<<<<<< HEAD
     this._subscriptions.add(_featureConfig().default.observe('atom-ide-datatip.datatipDebounceDelay', () => this._setStartFetchingDebounce()), _featureConfig().default.observe('atom-ide-datatip.datatipInteractedWithDebounceDelay', () => this._setHideIfOutsideDebounce()), _RxMin.Observable.fromEvent(this._editorView, 'focus').subscribe(e => {
+=======
+    this._subscriptions.add(_featureConfig().default.observe('atom-ide-datatip.datatipDebounceDelay', () => this._setStartFetchingDebounce()), _featureConfig().default.observe('atom-ide-datatip.datatipInteractedWithDebounceDelay', () => this._setHideIfOutsideDebounce()), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'focus').subscribe(e => {
+>>>>>>> Update
       this._shouldDropNextMouseMoveAfterFocus = true;
 
       if (!this._insideDatatip) {
         this._setState(DatatipState.HIDDEN);
       }
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(this._editorView, 'blur').subscribe(e => {
       if (!this._insideDatatip) {
         this._setState(DatatipState.HIDDEN);
       }
     }), _RxMin.Observable.fromEvent(this._editorView, 'mousemove').subscribe(e => {
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'blur').subscribe(e => {
+      if (!this._insideDatatip) {
+        this._setState(DatatipState.HIDDEN);
+      }
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'mousemove').subscribe(e => {
+>>>>>>> Update
       this._lastFetchedFromCursorPosition = false;
 
       if (this._shouldDropNextMouseMoveAfterFocus) {
@@ -342,11 +362,19 @@ class DatatipManagerForEditor {
       } else {
         this._hideIfOutside();
       }
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(this._editorView, 'mouseleave').subscribe(() => {
       this._lastMoveEvent = null;
 
       this._hideIfOutside();
     }), _RxMin.Observable.fromEvent(this._editorView, 'mousedown').subscribe(e => {
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'mouseleave').subscribe(() => {
+      this._lastMoveEvent = null;
+
+      this._hideIfOutside();
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'mousedown').subscribe(e => {
+>>>>>>> Update
       let node = e.target;
 
       while (node != null) {
@@ -358,7 +386,11 @@ class DatatipManagerForEditor {
       }
 
       this._hideOrCancel();
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(this._editorView, 'keydown').subscribe(e => {
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'keydown').subscribe(e => {
+>>>>>>> Update
       const modifierKey = (0, _getModifierKeys().getModifierKeyFromKeyboardEvent)(e);
 
       if (modifierKey) {
@@ -376,7 +408,11 @@ class DatatipManagerForEditor {
       } else {
         this._hideOrCancel();
       }
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(this._editorView, 'keyup').subscribe(e => {
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._editorView, 'keyup').subscribe(e => {
+>>>>>>> Update
       const modifierKey = (0, _getModifierKeys().getModifierKeyFromKeyboardEvent)(e);
 
       if (modifierKey) {
@@ -386,7 +422,11 @@ class DatatipManagerForEditor {
           this._fetchInResponseToKeyPress();
         }
       }
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(this._datatipElement, 'wheel').subscribe(e => {
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._datatipElement, 'wheel').subscribe(e => {
+>>>>>>> Update
       // We'll mark this as an 'interaction' only if the scroll target was scrollable.
       // This requires going over the ancestors, so only check this once.
       // If it comes back as false, we won't bother checking again.
@@ -399,6 +439,7 @@ class DatatipManagerForEditor {
         this._interactedWith = true;
         e.stopPropagation();
       }
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(this._datatipElement, 'mousedown').subscribe(() => {
       this._interactedWith = true;
     }), _RxMin.Observable.fromEvent(this._datatipElement, 'mouseenter').subscribe(() => {
@@ -406,6 +447,15 @@ class DatatipManagerForEditor {
 
       this._hideIfOutside();
     }), _RxMin.Observable.fromEvent(this._datatipElement, 'mouseleave').subscribe(() => {
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._datatipElement, 'mousedown').subscribe(() => {
+      this._interactedWith = true;
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._datatipElement, 'mouseenter').subscribe(() => {
+      this._insideDatatip = true;
+
+      this._hideIfOutside();
+    }), _rxjsCompatUmdMin.Observable.fromEvent(this._datatipElement, 'mouseleave').subscribe(() => {
+>>>>>>> Update
       this._insideDatatip = false;
 
       this._hideIfOutside();

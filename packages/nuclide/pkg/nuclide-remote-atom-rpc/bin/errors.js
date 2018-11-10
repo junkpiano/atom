@@ -5,7 +5,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setupErrorHandling = setupErrorHandling;
 exports.setupLogging = setupLogging;
+<<<<<<< HEAD
 exports.reportConnectionErrorAndExit = reportConnectionErrorAndExit;
+=======
+exports.trackSuccess = trackSuccess;
+exports.trackError = trackError;
+exports.reportConnectionErrorAndExit = reportConnectionErrorAndExit;
+exports.explainNuclideIsNeededAndExit = explainNuclideIsNeededAndExit;
+>>>>>>> Update
 exports.reportErrorAndExit = reportErrorAndExit;
 exports.FailedConnectionError = exports.EXIT_CODE_INVALID_ARGUMENTS = exports.EXIT_CODE_CONNECTION_ERROR = exports.EXIT_CODE_APPLICATION_ERROR = exports.EXIT_CODE_UNKNOWN_ERROR = exports.EXIT_CODE_SUCCESS = void 0;
 
@@ -21,6 +28,19 @@ function _log4js() {
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
+=======
+function _nuclideAnalytics() {
+  const data = require("../../../modules/nuclide-analytics");
+
+  _nuclideAnalytics = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideLogging() {
   const data = require("../../nuclide-logging");
 
@@ -73,6 +93,24 @@ function setupLogging() {
   (0, _nuclideLogging().initializeLogging)();
 }
 
+<<<<<<< HEAD
+=======
+async function trackSuccess(command, args) {
+  await (0, _nuclideAnalytics().trackImmediate)('nuclide-remote-atom-rpc:success', {
+    command,
+    args
+  });
+}
+
+async function trackError(command, args, error) {
+  await (0, _nuclideAnalytics().trackImmediate)('nuclide-remote-atom-rpc:error', {
+    command,
+    args,
+    error
+  });
+}
+
+>>>>>>> Update
 function reportConnectionErrorAndExit(error) {
   const detailMessage = error.message;
   process.stderr.write(`Error connecting to nuclide-server on ${_os.default.hostname()}:\n`);
@@ -89,6 +127,14 @@ function reportConnectionErrorAndExit(error) {
   process.exit(EXIT_CODE_CONNECTION_ERROR);
 }
 
+<<<<<<< HEAD
+=======
+function explainNuclideIsNeededAndExit() {
+  process.stderr.write('You need to have a Nuclide connection active. ' + "This command doesn't normally exist on Linux and is powered by Nuclide magic.\n");
+  process.exit(EXIT_CODE_CONNECTION_ERROR);
+}
+
+>>>>>>> Update
 function reportErrorAndExit(error, exitCode) {
   process.stderr.write(error.stack);
   process.stderr.write('\n');

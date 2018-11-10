@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -71,19 +75,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class ProjectionistFileFamilyProvider {
   constructor(cwdApis) {
+<<<<<<< HEAD
     this._disposables = new (_UniversalDisposable().default)(cwdApis.switchMap(cwdApi => cwdApi == null ? _RxMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(cwdApi.observeCwd.bind(cwdApi))).switchMap(cwd => {
       if (cwd == null) {
         return _RxMin.Observable.of([null, null]);
+=======
+    this._disposables = new (_UniversalDisposable().default)(cwdApis.switchMap(cwdApi => cwdApi == null ? _rxjsCompatUmdMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(cwdApi.observeCwd.bind(cwdApi))).switchMap(cwd => {
+      if (cwd == null) {
+        return _rxjsCompatUmdMin.Observable.of([null, null]);
+>>>>>>> Update
       }
 
       return Promise.all([(0, _nuclideRemoteConnection().getFileSystemServiceByNuclideUri)(cwd), cwd]);
     }).switchMap(([fsService, cwd]) => {
       if (fsService == null || cwd == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of([null, null, null]);
       }
 
       return Promise.all([fsService.findNearestAncestorNamed('.projections.json', cwd), fsService, cwd]);
     }).switchMap(([configPath, fsService, cwd]) => configPath == null || fsService == null ? _RxMin.Observable.of([null, cwd]) : Promise.all([fsService.readFile(configPath), cwd])).subscribe(([rulesStr, cwd]) => {
+=======
+        return _rxjsCompatUmdMin.Observable.of([null, null, null]);
+      }
+
+      return Promise.all([fsService.findNearestAncestorNamed('.projections.json', cwd), fsService, cwd]);
+    }).switchMap(([configPath, fsService, cwd]) => configPath == null || fsService == null ? _rxjsCompatUmdMin.Observable.of([null, cwd]) : Promise.all([fsService.readFile(configPath), cwd])).subscribe(([rulesStr, cwd]) => {
+>>>>>>> Update
       if (rulesStr != null) {
         let rules;
 

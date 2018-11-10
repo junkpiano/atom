@@ -45,7 +45,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _hgUtils() {
   const data = require("../../../nuclide-hg-rpc/lib/hg-utils");
@@ -121,7 +125,11 @@ class PathSetUpdater {
 
     const changeSubscription = (0, _event().observableFromSubscribeFunction)(callback => {
       return subscription.on('change', callback);
+<<<<<<< HEAD
     }).bufferTime(WATCHMAN_SUBSCRIPTION_BUFFER_TIME).mergeMap(bufferedFiles => this._flattenBufferedChanges(bufferedFiles)).mergeMap(files => isHgRepo ? this._filterIgnoredFiles(localDirectory, files) : _RxMin.Observable.of(files), CONCURRENT_HG_STATUS).subscribe(files => this._processWatchmanUpdate(subscription.pathFromSubscriptionRootToSubscriptionPath, pathSet, files));
+=======
+    }).bufferTime(WATCHMAN_SUBSCRIPTION_BUFFER_TIME).mergeMap(bufferedFiles => this._flattenBufferedChanges(bufferedFiles)).mergeMap(files => isHgRepo ? this._filterIgnoredFiles(localDirectory, files) : _rxjsCompatUmdMin.Observable.of(files), CONCURRENT_HG_STATUS).subscribe(files => this._processWatchmanUpdate(subscription.pathFromSubscriptionRootToSubscriptionPath, pathSet, files));
+>>>>>>> Update
     return new (_UniversalDisposable().default)(changeSubscription, () => this._stopUpdatingPathSet(pathSet));
   }
 
@@ -227,7 +235,11 @@ class PathSetUpdater {
         }
       });
     });
+<<<<<<< HEAD
     return _RxMin.Observable.of(Array.from(filesMap.values()));
+=======
+    return _rxjsCompatUmdMin.Observable.of(Array.from(filesMap.values()));
+>>>>>>> Update
   } // Section: Filtering Ignored Files
 
   /**
@@ -252,7 +264,11 @@ class PathSetUpdater {
     // Also, just give up on calling hg if there are too many files changed.
 
     if (realNewChanges.length === 0 || realNewChanges.length > HG_STATUS_FILE_CAP) {
+<<<<<<< HEAD
       return new _RxMin.Observable.of(changes);
+=======
+      return new _rxjsCompatUmdMin.Observable.of(changes);
+>>>>>>> Update
     }
 
     let args = ['status', '-i', '-Tjson'];
@@ -270,7 +286,11 @@ class PathSetUpdater {
 
 
       return realNewChanges.filter(change => !ignoredFiles.has(change.name)).concat(deletedChanges);
+<<<<<<< HEAD
     }).timeout(HG_STATUS_TIMEOUT).catch(() => _RxMin.Observable.of(changes));
+=======
+    }).timeout(HG_STATUS_TIMEOUT).catch(() => _rxjsCompatUmdMin.Observable.of(changes));
+>>>>>>> Update
   }
 
 }

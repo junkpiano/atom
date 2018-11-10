@@ -1,3 +1,8 @@
 /DEVELOPMENT
 scripts
 spec
+<<<<<<< HEAD
+=======
+fixtures/*.cmi
+spec/fixtures/*.cmo
+>>>>>>> Update

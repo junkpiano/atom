@@ -46,7 +46,11 @@ function _shallowequal() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _expected() {
   const data = require("../../nuclide-commons/expected");
@@ -105,11 +109,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function observeAndroidDevices(host) {
   const serviceUri = _nuclideUri().default.isRemote(host) ? _nuclideUri().default.createRemoteUri(_nuclideUri().default.getHostname(host), '/') : '';
   return pollersForUris.getOrCreate(serviceUri, () => {
+<<<<<<< HEAD
     return _RxMin.Observable.interval(2000).startWith(0).exhaustMap(() => {
+=======
+    return _rxjsCompatUmdMin.Observable.interval(2000).startWith(0).exhaustMap(() => {
+>>>>>>> Update
       const service = (0, _utils().getAdbServiceByNuclideUri)(serviceUri);
 
       if (service == null) {
         // Gracefully handle a lost remote connection
+<<<<<<< HEAD
         return _RxMin.Observable.of(_expected().Expect.pending());
       }
 
@@ -119,6 +128,30 @@ function observeAndroidDevices(host) {
 
         newError.originalError = error;
         return _RxMin.Observable.of(_expected().Expect.error(newError));
+=======
+        return _rxjsCompatUmdMin.Observable.of(_expected().Expect.pending());
+      }
+
+      return _rxjsCompatUmdMin.Observable.fromPromise(service.getDeviceList()).map(devices => _expected().Expect.value(devices)).catch(error => {
+        let message;
+
+        if (error.code === 'ENOENT') {
+          message = "'adb' not found in $PATH.";
+        } else if ( // RPC call timed out
+        error.name === 'RpcTimeoutError' || // RPC call succeeded, but the adb call itself timed out
+        error.message === 'Timeout has occurred') {
+          message = 'Request timed out, retrying...';
+        } else if (error.message === 'Connection Closed') {
+          return _rxjsCompatUmdMin.Observable.of(_expected().Expect.pending());
+        } else {
+          message = error.message;
+        }
+
+        const newError = new Error("Can't fetch Android devices. " + message); // $FlowIgnore
+
+        newError.originalError = error;
+        return _rxjsCompatUmdMin.Observable.of(_expected().Expect.error(newError));
+>>>>>>> Update
       });
     }).distinctUntilChanged((a, b) => (0, _expected().expectedEqual)(a, b, (v1, v2) => (0, _collection().arrayEqual)(v1, v2, _shallowequal().default), (e1, e2) => e1.message === e2.message)).do(value => {
       if (value.isError) {

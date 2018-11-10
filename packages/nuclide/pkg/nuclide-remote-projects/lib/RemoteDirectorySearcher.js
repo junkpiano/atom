@@ -65,7 +65,11 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -102,12 +106,21 @@ class RemoteDirectorySearcher {
     const searchStreams = includePaths.map((inclusion, index) => // processPaths returns null if the inclusions are too strict for the
     // given directory, so we don't even want to start the search. This can
     // happen if we're searching in a working set that excludes the directory.
+<<<<<<< HEAD
     inclusion ? services[index].remoteAtomSearch(directories[index].getPath(), regex, inclusion, config.remoteUseVcsSearch, config.remoteTool.length === 0 ? null : config.remoteTool, options.leadingContextLineCount, options.trailingContextLineCount).refCount() : _RxMin.Observable.empty()); // Start the search in each directory, and merge the resulting streams.
 
     const searchStream = _RxMin.Observable.merge(...searchStreams); // Create a subject that we can use to track search completion.
 
 
     const searchCompletion = new _RxMin.ReplaySubject();
+=======
+    inclusion ? services[index].remoteAtomSearch(directories[index].getPath(), regex, inclusion, config.remoteUseVcsSearch, config.remoteTool.length === 0 ? null : config.remoteTool, options.leadingContextLineCount, options.trailingContextLineCount).refCount() : _rxjsCompatUmdMin.Observable.empty()); // Start the search in each directory, and merge the resulting streams.
+
+    const searchStream = _rxjsCompatUmdMin.Observable.merge(...searchStreams); // Create a subject that we can use to track search completion.
+
+
+    const searchCompletion = new _rxjsCompatUmdMin.ReplaySubject();
+>>>>>>> Update
     searchCompletion.next();
     const subscription = searchStream.subscribe(next => {
       options.didMatch(next); // Call didSearchPaths with the number of unique files we have seen matches in. This is

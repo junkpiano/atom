@@ -67,7 +67,11 @@ function _UniversalDisposable() {
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../../modules/nuclide-commons/process");
@@ -80,7 +84,11 @@ function _process() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../../nuclide-analytics");
+=======
+  const data = require("../../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -119,10 +127,17 @@ const AVD_WATCHMAN_CONFIG = `${AVD_DIRECTORY}/.watchmanconfig`;
 
 class AvdComponentProvider {
   constructor() {
+<<<<<<< HEAD
     this._refresh = new _RxMin.Subject();
 
     this._populateAvdPIDs = avds => {
       return _RxMin.Observable.fromPromise(Promise.all(avds.map(this._populateAvdPID)));
+=======
+    this._refresh = new _rxjsCompatUmdMin.Subject();
+
+    this._populateAvdPIDs = avds => {
+      return _rxjsCompatUmdMin.Observable.fromPromise(Promise.all(avds.map(this._populateAvdPID)));
+>>>>>>> Update
     };
 
     this._refreshAvds = () => {
@@ -134,7 +149,12 @@ class AvdComponentProvider {
 
       if (!(this._emulator != null)) {
         throw new Error("Invariant violation: \"this._emulator != null\"");
+<<<<<<< HEAD
       }
+=======
+      } // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
       (0, _process().runCommand)(this._emulator, ['@' + avd.name]).subscribe(stdout => {}, err => {
         atom.notifications.addError(`Failed to start up emulator ${avd.name}.`, {
@@ -205,7 +225,11 @@ class AvdComponentProvider {
   }
 
   _getEmulator() {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(async () => {
+=======
+    return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
       const androidHome = process.env.ANDROID_HOME;
       const emulator = androidHome != null ? `${androidHome}/tools/emulator` : null;
 
@@ -244,7 +268,11 @@ class AvdComponentProvider {
 
   _getAvds() {
     return this._getEmulator().switchMap(emulator => {
+<<<<<<< HEAD
       return emulator != null ? (0, _process().runCommand)(emulator, ['-list-avds']).map(this._parseAvds).switchMap(this._populateAvdPIDs).map(_expected().Expect.value) : _RxMin.Observable.of(_expected().Expect.error(new Error("Cannot find 'emulator' command.")));
+=======
+      return emulator != null ? (0, _process().runCommand)(emulator, ['-list-avds']).map(this._parseAvds).switchMap(this._populateAvdPIDs).map(_expected().Expect.value) : _rxjsCompatUmdMin.Observable.of(_expected().Expect.error(new Error("Cannot find 'emulator' command.")));
+>>>>>>> Update
     });
   }
 

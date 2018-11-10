@@ -35,7 +35,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53,7 +57,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const LINTER_PACKAGE = 'linter';
 
 function observePackageIsEnabled() {
+<<<<<<< HEAD
   return _RxMin.Observable.merge(_RxMin.Observable.of(atom.packages.isPackageActive(LINTER_PACKAGE)), (0, _event().observableFromSubscribeFunction)(atom.packages.onDidActivatePackage.bind(atom.packages)).filter(pkg => pkg.name === LINTER_PACKAGE).mapTo(true), (0, _event().observableFromSubscribeFunction)(atom.packages.onDidDeactivatePackage.bind(atom.packages)).filter(pkg => pkg.name === LINTER_PACKAGE).mapTo(false));
+=======
+  return _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(atom.packages.isPackageActive(LINTER_PACKAGE)), (0, _event().observableFromSubscribeFunction)(atom.packages.onDidActivatePackage.bind(atom.packages)).filter(pkg => pkg.name === LINTER_PACKAGE).mapTo(true), (0, _event().observableFromSubscribeFunction)(atom.packages.onDidDeactivatePackage.bind(atom.packages)).filter(pkg => pkg.name === LINTER_PACKAGE).mapTo(false));
+>>>>>>> Update
 }
 
 function disableLinter() {
@@ -69,7 +77,11 @@ function showAtomLinterWarning() {
 
   return new (_UniversalDisposable().default)(observePackageIsEnabled().distinctUntilChanged().switchMap(enabled => {
     if (!enabled) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     const notification = atom.notifications.addInfo('Choose a linter UI', {
@@ -94,7 +106,11 @@ function showAtomLinterWarning() {
 
       }]
     });
+<<<<<<< HEAD
     return _RxMin.Observable.create(() => ({
+=======
+    return _rxjsCompatUmdMin.Observable.create(() => ({
+>>>>>>> Update
       unsubscribe() {
         notification.dismiss();
       }

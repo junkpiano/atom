@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nullthrows() {
   const data = _interopRequireDefault(require("nullthrows"));
@@ -96,7 +100,11 @@ function checkQueryPs(mockPid, data, summary) {
       jest.spyOn(nuclideProcess(), 'runCommand').mockImplementation((cmd, args, options) => {
         expect(cmd).toEqual('ps');
         expect(args).toEqual(['-eo', 'pid,ppid,pcpu,time,rss,vsz,command']);
+<<<<<<< HEAD
         return _RxMin.Observable.of('  PID  PPID  %CPU      TIME    RSS      VSZ COMMAND\n' + data.map(entry => entry.line + '\n').join(''));
+=======
+        return _rxjsCompatUmdMin.Observable.of('  PID  PPID  %CPU      TIME    RSS      VSZ COMMAND\n' + data.map(entry => entry.line + '\n').join(''));
+>>>>>>> Update
       });
     });
     afterEach(() => {

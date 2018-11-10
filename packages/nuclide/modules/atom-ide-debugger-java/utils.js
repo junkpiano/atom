@@ -51,7 +51,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -151,6 +155,18 @@ function getJavaConfig() {
     required: true,
     visible: true
   };
+<<<<<<< HEAD
+=======
+  const consoleEnum = {
+    name: 'console',
+    type: 'enum',
+    enums: ['internalConsole', 'integratedTerminal'],
+    description: 'Integrated Terminal means that it will run in a terminal that can interact with standard input and output.',
+    defaultValue: 'internalConsole',
+    required: true,
+    visible: true
+  };
+>>>>>>> Update
   const javaJdwpPort = {
     name: 'javaJdwpPort',
     type: 'number',
@@ -162,7 +178,11 @@ function getJavaConfig() {
     launch: {
       launch: true,
       vsAdapterType: _constants().VsAdapterTypes.JAVA,
+<<<<<<< HEAD
       properties: [entryPointClass, classPath],
+=======
+      properties: [entryPointClass, classPath, consoleEnum],
+>>>>>>> Update
       cwdPropertyName: 'cwd',
       header: null,
 
@@ -234,7 +254,11 @@ function persistSourcePathsToConfig(newSourcePaths) {
 function getDialogValues(clickEvents) {
   let userSourcePaths = getSavedPathsFromConfig();
   return clickEvents.switchMap(() => {
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       const modalDisposable = (0, _showModal().default)(({
         dismiss
       }) => React.createElement(_SourceFilePathsModal().SourceFilePathsModal, {
@@ -286,7 +310,11 @@ async function resolveConfiguration(configuration) {
   // in the future.
 
   (0, _assert.default)(configuration.onDebugStartingCallback == null);
+<<<<<<< HEAD
   const clickEvents = new _RxMin.Subject();
+=======
+  const clickEvents = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   const javaAdapterExecutable = await getJavaDebuggerHelpersServiceByNuclideUri(targetUri).getJavaVSAdapterExecutableInfo(false);
   return Object.assign({}, configuration, {
     customControlButtons: getCustomControlButtonsForJavaSourcePaths(clickEvents),

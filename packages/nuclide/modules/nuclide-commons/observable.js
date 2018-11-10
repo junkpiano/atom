@@ -43,7 +43,11 @@ function _domexception() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AbortController() {
   const data = _interopRequireDefault(require("./AbortController"));
@@ -110,7 +114,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Does not ensure a trailing newline.
  */
 function splitStream(input, includeNewlines = true) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let current = '';
 
     function onEnd() {
@@ -151,7 +159,11 @@ function splitStream(input, includeNewlines = true) {
 
 
 function bufferUntil(condition) {
+<<<<<<< HEAD
   return stream => _RxMin.Observable.create(observer => {
+=======
+  return stream => _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let buffer = null;
 
     const flush = () => {
@@ -191,7 +203,11 @@ function bufferUntil(condition) {
 
 
 function cacheWhileSubscribed(input) {
+<<<<<<< HEAD
   return input.multicast(() => new _RxMin.ReplaySubject(1)).refCount();
+=======
+  return input.multicast(() => new _rxjsCompatUmdMin.ReplaySubject(1)).refCount();
+>>>>>>> Update
 }
 
 /**
@@ -199,7 +215,11 @@ function cacheWhileSubscribed(input) {
  * **IMPORTANT:** These sets are assumed to be immutable by convention. Don't mutate them!
  */
 function diffSets(hash) {
+<<<<<<< HEAD
   return sets => _RxMin.Observable.concat(_RxMin.Observable.of(new Set()), // Always start with no items with an empty set
+=======
+  return sets => _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(new Set()), // Always start with no items with an empty set
+>>>>>>> Update
   sets).pairwise().map(([previous, next]) => ({
     added: (0, _collection().setDifference)(next, previous, hash),
     removed: (0, _collection().setDifference)(previous, next, hash)
@@ -279,7 +299,11 @@ function reconcileSets(sets, addAction, hash) {
 }
 
 function toggle(toggler) {
+<<<<<<< HEAD
   return source => toggler.distinctUntilChanged().switchMap(enabled => enabled ? source : _RxMin.Observable.empty());
+=======
+  return source => toggler.distinctUntilChanged().switchMap(enabled => enabled ? source : _rxjsCompatUmdMin.Observable.empty());
+>>>>>>> Update
 }
 
 function compact(source) {
@@ -292,7 +316,11 @@ function compact(source) {
 
 
 function takeWhileInclusive(predicate) {
+<<<<<<< HEAD
   return source => _RxMin.Observable.create(observer => source.subscribe(x => {
+=======
+  return source => _rxjsCompatUmdMin.Observable.create(observer => source.subscribe(x => {
+>>>>>>> Update
     observer.next(x);
 
     if (!predicate(x)) {
@@ -310,6 +338,7 @@ function takeWhileInclusive(predicate) {
 function concatLatest(...observables) {
   // First, tag all input observables with their index.
   const tagged = observables.map((observable, index) => observable.map(list => [list, index]));
+<<<<<<< HEAD
   return _RxMin.Observable.merge(...tagged).scan((accumulator, [list, index]) => {
     accumulator[index] = list;
     return accumulator;
@@ -346,6 +375,88 @@ function throttle(duration, options_) {
     return source.throttle(duration, {
       leading,
       trailing
+=======
+  return _rxjsCompatUmdMin.Observable.merge(...tagged).scan((accumulator, [list, index]) => {
+    accumulator[index] = list;
+    return accumulator;
+  }, observables.map(x => [])).map(accumulator => [].concat(...accumulator));
+} // Use a sentinel so we can distinguish between when `null` is emitted and when
+// nothing is.
+
+
+const NONE = {};
+
+function throttle(delay) {
+  let getDelay;
+
+  switch (typeof delay) {
+    case 'number':
+      getDelay = () => _rxjsCompatUmdMin.Observable.timer(delay);
+
+      break;
+
+    case 'function':
+      getDelay = delay;
+      break;
+
+    case 'object':
+      getDelay = () => delay;
+
+      break;
+
+    default:
+      throw new Error(`Invalid delay: ${delay}`);
+  }
+
+  return function doThrottle(source) {
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+      // The elements that are actually emitted. We use this to know when to
+      // start ignoring elements.
+      const emittedElements = new _rxjsCompatUmdMin.Subject();
+      let latestValue = NONE;
+      let shouldIgnore = false;
+
+      const checkShouldNext = () => {
+        if (!shouldIgnore && latestValue !== NONE) {
+          // At this point, latestValue must be of type T
+          latestValue = latestValue;
+          const valueToDispatch = latestValue;
+          latestValue = NONE;
+          shouldIgnore = true;
+          observer.next(valueToDispatch);
+          emittedElements.next(valueToDispatch);
+        }
+      };
+
+      const sub = new _rxjsCompatUmdMin.Subscription();
+      sub.add(emittedElements.switchMap(x => {
+        const timer = getDelay(x);
+
+        if (timer instanceof _rxjsCompatUmdMin.Observable) {
+          return timer.take(1);
+        } else {
+          return timer;
+        }
+      }).subscribe(() => {
+        shouldIgnore = false;
+        checkShouldNext();
+      }));
+      sub.add(source.subscribe({
+        next: x => {
+          latestValue = x;
+          checkShouldNext();
+        },
+        error: err => {
+          observer.error(err);
+        },
+        complete: () => {
+          shouldIgnore = false;
+          checkShouldNext();
+          observer.complete();
+        }
+      }));
+      return sub;
+>>>>>>> Update
     });
   };
 }
@@ -368,9 +479,15 @@ function completingSwitchMap(project) {
   // An alternative implementation is to materialize the input observable,
   // but this avoids the creation of extra notifier objects.
   const completedSymbol = Symbol('completed');
+<<<<<<< HEAD
   return observable => _RxMin.Observable.concat(observable, _RxMin.Observable.of(completedSymbol)).switchMap((input, index) => {
     if (input === completedSymbol) {
       return _RxMin.Observable.empty();
+=======
+  return observable => _rxjsCompatUmdMin.Observable.concat(observable, _rxjsCompatUmdMin.Observable.of(completedSymbol)).switchMap((input, index) => {
+    if (input === completedSymbol) {
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     return project(input, index);
@@ -383,7 +500,11 @@ function completingSwitchMap(project) {
 
 
 function mergeUntilAnyComplete(...observables) {
+<<<<<<< HEAD
   const notifications = _RxMin.Observable.merge(...observables.map(o => o.materialize())); // $FlowFixMe add dematerialize to rxjs Flow types
+=======
+  const notifications = _rxjsCompatUmdMin.Observable.merge(...observables.map(o => o.materialize())); // $FlowFixMe add dematerialize to rxjs Flow types
+>>>>>>> Update
 
 
   return notifications.dematerialize();
@@ -403,14 +524,22 @@ function mergeUntilAnyComplete(...observables) {
 
 
 function fastDebounce(delay) {
+<<<<<<< HEAD
   return observable => _RxMin.Observable.create(observer => {
+=======
+  return observable => _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     const debouncedNext = (0, _debounce().default)(x => observer.next(x), delay);
     const subscription = observable.subscribe(debouncedNext, observer.error.bind(observer), observer.complete.bind(observer));
     return new (_UniversalDisposable().default)(subscription, debouncedNext);
   });
 }
 
+<<<<<<< HEAD
 const microtask = _RxMin.Observable.create(observer => {
+=======
+const microtask = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
   process.nextTick(() => {
     observer.next();
     observer.complete();
@@ -419,7 +548,11 @@ const microtask = _RxMin.Observable.create(observer => {
 
 exports.microtask = microtask;
 
+<<<<<<< HEAD
 const macrotask = _RxMin.Observable.create(observer => {
+=======
+const macrotask = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
   const timerId = setImmediate(() => {
     observer.next();
     observer.complete();
@@ -431,7 +564,11 @@ const macrotask = _RxMin.Observable.create(observer => {
 
 exports.macrotask = macrotask;
 
+<<<<<<< HEAD
 const nextAnimationFrame = _RxMin.Observable.create(observer => {
+=======
+const nextAnimationFrame = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
   if (typeof requestAnimationFrame === 'undefined') {
     throw new Error('This util can only be used in Atom');
   }
@@ -460,7 +597,11 @@ const nextAnimationFrame = _RxMin.Observable.create(observer => {
 exports.nextAnimationFrame = nextAnimationFrame;
 
 function fromAbortablePromise(func) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let completed = false;
     const abortController = new (_AbortController().default)();
     func(abortController.signal).then(value => {
@@ -510,7 +651,11 @@ function toAbortablePromise(observable, signal) {
     return Promise.reject((0, _domexception().default)('Aborted', 'AbortError'));
   }
 
+<<<<<<< HEAD
   return observable.race(_RxMin.Observable.fromEvent(signal, 'abort').map(() => {
+=======
+  return observable.race(_rxjsCompatUmdMin.Observable.fromEvent(signal, 'abort').map(() => {
+>>>>>>> Update
     throw new (_domexception().default)('Aborted', 'AbortError');
   })).toPromise();
 }
@@ -520,6 +665,7 @@ function toAbortablePromise(observable, signal) {
  * Recommended to use this with let/pipe:
  *
  *   myObservable
+<<<<<<< HEAD
  *     .let(obs => takeUntilAbort(obs, signal))
  */
 
@@ -531,6 +677,19 @@ function takeUntilAbort(observable, signal) {
     }
 
     return observable.takeUntil(_RxMin.Observable.fromEvent(signal, 'abort'));
+=======
+ *     .let(takeUntilAbort(signal))
+ */
+
+
+function takeUntilAbort(signal) {
+  return observable => _rxjsCompatUmdMin.Observable.defer(() => {
+    if (signal.aborted) {
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    return observable.takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(signal, 'abort'));
+>>>>>>> Update
   });
 } // Executes tasks. Ensures that at most one task is running at a time.
 // This class is handy for expensive tasks like processes, provided
@@ -601,9 +760,15 @@ class SingletonExecutor {
 exports.SingletonExecutor = SingletonExecutor;
 
 function poll(delay) {
+<<<<<<< HEAD
   return source => _RxMin.Observable.defer(() => {
     const delays = new _RxMin.Subject();
     return delays.switchMap(n => _RxMin.Observable.timer(n)).merge(_RxMin.Observable.of(null)).switchMap(() => {
+=======
+  return source => _rxjsCompatUmdMin.Observable.defer(() => {
+    const delays = new _rxjsCompatUmdMin.Subject();
+    return delays.switchMap(n => _rxjsCompatUmdMin.Observable.timer(n)).merge(_rxjsCompatUmdMin.Observable.of(null)).switchMap(() => {
+>>>>>>> Update
       const subscribedAt = Date.now();
       return source.do({
         complete: () => {

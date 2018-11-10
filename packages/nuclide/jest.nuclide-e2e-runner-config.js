@@ -12,6 +12,7 @@
 
 /* eslint nuclide-internal/no-commonjs: 0 */
 
+<<<<<<< HEAD
 module.exports = {
   atomExecutable: '/Applications/Atom.app/Contents/MacOS/Atom',
   consoleFilter: consoleOutput => {
@@ -31,3 +32,7 @@ module.exports = {
     });
   },
 };
+=======
+// $FlowFB
+module.exports = require('./jest/fb-e2e/nuclide-e2e.config.js');
+>>>>>>> Update

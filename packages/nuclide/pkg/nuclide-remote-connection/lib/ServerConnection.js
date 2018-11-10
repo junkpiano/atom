@@ -35,7 +35,11 @@ function _nuclideRpc() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _servicesConfig() {
   const data = _interopRequireDefault(require("../../nuclide-server/lib/servicesConfig"));
@@ -98,7 +102,11 @@ function _nuclideMarshalersClient() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -218,7 +226,11 @@ function _createBigDigRpcClient() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = require("../../commons-node/passesGK");
+=======
+  const data = require("../../../modules/nuclide-commons/passesGK");
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -345,6 +357,7 @@ class ServerConnection {
         response = this._config;
       }
 
+<<<<<<< HEAD
       const window = remote.BrowserWindow.getAllWindows().filter(win => win.id === id)[0];
 
       if (!window) {
@@ -352,6 +365,15 @@ class ServerConnection {
       }
 
       window.send(_RemoteConnectionConfigurationManager().SERVER_CONFIG_RESPONSE_EVENT, response);
+=======
+      const theWindow = remote.BrowserWindow.getAllWindows().filter(win => win.id === id)[0];
+
+      if (!theWindow) {
+        throw new Error("Invariant violation: \"theWindow\"");
+      }
+
+      theWindow.webContents.send(_RemoteConnectionConfigurationManager().SERVER_CONFIG_RESPONSE_EVENT, response);
+>>>>>>> Update
     });
   }
 
@@ -620,7 +642,11 @@ class ServerConnection {
 
 
   static connectionAdded() {
+<<<<<<< HEAD
     return _RxMin.Observable.concat(_RxMin.Observable.from(ServerConnection._hostToConnection.values()), (0, _event().observableFromSubscribeFunction)(ServerConnection.onDidAddServerConnection));
+=======
+    return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.from(ServerConnection._hostToConnection.values()), (0, _event().observableFromSubscribeFunction)(ServerConnection.onDidAddServerConnection));
+>>>>>>> Update
   }
 
   static onDidCancelServerConnection(handler) {
@@ -630,7 +656,11 @@ class ServerConnection {
   static connectionAddedToHost(hostname) {
     const addEvents = ServerConnection.connectionAdded().filter(sc => sc.getRemoteHostname() === hostname);
     const cancelEvents = (0, _event().observableFromSubscribeFunction)(ServerConnection.onDidCancelServerConnection).filter(canceledHostname => canceledHostname === hostname);
+<<<<<<< HEAD
     return _RxMin.Observable.merge(addEvents, cancelEvents.map(x => {
+=======
+    return _rxjsCompatUmdMin.Observable.merge(addEvents, cancelEvents.map(x => {
+>>>>>>> Update
       throw new Error('Cancelled server connection to ' + hostname);
     }));
   }
@@ -767,7 +797,11 @@ class ServerConnection {
 
   static observeRemoteConnections() {
     const emitter = ServerConnection._emitter;
+<<<<<<< HEAD
     return _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(cb => emitter.on('did-add', cb)), (0, _event().observableFromSubscribeFunction)(cb => emitter.on('did-close', cb)), _RxMin.Observable.of(null) // so subscribers get a full list immediately
+=======
+    return _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(cb => emitter.on('did-add', cb)), (0, _event().observableFromSubscribeFunction)(cb => emitter.on('did-close', cb)), _rxjsCompatUmdMin.Observable.of(null) // so subscribers get a full list immediately
+>>>>>>> Update
     ).map(() => Array.from(ServerConnection._hostToConnection.values()));
   }
 

@@ -15,7 +15,11 @@ function _process() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -30,6 +34,7 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
  */
 class VsAdapterSpawner {
   constructor() {
+<<<<<<< HEAD
     this._stdin = new _RxMin.Subject();
   }
 
@@ -37,6 +42,15 @@ class VsAdapterSpawner {
     const environment = _RxMin.Observable.fromPromise((0, _process().getOriginalEnvironment)());
 
     return _RxMin.Observable.forkJoin(this._stdin.buffer(environment), environment).switchMap(([stdinBuffer, env]) => {
+=======
+    this._stdin = new _rxjsCompatUmdMin.Subject();
+  }
+
+  spawnAdapter(adapter) {
+    const environment = _rxjsCompatUmdMin.Observable.fromPromise((0, _process().getOriginalEnvironment)());
+
+    return _rxjsCompatUmdMin.Observable.forkJoin(this._stdin.buffer(environment), environment).switchMap(([stdinBuffer, env]) => {
+>>>>>>> Update
       const options = {
         stdio: ['pipe', // stdin
         'pipe', // stdout
@@ -44,7 +58,11 @@ class VsAdapterSpawner {
         env: Object.assign({}, env, {
           ELECTRON_RUN_AS_NODE: 1
         }, adapter.env),
+<<<<<<< HEAD
         input: _RxMin.Observable.from(stdinBuffer).concat(this._stdin),
+=======
+        input: _rxjsCompatUmdMin.Observable.from(stdinBuffer).concat(this._stdin),
+>>>>>>> Update
         killTreeWhenDone: true,
         killTreeSignal: 'SIGKILL',
         isExitError: () => false,
@@ -53,6 +71,11 @@ class VsAdapterSpawner {
 
       if (adapter.command === 'node') {
         adapter.command = process.execPath;
+<<<<<<< HEAD
+=======
+      } else if (adapter.command === 'sudo' && adapter.args[0] === 'node') {
+        adapter.args[0] = process.execPath;
+>>>>>>> Update
       }
 
       return (0, _process().observeProcessRaw)(adapter.command, adapter.args, options);

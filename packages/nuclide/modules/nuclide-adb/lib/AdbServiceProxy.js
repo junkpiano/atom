@@ -112,7 +112,11 @@ module.exports = _client => {
     }])).map(value => {
       return _client.unmarshal(value, {
         kind: "named",
+<<<<<<< HEAD
         name: "LegacyProcessMessage"
+=======
+        name: "ProcessMessage"
+>>>>>>> Update
       });
     }).publish();
   };
@@ -577,13 +581,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 24
+=======
+        line: 27
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 24
+=======
+          line: 27
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -667,13 +679,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 30
+=======
+        line: 33
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 30
+=======
+          line: 33
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -705,13 +725,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 37
+=======
+        line: 40
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 37
+=======
+          line: 40
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -814,13 +842,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 45
+=======
+        line: 48
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 45
+=======
+          line: 48
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -842,13 +878,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 49
+=======
+        line: 52
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 49
+=======
+          line: 52
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -875,7 +919,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 679
+=======
+        line: 691
+>>>>>>> Update
       },
       name: "ProcessExitMessage",
       definition: {
@@ -913,7 +961,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 685
+=======
+        line: 697
+>>>>>>> Update
       },
       name: "ProcessMessage",
       definition: {
@@ -982,12 +1034,55 @@ Object.defineProperty(module.exports, "defs", {
         discriminantField: "kind"
       }
     },
+<<<<<<< HEAD
+=======
+    installPackage: {
+      kind: "function",
+      name: "installPackage",
+      location: {
+        type: "source",
+        fileName: "AdbService.js",
+        line: 59
+      },
+      type: {
+        location: {
+          type: "source",
+          fileName: "AdbService.js",
+          line: 59
+        },
+        kind: "function",
+        argumentTypes: [{
+          name: "serial",
+          type: {
+            kind: "string"
+          }
+        }, {
+          name: "packagePath",
+          type: {
+            kind: "named",
+            name: "NuclideUri"
+          }
+        }],
+        returnType: {
+          kind: "observable",
+          type: {
+            kind: "named",
+            name: "ProcessMessage"
+          }
+        }
+      }
+    },
+>>>>>>> Update
     LegacyProcessMessage: {
       kind: "alias",
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 698
+=======
+        line: 710
+>>>>>>> Update
       },
       name: "LegacyProcessMessage",
       definition: {
@@ -1073,6 +1168,7 @@ Object.defineProperty(module.exports, "defs", {
         discriminantField: "kind"
       }
     },
+<<<<<<< HEAD
     installPackage: {
       kind: "function",
       name: "installPackage",
@@ -1109,19 +1205,29 @@ Object.defineProperty(module.exports, "defs", {
         }
       }
     },
+=======
+>>>>>>> Update
     uninstallPackage: {
       kind: "function",
       name: "uninstallPackage",
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 64
+=======
+        line: 66
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 64
+=======
+          line: 66
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1150,13 +1256,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 72
+=======
+        line: 74
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 72
+=======
+          line: 74
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1192,13 +1306,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 80
+=======
+        line: 82
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 80
+=======
+          line: 82
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1229,13 +1351,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 87
+=======
+        line: 89
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 87
+=======
+          line: 89
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1295,13 +1425,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 104
+=======
+        line: 106
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 104
+=======
+          line: 106
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1334,13 +1472,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 112
+=======
+        line: 114
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 112
+=======
+          line: 114
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1378,13 +1524,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 121
+=======
+        line: 123
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 121
+=======
+          line: 123
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1417,13 +1571,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 129
+=======
+        line: 131
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 129
+=======
+          line: 131
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1493,13 +1655,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 135
+=======
+        line: 137
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 135
+=======
+          line: 137
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1526,13 +1696,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 141
+=======
+        line: 143
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 141
+=======
+          line: 143
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1563,13 +1741,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 148
+=======
+        line: 150
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 148
+=======
+          line: 150
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1597,13 +1783,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 152
+=======
+        line: 154
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 152
+=======
+          line: 154
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1631,13 +1825,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 159
+=======
+        line: 161
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 159
+=======
+          line: 161
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1660,13 +1862,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 163
+=======
+        line: 165
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 163
+=======
+          line: 165
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1689,13 +1899,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 167
+=======
+        line: 169
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 167
+=======
+          line: 169
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1721,13 +1939,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 173
+=======
+        line: 175
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 173
+=======
+          line: 175
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -1745,13 +1971,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 198
+=======
+        line: 200
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 198
+=======
+          line: 200
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1782,13 +2016,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 206
+=======
+        line: 208
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 206
+=======
+          line: 208
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -1806,13 +2048,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 210
+=======
+        line: 212
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 210
+=======
+          line: 212
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -1830,13 +2080,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 221
+=======
+        line: 223
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 221
+=======
+          line: 223
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -1859,13 +2117,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "AdbService.js",
+<<<<<<< HEAD
         line: 227
+=======
+        line: 229
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "AdbService.js",
+<<<<<<< HEAD
           line: 227
+=======
+          line: 229
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{

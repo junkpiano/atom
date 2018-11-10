@@ -15,7 +15,11 @@ function _expected() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _collection() {
   const data = require("../../../modules/nuclide-commons/collection");
@@ -48,7 +52,11 @@ function _log4js() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -86,6 +94,7 @@ function observeIosDevices() {
   return poller;
 }
 
+<<<<<<< HEAD
 function createPoller() {
   return _RxMin.Observable.interval(2000).startWith(0).exhaustMap(() => {
     const service = (0, _nuclideRemoteConnection().getFbsimctlServiceByNuclideUri)('');
@@ -96,12 +105,35 @@ function createPoller() {
     }
 
     return _RxMin.Observable.fromPromise(service.getDevices()).map(devices => _expected().Expect.value(devices)).catch(error => {
+=======
+function createPoller(serviceUri = '') {
+  return _rxjsCompatUmdMin.Observable.interval(2000).startWith(0).exhaustMap(() => {
+    const service = (0, _nuclideRemoteConnection().getFbsimctlServiceByNuclideUri)(serviceUri);
+
+    if (service == null) {
+      // Gracefully handle a lost remote connection
+      return _rxjsCompatUmdMin.Observable.of(_expected().Expect.pending());
+    }
+
+    return _rxjsCompatUmdMin.Observable.fromPromise(service.getDevices()).map(devices => _expected().Expect.value(devices)).catch(error => {
+>>>>>>> Update
       let message;
 
       if (error.code === 'ENOENT') {
         message = "'fbsimctl' not found in $PATH.";
+<<<<<<< HEAD
       } else if (typeof error.message === 'string' && error.message.includes('plist does not exist')) {
         message = "Xcode path is invalid, use 'xcode-select' in a terminal to select path to an Xcode installation.";
+=======
+      } else if (typeof error.message === 'string' && (error.message.includes('plist does not exist') || error.message.includes('No Xcode Directory at'))) {
+        message = "Xcode path is invalid, use 'xcode-select' in a terminal to select path to an Xcode installation.";
+      } else if ( // RPC call timed out
+      error.name === 'RpcTimeoutError' || // RPC call succeeded, but the fbsimctl call itself timed out
+      error.message === 'Timeout has occurred') {
+        message = 'Request timed out, retrying...';
+      } else if (error.message === 'Connection Closed') {
+        return _rxjsCompatUmdMin.Observable.of(_expected().Expect.pending());
+>>>>>>> Update
       } else {
         message = error.message;
       }
@@ -109,18 +141,44 @@ function createPoller() {
       const newError = new Error("Can't fetch iOS devices. " + message); // $FlowIgnore
 
       newError.originalError = error;
+<<<<<<< HEAD
       return _RxMin.Observable.of(_expected().Expect.error(newError));
     });
   }).distinctUntilChanged((a, b) => (0, _expected().expectedEqual)(a, b, (v1, v2) => (0, _collection().arrayEqual)(v1, v2, _shallowequal().default), (e1, e2) => e1.message === e2.message)).do(value => {
+=======
+      return _rxjsCompatUmdMin.Observable.of(_expected().Expect.error(newError));
+    });
+  }).distinctUntilChanged((a, b) => (0, _expected().expectedEqual)(a, b, (v1, v2) => (0, _collection().arrayEqual)(v1, v2, _shallowequal().default), (e1, e2) => e1.message === e2.message)).do(async value => {
+>>>>>>> Update
     if (value.isError) {
       const {
         error
       } = value;
       const logger = (0, _log4js().getLogger)('nuclide-fbsimctl');
+<<<<<<< HEAD
       logger.warn(value.error.message);
       (0, _nuclideAnalytics().track)('nuclide-fbsimctl:device-poller:error', {
         error
       });
+=======
+      let extras = {
+        error
+      };
+
+      try {
+        if ( // $FlowIgnore
+        error.originalError != null && // $FlowIgnore
+        error.originalError.code === 'ENOENT') {
+          const serverEnv = await (0, _nuclideRemoteConnection().getInfoServiceByNuclideUri)(serviceUri).getServerEnvironment();
+          extras = Object.assign({}, extras, {
+            pathEnv: serverEnv.PATH
+          });
+        }
+      } finally {
+        logger.warn(value.error.message);
+        (0, _nuclideAnalytics().track)('nuclide-fbsimctl:device-poller:error', extras);
+      }
+>>>>>>> Update
     }
   }).publishReplay(1).refCount();
 }

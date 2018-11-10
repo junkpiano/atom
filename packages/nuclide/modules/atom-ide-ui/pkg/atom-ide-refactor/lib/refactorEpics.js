@@ -26,7 +26,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _atom = require("atom");
 
@@ -138,7 +142,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getEpics(providers) {
   return [function getRefactoringsEpic(actions) {
     return actions.ofType('open').switchMap(() => {
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(getRefactorings(providers)).takeUntil(actions);
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(getRefactorings(providers)).takeUntil(actions);
+>>>>>>> Update
     });
   }, function executeRefactoringEpic(actions) {
     return actions.ofType('execute').switchMap(action => {
@@ -148,7 +156,11 @@ function getEpics(providers) {
       }
 
       return executeRefactoring(action).concat( // Default handler if we don't get a result.
+<<<<<<< HEAD
       _RxMin.Observable.of(Actions().error('execute', Error('Could not refactor.')))).takeUntil(actions.filter(x => x.type !== 'progress'));
+=======
+      _rxjsCompatUmdMin.Observable.of(Actions().error('execute', Error('Could not refactor.')))).takeUntil(actions.filter(x => x.type !== 'progress'));
+>>>>>>> Update
     });
   }, function applyRefactoringEpic(actions) {
     return actions.ofType('apply').switchMap(action => {
@@ -164,7 +176,11 @@ function getEpics(providers) {
         throw new Error("Invariant violation: \"action.type === 'load-diff-preview'\"");
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(loadDiffPreview(action.payload.uri, action.payload.response));
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(loadDiffPreview(action.payload.uri, action.payload.response));
+>>>>>>> Update
     });
   }, function handleErrors(actions) {
     return actions.ofType('error').map(action => {
@@ -221,7 +237,11 @@ function executeRefactoring(action) {
   const renameProviders = providers.filter(p => p.rename != null);
 
   if (refactoring.kind === 'freeform' && refactorProviders.length > 0) {
+<<<<<<< HEAD
     return _RxMin.Observable.from(refactorProviders).mergeMap(p => (0, _nullthrows().default)(p.refactor)(refactoring)).map(response => {
+=======
+    return _rxjsCompatUmdMin.Observable.from(refactorProviders).mergeMap(p => (0, _nullthrows().default)(p.refactor)(refactoring)).map(response => {
+>>>>>>> Update
       switch (response.type) {
         case 'progress':
           return Actions().progress(response.message, response.value, response.max);
@@ -239,14 +259,22 @@ function executeRefactoring(action) {
           response;
           throw new Error();
       }
+<<<<<<< HEAD
     }).catch(e => _RxMin.Observable.of(Actions().error('execute', e)));
+=======
+    }).catch(e => _rxjsCompatUmdMin.Observable.of(Actions().error('execute', e)));
+>>>>>>> Update
   } else if (refactoring.kind === 'rename' && renameProviders.length > 0) {
     const {
       editor,
       position,
       newName
     } = refactoring;
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(Promise.all(renameProviders.map(p => (0, _nullthrows().default)(p.rename)(editor, position, newName)))).map(allEdits => {
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(Promise.all(renameProviders.map(p => (0, _nullthrows().default)(p.rename)(editor, position, newName)))).map(allEdits => {
+>>>>>>> Update
       const renameResult = allEdits.find(e => e != null);
 
       if (renameResult != null && renameResult.type === 'error') {
@@ -279,9 +307,15 @@ function executeRefactoring(action) {
         };
         return Actions().confirm(response);
       }
+<<<<<<< HEAD
     }).catch(e => _RxMin.Observable.of(Actions().error('execute', e)));
   } else {
     return _RxMin.Observable.of(Actions().error('execute', Error('No appropriate provider found.')));
+=======
+    }).catch(e => _rxjsCompatUmdMin.Observable.of(Actions().error('execute', e)));
+  } else {
+    return _rxjsCompatUmdMin.Observable.of(Actions().error('execute', Error('No appropriate provider found.')));
+>>>>>>> Update
   }
 } // This offers two different options for applying edits:
 //  1. Apply changes to open files only without saving
@@ -292,12 +326,20 @@ function executeRefactoring(action) {
 const FILE_IO_CONCURRENCY = 4;
 
 function applyRefactoring(action) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
     const {
       response
     } = action.payload;
 
+<<<<<<< HEAD
     let editStream = _RxMin.Observable.empty();
+=======
+    let editStream = _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
 
     if (response.type === 'edit') {
       // Regular edits are applied directly to open buffers.
@@ -307,7 +349,11 @@ function applyRefactoring(action) {
         if (editor != null) {
           (0, _textEdit().applyTextEditsToBuffer)(editor.getBuffer(), edits);
         } else {
+<<<<<<< HEAD
           return _RxMin.Observable.of(Actions().error('execute', Error(`Local Rename: Expected file ${path} to be open.`)));
+=======
+          return _rxjsCompatUmdMin.Observable.of(Actions().error('execute', Error(`Local Rename: Expected file ${path} to be open.`)));
+>>>>>>> Update
         }
       }
     } else {
@@ -341,7 +387,11 @@ function applyRefactoring(action) {
       //  and applied directly to disk.
 
 
+<<<<<<< HEAD
       editStream = _RxMin.Observable.from(typedEdits).mergeMap(async ([path, textEdits]) => {
+=======
+      editStream = _rxjsCompatUmdMin.Observable.from(typedEdits).mergeMap(async ([path, textEdits]) => {
+>>>>>>> Update
         const file = (0, _projects().getFileForPath)(path);
 
         if (file == null) {
@@ -378,7 +428,11 @@ function applyRefactoring(action) {
       }, FILE_IO_CONCURRENCY).scan((done, _) => done + 1, 0).startWith(0).map(done => Actions().progress('Applying edits...', done, response.edits.size));
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.concat(editStream, _RxMin.Observable.of(Actions().close()).do(() => _analytics().default.track('nuclide-refactorizer:success')));
+=======
+    return _rxjsCompatUmdMin.Observable.concat(editStream, _rxjsCompatUmdMin.Observable.of(Actions().close()).do(() => _analytics().default.track('nuclide-refactorizer:success')));
+>>>>>>> Update
   });
 }
 

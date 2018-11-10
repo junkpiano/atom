@@ -37,7 +37,11 @@ function _nuclideUri() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -86,7 +90,11 @@ function _nuclideOpenFiles() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../../../modules/nuclide-commons/event");
@@ -342,17 +350,28 @@ class ObservableDiagnosticProvider {
 
       this._logger.debug(`Starting observing diagnostics ${connectionName}, ${this._analyticsEventName}`);
 
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(languageService).catch(error => {
         this._logger.error(`Error: languageService, ${this._analyticsEventName}`, error);
 
         return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(languageService).catch(error => {
+        this._logger.error(`Error: languageService, ${this._analyticsEventName}`, error);
+
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }).mergeMap(language => {
         this._logger.debug(`Observing diagnostics ${connectionName}, ${this._analyticsEventName}`);
 
         return (0, _nuclideLanguageServiceRpc().ensureInvalidations)(this._logger, language.observeDiagnostics().refCount().catch(error => {
           this._logger.error(`Error: observeDiagnostics, ${this._analyticsEventName}`, error);
 
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }));
       }).map(updates => {
         const filePathToMessages = new Map();

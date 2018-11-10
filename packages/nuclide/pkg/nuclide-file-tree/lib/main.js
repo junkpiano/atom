@@ -130,10 +130,17 @@ function _destroyItemWhere() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _passesGK() {
   const data = _interopRequireDefault(require("../../commons-node/passesGK"));
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _passesGK() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -258,7 +265,11 @@ class Activation {
 
       this._store.dispatch(Actions().setUsePrefixNav(usePrefixNav));
     }), _featureConfig().default.observeAsStream(_Constants().REVEAL_FILE_ON_SWITCH_SETTING).switchMap(shouldReveal => {
+<<<<<<< HEAD
       return shouldReveal ? this._currentActiveFilePath() : _RxMin.Observable.empty();
+=======
+      return shouldReveal ? this._currentActiveFilePath() : _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }).subscribe(filePath => {
       this._store.dispatch(Actions().revealFilePath(filePath,
       /* showIfHidden */
@@ -417,7 +428,11 @@ class Activation {
 
     this._disposables.add(currentSubscription);
 
+<<<<<<< HEAD
     const rebuildSignals = _RxMin.Observable.merge(_RxMin.Observable.of(null), // None of the subscriptions below will trigger at startup.
+=======
+    const rebuildSignals = _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(null), // None of the subscriptions below will trigger at startup.
+>>>>>>> Update
     (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidAddPaneItem.bind(atom.workspace)), (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidDestroyPaneItem.bind(atom.workspace)), (0, _event().observableFromSubscribeFunction)(cb => atom.workspace.observeTextEditors(cb)).flatMap(textEditor => {
       return (0, _event().observableFromSubscribeFunction)(textEditor.onDidChangePath.bind(textEditor)).takeUntil((0, _event().observableFromSubscribeFunction)(textEditor.onDidDestroy.bind(textEditor)));
     })).let((0, _observable().fastDebounce)(OPEN_FILES_UPDATE_DEBOUNCE_INTERVAL_MS));
@@ -506,14 +521,22 @@ class Activation {
             searchAllPanes: true
           });
         } else {
+<<<<<<< HEAD
           (0, _event().observableFromSubscribeFunction)(atom.project.onDidChangePaths.bind(atom.project)).startWith(null).map(() => atom.project.getPaths().length).pairwise().take(1).subscribe(([oldLength, newLength]) => {
+=======
+          disposable.add((0, _event().observableFromSubscribeFunction)(atom.project.onDidChangePaths.bind(atom.project)).startWith(null).map(() => atom.project.getPaths().length).pairwise().take(1).subscribe(([oldLength, newLength]) => {
+>>>>>>> Update
             if (oldLength === 0 && newLength === 1) {
               // eslint-disable-next-line nuclide-internal/atom-apis
               atom.workspace.open(_Constants().WORKSPACE_VIEW_URI, {
                 searchAllPanes: true
               });
             }
+<<<<<<< HEAD
           });
+=======
+          }));
+>>>>>>> Update
         }
       }
     });

@@ -7,7 +7,11 @@ exports.consumeStatusBar = consumeStatusBar;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _renderReactRoot() {
   const data = require("../../../modules/nuclide-commons-ui/renderReactRoot");
@@ -80,7 +84,11 @@ function _shallowequal() {
 }
 
 function analytics() {
+<<<<<<< HEAD
   const data = _interopRequireWildcard(require("../../nuclide-analytics"));
+=======
+  const data = _interopRequireWildcard(require("../../../modules/nuclide-analytics"));
+>>>>>>> Update
 
   analytics = function () {
     return data;
@@ -110,7 +118,11 @@ const STATUS_BAR_PRIORITY = -100;
 function consumeStatusBar(statusBar, navigationStackServices) {
   const props = navigationStackServices.switchMap(navigationStack => {
     if (navigationStack == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         available: false
       });
     }

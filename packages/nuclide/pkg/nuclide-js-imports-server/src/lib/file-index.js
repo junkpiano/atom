@@ -78,7 +78,11 @@ function _UniversalDisposable() {
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideWatchmanHelpers() {
   const data = require("../../../../modules/nuclide-watchman-helpers");
@@ -112,6 +116,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * 
  * @format
  */
+<<<<<<< HEAD
+=======
+// prettier-ignore
+>>>>>>> Update
 const TO_IGNORE = ['**/node_modules/**', '**/VendorLib/**', '**/flow-typed/**'];
 
 async function getFileIndex(root, configFromFlow) {
@@ -232,10 +240,17 @@ function filesWithoutHash(files) {
 
 
 function watchDirectory(root) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
     const watchmanClient = new (_nuclideWatchmanHelpers().WatchmanClient)();
     return _RxMin.Observable.using(() => new (_UniversalDisposable().default)(watchmanClient), () => _RxMin.Observable.fromPromise(watchmanClient.watchDirectoryRecursive(root, 'js-imports-subscription', getWatchmanExpression(root, '*.js'))).switchMap(watchmanSubscription => {
       return _RxMin.Observable.fromEvent(watchmanSubscription, 'change').switchMap(changes => _RxMin.Observable.from(changes.map(change => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+    const watchmanClient = new (_nuclideWatchmanHelpers().WatchmanClient)();
+    return _rxjsCompatUmdMin.Observable.using(() => new (_UniversalDisposable().default)(watchmanClient), () => _rxjsCompatUmdMin.Observable.fromPromise(watchmanClient.watchDirectoryRecursive(root, 'js-imports-subscription', getWatchmanExpression(root, '*.js'))).switchMap(watchmanSubscription => {
+      return _rxjsCompatUmdMin.Observable.fromEvent(watchmanSubscription, 'change').switchMap(changes => _rxjsCompatUmdMin.Observable.from(changes.map(change => {
+>>>>>>> Update
         const name = _nuclideUri().default.join(watchmanSubscription.root, change.name);
 
         if (!_nuclideUri().default.contains(root, name)) {

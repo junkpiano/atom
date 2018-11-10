@@ -90,6 +90,33 @@ function _yargs() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _analytics() {
+  const data = require("../../nuclide-commons/analytics");
+
+  _analytics = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function rawAnalyticsService() {
+  const data = _interopRequireWildcard(require("../../nuclide-analytics/lib/track"));
+
+  rawAnalyticsService = function () {
+    return data;
+  };
+
+  return data;
+}
+
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -177,6 +204,10 @@ async function main() {
       process.exit(0);
     }
 
+<<<<<<< HEAD
+=======
+    (0, _analytics().setRawAnalyticsService)(rawAnalyticsService(), _rxjsCompatUmdMin.Observable.from([]));
+>>>>>>> Update
     const logger = buildLogger();
     const aliases = configFile.resolveAliasesForPreset(preset);
     const dispatcher = new (_CommandDispatcher().default)(aliases);
@@ -196,6 +227,7 @@ async function main() {
 
     const muteOutputCategories = args.dvsp || adapter == null ? new Set() : adapter.adapter.muteOutputCategories;
     const debuggerInstance = new (_Debugger().default)(logger, cli, preset, muteOutputCategories);
+<<<<<<< HEAD
 
     if (adapter != null) {
       await debuggerInstance.launch(adapter);
@@ -205,6 +237,29 @@ async function main() {
     cli.observeInterrupts().subscribe(_ => {
       debuggerInstance.breakInto();
     });
+=======
+    debuggerInstance.registerCommands(dispatcher);
+    cli.enterFullScreen();
+
+    if (adapter != null) {
+      if (adapter.type === 'hhvm') {
+        try {
+          // $FlowFB
+          const showBetaBanner = require("./fb-BetaBanner.js").showBetaBanner;
+
+          showBetaBanner(cli);
+        } catch (_) {}
+      }
+
+      await debuggerInstance.launch(adapter);
+    } // eslint-disable-next-line nuclide-internal/unused-subscription
+
+
+    cli.observeInterrupts().subscribe(_ => {
+      debuggerInstance.breakInto();
+    }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
     cli.observeLines().subscribe(_ => {}, _ => {}, _ => {
       debuggerInstance.closeSession().then(x => {
         cli.outputLine();
@@ -212,7 +267,11 @@ async function main() {
       });
     });
   } catch (x) {
+<<<<<<< HEAD
     process.stderr.write(`${x.message}\n`);
+=======
+    process.stderr.write(`oops ${x.message} ${x.stack}\n`);
+>>>>>>> Update
     process.exit(1);
   }
 }

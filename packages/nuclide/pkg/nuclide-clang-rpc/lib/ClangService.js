@@ -29,7 +29,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -171,7 +175,11 @@ function compile(src, contents, requestSettings, defaultSettings) {
     }
   };
 
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(doCompile()).publish();
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(doCompile()).publish();
+>>>>>>> Update
 }
 
 async function getCompletions(src, contents, line, column, tokenStartColumn, prefix, requestSettings, defaultSettings) {
@@ -275,7 +283,11 @@ async function getArcanistClangFormatBinary(src) {
 
 function loadFilesFromCompilationDatabaseAndCacheThem(dbFile, flagsFile) {
   const flagsManager = serverManager.getClangFlagsManager();
+<<<<<<< HEAD
   return _RxMin.Observable.from(flagsManager.loadFlagsFromCompilationDatabase(dbFile, flagsFile)).flatMap(flagsMap => flagsMap.keys()).publish();
+=======
+  return _rxjsCompatUmdMin.Observable.from(flagsManager.loadFlagsFromCompilationDatabase(dbFile, flagsFile)).flatMap(flagsMap => flagsMap.keys()).publish();
+>>>>>>> Update
 } // Remark: this isn't really rpc-safe, the big databases can be > 1 GB.
 
 

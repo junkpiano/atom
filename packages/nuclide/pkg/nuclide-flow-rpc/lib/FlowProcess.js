@@ -7,7 +7,11 @@ exports.FlowProcess = exports.FLOW_RETURN_CODES = void 0;
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -20,7 +24,11 @@ function _log4js() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -169,6 +177,7 @@ class FlowProcess {
   constructor(root, execInfoContainer, fileCache) {
     this._subscriptions = new (_UniversalDisposable().default)();
     this._execInfoContainer = execInfoContainer;
+<<<<<<< HEAD
     this._serverStatus = new _RxMin.BehaviorSubject(_FlowConstants().ServerStatus.UNKNOWN);
     this._root = root;
     this._isDisposed = new _RxMin.BehaviorSubject(false);
@@ -183,6 +192,24 @@ class FlowProcess {
     this._serverStatus.filter(x => x === _FlowConstants().ServerStatus.NOT_RUNNING).subscribe(() => {
       this._startFlowServer();
     });
+=======
+    this._serverStatus = new _rxjsCompatUmdMin.BehaviorSubject(_FlowConstants().ServerStatus.UNKNOWN);
+    this._root = root;
+    this._isDisposed = new _rxjsCompatUmdMin.BehaviorSubject(false);
+    this._fileCache = fileCache;
+    this._optionalIDEConnections = new _rxjsCompatUmdMin.BehaviorSubject(null);
+    this._ideConnections = this._createIDEConnectionStream(); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+    this._serverStatus.subscribe(status => {
+      logger.info(`[${status}]: Flow server in ${this._root}`);
+    }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+
+    this._serverStatus.filter(x => x === _FlowConstants().ServerStatus.NOT_RUNNING).subscribe(() => {
+      this._startFlowServer();
+    }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
     this._serverStatus.scan(({
       previousState
@@ -200,7 +227,12 @@ class FlowProcess {
       shouldStartPinging
     }) => shouldStartPinging).subscribe(() => {
       this._pingServer();
+<<<<<<< HEAD
     });
+=======
+    }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
     this._serverStatus.filter(status => status === _FlowConstants().ServerStatus.FAILED).subscribe(() => {
       (0, _nuclideAnalytics().track)('flow-server-failed');
@@ -214,7 +246,11 @@ class FlowProcess {
       }
 
       return execInfo.flowVersion;
+<<<<<<< HEAD
     });
+=======
+    }); // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
 
     this._serverStatus.filter(state => state === 'not running').subscribe(() => this._version.invalidateVersion());
   }
@@ -289,7 +325,11 @@ class FlowProcess {
 
 
     const shouldStart = isFailed.filter(failed => !failed).mapTo(undefined);
+<<<<<<< HEAD
     return shouldStart.switchMap(() => this._createSingleIDEConnectionStream()).takeUntil(this._isDisposed.filter(x => x)).concat(_RxMin.Observable.of(null)) // This is so we can passively observe IDE connections if somebody happens to be using one. We
+=======
+    return shouldStart.switchMap(() => this._createSingleIDEConnectionStream()).takeUntil(this._isDisposed.filter(x => x)).concat(_rxjsCompatUmdMin.Observable.of(null)) // This is so we can passively observe IDE connections if somebody happens to be using one. We
+>>>>>>> Update
     // want to use it to more quickly update the Flow server status, but it's not crucial to
     // correctness so we only want to do this if somebody is using the IDE connections anyway.
     // Don't pass the Subject as an Observer since then it will complete if a client unsubscribes.
@@ -306,7 +346,11 @@ class FlowProcess {
   _createSingleIDEConnectionStream() {
     logger.info('Creating Flow IDE connection stream');
     let connectionWatcher = null;
+<<<<<<< HEAD
     return _RxMin.Observable.fromEventPattern( // Called when the observable is subscribed to
+=======
+    return _rxjsCompatUmdMin.Observable.fromEventPattern( // Called when the observable is subscribed to
+>>>>>>> Update
     handler => {
       logger.info('Got a subscriber for the Flow IDE connection stream');
 
@@ -330,9 +374,15 @@ class FlowProcess {
   }
 
   _tryCreateIDEProcess() {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => this._serverIsReady()).switchMap(serverIsReady => {
       if (!serverIsReady) {
         return _RxMin.Observable.of(null);
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => this._serverIsReady()).switchMap(serverIsReady => {
+      if (!serverIsReady) {
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       return this.getVersion().satisfies('>=0.66.0').then(supportsFriendlyStatusError => {
@@ -341,7 +391,11 @@ class FlowProcess {
       });
     }).switchMap(allExecInfo => {
       if (allExecInfo == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(null);
+=======
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }
 
       return (0, _process().spawn)(allExecInfo.pathToFlow, allExecInfo.args, allExecInfo.options).do(proc => {
@@ -531,7 +585,11 @@ class FlowProcess {
 
 
   async _pingServer() {
+<<<<<<< HEAD
     let hasReachedSteadyState = false;
+=======
+    let hasReachedSteadyState = false; // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
 
     this._serverStatus.filter(state => !TEMP_SERVER_STATES.includes(state)).take(1).subscribe(() => {
       hasReachedSteadyState = true;
@@ -563,9 +621,15 @@ class FlowProcess {
       this._pingServerOnce();
     }
 
+<<<<<<< HEAD
     return this._serverStatus.filter(x => x === _FlowConstants().ServerStatus.READY).map(() => true).race(_RxMin.Observable.of(false).delay(SERVER_READY_TIMEOUT_MS)) // If the stream is completed timeout will not return its default value and we will see an
     // EmptyError. So, provide a defaultValue here so the promise resolves.
     .first(null, null, false).toPromise();
+=======
+    return this._serverStatus.filter(x => x === _FlowConstants().ServerStatus.READY).map(() => true).race(_rxjsCompatUmdMin.Observable.of(false).delay(SERVER_READY_TIMEOUT_MS)) // If the stream is completed timeout will not return its default value and we will see an
+    // EmptyError. So, provide a defaultValue here so the promise resolves.
+    .first(null, false).toPromise();
+>>>>>>> Update
   }
 
   _getMaxWorkers() {

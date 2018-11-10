@@ -50,6 +50,7 @@ function _HyperclickProvider() {
   return data;
 }
 
+<<<<<<< HEAD
 function _nuclideAnalytics() {
   const data = require("../../nuclide-analytics");
 
@@ -60,6 +61,8 @@ function _nuclideAnalytics() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _BuckTaskRunner() {
   const data = require("./BuckTaskRunner");
 
@@ -109,8 +112,12 @@ class Activation {
     this._initialState = null;
     this._taskRunner = new (_BuckTaskRunner().BuckTaskRunner)(rawState);
     this._disposables = new (_UniversalDisposable().default)(atom.commands.add('atom-workspace', OPEN_NEAREST_BUILD_FILE_COMMAND, event => {
+<<<<<<< HEAD
       (0, _nuclideAnalytics().track)(OPEN_NEAREST_BUILD_FILE_COMMAND); // Add feature logging.
 
+=======
+      // Add feature logging.
+>>>>>>> Update
       const target = event.target;
       (0, _buildFiles().openNearestBuildFile)(target); // Note this returns a Promise.
     }), this._taskRunner);

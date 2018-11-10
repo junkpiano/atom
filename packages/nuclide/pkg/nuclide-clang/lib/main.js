@@ -176,9 +176,15 @@ function createAutocompleteProvider() {
 
 function createTypeHintProvider() {
   return {
+<<<<<<< HEAD
     inclusionPriority: 1,
     providerName: _constants().PACKAGE_NAME,
     selector: Array.from(_constants().GRAMMAR_SET).join(', '),
+=======
+    priority: 1,
+    providerName: _constants().PACKAGE_NAME,
+    grammarScopes: Array.from(_constants().GRAMMAR_SET),
+>>>>>>> Update
 
     typeHint(editor, position) {
       return _TypeHintHelpers().default.typeHint(editor, position);

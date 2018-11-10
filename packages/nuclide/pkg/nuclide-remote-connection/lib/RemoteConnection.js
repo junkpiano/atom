@@ -15,7 +15,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -454,5 +458,9 @@ function hasAtomProjectFormat(filepath) {
 }
 
 function getProjectManager() {
+<<<<<<< HEAD
   return (0, _event().observableFromSubscribeFunction)(cb => atom.packages.serviceHub.consume('nuclide.project-manager', '0.0.0', cb)).take(1).timeoutWith(100, _RxMin.Observable.of(null)).toPromise();
+=======
+  return (0, _event().observableFromSubscribeFunction)(cb => atom.packages.serviceHub.consume('nuclide.project-manager', '0.0.0', cb)).take(1).timeoutWith(100, _rxjsCompatUmdMin.Observable.of(null)).toPromise();
+>>>>>>> Update
 }

@@ -127,6 +127,18 @@ function getNodeConfig() {
     required: false,
     visible: false
   };
+<<<<<<< HEAD
+=======
+  const consoleEnum = {
+    name: 'console',
+    type: 'enum',
+    enums: ['internalConsole', 'integratedTerminal'],
+    description: 'Integrated Terminal means that it will run in a terminal that can interact with standard input and output.',
+    defaultValue: 'internalConsole',
+    required: true,
+    visible: true
+  };
+>>>>>>> Update
   const port = {
     name: 'port',
     type: 'number',
@@ -138,7 +150,11 @@ function getNodeConfig() {
     launch: {
       launch: true,
       vsAdapterType: _nuclideDebuggerCommon().VsAdapterTypes.NODE,
+<<<<<<< HEAD
       properties: [program, cwd, stopOnEntry, args, runtimeExecutable, env, outFiles, protocol],
+=======
+      properties: [program, cwd, stopOnEntry, args, runtimeExecutable, env, outFiles, protocol, consoleEnum],
+>>>>>>> Update
       scriptPropertyName: 'program',
       cwdPropertyName: 'cwd',
       scriptExtension: '.js',

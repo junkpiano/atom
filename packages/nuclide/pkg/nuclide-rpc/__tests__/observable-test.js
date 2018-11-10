@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -18,7 +22,11 @@ describe('ConnectableObservable', () => {
     let created = 0;
     let unsubscribed = 0;
 
+<<<<<<< HEAD
     const obs = _RxMin.Observable.create(observer => {
+=======
+    const obs = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       created += 1;
       return {
         unsubscribe: () => {
@@ -61,7 +69,11 @@ describe('ConnectableObservable', () => {
     let created = 0;
     let unsubscribed = 0;
 
+<<<<<<< HEAD
     const obs = _RxMin.Observable.create(observer => {
+=======
+    const obs = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       created += 1;
       return {
         unsubscribe: () => {

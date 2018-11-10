@@ -10,7 +10,11 @@ function _() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _testHelpers() {
   const data = require("../../../modules/nuclide-commons/test-helpers");
@@ -62,7 +66,11 @@ describe('ClangService.formatCode', () => {
 
     const testFile = _nuclideUri().default.join(projectDir, 'test.cpp');
 
+<<<<<<< HEAD
     const spy = jest.spyOn(require("../../../modules/nuclide-commons/process"), 'runCommand').mockReturnValue(_RxMin.Observable.of('{ "Cursor": 4, "Incomplete": false }\ntest2'));
+=======
+    const spy = jest.spyOn(require("../../../modules/nuclide-commons/process"), 'runCommand').mockReturnValue(_rxjsCompatUmdMin.Observable.of('{ "Cursor": 4, "Incomplete": false }\ntest2'));
+>>>>>>> Update
     const result = await (0, _().formatCode)(testFile, 'test', 1, 2, 3);
     expect(result).toEqual({
       newCursor: 4,

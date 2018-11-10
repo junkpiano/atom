@@ -35,6 +35,19 @@ function Immutable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function FileTreeHelpers() {
+  const data = _interopRequireWildcard(require("./FileTreeHelpers"));
+
+  FileTreeHelpers = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -115,7 +128,10 @@ const DEFAULT_OPTIONS = {
 class FileTreeNode {
   // Mutable properties - set when the node is assigned to its parent (and are immutable after)
   // Derived
+<<<<<<< HEAD
   // Derived from children
+=======
+>>>>>>> Update
 
   /**
    * The children property is an OrderedMap instance keyed by child's name property.
@@ -147,16 +163,22 @@ class FileTreeNode {
   /**
    * Sets the links from the children to this instance (their parent) and the links between the
    * siblings.
+<<<<<<< HEAD
    *   Additionally calculates the properties derived from children and assigns them to this instance
+=======
+>>>>>>> Update
    */
 
 
   _handleChildren() {
+<<<<<<< HEAD
     let containsDragHover = this.isDragHovered;
     let containsFilterMatches = this.matchesFilter;
     let containsHidden = !this.shouldBeShown;
     let childrenAreLoading = this.childrenAreLoading || this.isLoading;
     let childCountIfNotPendingLoad = 0;
+=======
+>>>>>>> Update
     let prevChild = null;
     this.children.forEach(c => {
       c.parent = this;
@@ -167,6 +189,7 @@ class FileTreeNode {
       }
 
       prevChild = c;
+<<<<<<< HEAD
 
       if (c.containsFilterMatches) {
         containsFilterMatches = true;
@@ -187,11 +210,14 @@ class FileTreeNode {
       if (!childrenAreLoading && c.childrenAreLoading) {
         childrenAreLoading = true;
       }
+=======
+>>>>>>> Update
     });
 
     if (prevChild != null) {
       prevChild.nextSibling = null;
     }
+<<<<<<< HEAD
 
     this.containsDragHover = containsDragHover;
     this.containsFilterMatches = containsFilterMatches;
@@ -205,6 +231,8 @@ class FileTreeNode {
     }
 
     this.shownChildrenCount = shownChildrenCount;
+=======
+>>>>>>> Update
   }
   /**
    * Using object.assign() was proven to be less performant than direct named assignment
@@ -214,8 +242,19 @@ class FileTreeNode {
 
 
   _assignOptions(options) {
+<<<<<<< HEAD
     this.uri = options.uri;
     this.rootUri = options.rootUri;
+=======
+    var _options$name, _options$relativePath, _options$localPath;
+
+    this.uri = options.uri;
+    this.rootUri = options.rootUri;
+    this.name = (_options$name = options.name) !== null && _options$name !== void 0 ? _options$name : FileTreeHelpers().keyToName(this.uri);
+    this.isRoot = this.uri === this.rootUri;
+    this.relativePath = (_options$relativePath = options.relativePath) !== null && _options$relativePath !== void 0 ? _options$relativePath : _nuclideUri().default.relative(this.rootUri, this.uri);
+    this.localPath = (_options$localPath = options.localPath) !== null && _options$localPath !== void 0 ? _options$localPath : FileTreeHelpers().keyToPath(_nuclideUri().default.isRemote(this.uri) ? _nuclideUri().default.parse(this.uri).path : this.uri);
+>>>>>>> Update
     this.isExpanded = options.isExpanded !== undefined ? options.isExpanded : DEFAULT_OPTIONS.isExpanded;
     this.isDragHovered = options.isDragHovered !== undefined ? options.isDragHovered : DEFAULT_OPTIONS.isDragHovered;
     this.isBeingReordered = options.isBeingReordered !== undefined ? options.isBeingReordered : DEFAULT_OPTIONS.isBeingReordered;
@@ -227,8 +266,22 @@ class FileTreeNode {
     this.subscription = options.subscription !== undefined ? options.subscription : DEFAULT_OPTIONS.subscription;
     this.highlightedText = options.highlightedText !== undefined ? options.highlightedText : DEFAULT_OPTIONS.highlightedText;
     this.matchesFilter = options.matchesFilter !== undefined ? options.matchesFilter : DEFAULT_OPTIONS.matchesFilter;
+<<<<<<< HEAD
     this.isPendingLoad = options.isPendingLoad !== undefined ? options.isPendingLoad : DEFAULT_OPTIONS.isPendingLoad;
     this.generatedStatus = options.generatedStatus !== undefined ? options.generatedStatus : DEFAULT_OPTIONS.generatedStatus;
+=======
+    this.generatedStatus = options.generatedStatus !== undefined ? options.generatedStatus : DEFAULT_OPTIONS.generatedStatus; // `isPendingLoad` is a special case in that it's sticky. Once a node's not pending load, it can
+    // never be pending load again. When you move from loading -> not loading, a load is no longer
+    // pending.
+
+    if (!this.isLoading) {
+      this.isPendingLoad = false;
+    } else if (this.isPendingLoad !== false) {
+      var _options$isPendingLoa;
+
+      this.isPendingLoad = (_options$isPendingLoa = options.isPendingLoad) !== null && _options$isPendingLoa !== void 0 ? _options$isPendingLoa : DEFAULT_OPTIONS.isPendingLoad;
+    }
+>>>>>>> Update
   }
   /**
    * Using object.assign() was proven to be less performant than direct named assignment
@@ -240,6 +293,7 @@ class FileTreeNode {
   _assignDerived() {
     const derived = this._deriver.buildDerivedFields(this._conf);
 
+<<<<<<< HEAD
     this.isRoot = derived.isRoot;
     this.name = derived.name;
     this.hashKey = derived.hashKey;
@@ -249,6 +303,12 @@ class FileTreeNode {
     this.shouldBeShown = derived.shouldBeShown;
     this.shouldBeSoftened = derived.shouldBeSoftened;
     this.vcsStatusCode = derived.vcsStatusCode;
+=======
+    this.hashKey = derived.hashKey;
+    this.isContainer = derived.isContainer;
+    this.shouldBeShown = derived.shouldBeShown;
+    this.shouldBeSoftened = derived.shouldBeSoftened;
+>>>>>>> Update
     this.repo = derived.repo;
     this.isIgnored = derived.isIgnored;
     this.checkedStatus = derived.checkedStatus;
@@ -264,6 +324,12 @@ class FileTreeNode {
     return {
       uri: this.uri,
       rootUri: this.rootUri,
+<<<<<<< HEAD
+=======
+      name: this.name,
+      relativePath: this.relativePath,
+      localPath: this.localPath,
+>>>>>>> Update
       isExpanded: this.isExpanded,
       isDragHovered: this.isDragHovered,
       isBeingReordered: this.isBeingReordered,
@@ -434,6 +500,7 @@ class FileTreeNode {
 
     return this._findLastByNamePath(childNamePath);
   }
+<<<<<<< HEAD
   /**
    * Finds the next node in the tree in the natural order - from top to to bottom as is displayed
    * in the file-tree panel, minus the indentation. Only the nodes that should be shown are returned.
@@ -539,6 +606,8 @@ class FileTreeNode {
       return it.findLastRecursiveChild();
     }
   }
+=======
+>>>>>>> Update
 
   getDepth() {
     let it = this.parent;
@@ -551,6 +620,7 @@ class FileTreeNode {
 
     return depth;
   }
+<<<<<<< HEAD
   /**
    * Calculate the index of current Node w.r.t the top of the tree.
    * The index is one based.
@@ -573,6 +643,8 @@ class FileTreeNode {
   findByIndex(index) {
     return findNodeAtOffset(this, index - 1); // indexes are 1-based.
   }
+=======
+>>>>>>> Update
 
   _propsAreTheSame(props) {
     if (props.isDragHovered !== undefined && this.isDragHovered !== props.isDragHovered) {
@@ -669,6 +741,7 @@ class FileTreeNode {
       isContainer: this.isContainer,
       shouldBeShown: this.shouldBeShown,
       shouldBeSoftened: this.shouldBeSoftened,
+<<<<<<< HEAD
       vcsStatusCode: this.vcsStatusCode,
       isIgnored: this.isIgnored,
       checkedStatus: this.checkedStatus,
@@ -677,11 +750,16 @@ class FileTreeNode {
       shownChildrenCount: this.shownChildrenCount,
       containsHidden: this.containsHidden,
       childrenAreLoading: this.childrenAreLoading,
+=======
+      isIgnored: this.isIgnored,
+      checkedStatus: this.checkedStatus,
+>>>>>>> Update
       children: Array.from(this.children.values()).map(child => child.collectDebugState())
     };
   }
 
 }
+<<<<<<< HEAD
 /**
  * Find the node that occurs `offset` after the provided one in the flattened list. `offset` must
  * be a non-negative integer.
@@ -724,3 +802,7 @@ function findNodeAtOffset(node_, offset_) {
 
   return node;
 }
+=======
+
+exports.FileTreeNode = FileTreeNode;
+>>>>>>> Update

@@ -58,6 +58,10 @@ class TextEditor {
     this._uri = data.uri;
     this._contents = data.contents;
     this._isModified = data.isModified;
+<<<<<<< HEAD
+=======
+    this._repositoryDescription = data.repositoryDescription;
+>>>>>>> Update
   }
 
   destroy() {}
@@ -69,7 +73,12 @@ class TextEditor {
         uri: this._uri,
         contents: this._contents,
         // If the editor was unsaved, we'll restore the unsaved contents after load.
+<<<<<<< HEAD
         isModified: this._isModified
+=======
+        isModified: this._isModified,
+        repositoryDescription: this._repositoryDescription
+>>>>>>> Update
       }
     };
   }
@@ -88,6 +97,13 @@ class TextEditor {
     return this._uri;
   }
 
+<<<<<<< HEAD
+=======
+  getRepositoryDescription() {
+    return this._repositoryDescription;
+  }
+
+>>>>>>> Update
   getText() {
     return this._contents;
   }

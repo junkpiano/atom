@@ -79,7 +79,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../../../modules/nuclide-commons/event");
@@ -92,7 +96,11 @@ function _event() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -336,7 +344,11 @@ function getHgRepositoriesStream() {
 }
 
 function getHgRepositoryStream() {
+<<<<<<< HEAD
   return getHgRepositoriesStream().let((0, _observable().diffSets)()).flatMap(repoDiff => _RxMin.Observable.from(repoDiff.added));
+=======
+  return getHgRepositoriesStream().let((0, _observable().diffSets)()).flatMap(repoDiff => _rxjsCompatUmdMin.Observable.from(repoDiff.added));
+>>>>>>> Update
 }
 /**
  * @param aPath The NuclideUri of a file or directory for which you want to find

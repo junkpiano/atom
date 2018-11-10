@@ -297,6 +297,7 @@ describe('FileWatcherService', () => {
     (0, _FileWatcherService().watchFile)(TEST_FILE).refCount().subscribe({
       error: errorMock
     });
+<<<<<<< HEAD
 
     try {
       (0, _FileWatcherService().watchWithNode)(nodeTestFilePath).refCount().subscribe({
@@ -306,6 +307,16 @@ describe('FileWatcherService', () => {
       errorMockWithNode();
     }
 
+=======
+    (0, _FileWatcherService().watchWithNode)(nodeTestFilePath).refCount().subscribe({
+      next: x => x,
+
+      error() {
+        errorMockWithNode();
+      }
+
+    });
+>>>>>>> Update
     await (0, _waits_for().default)(() => errorMock.mock.calls.length > 0 && errorMockWithNode.mock.calls.length > 0);
   });
   it('allows watching non-existant files', async () => {

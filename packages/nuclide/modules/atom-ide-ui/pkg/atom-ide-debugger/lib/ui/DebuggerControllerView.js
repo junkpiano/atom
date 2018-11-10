@@ -37,7 +37,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _constants() {
   const data = require("../constants");
@@ -75,7 +79,11 @@ class DebuggerControllerView extends React.Component {
       service
     } = this.props;
 
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(service.viewModel.onDidChangeDebuggerFocus.bind(service.viewModel)), (0, _event().observableFromSubscribeFunction)(service.onDidChangeProcessMode.bind(service))).subscribe(mode => this.forceUpdate()));
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(service.viewModel.onDidChangeDebuggerFocus.bind(service.viewModel)), (0, _event().observableFromSubscribeFunction)(service.onDidChangeProcessMode.bind(service))).subscribe(mode => this.forceUpdate()));
+>>>>>>> Update
   }
 
   componentWillUnmount() {

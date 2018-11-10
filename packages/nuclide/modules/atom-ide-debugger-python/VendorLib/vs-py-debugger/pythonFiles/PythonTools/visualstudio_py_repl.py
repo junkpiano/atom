@@ -49,12 +49,21 @@ from collections import deque
 try:
     # In the local attach scenario, visualstudio_py_util is injected into globals()
     # by PyDebugAttach before loading this module, and cannot be imported.
+<<<<<<< HEAD
     _vspu = visualstudio_py_util
 except:
     try:
         import visualstudio_py_util as _vspu
     except ImportError:
         import ptvsd.visualstudio_py_util as _vspu
+=======
+    _vspu = ptvsd.visualstudio_py_util
+except:
+    try:
+        import ptvsd.visualstudio_py_util as _vspu
+    except ImportError:
+        import visualstudio_py_util as _vspu
+>>>>>>> Update
 to_bytes = _vspu.to_bytes
 read_bytes = _vspu.read_bytes
 read_int = _vspu.read_int
@@ -350,7 +359,11 @@ actual inspection and introspection."""
         self.execute_file_ex(filetype, filename, args)
 
     def _cmd_debug_attach(self):
+<<<<<<< HEAD
         import visualstudio_py_debugger
+=======
+        import ptvsd.visualstudio_py_debugger as visualstudio_py_debugger
+>>>>>>> Update
         port = read_int(self.conn)
         id = read_string(self.conn)
         debug_options = visualstudio_py_debugger.parse_debug_options(read_string(self.conn))
@@ -384,7 +397,11 @@ actual inspection and introspection."""
     def init_debugger(self):
         from os import path
         sys.path.append(path.dirname(__file__))
+<<<<<<< HEAD
         import visualstudio_py_debugger
+=======
+        import ptvsd.visualstudio_py_debugger as visualstudio_py_debugger
+>>>>>>> Update
         visualstudio_py_debugger.DONT_DEBUG.append(path.normcase(__file__))
         new_thread = visualstudio_py_debugger.new_thread()
         sys.settrace(new_thread.trace_func)
@@ -1005,13 +1022,21 @@ due to the exec, so we do it here"""
         sys.stdout.flush()
 
     def do_detach(self):
+<<<<<<< HEAD
         import visualstudio_py_debugger
+=======
+        import ptvsd.visualstudio_py_debugger as visualstudio_py_debugger
+>>>>>>> Update
         visualstudio_py_debugger.DETACH_CALLBACKS.remove(self.do_detach)
         self.on_debugger_detach()
 
     def attach_process(self, port, debugger_id, debug_options):
         def execute_attach_process_work_item():
+<<<<<<< HEAD
             import visualstudio_py_debugger
+=======
+            import ptvsd.visualstudio_py_debugger as visualstudio_py_debugger
+>>>>>>> Update
             visualstudio_py_debugger.DETACH_CALLBACKS.append(self.do_detach)
             visualstudio_py_debugger.attach_process(port, debugger_id, debug_options, report=True, block=True)
 
@@ -1388,4 +1413,8 @@ if __name__ == '__main__':
             _debug_write(traceback.format_exc())
             _debug_write('exiting')
             input()
+<<<<<<< HEAD
         raise
+=======
+        raise
+>>>>>>> Update

@@ -20,7 +20,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _DefaultMetroAtomService() {
   const data = require("./DefaultMetroAtomService");
@@ -46,7 +50,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class Activation {
   constructor(serializedState) {
+<<<<<<< HEAD
     this._projectRootPath = new _RxMin.BehaviorSubject(null);
+=======
+    this._projectRootPath = new _rxjsCompatUmdMin.BehaviorSubject(null);
+>>>>>>> Update
     this._metroAtomService = new (_DefaultMetroAtomService().DefaultMetroAtomService)(this._projectRootPath);
     this._disposables = new (_UniversalDisposable().default)(this._metroAtomService, atom.commands.add('atom-workspace', {
       // Ideally based on CWD, the commands can be disabled and the UI would explain why.
@@ -77,6 +85,7 @@ class Activation {
     }));
   }
 
+<<<<<<< HEAD
   consumeOutputService(api) {
     this._disposables.add(api.registerOutputProvider({
       id: 'Metro',
@@ -91,6 +100,29 @@ class Activation {
         this._metroAtomService.stop();
       }
     }));
+=======
+  consumeConsole(consoleService) {
+    let consoleApi = consoleService({
+      id: 'Metro',
+      name: 'Metro',
+      start: () => {
+        this._metroAtomService.start('ask_about_tunnel').catch(() => {});
+      },
+      stop: () => this._metroAtomService.stop()
+    });
+    const disposable = new (_UniversalDisposable().default)(() => {
+      consoleApi != null && consoleApi.dispose();
+      consoleApi = null;
+    }, this._metroAtomService._logTailer.getMessages().subscribe(message => consoleApi != null && consoleApi.append(message)), this._metroAtomService.observeStatus(status => {
+      if (consoleApi != null) {
+        consoleApi.setStatus(status);
+      }
+    }));
+
+    this._disposables.add(disposable);
+
+    return disposable;
+>>>>>>> Update
   }
 
 }

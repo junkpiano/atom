@@ -67,7 +67,11 @@ function _Tabs() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AtomServiceContainer() {
   const data = require("../AtomServiceContainer");
@@ -203,9 +207,15 @@ class DebuggerLaunchAttachUI extends React.Component {
   _filterProviders(key) {
     this.setState({
       enabledProviders: []
+<<<<<<< HEAD
     });
 
     _RxMin.Observable.merge(...(this.props.providers.get(key) || []).map(provider => _RxMin.Observable.fromPromise(this._getProviderIfEnabled(provider)))).filter(provider => provider != null).map(provider => {
+=======
+    }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+    _rxjsCompatUmdMin.Observable.merge(...(this.props.providers.get(key) || []).map(provider => _rxjsCompatUmdMin.Observable.fromPromise(this._getProviderIfEnabled(provider)))).filter(provider => provider != null).map(provider => {
+>>>>>>> Update
       if (!(provider != null)) {
         throw new Error("Invariant violation: \"provider != null\"");
       }

@@ -37,7 +37,11 @@ class PanelComponentScroller extends React.Component {
     const style = this.props.overflowX == null ? null : {
       overflowX: this.props.overflowX
     };
+<<<<<<< HEAD
     const className = (0, _classnames().default)(this.props.className, 'nuclide-ui-panel-component-scroller', {
+=======
+    const className = (0, _classnames().default)(this.props.className, 'nuclide-ui-panel-component-scroller', 'nuclide-scrollbar-style-fix', {
+>>>>>>> Update
       'nuclide-ui-panel-component-scroller--column': this.props.flexDirection === 'column'
     });
     return (// $FlowFixMe(>=0.53.0) Flow suppress

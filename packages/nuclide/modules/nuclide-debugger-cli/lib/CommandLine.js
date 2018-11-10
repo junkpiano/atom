@@ -25,6 +25,7 @@ function _CommandDispatcher() {
   return data;
 }
 
+<<<<<<< HEAD
 function _More() {
   const data = _interopRequireDefault(require("./More"));
 
@@ -36,6 +37,9 @@ function _More() {
 }
 
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,7 +54,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
 const PROMPT = '\x1b[32;1mfbdbg>\x1b[0m ';
+=======
+const PROMPT = 'fbdbg> ';
+>>>>>>> Update
 
 class CommandLine {
   constructor(dispatcher, plain, logger) {
@@ -74,6 +82,7 @@ class CommandLine {
 
     this._cli = new (_LineEditor().default)(lineEditorArgs, logger);
     this.setPrompt();
+<<<<<<< HEAD
     this._interrupts = new _RxMin.Subject();
 
     this._subscriptions.push(_RxMin.Observable.fromEvent(this._cli, 'SIGINT').subscribe(this._interrupts));
@@ -81,6 +90,15 @@ class CommandLine {
     this._lines = new _RxMin.Subject();
 
     this._subscriptions.push(_RxMin.Observable.fromEvent(this._cli, 'line').takeUntil(_RxMin.Observable.fromEvent(this._cli, 'close')).subscribe(this._lines));
+=======
+    this._interrupts = new _rxjsCompatUmdMin.Subject();
+
+    this._subscriptions.push(_rxjsCompatUmdMin.Observable.fromEvent(this._cli, 'SIGINT').subscribe(this._interrupts));
+
+    this._lines = new _rxjsCompatUmdMin.Subject();
+
+    this._subscriptions.push(_rxjsCompatUmdMin.Observable.fromEvent(this._cli, 'line').takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(this._cli, 'close')).subscribe(this._lines));
+>>>>>>> Update
 
     this._subscriptions.push(this._lines.filter(_ => !this._inputStopped).switchMap(_ => {
       this._lastLine = _.trim() === '' ? this._lastLine : _.trim();
@@ -102,9 +120,17 @@ class CommandLine {
       }
     }));
 
+<<<<<<< HEAD
     this._keys = new _RxMin.Subject();
 
     this._subscriptions.push(_RxMin.Observable.fromEvent(this._cli, 'key').takeUntil(_RxMin.Observable.fromEvent(this._cli, 'close')).subscribe(this._keys));
+=======
+    this._keys = new _rxjsCompatUmdMin.Subject();
+
+    this._subscriptions.push(_rxjsCompatUmdMin.Observable.fromEvent(this._cli, 'key').takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(this._cli, 'close')).subscribe(this._keys));
+
+    this._subscriptions.push(_rxjsCompatUmdMin.Observable.fromEvent(this._cli, 'close').subscribe(() => process.exit(1)));
+>>>>>>> Update
 
     this._shouldPrompt = true;
   }
@@ -113,6 +139,13 @@ class CommandLine {
     this._subscriptions.forEach(_ => _.unsubscribe());
   }
 
+<<<<<<< HEAD
+=======
+  enterFullScreen() {
+    this._cli.enterFullScreen();
+  }
+
+>>>>>>> Update
   observeInterrupts() {
     return this._interrupts;
   }
@@ -144,6 +177,7 @@ class CommandLine {
   }
 
   output(text) {
+<<<<<<< HEAD
     if (this._more == null) {
       this._cli.write(text);
     }
@@ -179,6 +213,13 @@ class CommandLine {
     this._more = more;
 
     this._more.display();
+=======
+    this._cli.write(text);
+  }
+
+  outputLine(line = '') {
+    this._cli.write(`${line}\n`);
+>>>>>>> Update
   }
 
   prompt() {
@@ -205,8 +246,13 @@ class CommandLine {
     }
   }
 
+<<<<<<< HEAD
   close() {
     this._cli.close();
+=======
+  close(error) {
+    this._cli.close(error);
+>>>>>>> Update
   }
 
 }

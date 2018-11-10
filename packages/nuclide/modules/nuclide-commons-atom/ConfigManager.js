@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -106,7 +110,11 @@ class ConfigManager {
 
 
   observeAsStream(keyPath, options = {}) {
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       const disposable = this.observe(keyPath, options, observer.next.bind(observer));
       return disposable.dispose.bind(disposable);
     });

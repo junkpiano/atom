@@ -27,7 +27,11 @@ function _Combobox() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -42,7 +46,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
  * @format
  */
 function requestOptions() {
+<<<<<<< HEAD
   return _RxMin.Observable.of(['Nuclide', 'Atom', 'Facebook']);
+=======
+  return _rxjsCompatUmdMin.Observable.of(['Nuclide', 'Atom', 'Facebook']);
+>>>>>>> Update
 }
 
 function onSelect(option) {// Handle select

@@ -9,7 +9,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../nuclide-commons/UniversalDisposable"));
@@ -72,7 +76,11 @@ function showModal(contentFactory, options = defaults) {
 
   const element = atomPanel.getElement();
   const previouslyFocusedElement = document.activeElement;
+<<<<<<< HEAD
   const disposable = new (_UniversalDisposable().default)(_RxMin.Observable.fromEvent(document, 'mousedown').subscribe(({
+=======
+  const disposable = new (_UniversalDisposable().default)(_rxjsCompatUmdMin.Observable.fromEvent(document, 'mousedown').subscribe(({
+>>>>>>> Update
     target
   }) => {
     if (!shouldDismissOnClickOutsideModal()) {
@@ -91,7 +99,11 @@ function showModal(contentFactory, options = defaults) {
     if (!visible) {
       disposable.dispose();
     }
+<<<<<<< HEAD
   }), atom.commands.add('atom-workspace', 'core:cancel', () => {
+=======
+  }), atom.commands.add('body', 'core:cancel', () => {
+>>>>>>> Update
     if (shouldDismissOnPressEscape()) {
       disposable.dispose();
     }

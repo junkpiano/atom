@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Button = exports.ButtonTypes = exports.ButtonSizes = void 0;
 
+<<<<<<< HEAD
+=======
+function _omit2() {
+  const data = _interopRequireDefault(require("lodash/omit"));
+
+  _omit2 = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _classnames() {
   const data = _interopRequireDefault(require("classnames"));
 
@@ -76,6 +89,41 @@ const ButtonTypeClassnames = Object.freeze({
  */
 
 class Button extends React.Component {
+<<<<<<< HEAD
+=======
+  constructor(...args) {
+    var _temp;
+
+    return _temp = super(...args), this._onRefChange = button => {
+      const {
+        disabled,
+        onButtonDOMNodeChange,
+        tooltip
+      } = this.props;
+      this._button = button;
+
+      if (onButtonDOMNodeChange) {
+        onButtonDOMNodeChange(this._button);
+      } // When the element goes away (e.g. on unmount), remove the tooltip.
+
+
+      if (button == null && this._removeTooltip != null) {
+        this._removeTooltip();
+      }
+
+      if (!disabled && tooltip && button != null) {
+        const updateTooltip = (0, _addTooltip().default)(tooltip);
+        updateTooltip(button);
+
+        this._removeTooltip = () => {
+          updateTooltip(null);
+          this._removeTooltip = null;
+        };
+      }
+    }, _temp;
+  }
+
+>>>>>>> Update
   focus() {
     const node = _reactDom.default.findDOMNode(this);
 
@@ -90,6 +138,10 @@ class Button extends React.Component {
   render() {
     const _this$props = this.props,
           {
+<<<<<<< HEAD
+=======
+      disabled,
+>>>>>>> Update
       icon,
       buttonType,
       selected,
@@ -99,12 +151,21 @@ class Button extends React.Component {
       wrapperElement,
       tooltip
     } = _this$props,
+<<<<<<< HEAD
           remainingProps = _objectWithoutProperties(_this$props, ["icon", "buttonType", "selected", "size", "children", "className", "wrapperElement", "tooltip"]);
 
     const sizeClassname = size == null ? '' : ButtonSizeClassnames[size] || '';
     const buttonTypeClassname = buttonType == null ? '' : ButtonTypeClassnames[buttonType] || '';
     const ref = tooltip && !this.props.disabled ? (0, _addTooltip().default)(tooltip) : null;
     const titleToolTip = tooltip && this.props.disabled ? tooltip.title : null;
+=======
+          remainingProps = _objectWithoutProperties(_this$props, ["disabled", "icon", "buttonType", "selected", "size", "children", "className", "wrapperElement", "tooltip"]);
+
+    const buttonProps = (0, _omit2().default)(remainingProps, 'onButtonDOMNodeChange');
+    const sizeClassname = size == null ? '' : ButtonSizeClassnames[size] || '';
+    const buttonTypeClassname = buttonType == null ? '' : ButtonTypeClassnames[buttonType] || '';
+    const titleToolTip = tooltip && disabled ? tooltip.title : null;
+>>>>>>> Update
     const newClassName = (0, _classnames().default)(className, 'btn', {
       [`icon icon-${(0, _string().maybeToString)(icon)}`]: icon != null,
       [sizeClassname]: size != null,
@@ -112,6 +173,7 @@ class Button extends React.Component {
       [buttonTypeClassname]: buttonType != null
     });
     const Wrapper = wrapperElement == null ? 'button' : wrapperElement;
+<<<<<<< HEAD
     return (// $FlowFixMe(>=0.53.0) Flow suppress
       React.createElement(Wrapper, Object.assign({
         className: newClassName // eslint-disable-next-line nuclide-internal/jsx-simple-callback-refs
@@ -121,6 +183,16 @@ class Button extends React.Component {
         title: titleToolTip
       }), children)
     );
+=======
+    return React.createElement(Wrapper, Object.assign({
+      className: newClassName // eslint-disable-next-line nuclide-internal/jsx-simple-callback-refs
+      ,
+      ref: this._onRefChange,
+      disabled: disabled
+    }, buttonProps, {
+      title: titleToolTip
+    }), children);
+>>>>>>> Update
   }
 
 }

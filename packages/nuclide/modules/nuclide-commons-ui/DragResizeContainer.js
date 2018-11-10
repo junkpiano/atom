@@ -7,7 +7,11 @@ exports.DragResizeContainer = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nullthrows() {
   const data = _interopRequireDefault(require("nullthrows"));
@@ -47,7 +51,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 class DragResizeContainer extends React.Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this._resizeStarts = new _RxMin.Subject();
+=======
+    this._resizeStarts = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this.state = {
       height: null,
       isDragging: false,
@@ -60,7 +68,11 @@ class DragResizeContainer extends React.Component {
     this._disposables = new (_UniversalDisposable().default)(this._resizeStarts.switchMap(startEvent => {
       // Only fire on primary mouse button
       if (startEvent.button !== 0) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       } // Abort everything if double click
 
 
@@ -72,7 +84,11 @@ class DragResizeContainer extends React.Component {
           isDragging: false,
           lastMouseDown: now
         });
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       this.setState({
@@ -81,7 +97,11 @@ class DragResizeContainer extends React.Component {
       });
       const startY = startEvent.pageY;
       const startHeight = el.getBoundingClientRect().height;
+<<<<<<< HEAD
       return _RxMin.Observable.fromEvent(document, 'mousemove').takeUntil(_RxMin.Observable.fromEvent(document, 'mouseup')).map(event => {
+=======
+      return _rxjsCompatUmdMin.Observable.fromEvent(document, 'mousemove').takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(document, 'mouseup')).map(event => {
+>>>>>>> Update
         const change = event.pageY - startY;
         return startHeight + change;
       }).do({

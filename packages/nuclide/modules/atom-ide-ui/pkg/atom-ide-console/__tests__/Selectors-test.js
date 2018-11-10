@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createDummyExecutor = createDummyExecutor;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function Selectors() {
   const data = _interopRequireWildcard(require("../lib/redux/Selectors"));
@@ -47,7 +51,11 @@ function createDummyExecutor(id) {
     name: id,
     scopeName: () => 'text.plain',
     send: code => {},
+<<<<<<< HEAD
     output: _RxMin.Observable.create(observer => {})
+=======
+    output: _rxjsCompatUmdMin.Observable.create(observer => {})
+>>>>>>> Update
   };
 }
 

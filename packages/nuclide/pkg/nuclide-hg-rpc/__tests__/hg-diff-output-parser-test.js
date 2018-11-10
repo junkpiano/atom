@@ -96,7 +96,12 @@ describe('hg-diff-output-parser', () => {
           oldStart: 150,
           oldLines: 11,
           newStart: 150,
+<<<<<<< HEAD
           newLines: 2
+=======
+          newLines: 2,
+          oldText: ''
+>>>>>>> Update
         }]
       });
     });
@@ -110,7 +115,12 @@ describe('hg-diff-output-parser', () => {
           oldStart: 150,
           oldLines: 1,
           newStart: 150,
+<<<<<<< HEAD
           newLines: 1
+=======
+          newLines: 1,
+          oldText: ''
+>>>>>>> Update
         }]
       });
     });
@@ -124,7 +134,12 @@ describe('hg-diff-output-parser', () => {
           oldStart: 150,
           oldLines: 1,
           newStart: 150,
+<<<<<<< HEAD
           newLines: 2
+=======
+          newLines: 2,
+          oldText: ''
+>>>>>>> Update
         }]
       });
     });
@@ -138,7 +153,12 @@ describe('hg-diff-output-parser', () => {
           oldStart: 150,
           oldLines: 11,
           newStart: 150,
+<<<<<<< HEAD
           newLines: 1
+=======
+          newLines: 1,
+          oldText: ''
+>>>>>>> Update
         }]
       });
     });
@@ -151,12 +171,22 @@ describe('hg-diff-output-parser', () => {
           oldStart: 1,
           oldLines: 0,
           newStart: 2,
+<<<<<<< HEAD
           newLines: 2
+=======
+          newLines: 2,
+          oldText: ''
+>>>>>>> Update
         }, {
           oldStart: 152,
           oldLines: 0,
           newStart: 153,
+<<<<<<< HEAD
           newLines: 3
+=======
+          newLines: 3,
+          oldText: ''
+>>>>>>> Update
         }]
       });
     });
@@ -182,7 +212,12 @@ describe('hg-diff-output-parser', () => {
           oldStart: 90,
           oldLines: 0,
           newStart: 91,
+<<<<<<< HEAD
           newLines: 1
+=======
+          newLines: 1,
+          oldText: ''
+>>>>>>> Update
         }]
       });
       expect(diffInfoForManyFiles.get('test-test/foo/foo.js')).toEqual({
@@ -192,17 +227,32 @@ describe('hg-diff-output-parser', () => {
           oldStart: 12,
           oldLines: 1,
           newStart: 12,
+<<<<<<< HEAD
           newLines: 4
+=======
+          newLines: 4,
+          oldText: "const {parseHgDiffUnifiedOutput} = require('../lib/hg-diff-output-parser');\n"
+>>>>>>> Update
         }, {
           oldStart: 28,
           oldLines: 0,
           newStart: 32,
+<<<<<<< HEAD
           newLines: 4
+=======
+          newLines: 4,
+          oldText: ''
+>>>>>>> Update
         }, {
           oldStart: 123,
           oldLines: 0,
           newStart: 131,
+<<<<<<< HEAD
           newLines: 4
+=======
+          newLines: 4,
+          oldText: ''
+>>>>>>> Update
         }]
       });
     });
@@ -217,7 +267,12 @@ describe('hg-diff-output-parser', () => {
             oldStart: 0,
             oldLines: 0,
             newStart: 1,
+<<<<<<< HEAD
             newLines: 1
+=======
+            newLines: 1,
+            oldText: ''
+>>>>>>> Update
           }]
         });
         expect(diffInfoForManyFiles.get('delete.txt')).toEqual({
@@ -227,7 +282,12 @@ describe('hg-diff-output-parser', () => {
             oldStart: 1,
             oldLines: 1,
             newStart: 0,
+<<<<<<< HEAD
             newLines: 0
+=======
+            newLines: 0,
+            oldText: 'delete\n'
+>>>>>>> Update
           }]
         });
         expect(diffInfoForManyFiles.get('copyafter.txt')).toEqual({
@@ -237,7 +297,12 @@ describe('hg-diff-output-parser', () => {
             oldStart: 1,
             oldLines: 1,
             newStart: 1,
+<<<<<<< HEAD
             newLines: 1
+=======
+            newLines: 1,
+            oldText: 'delete\n'
+>>>>>>> Update
           }]
         });
         expect(diffInfoForManyFiles.get('renameafter.txt')).toEqual({
@@ -247,7 +312,12 @@ describe('hg-diff-output-parser', () => {
             oldStart: 1,
             oldLines: 1,
             newStart: 1,
+<<<<<<< HEAD
             newLines: 1
+=======
+            newLines: 1,
+            oldText: 'rename\n'
+>>>>>>> Update
           }]
         });
       });

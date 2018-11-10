@@ -17,7 +17,11 @@ function _temp() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../../../modules/nuclide-commons/event");
@@ -73,7 +77,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 // Returns the number of replacements made.
 function replaceInFile(path, regex, replacement) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
     const readStream = _fs.default.createReadStream(path); // Write the replaced output to a temporary file.
     // We'll overwrite the original when we're done.
 
@@ -82,7 +90,11 @@ function replaceInFile(path, regex, replacement) {
 
 
     const tempPath = tempStream.path;
+<<<<<<< HEAD
     return _RxMin.Observable.concat( // Replace the output line-by-line. This obviously doesn't work for multi-line regexes,
+=======
+    return _rxjsCompatUmdMin.Observable.concat( // Replace the output line-by-line. This obviously doesn't work for multi-line regexes,
+>>>>>>> Update
     // but this mimics the behavior of Atom's `scandal` find-and-replace backend.
     (0, _observable().splitStream)((0, _stream().observeStream)(readStream)).map(line => {
       const matches = line.match(regex);
@@ -96,19 +108,32 @@ function replaceInFile(path, regex, replacement) {
       return 0;
     }).reduce((acc, curr) => acc + curr, 0), // Wait for the temporary file to finish.
     // We need to ensure that the event handler is attached before end().
+<<<<<<< HEAD
     _RxMin.Observable.create(observer => {
+=======
+    _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       const disposable = (0, _event().attachEvent)(tempStream, 'finish', () => {
         observer.complete();
       });
       tempStream.end();
       return () => disposable.dispose();
     }), // Copy the permissions from the orignal file.
+<<<<<<< HEAD
     _RxMin.Observable.defer(() => copyPermissions(path, tempPath)).ignoreElements(), // Overwrite the original file with the temporary file.
     _RxMin.Observable.defer(() => _fsPromise().default.mv(tempPath, path)).ignoreElements()).catch(err => {
       // Make sure we clean up the temporary file if an error occurs.
       _fsPromise().default.unlink(tempPath).catch(() => {});
 
       return _RxMin.Observable.throw(err);
+=======
+    _rxjsCompatUmdMin.Observable.defer(() => copyPermissions(path, tempPath)).ignoreElements(), // Overwrite the original file with the temporary file.
+    _rxjsCompatUmdMin.Observable.defer(() => _fsPromise().default.mv(tempPath, path)).ignoreElements()).catch(err => {
+      // Make sure we clean up the temporary file if an error occurs.
+      _fsPromise().default.unlink(tempPath).catch(() => {});
+
+      return _rxjsCompatUmdMin.Observable.throw(err);
+>>>>>>> Update
     });
   });
 }

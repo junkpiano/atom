@@ -37,7 +37,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75,8 +79,13 @@ function observeGrepLikeProcess(command, args, cwd) {
 
 function mergeOutputToResults(processOutput, parse, regex, leadingLines, trailingLines) {
   const parsedResults = processOutput.concatMap(parse).publish();
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
     const subscription = parsedResults.buffer(parsedResults.distinct(result => result.file).concat(_RxMin.Observable.of(null))).concatMap(results => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+    const subscription = parsedResults.buffer(parsedResults.distinct(result => result.file).concat(_rxjsCompatUmdMin.Observable.of(null))).concatMap(results => {
+>>>>>>> Update
       // Build map from line number to line contents.
       const lineMap = new Map(results.map(line => [line.row, line.line])); // Return array of line contents for lines [fr, to). Skip undefined lines.
 
@@ -95,7 +104,11 @@ function mergeOutputToResults(processOutput, parse, regex, leadingLines, trailin
       } // run input regex on each line and emit CodeSearchResult for each match
 
 
+<<<<<<< HEAD
       return _RxMin.Observable.from((0, _collection().arrayFlatten)(results.map(parseResult => {
+=======
+      return _rxjsCompatUmdMin.Observable.from((0, _collection().arrayFlatten)(results.map(parseResult => {
+>>>>>>> Update
         const {
           file,
           row,

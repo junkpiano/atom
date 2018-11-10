@@ -151,7 +151,11 @@ class ThriftServerManager {
         refCount: refCount + 1
       });
 
+<<<<<<< HEAD
       messagePayload = createSuccessResponse(String(server.getPort()));
+=======
+      messagePayload = createSuccessResponse(server.getConnectionOptions());
+>>>>>>> Update
     } else {
       try {
         const server = await (0, _createThriftServer().createThriftServer)(serverConfig);
@@ -161,7 +165,11 @@ class ThriftServerManager {
           server
         });
 
+<<<<<<< HEAD
         messagePayload = createSuccessResponse(String(server.getPort()));
+=======
+        messagePayload = createSuccessResponse(server.getConnectionOptions());
+>>>>>>> Update
       } catch (error) {
         messagePayload = createFailureResponse('Failed to create server');
 
@@ -221,11 +229,19 @@ class ThriftServerManager {
 
 exports.ThriftServerManager = ThriftServerManager;
 
+<<<<<<< HEAD
 function createSuccessResponse(port) {
   return {
     type: 'response',
     success: true,
     port
+=======
+function createSuccessResponse(connectionOptions) {
+  return {
+    type: 'response',
+    success: true,
+    connectionOptions
+>>>>>>> Update
   };
 }
 

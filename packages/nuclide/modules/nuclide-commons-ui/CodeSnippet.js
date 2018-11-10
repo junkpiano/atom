@@ -98,6 +98,10 @@ class CodeSnippet extends React.Component {
       onDidChangeSelectionRange: e => {
         this._ongoingSelection = e.selection;
       },
+<<<<<<< HEAD
+=======
+      onDidChange: this.props.onDidChange,
+>>>>>>> Update
       onClick: e => {
         // If the user selected a range, cancel the `onClick` behavior
         // to enable copying the selection.

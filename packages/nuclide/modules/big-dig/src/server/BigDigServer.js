@@ -29,7 +29,11 @@ function _log4js() {
 
 var _url = _interopRequireDefault(require("url"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _getVersion() {
   const data = require("../common/getVersion");
@@ -227,6 +231,10 @@ class BigDigServer {
         subscriber.onConnection(transport);
       } // subsequent messages will be BigDig messages
       // TODO: could the message be a Buffer?
+<<<<<<< HEAD
+=======
+      // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
 
 
       qaTransport.onMessage().subscribe(message => {
@@ -282,7 +290,11 @@ exports.BigDigServer = BigDigServer;
 
 class InternalTransport {
   constructor(tag, ws) {
+<<<<<<< HEAD
     this._messages = new _RxMin.Subject();
+=======
+    this._messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._tag = tag;
     this._transport = ws;
   }

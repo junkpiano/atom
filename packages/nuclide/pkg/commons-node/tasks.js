@@ -8,6 +8,10 @@ exports.observableFromTask = observableFromTask;
 exports.createMessage = createMessage;
 exports.createResult = createResult;
 exports.createStatus = createStatus;
+<<<<<<< HEAD
+=======
+exports.createProgress = createProgress;
+>>>>>>> Update
 exports.createStep = createStep;
 
 function _UniversalDisposable() {
@@ -30,7 +34,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -143,11 +151,16 @@ function taskFromObservable(observable) {
 
 
 function observableFromTask(task) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let finished = false;
     const messages = typeof task.onMessage === 'function' ? (0, _event().observableFromSubscribeFunction)(task.onMessage.bind(task)).map(message => ({
       type: 'message',
       message
+<<<<<<< HEAD
     })) : _RxMin.Observable.never();
     const progresses = typeof task.onProgress === 'function' ? (0, _event().observableFromSubscribeFunction)(task.onProgress.bind(task)).map(progress => ({
       type: 'progress',
@@ -164,12 +177,34 @@ function observableFromTask(task) {
     const completeEvents = (0, _event().observableFromSubscribeFunction)(task.onDidComplete.bind(task));
     const errors = (0, _event().observableFromSubscribeFunction)(task.onDidError.bind(task)).switchMap(_RxMin.Observable.throw);
     const subscription = new _RxMin.Subscription();
+=======
+    })) : _rxjsCompatUmdMin.Observable.never();
+    const progresses = typeof task.onProgress === 'function' ? (0, _event().observableFromSubscribeFunction)(task.onProgress.bind(task)).map(progress => ({
+      type: 'progress',
+      progress
+    })) : _rxjsCompatUmdMin.Observable.never();
+    const results = typeof task.onResult === 'function' ? (0, _event().observableFromSubscribeFunction)(task.onResult.bind(task)).map(result => ({
+      type: 'result',
+      result
+    })) : _rxjsCompatUmdMin.Observable.never();
+    const statuses = typeof task.onStatusChange === 'function' ? (0, _event().observableFromSubscribeFunction)(task.onStatusChange.bind(task)).map(status => ({
+      type: 'status',
+      status
+    })) : _rxjsCompatUmdMin.Observable.never();
+    const completeEvents = (0, _event().observableFromSubscribeFunction)(task.onDidComplete.bind(task));
+    const errors = (0, _event().observableFromSubscribeFunction)(task.onDidError.bind(task)).switchMap(_rxjsCompatUmdMin.Observable.throw);
+    const subscription = new _rxjsCompatUmdMin.Subscription();
+>>>>>>> Update
     subscription.add(() => {
       if (!finished) {
         task.cancel();
       }
     });
+<<<<<<< HEAD
     subscription.add(_RxMin.Observable.merge(messages, progresses, results, statuses, errors).takeUntil(completeEvents).do({
+=======
+    subscription.add(_rxjsCompatUmdMin.Observable.merge(messages, progresses, results, statuses, errors).takeUntil(completeEvents).do({
+>>>>>>> Update
       complete: () => {
         finished = true;
       },
@@ -183,7 +218,11 @@ function observableFromTask(task) {
 }
 
 function createMessage(text, level) {
+<<<<<<< HEAD
   return _RxMin.Observable.of({
+=======
+  return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     type: 'message',
     message: {
       text,
@@ -193,20 +232,41 @@ function createMessage(text, level) {
 }
 
 function createResult(result) {
+<<<<<<< HEAD
   return _RxMin.Observable.of({
+=======
+  return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     type: 'result',
     result
   });
 }
 
 function createStatus(status) {
+<<<<<<< HEAD
   return _RxMin.Observable.of({
     type: 'status',
     status
+=======
+  return _rxjsCompatUmdMin.Observable.of({
+    type: 'status',
+    status: {
+      type: 'string',
+      status
+    }
+  });
+}
+
+function createProgress(progress) {
+  return _rxjsCompatUmdMin.Observable.of({
+    type: 'progress',
+    progress
+>>>>>>> Update
   });
 }
 
 function createStep(stepName, action) {
+<<<<<<< HEAD
   return _RxMin.Observable.concat(_RxMin.Observable.of({
     type: 'progress',
     progress: null
@@ -214,4 +274,16 @@ function createStep(stepName, action) {
     type: 'status',
     status: stepName
   }) : _RxMin.Observable.empty(), _RxMin.Observable.defer(action));
+=======
+  return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of({
+    type: 'progress',
+    progress: null
+  }), Boolean(stepName) ? _rxjsCompatUmdMin.Observable.of({
+    type: 'status',
+    status: {
+      type: 'string',
+      status: stepName
+    }
+  }) : _rxjsCompatUmdMin.Observable.empty(), _rxjsCompatUmdMin.Observable.defer(action));
+>>>>>>> Update
 }

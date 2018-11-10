@@ -127,7 +127,11 @@ function _bindObservableAsProps() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _RegExpFilter() {
   const data = require("../../../../nuclide-commons-ui/RegExpFilter");
@@ -163,6 +167,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -174,6 +179,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * 
  * @format
  */
+=======
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+>>>>>>> Update
 const WORKSPACE_VIEW_URI = 'atom://nuclide/diagnostics';
 exports.WORKSPACE_VIEW_URI = WORKSPACE_VIEW_URI;
 
@@ -232,6 +241,7 @@ class DiagnosticsViewModel {
     })); // Combine the state that's shared between instances, the state that's unique to this instance,
     // and unchanging callbacks, to get the props for our component.
 
+<<<<<<< HEAD
     const props = _RxMin.Observable.combineLatest(globalStates, this._model.toObservable(), visibility, (globalState, instanceState, isVisible) => Object.assign({}, globalState, instanceState, {
       isVisible,
       diagnostics: this._filterDiagnostics(globalState.diagnostics, instanceState.textFilter.pattern, instanceState.hiddenGroups, globalState.filterByActiveTextEditor, globalState.pathToActiveTextEditor),
@@ -241,6 +251,24 @@ class DiagnosticsViewModel {
       gotoMessageLocation: goToDiagnosticLocation,
       supportedMessageKinds: globalState.supportedMessageKinds
     }));
+=======
+    const props = _rxjsCompatUmdMin.Observable.combineLatest(globalStates, this._model.toObservable(), visibility, (globalState, instanceState, isVisible) => {
+      const {
+        pathToActiveTextEditor
+      } = globalState,
+            globalStateWithoutPathToActiveTextEditor = _objectWithoutProperties(globalState, ["pathToActiveTextEditor"]);
+
+      return Object.assign({}, globalStateWithoutPathToActiveTextEditor, instanceState, {
+        isVisible,
+        diagnostics: this._filterDiagnostics(globalState.diagnostics, instanceState.textFilter.pattern, instanceState.hiddenGroups, globalState.filterByActiveTextEditor, pathToActiveTextEditor),
+        onTypeFilterChange: this._handleTypeFilterChange,
+        onTextFilterChange: this._handleTextFilterChange,
+        selectMessage: this._selectMessage,
+        gotoMessageLocation: goToDiagnosticLocation,
+        supportedMessageKinds: globalState.supportedMessageKinds
+      });
+    });
+>>>>>>> Update
 
     this._props = this._trackVisibility(props);
   } // If autoVisibility setting is on, then automatically show/hide on changes.
@@ -316,7 +344,11 @@ class DiagnosticsViewModel {
   getElement() {
     if (this._element == null) {
       const Component = (0, _bindObservableAsProps().bindObservableAsProps)(this._props, _DiagnosticsView().default);
+<<<<<<< HEAD
       const element = (0, _renderReactRoot().renderReactRoot)(_react.default.createElement(Component, null));
+=======
+      const element = (0, _renderReactRoot().renderReactRoot)(_react.default.createElement(Component, null), 'DiagnosticsRoot');
+>>>>>>> Update
       element.classList.add('diagnostics-ui');
       this._element = element;
     }
@@ -418,7 +450,11 @@ function goToDiagnosticLocation(message, options) {
     line,
     column,
     activatePane: options.focusEditor,
+<<<<<<< HEAD
     pending: true
+=======
+    pending: options.pendingPane
+>>>>>>> Update
   });
 }
 

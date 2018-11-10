@@ -81,9 +81,16 @@ async function main(argv) {
     commands = await (0, _CommandClient().getCommands)(argv,
     /* rejectIfZeroConnections */
     false);
+<<<<<<< HEAD
   } catch (e) {
     // Only a FailedConnectionError is expected.
     if (!(e instanceof _errors().FailedConnectionError)) {
+=======
+  } catch (error) {
+    // Only a FailedConnectionError is expected.
+    if (!(error instanceof _errors().FailedConnectionError)) {
+      await (0, _errors().trackError)('connections', argv, error);
+>>>>>>> Update
       return _errors().EXIT_CODE_CONNECTION_ERROR;
     }
   }
@@ -129,9 +136,16 @@ async function main(argv) {
     foldersArray = Array.from(rootFolders);
   }
 
+<<<<<<< HEAD
   foldersArray.sort(); // eslint-disable-next-line no-console
 
   console.log(JSON.stringify(foldersArray, null, 2));
+=======
+  foldersArray.sort();
+  process.stdout.write(JSON.stringify(foldersArray, null, 2));
+  process.stdout.write('\n');
+  await (0, _errors().trackSuccess)('connections', argv);
+>>>>>>> Update
   return _errors().EXIT_CODE_SUCCESS;
 }
 

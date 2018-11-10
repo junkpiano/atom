@@ -38,7 +38,11 @@ function Selectors() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _analytics() {
   const data = _interopRequireDefault(require("../../../../../nuclide-commons/analytics"));
@@ -121,10 +125,18 @@ function executeEpic(actions, store) {
     //       that register output sources?
 
 
+<<<<<<< HEAD
     return _RxMin.Observable.of(Actions().recordReceived({
       // Eventually, we'll want to allow providers to specify custom timestamps for records.
       timestamp: new Date(),
       sourceId: currentExecutorId,
+=======
+    return _rxjsCompatUmdMin.Observable.of(Actions().recordReceived({
+      // Eventually, we'll want to allow providers to specify custom timestamps for records.
+      timestamp: new Date(),
+      sourceId: currentExecutorId,
+      sourceName: executor.name,
+>>>>>>> Update
       kind: 'request',
       level: 'log',
       text: code,
@@ -160,7 +172,11 @@ function registerRecordProviderEpic(actions, store) {
     const messageActions = recordProvider.records.map(Actions().recordReceived); // TODO: Can this be delayed until sometime after registration?
 
     const statusActions = // $FlowFixMe(>=0.68.0) Flow suppress (T27187857)
+<<<<<<< HEAD
     typeof recordProvider.observeStatus === 'function' ? (0, _event().observableFromSubscribeFunction)(recordProvider.observeStatus).map(status => Actions().updateStatus(recordProvider.id, status)) : _RxMin.Observable.empty();
+=======
+    typeof recordProvider.observeStatus === 'function' ? (0, _event().observableFromSubscribeFunction)(recordProvider.observeStatus).map(status => Actions().updateStatus(recordProvider.id, status)) : _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     const unregisteredEvents = actions.ofType(Actions().REMOVE_SOURCE).filter(a => {
       if (!(a.type === Actions().REMOVE_SOURCE)) {
         throw new Error("Invariant violation: \"a.type === Actions.REMOVE_SOURCE\"");
@@ -168,7 +184,11 @@ function registerRecordProviderEpic(actions, store) {
 
       return a.payload.sourceId === recordProvider.id;
     });
+<<<<<<< HEAD
     return _RxMin.Observable.merge(_RxMin.Observable.of(Actions().registerSource(Object.assign({}, recordProvider, {
+=======
+    return _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(Actions().registerSource(Object.assign({}, recordProvider, {
+>>>>>>> Update
       name: recordProvider.id
     }))), messageActions, statusActions).takeUntil(unregisteredEvents);
   });

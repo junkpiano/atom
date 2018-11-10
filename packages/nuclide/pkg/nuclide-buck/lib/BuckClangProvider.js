@@ -15,7 +15,21 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _SimpleCache() {
   const data = require("../../../modules/nuclide-commons/SimpleCache");
@@ -38,7 +52,11 @@ function _types() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -273,8 +291,12 @@ function getClangProvider(taskRunner, getBusySignalService, getConsolePrinter) {
     },
 
     observeClangParams() {
+<<<<<<< HEAD
       // $FlowFixMe: type symbol-observable
       return _RxMin.Observable.from(taskRunner._getStore()).startWith(taskRunner._getStore().getState()).map(({
+=======
+      return (0, _observableFromReduxStore().default)(taskRunner._getStore()).startWith(taskRunner._getStore().getState()).map(({
+>>>>>>> Update
         projectRoot
       }) => ({
         root: projectRoot,

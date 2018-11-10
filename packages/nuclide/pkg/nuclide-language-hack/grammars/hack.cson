@@ -376,6 +376,12 @@
           {
             'include': '#type-annotation'
           }
+<<<<<<< HEAD
+=======
+          {
+            'include': '#strings'
+          }
+>>>>>>> Update
         ]
       }
       {
@@ -390,6 +396,12 @@
       {
         'include': '#class-name'
       }
+<<<<<<< HEAD
+=======
+      {
+        'include': '#comments'
+      }
+>>>>>>> Update
     ]
   'function-arguments':
     'patterns': [
@@ -640,6 +652,12 @@
             'match': '(=)',
             'name': 'keyword.operator.assignment.php'
           }
+<<<<<<< HEAD
+=======
+          {
+            'include': '#type-annotation'
+          }
+>>>>>>> Update
         ]
       }
       {
@@ -2246,6 +2264,10 @@
         },
         "patterns": [
           { "include": "#xhp-tag-termination" },
+<<<<<<< HEAD
+=======
+          { "include": "#xhp-html-comments"},
+>>>>>>> Update
           { "include": "#xhp-tag-attributes" }
         ]
       }
@@ -2256,7 +2278,11 @@
       {
         "comment": "this matches the end > of an opening tag when in the form <tag> </tag>",
         "comment": "uses non consuming search for </ in </tag>",
+<<<<<<< HEAD
         "begin": "(>)",
+=======
+        "begin": "(?<!--)(>)",
+>>>>>>> Update
         "end": "(</)",
         "beginCaptures": {
           "0": { "name": "punctuation.definition.tag.xhp" },

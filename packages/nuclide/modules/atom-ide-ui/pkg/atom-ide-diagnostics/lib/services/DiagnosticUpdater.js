@@ -35,6 +35,19 @@ function Selectors() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../../../nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _collection() {
   const data = require("../../../../../nuclide-commons/collection");
 
@@ -55,7 +68,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84,10 +101,30 @@ class DiagnosticUpdater {
       return Selectors().getFileMessageUpdates(this._store.getState(), filePath);
     };
 
+<<<<<<< HEAD
+=======
+    this.getLastUpdateSource = () => {
+      return this._store.getState().lastUpdateSource;
+    };
+
+>>>>>>> Update
     this.observeMessages = callback => {
       return new (_UniversalDisposable().default)(this._allMessageUpdates.subscribe(callback));
     };
 
+<<<<<<< HEAD
+=======
+    this.observeFileMessagesIterator = (filePath, callback) => {
+      return new (_UniversalDisposable().default)(this._states.distinctUntilChanged((a, b) => a.messages === b.messages).let((0, _observable().throttle)(THROTTLE_FILE_MESSAGE_MS)).map(state => ({
+        [Symbol.iterator]() {
+          return Selectors().getBoundedThreadedFileMessages(state, filePath);
+        }
+
+      })) // $FlowFixMe Flow doesn't know about Symbol.iterator
+      .subscribe(callback));
+    };
+
+>>>>>>> Update
     this.observeFileMessages = (filePath, callback) => {
       return new (_UniversalDisposable().default)( // TODO: As a potential perf improvement, we could cache so the mapping only happens once.
       // Whether that's worth it depends on how often this is actually called with the same path.
@@ -107,7 +144,15 @@ class DiagnosticUpdater {
     };
 
     this.observeUiConfig = callback => {
+<<<<<<< HEAD
       return new (_UniversalDisposable().default)(this._states.map(Selectors().getUiConfig).subscribe(callback));
+=======
+      return new (_UniversalDisposable().default)(this._states.map(Selectors().getUiConfig) // Being a selector means we'll always get the same ui config for a given
+      // slice of state (in this case `state.providers`). However, other parts
+      // of state may change. Don't emit in those cases, or in the common case
+      // that the config changed from an empty array to a different empty array.
+      .distinctUntilChanged((a, b) => a === b || a.length === 0 && b.length === 0).subscribe(callback));
+>>>>>>> Update
     };
 
     this.applyFix = message => {
@@ -126,9 +171,14 @@ class DiagnosticUpdater {
       this._store.dispatch(Actions().fetchDescriptions(messages));
     };
 
+<<<<<<< HEAD
     this._store = store; // $FlowIgnore: Flow doesn't know about Symbol.observable
 
     this._states = _RxMin.Observable.from(store);
+=======
+    this._store = store;
+    this._states = (0, _observableFromReduxStore().default)(store);
+>>>>>>> Update
     this._allMessageUpdates = this._states.map(Selectors().getMessages).distinctUntilChanged();
   }
 

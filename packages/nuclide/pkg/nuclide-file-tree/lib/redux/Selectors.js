@@ -3,7 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+<<<<<<< HEAD
 exports.collectDebugState = exports.getCanTransferFiles = exports.collectSelectionDebugState = exports.serialize = exports.getSidebarPath = exports.getSidebarTitle = exports.getNodeIsFocused = exports.getNodeIsSelected = exports.getLoading = exports.getNodeByIndex = exports.getFilterFound = exports.isEditedWorkingSetEmpty = exports.getRootForPath = exports.getNode = exports.getNearbySelectedNode = exports.getSingleTargetNode = exports.getSingleSelectedNode = exports.getTargetNodes = exports.getFocusedNodes = exports.getNodeInRoots = exports.getSelectedNodes = exports.isEmpty = exports.getRootKeys = exports.getTrackedNode = exports.getOpenFilesWorkingSet = exports.getEditedWorkingSet = exports.isEditingWorkingSet = exports.getWorkingSet = exports.hasCwd = exports.getCwdApi = exports.usePrefixNav = exports.getIsCalculatingChanges = exports.getGeneratedOpenChangedFiles = exports.getFileChanges = exports.getCwdKey = exports.getRepositories = exports.getWorkingSetsStore = exports.getExtraProjectSelectionContent = exports.getFilter = exports.getVersion = exports.getRoots = exports.getOpenFilesExpanded = exports.getUncommittedChangesExpanded = exports.getFoldersExpanded = exports.getConf = exports.getAutoExpandSingleChild = void 0;
+=======
+exports.findNext = findNext;
+exports.findNextShownSibling = findNextShownSibling;
+exports.findPrevious = findPrevious;
+exports.findPrevShownSibling = findPrevShownSibling;
+exports.findLastRecursiveChild = findLastRecursiveChild;
+exports.collectDebugState = exports.getCanTransferFiles = exports.collectSelectionDebugState = exports.serialize = exports.getFileTreeContextMenuNode = exports.getVcsStatus = exports.getSidebarPath = exports.getFocusEditorOnFileSelection = exports.getUsePreviewTabs = exports.getSidebarTitle = exports.getNodeIsFocused = exports.getNodeIsSelected = exports.getLoading = exports.getNodeByIndex = exports.getFilterFound = exports.isEditedWorkingSetEmpty = exports.getNodeForPath = exports.getRootForPath = exports.getNode = exports.getNearbySelectedNode = exports.getSingleTargetNode = exports.getSingleSelectedNode = exports.getTargetNodes = exports.getFocusedNodes = exports.getNodeInRoots = exports.getSelectedNodes = exports.isEmpty = exports.getRootKeys = exports.getTrackedIndex = exports.getVisualIndex = exports.countShownNodes = exports.getShownChildrenCount = exports.getNodeContainsHidden = exports.getNodeContainsFilterMatches = exports.getNodeContainsDragHover = exports.getNodeChildrenAreLoading = exports.getTrackedNode = exports.getOpenFilesWorkingSet = exports.getEditedWorkingSet = exports.isEditingWorkingSet = exports.getWorkingSet = exports.hasCwd = exports.getCwdApi = exports.usePrefixNav = exports.getIsCalculatingChanges = exports.getGeneratedOpenChangedFiles = exports.getFileChanges = exports.getCwdKey = exports.getRepositories = exports.getWorkingSetsStore = exports.getExtraProjectSelectionContent = exports.getFilter = exports.getVersion = exports.getRoots = exports.getOpenFilesExpanded = exports.getUncommittedChangesExpanded = exports.getFoldersExpanded = exports.getConf = exports.getAutoExpandSingleChild = void 0;
+>>>>>>> Update
 
 function _memoize2() {
   const data = _interopRequireDefault(require("lodash/memoize"));
@@ -25,6 +34,19 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _hgConstants() {
+  const data = require("../../../nuclide-hg-rpc/lib/hg-constants");
+
+  _hgConstants = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideWorkingSetsCommon() {
   const data = require("../../../nuclide-working-sets-common");
 
@@ -163,11 +185,21 @@ exports.hasCwd = hasCwd;
 const getWorkingSet = (0, _reselect().createSelector)([getConf], conf => conf.workingSet);
 exports.getWorkingSet = getWorkingSet;
 const isEditingWorkingSet = (0, _reselect().createSelector)([getConf], conf => conf.isEditingWorkingSet);
+<<<<<<< HEAD
+=======
+exports.isEditingWorkingSet = isEditingWorkingSet;
+
+const getVcsStatuses = state => state.vcsStatuses;
+>>>>>>> Update
 /**
  * Builds the edited working set from the partially-child-derived .checkedStatus property
  */
 
+<<<<<<< HEAD
 exports.isEditingWorkingSet = isEditingWorkingSet;
+=======
+
+>>>>>>> Update
 const getEditedWorkingSet = (0, _reselect().createSelector)([getConf], conf => conf.editedWorkingSet);
 exports.getEditedWorkingSet = getEditedWorkingSet;
 const getOpenFilesWorkingSet = (0, _reselect().createSelector)([getConf], conf => conf.openFilesWorkingSet); //
@@ -184,9 +216,114 @@ const getTrackedNode = state => {
   }
 
   return getNode(state, state._trackedRootKey, state._trackedNodeKey);
+<<<<<<< HEAD
 };
 
 exports.getTrackedNode = getTrackedNode;
+=======
+}; // To reduce the number of times we have to iterate over children, we calculate all of these values
+// in a single pass.
+
+
+exports.getTrackedNode = getTrackedNode;
+const getChildDerivedValues = (0, _reselect().createSelector)([state => null], () => {
+  const inner = (0, _memoize2().default)(node => {
+    let childrenAreLoading = node.isLoading;
+    let containsDragHover = node.isDragHovered;
+    let containsFilterMatches = node.matchesFilter;
+    let containsHidden = !node.shouldBeShown;
+    let potentiallyShownChildrenCount = 0;
+    node.children.forEach(child => {
+      const childValues = inner(child);
+
+      if (childValues.childrenAreLoading) {
+        childrenAreLoading = true;
+      }
+
+      if (childValues.containsDragHover) {
+        containsDragHover = true;
+      }
+
+      if (childValues.containsFilterMatches) {
+        containsFilterMatches = true;
+      }
+
+      if (!containsHidden && childValues.containsHidden) {
+        containsHidden = true;
+      }
+
+      if (node.isExpanded) {
+        potentiallyShownChildrenCount += childValues.shownChildrenCount;
+      }
+    });
+    let shownChildrenCount;
+
+    if (!node.shouldBeShown) {
+      shownChildrenCount = 0; // No nodes are shown.
+    } else if (node.isPendingLoad && childrenAreLoading) {
+      shownChildrenCount = 1; // Only this node is shown.
+    } else {
+      shownChildrenCount = potentiallyShownChildrenCount + 1; // This node and its children are shown.
+    }
+
+    return {
+      childrenAreLoading,
+      containsDragHover,
+      containsFilterMatches,
+      containsHidden,
+      shownChildrenCount
+    };
+  });
+  return inner;
+});
+const getNodeChildrenAreLoading = (0, _reselect().createSelector)([getChildDerivedValues], getChildDerivedValues_ => node => getChildDerivedValues_(node).childrenAreLoading);
+exports.getNodeChildrenAreLoading = getNodeChildrenAreLoading;
+const getNodeContainsDragHover = (0, _reselect().createSelector)([getChildDerivedValues], getChildDerivedValues_ => node => getChildDerivedValues_(node).containsDragHover);
+exports.getNodeContainsDragHover = getNodeContainsDragHover;
+const getNodeContainsFilterMatches = (0, _reselect().createSelector)([getChildDerivedValues], getChildDerivedValues_ => node => getChildDerivedValues_(node).containsFilterMatches);
+exports.getNodeContainsFilterMatches = getNodeContainsFilterMatches;
+const getNodeContainsHidden = (0, _reselect().createSelector)([getChildDerivedValues], getChildDerivedValues_ => node => getChildDerivedValues_(node).containsHidden);
+exports.getNodeContainsHidden = getNodeContainsHidden;
+const getShownChildrenCount = (0, _reselect().createSelector)([getChildDerivedValues], getChildDerivedValues_ => node => getChildDerivedValues_(node).shownChildrenCount);
+exports.getShownChildrenCount = getShownChildrenCount;
+const countShownNodes = (0, _reselect().createSelector)([getRoots, getShownChildrenCount], (roots, getShownChildrenCount_) => {
+  return roots.reduce((sum, root) => sum + getShownChildrenCount_(root), 0);
+}); // FIXME: This is under-memoized. We need to use createSelector and only change when the deps do.
+
+exports.countShownNodes = countShownNodes;
+
+const getVisualIndex = state => {
+  return node => {
+    let index = node.shouldBeShown ? 1 : 0;
+    let prev = findPrevShownSibling(state)(node);
+
+    while (prev != null) {
+      index += getShownChildrenCount(state)(prev);
+      prev = findPrevShownSibling(state)(prev);
+    }
+
+    return index + (node.parent == null ? 0 : getVisualIndex(state)(node.parent));
+  };
+};
+
+exports.getVisualIndex = getVisualIndex;
+const getVisualIndexOfTrackedNode = (0, _reselect().createSelector)([getTrackedNode, getVisualIndex], (trackedNode, getVisualIndex_) => trackedNode == null ? null : getVisualIndex_(trackedNode));
+const getTrackedIndex = (0, _reselect().createSelector)([getVisualIndexOfTrackedNode, countShownNodes], (visualIndexOfTrackedNode, shownNodes) => {
+  if (visualIndexOfTrackedNode == null) {
+    return null;
+  }
+
+  const inTreeTrackedNode = visualIndexOfTrackedNode - 1;
+
+  if (inTreeTrackedNode === shownNodes - 1) {
+    // The last node in tree is tracked. Let's show the footer instead
+    return inTreeTrackedNode + 1;
+  }
+
+  return inTreeTrackedNode;
+});
+exports.getTrackedIndex = getTrackedIndex;
+>>>>>>> Update
 const getRootKeys = (0, _reselect().createSelector)([getRoots], roots => roots.valueSeq().toArray().map(root => root.uri));
 /**
  * Returns true if the store has no data, i.e. no roots, no children.
@@ -277,7 +414,11 @@ const getSingleTargetNode = (0, _reselect().createSelector)([getTargetNode, getS
 
 exports.getSingleTargetNode = getSingleTargetNode;
 
+<<<<<<< HEAD
 function findShownNode(node) {
+=======
+function findShownNode(state, node) {
+>>>>>>> Update
   if (node.shouldBeShown) {
     return node;
   }
@@ -285,7 +426,11 @@ function findShownNode(node) {
   let shown = node;
 
   while (shown != null) {
+<<<<<<< HEAD
     const next = shown.findNextShownSibling();
+=======
+    const next = findNextShownSibling(state)(shown);
+>>>>>>> Update
 
     if (next != null) {
       return next;
@@ -297,7 +442,11 @@ function findShownNode(node) {
   shown = node;
 
   while (shown != null) {
+<<<<<<< HEAD
     const next = shown.findPrevShownSibling();
+=======
+    const next = findPrevShownSibling(state)(shown);
+>>>>>>> Update
 
     if (next != null) {
       return next;
@@ -315,7 +464,11 @@ function findShownNode(node) {
 
 
 const getNearbySelectedNode = (state, node) => {
+<<<<<<< HEAD
   const shown = findShownNode(node);
+=======
+  const shown = findShownNode(state, node);
+>>>>>>> Update
 
   if (shown == null) {
     return shown;
@@ -328,7 +481,11 @@ const getNearbySelectedNode = (state, node) => {
   let selected = shown;
 
   while (selected != null && !getNodeIsSelected(state, selected)) {
+<<<<<<< HEAD
     selected = selected.findNext();
+=======
+    selected = findNext(state)(selected);
+>>>>>>> Update
   }
 
   if (selected != null) {
@@ -338,7 +495,11 @@ const getNearbySelectedNode = (state, node) => {
   selected = shown;
 
   while (selected != null && !getNodeIsSelected(state, selected)) {
+<<<<<<< HEAD
     selected = selected.findPrevious();
+=======
+    selected = findPrevious(state)(selected);
+>>>>>>> Update
   }
 
   return selected;
@@ -356,6 +517,7 @@ const getRootForPath = (state, nodeKey) => {
 };
 
 exports.getRootForPath = getRootForPath;
+<<<<<<< HEAD
 const isEditedWorkingSetEmpty = (0, _reselect().createSelector)([getRoots], roots => roots.every(root => root.checkedStatus === 'clear'));
 exports.isEditedWorkingSetEmpty = isEditedWorkingSetEmpty;
 const getFilterFound = (0, _reselect().createSelector)([getRoots], roots => roots.some(root => root.containsFilterMatches));
@@ -364,6 +526,64 @@ const getNodeByIndex = (0, _reselect().createSelector)(getRoots, roots => {
   return (0, _memoize2().default)(index => {
     const firstRoot = roots.find(r => r.shouldBeShown);
     return firstRoot == null ? null : firstRoot.findByIndex(index);
+=======
+
+const getNodeForPath = (state, uri) => {
+  const rootNode = getRootForPath(state, uri);
+  return rootNode && rootNode.find(uri);
+};
+
+exports.getNodeForPath = getNodeForPath;
+const isEditedWorkingSetEmpty = (0, _reselect().createSelector)([getRoots], roots => roots.every(root => root.checkedStatus === 'clear'));
+exports.isEditedWorkingSetEmpty = isEditedWorkingSetEmpty;
+const getFilterFound = (0, _reselect().createSelector)([getRoots, getNodeContainsFilterMatches], (roots, getNodeContainsFilterMatches_) => roots.some(root => getNodeContainsFilterMatches_(root)));
+/**
+ * Find the node that occurs `offset` after the provided one in the flattened list. `offset` must
+ * be a non-negative integer.
+ *
+ * This function is intentionally implemented with a loop instead of recursion. Previously it was
+ * implemented using recursion, which caused the stack size to grow with the number of siblings we
+ * had to traverse. That meant we exceeded the max stack size with enough sibling files.
+ */
+
+exports.getFilterFound = getFilterFound;
+const getFindNodeAtOffset = (0, _reselect().createSelector)([findNextShownSibling, getShownChildrenCount], (findNextShownSibling_, getShownChildrenCount_) => {
+  return function (node_, offset_) {
+    let offset = offset_;
+    let node = node_;
+
+    while (offset > 0) {
+      if (offset < getShownChildrenCount_(node) // `shownChildrenCount` includes the node itself.
+      ) {
+          // It's a descendant of this node!
+          const firstVisibleChild = node.children.find(c => c.shouldBeShown);
+
+          if (firstVisibleChild == null) {
+            return null;
+          }
+
+          offset--;
+          node = firstVisibleChild;
+        } else {
+        const nextShownSibling = findNextShownSibling_(node);
+
+        if (nextShownSibling == null) {
+          return null;
+        }
+
+        offset -= getShownChildrenCount_(node);
+        node = nextShownSibling;
+      }
+    }
+
+    return node;
+  };
+});
+const getNodeByIndex = (0, _reselect().createSelector)([getRoots, getFindNodeAtOffset], (roots, findNodeAtOffset) => {
+  return (0, _memoize2().default)(index => {
+    const firstRoot = roots.find(r => r.shouldBeShown);
+    return firstRoot == null ? null : findNodeAtOffset(firstRoot, index - 1);
+>>>>>>> Update
   });
 });
 exports.getNodeByIndex = getNodeByIndex;
@@ -383,6 +603,21 @@ const getSidebarTitle = (0, _reselect().createSelector)([getCwdKey], cwdKey => {
   return cwdKey == null ? 'File Tree' : _nuclideUri().default.basename(cwdKey);
 });
 exports.getSidebarTitle = getSidebarTitle;
+<<<<<<< HEAD
+=======
+
+const getUsePreviewTabs = state => {
+  return state.usePreviewTabs;
+};
+
+exports.getUsePreviewTabs = getUsePreviewTabs;
+
+const getFocusEditorOnFileSelection = state => {
+  return state.focusEditorOnFileSelection;
+};
+
+exports.getFocusEditorOnFileSelection = getFocusEditorOnFileSelection;
+>>>>>>> Update
 const getSidebarPath = (0, _reselect().createSelector)([getCwdKey], cwdKey => {
   if (cwdKey == null) {
     return 'No Current Working Directory';
@@ -399,13 +634,54 @@ const getSidebarPath = (0, _reselect().createSelector)([getCwdKey], cwdKey => {
   }
 
   return `Current Working Directory: '${directory}' on '${host}'`;
+<<<<<<< HEAD
+=======
+});
+exports.getSidebarPath = getSidebarPath;
+const getVcsStatus = (0, _reselect().createSelector)([getVcsStatuses], vcsStatuses => {
+  return node => {
+    var _statusMap$get;
+
+    const statusMap = vcsStatuses.get(node.rootUri);
+    return statusMap == null ? _hgConstants().StatusCodeNumber.CLEAN : (_statusMap$get = statusMap.get(node.uri)) !== null && _statusMap$get !== void 0 ? _statusMap$get : _hgConstants().StatusCodeNumber.CLEAN;
+  };
+}); // In previous versions, we exposed the FileTreeNodes directly. This was bad as it's really just an
+// implementation detail. So, when we wanted to move `vcsStatus` off of the node, we had an issue.
+// We now expose a limited API instead to avoid this.
+
+exports.getVcsStatus = getVcsStatus;
+const getFileTreeContextMenuNode = (0, _reselect().createSelector)([getVcsStatus], getVcsStatusFromNode => {
+  return node => {
+    var _node$parent;
+
+    if (node == null) {
+      return null;
+    }
+
+    return {
+      uri: node.uri,
+      isContainer: node.isContainer,
+      isRoot: node.isRoot,
+      isCwd: node.isCwd,
+      vcsStatusCode: getVcsStatusFromNode(node),
+      repo: node.repo,
+      // We don't want to expose the entire tree or allow traversal since then we'd have to
+      // materialize every node. This is for supporting a legacy use case.
+      parentUri: (_node$parent = node.parent) === null || _node$parent === void 0 ? void 0 : _node$parent.uri
+    };
+  };
+>>>>>>> Update
 }); //
 //
 // Serialization and debugging
 //
 //
 
+<<<<<<< HEAD
 exports.getSidebarPath = getSidebarPath;
+=======
+exports.getFileTreeContextMenuNode = getFileTreeContextMenuNode;
+>>>>>>> Update
 const serialize = (0, _reselect().createSelector)([getRootKeys, getVersion, getOpenFilesExpanded, getUncommittedChangesExpanded, getFoldersExpanded], (rootKeys, version, openFilesExpanded, uncommittedChangesExpanded, foldersExpanded) => {
   return {
     version,
@@ -427,6 +703,7 @@ const collectSelectionDebugState = (0, _reselect().createSelector)([getSelectedN
 });
 exports.collectSelectionDebugState = collectSelectionDebugState;
 
+<<<<<<< HEAD
 const getCanTransferFiles = state => Boolean(state.remoteTransferService);
 
 exports.getCanTransferFiles = getCanTransferFiles;
@@ -444,20 +721,181 @@ const collectDebugState = (0, _reselect().createSelector)([getCwdKey, getOpenFil
     _trackedNodeKey,
     _isCalculatingChanges,
     roots: Array.from(roots.values()).map(root => root.collectDebugState()),
+=======
+const getCanTransferFiles = state => Boolean(state.remoteTransferService); // Note: The Flow types for reselect's `createSelector` only support up to 16
+// sub-selectors. Since this selector only gets called when the user reports a
+// bug, it does not need to be optimized for multiple consecutive calls on
+// similar states. Therefore, we've opted to not use createSelector for this
+// selector.
+
+
+exports.getCanTransferFiles = getCanTransferFiles;
+
+const collectDebugState = state => {
+  const conf = getConf(state);
+  return {
+    currentWorkingRoot: getCwdKey(state),
+    openFilesExpanded: getOpenFilesExpanded(state),
+    uncommittedChangesExpanded: getUncommittedChangesExpanded(state),
+    foldersExpanded: getFoldersExpanded(state),
+    reorderPreviewStatus: getReorderPreviewStatus(state),
+    _filter: getFilter(state),
+    _selectionRange: getSelectionRange(state),
+    _targetNodeKeys: getTargetNodeKeys(state),
+    _trackedRootKey: getTrackedRootKey(state),
+    _trackedNodeKey: getTrackedNodeKey(state),
+    _isCalculatingChanges: getIsCalculatingChanges(state),
+    usePreviewTabs: getUsePreviewTabs(state),
+    focusEditorOnFileSelection: getFocusEditorOnFileSelection(state),
+    roots: Array.from(getRoots(state).values()).map(root => root.collectDebugState()),
+>>>>>>> Update
     _conf: {
       hideIgnoredNames: conf.hideIgnoredNames,
       excludeVcsIgnoredPaths: conf.excludeVcsIgnoredPaths,
       hideVcsIgnoredPaths: conf.hideVcsIgnoredPaths,
+<<<<<<< HEAD
       usePreviewTabs: conf.usePreviewTabs,
       focusEditorOnFileSelection: conf.focusEditorOnFileSelection,
       isEditingWorkingSet: conf.isEditingWorkingSet,
       vcsStatuses: conf.vcsStatuses.toObject(),
+=======
+      isEditingWorkingSet: conf.isEditingWorkingSet,
+      vcsStatuses: getVcsStatuses(state).toObject(),
+>>>>>>> Update
       workingSet: conf.workingSet.getUris(),
       ignoredPatterns: conf.ignoredPatterns.toArray().map(ignored => ignored.pattern),
       openFilesWorkingSet: conf.openFilesWorkingSet.getUris(),
       editedWorkingSet: conf.editedWorkingSet.getUris()
     },
+<<<<<<< HEAD
     selectionManager
   };
 });
 exports.collectDebugState = collectDebugState;
+=======
+    selectionManager: collectSelectionDebugState(state)
+  };
+}; //
+//
+// Traversal utils
+//
+//
+
+/**
+ * Finds the next node in the tree in the natural order - from top to to bottom as is displayed
+ * in the file-tree panel, minus the indentation. Only the nodes that should be shown are returned.
+ */
+
+
+exports.collectDebugState = collectDebugState;
+
+function findNext(state) {
+  return node => {
+    if (!node.shouldBeShown) {
+      if (node.parent != null) {
+        return findNext(state)(node.parent);
+      }
+
+      return null;
+    }
+
+    if (getShownChildrenCount(state)(node) > 1) {
+      return node.children.find(c => c.shouldBeShown);
+    } // Not really an alias, but an iterating reference
+
+
+    let it = node;
+
+    while (it != null) {
+      const nextShownSibling = findNextShownSibling(state)(it);
+
+      if (nextShownSibling != null) {
+        return nextShownSibling;
+      }
+
+      it = it.parent;
+    }
+
+    return null;
+  };
+}
+
+function findNextShownSibling(state) {
+  return node => {
+    let it = node.nextSibling;
+
+    while (it != null && !it.shouldBeShown) {
+      it = it.nextSibling;
+    }
+
+    return it;
+  };
+}
+/**
+ * Finds the previous node in the tree in the natural order - from top to to bottom as is displayed
+ * in the file-tree panel, minus the indentation. Only the nodes that should be shown are returned.
+ */
+
+
+function findPrevious(state) {
+  return node => {
+    if (!node.shouldBeShown) {
+      if (node.parent != null) {
+        return findPrevious(state)(node.parent);
+      }
+
+      return null;
+    }
+
+    const prevShownSibling = findPrevShownSibling(state)(node);
+
+    if (prevShownSibling != null) {
+      return findLastRecursiveChild(state)(prevShownSibling);
+    }
+
+    return node.parent;
+  };
+}
+
+function findPrevShownSibling(state) {
+  return node => {
+    let it = node.prevSibling;
+
+    while (it != null && !it.shouldBeShown) {
+      it = it.prevSibling;
+    }
+
+    return it;
+  };
+}
+/**
+ * Returns the last shown descendant according to the natural tree order as is to be displayed by
+ * the file-tree panel. (Last child of the last child of the last child...)
+ * Or null, if none are found
+ */
+
+
+function findLastRecursiveChild(state) {
+  return node => {
+    if (!node.isContainer || !node.isExpanded || node.children.isEmpty()) {
+      return node;
+    }
+
+    let it = node.children.last();
+
+    while (it != null && !it.shouldBeShown) {
+      it = it.prevSibling;
+    }
+
+    if (it == null) {
+      if (node.shouldBeShown) {
+        return node;
+      }
+
+      return findPrevious(state)(node);
+    } else {
+      return findLastRecursiveChild(state)(it);
+    }
+  };
+}
+>>>>>>> Update

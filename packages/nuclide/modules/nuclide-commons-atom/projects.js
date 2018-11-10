@@ -49,7 +49,11 @@ function _observable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -198,6 +202,7 @@ function onDidRemoveProjectPath(callback) {
 }
 
 function observeHostnames() {
+<<<<<<< HEAD
   return (atom.packages.initialPackagesActivated ? _RxMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(atom.packages.onDidActivateInitialPackages.bind(atom.packages))).switchMap(() => (0, _event().observableFromSubscribeFunction)(atom.project.onDidChangePaths.bind(atom.project)).startWith(null).map(() => new Set(atom.project.getPaths().filter(_nuclideUri().default.isRemote).map(_nuclideUri().default.getHostname))).let((0, _observable().diffSets)()));
 }
 
@@ -207,4 +212,15 @@ function observeRemovedHostnames() {
 
 function observeAddedHostnames() {
   return observeHostnames().flatMap(diff => _RxMin.Observable.from(diff.added));
+=======
+  return (atom.packages.initialPackagesActivated ? _rxjsCompatUmdMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(atom.packages.onDidActivateInitialPackages.bind(atom.packages))).switchMap(() => (0, _event().observableFromSubscribeFunction)(atom.project.onDidChangePaths.bind(atom.project)).startWith(null).map(() => new Set(atom.project.getPaths().filter(_nuclideUri().default.isRemote).map(_nuclideUri().default.getHostname))).let((0, _observable().diffSets)()));
+}
+
+function observeRemovedHostnames() {
+  return observeHostnames().flatMap(diff => _rxjsCompatUmdMin.Observable.from(diff.removed));
+}
+
+function observeAddedHostnames() {
+  return observeHostnames().flatMap(diff => _rxjsCompatUmdMin.Observable.from(diff.added));
+>>>>>>> Update
 }

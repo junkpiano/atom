@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _Checkbox() {
+  const data = require("../../../../modules/nuclide-commons-ui/Checkbox");
+
+  _Checkbox = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 var React = _interopRequireWildcard(require("react"));
 
 function _string() {
@@ -93,6 +106,7 @@ class BuckToolbarSettings extends React.Component {
   constructor(props) {
     super(props);
 
+<<<<<<< HEAD
     this._onBuildArgsChange = args => {
       this.setState({
         buildArguments: args
@@ -120,6 +134,23 @@ class BuckToolbarSettings extends React.Component {
       buildArguments: buildArguments == null ? '' : (0, _string().shellQuote)(buildArguments),
       runArguments: runArguments == null ? '' : (0, _string().shellQuote)(runArguments),
       compileDbArguments: compileDbArguments == null ? '' : (0, _string().shellQuote)(compileDbArguments)
+=======
+    _initialiseProps.call(this);
+
+    const {
+      keepGoing
+    } = props.settings;
+    const {
+      unsanitizedBuildArguments,
+      unsanitizedRunArguments,
+      unsanitizedCompileDbArguments
+    } = props.unsanitizedSettings;
+    this.state = {
+      keepGoing: keepGoing == null ? true : keepGoing,
+      unsanitizedBuildArguments,
+      unsanitizedRunArguments,
+      unsanitizedCompileDbArguments
+>>>>>>> Update
     };
   }
 
@@ -133,6 +164,7 @@ class BuckToolbarSettings extends React.Component {
       className: "block"
     }, React.createElement("label", null, "Current Buck root:"), React.createElement("p", null, React.createElement("code", null, this.props.buckRoot)), React.createElement("div", null, React.createElement("label", null, "Buck version:"), this._getBuckversionFileComponent()), React.createElement("label", null, "Build Arguments:"), React.createElement(_AtomInput().AtomInput, {
       tabIndex: "0",
+<<<<<<< HEAD
       initialValue: this.state.buildArguments,
       placeholderText: "Extra arguments to Buck itself (e.g. --num-threads 4)",
       onDidChange: this._onBuildArgsChange,
@@ -140,12 +172,31 @@ class BuckToolbarSettings extends React.Component {
     }), React.createElement("label", null, "Run Arguments:"), React.createElement(_AtomInput().AtomInput, {
       tabIndex: "0",
       initialValue: this.state.runArguments,
+=======
+      initialValue: this.state.unsanitizedBuildArguments || '',
+      placeholderText: "Extra arguments to Buck itself (e.g. --num-threads 4)",
+      onDidChange: this._onBuildArgsChange,
+      onConfirm: this._onSave.bind(this)
+    }), React.createElement("div", {
+      className: "block"
+    }, React.createElement(_Checkbox().Checkbox, {
+      checked: this.state.keepGoing,
+      label: "Use --keep-going (gathers as many build errors as possible)",
+      onChange: this._onKeepGoingChange
+    })), React.createElement("label", null, "Run Arguments:"), React.createElement(_AtomInput().AtomInput, {
+      tabIndex: "0",
+      initialValue: this.state.unsanitizedRunArguments || '',
+>>>>>>> Update
       placeholderText: "Custom command-line arguments to pass to the app/binary",
       onDidChange: this._onRunArgsChange,
       onConfirm: this._onSave.bind(this)
     }), React.createElement("label", null, "Compilation Database Arguments:"), React.createElement(_AtomInput().AtomInput, {
       tabIndex: "0",
+<<<<<<< HEAD
       initialValue: this.state.compileDbArguments,
+=======
+      initialValue: this.state.unsanitizedCompileDbArguments || '',
+>>>>>>> Update
       placeholderText: "Extra arguments when building for language support (e.g. @mode/dev)",
       onDidChange: this._onCompileDbArgsChange,
       onConfirm: this._onSave.bind(this)
@@ -197,6 +248,7 @@ class BuckToolbarSettings extends React.Component {
   }
 
   _onSave() {
+<<<<<<< HEAD
     try {
       this.props.onSave({
         buildArguments: (0, _string().shellParse)(this.state.buildArguments),
@@ -208,6 +260,26 @@ class BuckToolbarSettings extends React.Component {
         detail: err.stack
       });
     }
+=======
+    const {
+      unsanitizedBuildArguments,
+      unsanitizedRunArguments,
+      unsanitizedCompileDbArguments,
+      keepGoing
+    } = this.state;
+    const unsanitizedTaskSettings = {
+      unsanitizedBuildArguments,
+      unsanitizedRunArguments,
+      unsanitizedCompileDbArguments
+    };
+    const taskSettings = {
+      buildArguments: this._parseTaskSetting(unsanitizedBuildArguments),
+      runArguments: this._parseTaskSetting(unsanitizedRunArguments),
+      compileDbArguments: this._parseTaskSetting(unsanitizedCompileDbArguments),
+      keepGoing
+    };
+    this.props.onSave(taskSettings, unsanitizedTaskSettings);
+>>>>>>> Update
 
     if (this.props.platformProviderSettings != null) {
       this.props.platformProviderSettings.onSave();
@@ -216,4 +288,51 @@ class BuckToolbarSettings extends React.Component {
 
 }
 
+<<<<<<< HEAD
 exports.default = BuckToolbarSettings;
+=======
+exports.default = BuckToolbarSettings;
+
+var _initialiseProps = function () {
+  this._onBuildArgsChange = unsanitizedBuildArguments => {
+    this.setState({
+      unsanitizedBuildArguments
+    });
+  };
+
+  this._onRunArgsChange = unsanitizedRunArguments => {
+    this.setState({
+      unsanitizedRunArguments
+    });
+  };
+
+  this._onCompileDbArgsChange = unsanitizedCompileDbArguments => {
+    this.setState({
+      unsanitizedCompileDbArguments
+    });
+  };
+
+  this._onKeepGoingChange = checked => {
+    this.setState({
+      keepGoing: checked
+    });
+  };
+
+  this._parseTaskSetting = setting => {
+    if (setting == null || setting.length === 0) {
+      return [];
+    }
+
+    let taskSetting;
+
+    try {
+      taskSetting = (0, _string().shellParseWithGlobs)(setting);
+    } catch (error) {
+      atom.notifications.addError(`These arguments could not be parsed and will be ignored:\n${setting}`);
+      taskSetting = [];
+    }
+
+    return taskSetting;
+  };
+};
+>>>>>>> Update

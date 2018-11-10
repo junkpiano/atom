@@ -20,6 +20,19 @@ function _textEditor() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _event() {
+  const data = require("../../../modules/nuclide-commons/event");
+
+  _event = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideRemoteConnection() {
   const data = require("../../nuclide-remote-connection");
 
@@ -93,7 +106,11 @@ function _UniversalDisposable() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -269,8 +286,13 @@ class Activation {
     this._subscriptions.add(_nuclideRemoteConnection().RemoteConnection.onDidAddRemoteConnection(connection => {
       this._subscriptions.add(addRemoteFolderToProject(connection));
 
+<<<<<<< HEAD
       replaceRemoteEditorPlaceholders(connection);
     }));
+=======
+      replaceRemoteEditorPlaceholders();
+    }), (0, _event().observableFromSubscribeFunction)(atom.workspace.onDidAddPaneItem.bind(atom.workspace)).subscribe(replaceRemoteEditorPlaceholders));
+>>>>>>> Update
 
     this._subscriptions.add(atom.commands.add('atom-workspace', 'nuclide-remote-projects:connect', event => {
       const {
@@ -534,8 +556,12 @@ function addRemoteFolderToProject(connection) {
 }
 
 function closeOpenFilesForRemoteProject(connection) {
+<<<<<<< HEAD
   const remoteProjectConfig = connection.getConfig();
   const openInstances = (0, _utils().getOpenFileEditorForRemoteProject)(remoteProjectConfig);
+=======
+  const openInstances = (0, _utils().getOpenFileEditorForRemoteProject)();
+>>>>>>> Update
 
   for (const openInstance of openInstances) {
     const {
@@ -623,13 +649,29 @@ async function createEditorForNuclide(uri) {
         return textEditorSerialize.call(textEditor);
       }
 
+<<<<<<< HEAD
+=======
+      const connection = _nuclideRemoteConnection().RemoteConnection.getForUri(path);
+
+      let repositoryDescription;
+
+      if (connection != null) {
+        repositoryDescription = connection.getHgRepositoryDescription();
+      }
+
+>>>>>>> Update
       return {
         deserializer: 'RemoteTextEditorPlaceholder',
         data: {
           uri: path,
           contents: textEditor.getText(),
           // If the editor was unsaved, we'll restore the unsaved contents after load.
+<<<<<<< HEAD
           isModified: textEditor.isModified()
+=======
+          isModified: textEditor.isModified(),
+          repositoryDescription
+>>>>>>> Update
         }
       };
     }; // Null out the buffer's serializer.
@@ -724,11 +766,20 @@ function shutdownServersAndRestartNuclide() {
   });
 }
 
+<<<<<<< HEAD
 function replaceRemoteEditorPlaceholders(connection) {
   // On Atom restart, it tries to open uri paths as local `TextEditor` pane items.
   // Here, Nuclide reloads the remote project files that have empty text editors open.
   const config = connection.getConfig();
   const openInstances = (0, _utils().getOpenFileEditorForRemoteProject)(config);
+=======
+function replaceRemoteEditorPlaceholders() {
+  // On Atom restart, it tries to open uri paths as local `TextEditor` pane items.
+  // Here, Nuclide reloads the remote project files that have empty text editors open.
+  const openInstances = (0, _utils().getOpenFileEditorForRemoteProject)(); // Get list of non null connections available currently
+
+  const remoteConnections = getRemoteRootDirectories().map(dir => _nuclideRemoteConnection().RemoteConnection.getForUri(dir.getPath())).filter(Boolean);
+>>>>>>> Update
 
   for (const openInstance of openInstances) {
     // Keep the original open editor item with a unique name until the remote buffer is loaded,
@@ -736,9 +787,34 @@ function replaceRemoteEditorPlaceholders(connection) {
     const {
       pane,
       editor,
+<<<<<<< HEAD
       uri,
       filePath
     } = openInstance; // Skip restoring the editor who has remote content loaded.
+=======
+      filePath
+    } = openInstance;
+    let uri = openInstance.uri;
+
+    let connection = _nuclideRemoteConnection().RemoteConnection.getForUri(uri);
+
+    if (connection == null) {
+      const migratedUri = migrateRemoteEditorToCurrentInstance(openInstance, remoteConnections);
+
+      if (migratedUri == null) {
+        continue;
+      }
+
+      connection = migratedUri.connection;
+      uri = migratedUri.uri;
+    }
+
+    if (connection == null) {
+      continue;
+    }
+
+    const config = connection.getConfig(); // Skip restoring the editor who has remote content loaded.
+>>>>>>> Update
 
     if (editor instanceof _atom.TextEditor && editor.getBuffer().file instanceof _nuclideRemoteConnection().RemoteFile) {
       continue;
@@ -773,6 +849,51 @@ function replaceRemoteEditorPlaceholders(connection) {
     }
   }
 }
+<<<<<<< HEAD
+=======
+/*
+ * This function has a very specific use case, if I serialize an editor on a
+ * remote instance and then want to reopen that serialized editor as is
+ * but on a different remote instance. This function takes in the available
+ * remote connections and filters out remote connections that aren't hosting the
+ * same repo as the one the serialized editor is from. If there is only one server
+ * that fits the criteria go ahead and open the remote file in that new instance.
+ * If there are multiple servers available then there would ideally be a UI that
+ * allowed users to choose any of the valid available servers but for now don't
+ * enter this dangerous zone.
+ */
+
+
+function migrateRemoteEditorToCurrentInstance(openInstance, remoteConnections) {
+  const {
+    filePath,
+    repositoryDescription: originalRepositoryDescription
+  } = openInstance;
+  const filteredRemoteConnections = remoteConnections.filter(remoteConnection => {
+    const repositoryDescription = remoteConnection.getHgRepositoryDescription();
+    return (repositoryDescription === null || repositoryDescription === void 0 ? void 0 : repositoryDescription.repoPath) === (originalRepositoryDescription === null || originalRepositoryDescription === void 0 ? void 0 : originalRepositoryDescription.repoPath);
+  }); // If number of eligible connections that can render this file are more than 1
+  // then don't bother.
+  // TODO : Create UI which offers dropdown to select which server they want to
+  // load it on.
+
+  if (filteredRemoteConnections.length === 1) {
+    const remoteConnection = filteredRemoteConnections[0];
+
+    if (!(remoteConnection != null)) {
+      throw new Error("Invariant violation: \"remoteConnection != null\"");
+    }
+
+    const config = remoteConnection.getConfig();
+    return {
+      uri: `nuclide://${config.host}${filePath}`,
+      connection: remoteConnection
+    };
+  }
+
+  return null;
+}
+>>>>>>> Update
 
 function validateRemoteProjectConfig(raw) {
   if (raw == null || !Array.isArray(raw)) {

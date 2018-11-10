@@ -36,7 +36,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _searchTools() {
   const data = require("./searchTools");
@@ -79,7 +83,11 @@ function searchInDirectories(subdirs, tool, useVcsSearch, options) {
     directory
   } = options; // Resolve tool once here so we do not call 'which' for each subdir.
 
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => (0, _searchTools().resolveTool)(tool)).switchMap(actualTool => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => (0, _searchTools().resolveTool)(tool)).switchMap(actualTool => {
+>>>>>>> Update
     if (!subdirs || subdirs.length === 0) {
       // Since no subdirs were specified, run search on the root directory.
       return searchInDirectory(tool, useVcsSearch, options);
@@ -102,7 +110,11 @@ function searchInDirectories(subdirs, tool, useVcsSearch, options) {
       return searchInDirectory(tool, useVcsSearch, options).filter(result => Boolean(matchers.find(matcher => matcher.match(result.file))));
     } else {
       // Run the search on each subdirectory that exists.
+<<<<<<< HEAD
       return _RxMin.Observable.from(subdirs).concatMap(async subdir => {
+=======
+      return _rxjsCompatUmdMin.Observable.from(subdirs).concatMap(async subdir => {
+>>>>>>> Update
         try {
           const stat = await _fsPromise().default.lstat(_nuclideUri().default.join(directory, subdir));
 
@@ -111,10 +123,17 @@ function searchInDirectories(subdirs, tool, useVcsSearch, options) {
               directory: _nuclideUri().default.join(directory, subdir)
             }));
           } else {
+<<<<<<< HEAD
             return _RxMin.Observable.empty();
           }
         } catch (e) {
           return _RxMin.Observable.empty();
+=======
+            return _rxjsCompatUmdMin.Observable.empty();
+          }
+        } catch (e) {
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }
       }).mergeAll();
     }

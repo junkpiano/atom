@@ -55,10 +55,17 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _nuclideAnalytics() {
   const data = require("../../nuclide-analytics");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _nuclideAnalytics() {
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -160,7 +167,11 @@ class LanguageStatusManager {
             provider,
             data
           }));
+<<<<<<< HEAD
         }).reduce((a, b) => _RxMin.Observable.combineLatest(a, b, (x, y) => x.concat(y)), _RxMin.Observable.of([]));
+=======
+        }).reduce((a, b) => _rxjsCompatUmdMin.Observable.combineLatest(a, b, (x, y) => x.concat(y)), _rxjsCompatUmdMin.Observable.of([]));
+>>>>>>> Update
       }).map(serverStatuses => ({
         serverStatuses,
         editor,
@@ -178,7 +189,11 @@ class LanguageStatusManager {
     };
 
     this._providerRegistry = new (_ProviderRegistry().default)();
+<<<<<<< HEAD
     this._providersChanged = new _RxMin.BehaviorSubject();
+=======
+    this._providersChanged = new _rxjsCompatUmdMin.BehaviorSubject();
+>>>>>>> Update
     this._statusComponentDisposables = new Map();
     this._settings = new Map(_featureConfig().default.getWithDefaults(FEATURE_CONFIG_SETTINGS, []));
     this._disposables = new (_UniversalDisposable().default)();

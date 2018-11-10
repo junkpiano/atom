@@ -25,7 +25,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _MessageRouter() {
   const data = _interopRequireDefault(require("./MessageRouter"));
@@ -62,7 +66,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class ProcessPackageRunner {
   constructor(packages, messageRouter) {
+<<<<<<< HEAD
     this._disposed = new _RxMin.ReplaySubject(1);
+=======
+    this._disposed = new _rxjsCompatUmdMin.ReplaySubject(1);
+>>>>>>> Update
     this._processStream = (0, _process().fork)(require.resolve("./run-package-entry.js"), [], {
       silent: true
     }).takeUntil(this._disposed).do(proc => {

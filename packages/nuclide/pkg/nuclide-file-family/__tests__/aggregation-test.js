@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileFamilyAggregator() {
   const data = _interopRequireDefault(require("../lib/FileFamilyAggregator"));
@@ -112,13 +116,21 @@ const undirectedProvider = {
 };
 describe('aggregation', () => {
   it('combines nothing', async () => {
+<<<<<<< HEAD
     const aggregator = new (_FileFamilyAggregator().default)(_RxMin.Observable.of(new Set()));
+=======
+    const aggregator = new (_FileFamilyAggregator().default)(_rxjsCompatUmdMin.Observable.of(new Set()));
+>>>>>>> Update
     const graph = await aggregator.getRelatedFiles('test');
     expect(Array.from(graph.files)).toEqual(Array.from(new Map()));
     expect(graph.relations).toEqual([]);
   });
   it('combines unique graphs', async () => {
+<<<<<<< HEAD
     const aggregator = new (_FileFamilyAggregator().default)(_RxMin.Observable.of(new Set([directedProvider, undirectedProvider])));
+=======
+    const aggregator = new (_FileFamilyAggregator().default)(_rxjsCompatUmdMin.Observable.of(new Set([directedProvider, undirectedProvider])));
+>>>>>>> Update
     const graph = await aggregator.getRelatedFiles('test');
     const expectedGraph = await directedProvider.getRelatedFiles('test');
     const expectedGraph2 = await undirectedProvider.getRelatedFiles('test');
@@ -126,7 +138,11 @@ describe('aggregation', () => {
     expect(graph.relations).toEqual(expectedGraph.relations.concat(expectedGraph2.relations));
   });
   it('deduplicates files and combines labels', async () => {
+<<<<<<< HEAD
     const aggregator = new (_FileFamilyAggregator().default)(_RxMin.Observable.of(new Set([directedProvider, directedProvider2])));
+=======
+    const aggregator = new (_FileFamilyAggregator().default)(_rxjsCompatUmdMin.Observable.of(new Set([directedProvider, directedProvider2])));
+>>>>>>> Update
     const graph = await aggregator.getRelatedFiles('test');
     const expectedGraph = await directedProvider.getRelatedFiles('test');
     expectedGraph.files.set('test.js', {
@@ -136,7 +152,11 @@ describe('aggregation', () => {
     expect(Array.from(graph.files)).toEqual(Array.from(expectedGraph.files));
   });
   it('deduplicates and combines labels for directed relations', async () => {
+<<<<<<< HEAD
     const aggregator = new (_FileFamilyAggregator().default)(_RxMin.Observable.of(new Set([directedProvider, directedProvider2])));
+=======
+    const aggregator = new (_FileFamilyAggregator().default)(_rxjsCompatUmdMin.Observable.of(new Set([directedProvider, directedProvider2])));
+>>>>>>> Update
     const graph = await aggregator.getRelatedFiles('test');
     const expectedGraph = await directedProvider.getRelatedFiles('test');
     const expectedGraph2 = await directedProvider2.getRelatedFiles('test');
@@ -173,7 +193,11 @@ describe('aggregation', () => {
       }
 
     };
+<<<<<<< HEAD
     const aggregator = new (_FileFamilyAggregator().default)(_RxMin.Observable.of(new Set([undirectedProvider, undirectedProvider, reverseUndirectedProvider])));
+=======
+    const aggregator = new (_FileFamilyAggregator().default)(_rxjsCompatUmdMin.Observable.of(new Set([undirectedProvider, undirectedProvider, reverseUndirectedProvider])));
+>>>>>>> Update
     const graph = await aggregator.getRelatedFiles('test');
     const expectedGraph = await undirectedProvider.getRelatedFiles('test');
     expectedGraph.relations[0].labels.add('test2');

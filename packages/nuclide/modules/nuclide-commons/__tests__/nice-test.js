@@ -10,7 +10,11 @@ function _testHelpers() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -44,7 +48,11 @@ describe('nice', () => {
         return null;
       }
     });
+<<<<<<< HEAD
     spawnSpy = jest.spyOn(require("../process"), 'spawn').mockReturnValue(_RxMin.Observable.of(fakeSafeSpawnReturn));
+=======
+    spawnSpy = jest.spyOn(require("../process"), 'spawn').mockReturnValue(_rxjsCompatUmdMin.Observable.of(fakeSafeSpawnReturn));
+>>>>>>> Update
     ({
       niceSafeSpawn
     } = (0, _testHelpers().uncachedRequire)(require, '../nice'));

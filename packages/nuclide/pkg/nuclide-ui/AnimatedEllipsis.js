@@ -7,7 +7,11 @@ exports.default = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../modules/nuclide-commons/UniversalDisposable"));
@@ -46,7 +50,11 @@ class AnimatedEllipsis extends React.Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.interval(DOT_ANIMATION_INTERVAL).subscribe(_ => // TODO: (wbinnssmith) T30771435 this setState depends on current state
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.interval(DOT_ANIMATION_INTERVAL).subscribe(_ => // TODO: (wbinnssmith) T30771435 this setState depends on current state
+>>>>>>> Update
     // and should use an updater function rather than an object
     // eslint-disable-next-line react/no-access-state-in-setstate
     this.setState({

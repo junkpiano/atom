@@ -16,7 +16,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
@@ -65,12 +69,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function createObservableForTunnels(tunnels, store) {
   const observables = tunnels.map(t => createObservableForTunnel(t, store));
 
+<<<<<<< HEAD
   const highOrder = _RxMin.Observable.from(observables);
+=======
+  const highOrder = _rxjsCompatUmdMin.Observable.from(observables);
+>>>>>>> Update
 
   return highOrder.combineAll();
 }
 
 function createObservableForTunnel(tunnel, store) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => (0, _Normalization().resolveTunnel)(tunnel)).concatMap(resolved => {
     if ((0, _shallowequal().default)(resolved.from, resolved.to)) {
       // Identical source/destination tunnels are always immediately ready, never close.
@@ -79,6 +88,16 @@ function createObservableForTunnel(tunnel, store) {
     }
 
     return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => (0, _Normalization().resolveTunnel)(tunnel)).concatMap(resolved => {
+    if ((0, _shallowequal().default)(resolved.from, resolved.to)) {
+      // Identical source/destination tunnels are always immediately ready, never close.
+      // Makes it easy for users to call this function without branching on whether they need to.
+      return _rxjsCompatUmdMin.Observable.of(resolved).concat(_rxjsCompatUmdMin.Observable.never());
+    }
+
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       const subscription = {
         description: tunnel.description,
         onTunnelClose: error => {

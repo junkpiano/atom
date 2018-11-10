@@ -9,7 +9,11 @@ exports.getDiagnostics = getDiagnostics;
 exports.getBuildableTargets = getBuildableTargets;
 exports.reset = reset;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -72,7 +76,11 @@ function _nuclideUri() {
 }
 
 function _once() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../commons-node/once"));
+=======
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/once"));
+>>>>>>> Update
 
   _once = function () {
     return data;
@@ -226,7 +234,11 @@ class PythonSingleFileLanguageService {
   }
 
   findReferences(filePath, buffer, position) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._findReferences(filePath, buffer, position));
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._findReferences(filePath, buffer, position));
+>>>>>>> Update
   }
 
   async _findReferences(filePath, buffer, position) {
@@ -332,6 +344,10 @@ class PythonSingleFileLanguageService {
       stdout = await (0, _process().runCommand)(command, args, {
         cwd: dirName,
         input: contents,
+<<<<<<< HEAD
+=======
+        env: await (0, _process().getOriginalEnvironment)(),
+>>>>>>> Update
         // At the moment, yapf outputs 3 possible exit codes:
         // 0 - success, no content change.
         // 2 - success, contents changed.
@@ -458,6 +474,10 @@ async function runLinterCommand(src) {
 
   return (0, _process().runCommand)(command, [src], {
     cwd: dirName,
+<<<<<<< HEAD
+=======
+    env: await (0, _process().getOriginalEnvironment)(),
+>>>>>>> Update
     // 1 indicates unclean lint result (i.e. has errors/warnings).
     isExitError: exit => exit.exitCode == null || exit.exitCode > 1
   }).toPromise();

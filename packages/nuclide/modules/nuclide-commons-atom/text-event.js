@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.observeTextEditorEvents = observeTextEditorEvents;
 exports.__TEST__ = exports.TextEventDispatcher = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _debounce() {
   const data = _interopRequireDefault(require("../nuclide-commons/debounce"));
@@ -334,7 +338,11 @@ class TextEventDispatcher {
 exports.TextEventDispatcher = TextEventDispatcher;
 
 function observeTextEditorEvents(grammarScopes, events) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
     const dispatcher = new TextEventDispatcher();
 
     if (events === 'changes') {

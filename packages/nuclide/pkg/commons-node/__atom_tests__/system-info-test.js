@@ -1,7 +1,11 @@
 "use strict";
 
 function _systemInfo() {
+<<<<<<< HEAD
   const data = require("../system-info");
+=======
+  const data = require("../../../modules/nuclide-commons/system-info");
+>>>>>>> Update
 
   _systemInfo = function () {
     return data;

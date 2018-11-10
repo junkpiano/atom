@@ -27,8 +27,11 @@ function _RootPanel() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
+=======
+>>>>>>> Update
 function _bindObservableAsProps() {
   const data = require("../../../modules/nuclide-commons-ui/bindObservableAsProps");
 
@@ -39,6 +42,19 @@ function _bindObservableAsProps() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function Actions() {
   const data = _interopRequireWildcard(require("./redux/Actions"));
 
@@ -49,6 +65,11 @@ function Actions() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 /**
@@ -134,8 +155,12 @@ class DevicePanelWorkspaceView {
   }
 
   getElement() {
+<<<<<<< HEAD
     const PreparedDevicePanel = (0, _bindObservableAsProps().bindObservableAsProps)( // $FlowFixMe: Teach flow about Symbol.observable
     _RxMin.Observable.from(this._store).distinctUntilChanged().map(state => this._appStateToProps(state)), _RootPanel().RootPanel);
+=======
+    const PreparedDevicePanel = (0, _bindObservableAsProps().bindObservableAsProps)((0, _observableFromReduxStore().default)(this._store).distinctUntilChanged().map(state => this._appStateToProps(state)), _RootPanel().RootPanel);
+>>>>>>> Update
     return (0, _renderReactRoot().renderReactRoot)(React.createElement(PreparedDevicePanel, null));
   }
 

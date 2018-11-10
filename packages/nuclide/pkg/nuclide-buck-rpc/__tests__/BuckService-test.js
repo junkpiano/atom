@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function BuckService() {
   const data = _interopRequireWildcard(require("../lib/BuckService"));
@@ -96,7 +100,11 @@ describe('BuckService (test-project-with-failing-targets)', () => {
           }
         },
         failures: {
+<<<<<<< HEAD
           '//:bad_rule': jasmine.any(String)
+=======
+          '//:bad_rule': expect.any(String)
+>>>>>>> Update
         }
       };
       expect(report).toEqual(expectedReport);
@@ -160,7 +168,11 @@ describe('BuckService (test-project-with-failing-targets)', () => {
     });
     it('does some parsing on rule names', async () => {
       // To speed up this test, mock out the actual Buck process calls.
+<<<<<<< HEAD
       jest.spyOn(processJs(), 'runCommand').mockReturnValue(_RxMin.Observable.of(JSON.stringify({
+=======
+      jest.spyOn(processJs(), 'runCommand').mockReturnValue(_rxjsCompatUmdMin.Observable.of(JSON.stringify({
+>>>>>>> Update
         '//:good_rule': {
           'buck.type': 'genrule'
         }

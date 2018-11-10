@@ -34,9 +34,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class FullWidthProgressBar extends React.Component {
   render() {
+<<<<<<< HEAD
     const className = (0, _classnames().default)('nuclide-ui-full-width-progress-bar', {
       indeterminate: this._isIndeterminate()
     });
+=======
+    const className = (0, _classnames().default)('nuclide-ui-full-width-progress-bar');
+>>>>>>> Update
     return React.createElement("div", {
       className: className,
       hidden: !this.props.visible
@@ -49,7 +53,13 @@ class FullWidthProgressBar extends React.Component {
 
   _renderBar() {
     if (this._isIndeterminate()) {
+<<<<<<< HEAD
       return null;
+=======
+      return React.createElement("div", {
+        className: "indeterminate"
+      });
+>>>>>>> Update
     }
 
     if (!(this.props.progress != null)) {

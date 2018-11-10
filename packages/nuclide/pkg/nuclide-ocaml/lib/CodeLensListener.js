@@ -55,7 +55,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideOpenFiles() {
   const data = require("../../nuclide-open-files");
@@ -133,6 +137,7 @@ function makeResolvableLens(editor, markerLayer, lens) {
 
 function getCodeLensPositions(atomLanguageService, logger, editor) {
   const uri = editor.getPath();
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => atomLanguageService.getLanguageServiceForUri(uri)).switchMap(languageService => {
     if (languageService == null) {
       return _RxMin.Observable.of(null);
@@ -144,6 +149,19 @@ function getCodeLensPositions(atomLanguageService, logger, editor) {
       }
 
       return _RxMin.Observable.defer(async () => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => atomLanguageService.getLanguageServiceForUri(uri)).switchMap(languageService => {
+    if (languageService == null) {
+      return _rxjsCompatUmdMin.Observable.of(null);
+    }
+
+    return _rxjsCompatUmdMin.Observable.defer(() => (0, _nuclideOpenFiles().getFileVersionOfEditor)(editor)).switchMap(fileVersion => {
+      if (fileVersion == null) {
+        return _rxjsCompatUmdMin.Observable.of(null);
+      }
+
+      return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
         const codeLens = await languageService.getCodeLens(fileVersion);
 
         if (codeLens == null) {
@@ -155,8 +173,13 @@ function getCodeLensPositions(atomLanguageService, logger, editor) {
           fileVersion,
           codeLens
         };
+<<<<<<< HEAD
       }).retryWhen(errs => errs.zip(_RxMin.Observable.range(1, RETRIES)).flatMap((_, retryCount) => {
         return _RxMin.Observable.timer(retryCount * 1000);
+=======
+      }).retryWhen(errs => errs.zip(_rxjsCompatUmdMin.Observable.range(1, RETRIES)).flatMap((_, retryCount) => {
+        return _rxjsCompatUmdMin.Observable.timer(retryCount * 1000);
+>>>>>>> Update
       })).defaultIfEmpty(null);
     });
   });
@@ -189,10 +212,17 @@ function resolveVisible(resolveInfo) {
   // comparisons.
 
   const resolvableLenses = resolveInfo.lenses.filter(lensInfo => lensInfo.lens.range.start.row >= firstBufferLine && lensInfo.lens.range.start.row <= lastBufferLine);
+<<<<<<< HEAD
   return _RxMin.Observable.from(resolvableLenses).mergeMap(lensInfo => {
     const isFolded = () => editor.isFoldedAtBufferRow(lensInfo.lens.range.start.row);
 
     return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.from(resolvableLenses).mergeMap(lensInfo => {
+    const isFolded = () => editor.isFoldedAtBufferRow(lensInfo.lens.range.start.row);
+
+    return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       if (lensInfo.resolved || isFolded()) {
         return Promise.resolve(lensInfo.lens);
       } // Set this *before* we get the data so we don't send duplicate requests.
@@ -245,10 +275,18 @@ function observeForCodeLens(atomLanguageService, logger) {
     const markerLayer = editor.addMarkerLayer();
     return (0, _event().observableFromSubscribeFunction)(editor.onDidSave.bind(editor)) // Add an additional event into the stream so that we don't need to
     // save the file in order to get the first set of code lenses.
+<<<<<<< HEAD
     .startWith(null).switchMap(evt => getCodeLensPositions(atomLanguageService, logger, editor)).do(() => markerLayer.clear()).filter(Boolean).map(positions => markCodeLensPositions(positions.languageService, editor, markerLayer, positions.fileVersion, positions.codeLens)).switchMap((resolveInfo, iteration) => _RxMin.Observable.merge(iteration === 0 ? _observable().microtask.do(() => {
       editor.scrollToCursorPosition({
         center: true
       });
     }) : _RxMin.Observable.empty(), _RxMin.Observable.timer(0, 1000).concatMap(() => resolveVisible(resolveInfo)))).takeUntil((0, _textEditor().observeEditorDestroy)(editor));
+=======
+    .startWith(null).switchMap(evt => getCodeLensPositions(atomLanguageService, logger, editor)).do(() => markerLayer.clear()).filter(Boolean).map(positions => markCodeLensPositions(positions.languageService, editor, markerLayer, positions.fileVersion, positions.codeLens)).switchMap((resolveInfo, iteration) => _rxjsCompatUmdMin.Observable.merge(iteration === 0 ? _observable().microtask.do(() => {
+      editor.scrollToCursorPosition({
+        center: true
+      });
+    }) : _rxjsCompatUmdMin.Observable.empty(), _rxjsCompatUmdMin.Observable.timer(0, 1000).concatMap(() => resolveVisible(resolveInfo)))).takeUntil((0, _textEditor().observeEditorDestroy)(editor));
+>>>>>>> Update
   }).subscribe());
 }

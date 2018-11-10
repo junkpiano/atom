@@ -25,6 +25,21 @@ function _DebuggerInterface() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _TokenizedLine() {
+  const data = _interopRequireDefault(require("./TokenizedLine"));
+
+  _TokenizedLine = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 /**
@@ -64,8 +79,13 @@ in complex ways.
     this._debugger = debug;
   }
 
+<<<<<<< HEAD
   async execute(args) {
     const expr = args.join(' ');
+=======
+  async execute(line) {
+    const expr = line.rest(1);
+>>>>>>> Update
 
     try {
       const {
@@ -75,10 +95,17 @@ in complex ways.
           namedVariables,
           indexedVariables
         }
+<<<<<<< HEAD
       } = await this._debugger.evaluateExpression(expr);
 
       if (variablesReference > 0) {
         this._console.more((await this.formatVariable({
+=======
+      } = await this._debugger.evaluateExpression(expr, false);
+
+      if (variablesReference > 0) {
+        this._console.outputLine((await this.formatVariable({
+>>>>>>> Update
           name: '',
           value: result,
           variablesReference,

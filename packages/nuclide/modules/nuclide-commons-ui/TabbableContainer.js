@@ -7,7 +7,11 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _tabbable() {
   const data = _interopRequireDefault(require("tabbable"));
@@ -79,7 +83,11 @@ class TabbableContainer extends _react.default.Component {
       }
     }
 
+<<<<<<< HEAD
     this._disposables = new (_UniversalDisposable().default)(_RxMin.Observable.fromEvent(rootNode, 'keydown').subscribe(event => {
+=======
+    this._disposables = new (_UniversalDisposable().default)(_rxjsCompatUmdMin.Observable.fromEvent(rootNode, 'keydown').subscribe(event => {
+>>>>>>> Update
       if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
       }

@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _nullthrows() {
+  const data = _interopRequireDefault(require("nullthrows"));
+
+  _nullthrows = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _BreakpointClearCommand() {
   const data = _interopRequireDefault(require("./BreakpointClearCommand"));
 
@@ -15,6 +28,19 @@ function _BreakpointClearCommand() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _BreakpointCommandParser() {
+  const data = _interopRequireDefault(require("./BreakpointCommandParser"));
+
+  _BreakpointCommandParser = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _BreakpointDisableCommand() {
   const data = _interopRequireDefault(require("./BreakpointDisableCommand"));
 
@@ -75,6 +101,19 @@ function _HelpCommand() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _TokenizedLine() {
+  const data = _interopRequireDefault(require("./TokenizedLine"));
+
+  _TokenizedLine = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -144,8 +183,13 @@ The breakpoint command has several subcommands:
     this._dispatcher.registerCommand(new (_HelpCommand().default)(con, this._dispatcher));
   }
 
+<<<<<<< HEAD
   async execute(args) {
     const result = await this._trySettingBreakpoint(args);
+=======
+  async execute(line) {
+    const result = await this._trySettingBreakpoint(line);
+>>>>>>> Update
 
     if (result != null) {
       this._displayBreakpointResult(result);
@@ -153,13 +197,19 @@ The breakpoint command has several subcommands:
       return;
     }
 
+<<<<<<< HEAD
     const error = await this._dispatcher.executeTokenizedLine(args);
+=======
+    const subcommand = new (_TokenizedLine().default)(line.rest(1));
+    const error = await this._dispatcher.executeTokenizedLine(subcommand);
+>>>>>>> Update
 
     if (error != null) {
       throw error;
     }
   }
 
+<<<<<<< HEAD
   async _trySettingBreakpoint(args) {
     let breakpointSpec = args[0];
     const once = 'once'.startsWith(breakpointSpec);
@@ -195,6 +245,30 @@ The breakpoint command has several subcommands:
     }
 
     return null;
+=======
+  async _trySettingBreakpoint(line) {
+    const parser = new (_BreakpointCommandParser().default)(line);
+
+    if (!parser.parse()) {
+      return null;
+    }
+
+    if (parser.sourceFile() == null && parser.functionName() == null) {
+      return this._setBreakpointHere(parser.sourceLine(), parser.once(), parser.condition());
+    }
+
+    if (parser.sourceFile() != null) {
+      return this._debugger.setSourceBreakpoint((0, _nullthrows().default)(parser.sourceFile()), (0, _nullthrows().default)(parser.sourceLine()), parser.once(), parser.condition());
+    }
+
+    const functionName = parser.functionName();
+
+    if (!(functionName != null)) {
+      throw new Error("Invariant violation: \"functionName != null\"");
+    }
+
+    return this._debugger.setFunctionBreakpoint(functionName, parser.once(), parser.condition());
+>>>>>>> Update
   }
 
   _displayBreakpointResult(result) {
@@ -205,7 +279,11 @@ The breakpoint command has several subcommands:
     }
   }
 
+<<<<<<< HEAD
   async _setBreakpointHere(once, line) {
+=======
+  async _setBreakpointHere(line, once, condition) {
+>>>>>>> Update
     const frame = await this._debugger.getCurrentStackFrame();
 
     if (frame == null) {
@@ -216,7 +294,11 @@ The breakpoint command has several subcommands:
       throw new Error('Cannot set breakpoint here, current stack frame has no source.');
     }
 
+<<<<<<< HEAD
     const result = await this._debugger.setSourceBreakpoint(frame.source.path, line == null ? frame.line : line, once);
+=======
+    const result = await this._debugger.setSourceBreakpoint(frame.source.path, line == null ? frame.line : line, once, condition);
+>>>>>>> Update
     return result;
   }
 

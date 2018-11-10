@@ -25,6 +25,10 @@ exports.endReorderDrag = endReorderDrag;
 exports.reorderDragInto = reorderDragInto;
 exports.reorderRoots = reorderRoots;
 exports.moveToNode = moveToNode;
+<<<<<<< HEAD
+=======
+exports.movePathToNode = movePathToNode;
+>>>>>>> Update
 exports.setUsePreviewTabs = setUsePreviewTabs;
 exports.setFocusEditorOnFileSelection = setFocusEditorOnFileSelection;
 exports.setUsePrefixNav = setUsePrefixNav;
@@ -108,8 +112,13 @@ exports.focus = focus;
 exports.unfocus = unfocus;
 exports.clearSelected = clearSelected;
 exports.clearFocused = clearFocused;
+<<<<<<< HEAD
 exports.CLEAR_SELECTED = exports.UNFOCUS = exports.FOCUS = exports.UNSELECT = exports.SELECT = exports.UPLOAD_DROPPED_FILES = exports.GOT_REMOTE_TRANSFER_SERVICE = exports.UPDATE_ROOT_DIRECTORIES = exports.UPDATE_REPOSITORIES = exports.REMOVE_FILTER_LETTER = exports.ADD_FILTER_LETTER = exports.UPDATE_GENERATED_STATUSES = exports.SET_TARGET_NODE = exports.INVALIDATE_REMOVED_FOLDER = exports.SET_FOLDERS_EXPANDED = exports.SET_UNCOMMITTED_CHANGES_EXPANDED = exports.SET_OPEN_FILES_EXPANDED = exports.REMOVE_ROOT_FOLDER_SELECTION = exports.REMOVE_EXTRA_PROJECT_SELECTION_CONTENT = exports.ADD_EXTRA_PROJECT_SELECTION_CONTENT = exports.CLEAR_FILTER = exports.MOVE_SELECTION_TO_BOTTOM = exports.MOVE_SELECTION_TO_TOP = exports.MOVE_SELECTION_DOWN = exports.MOVE_SELECTION_UP = exports.RANGE_SELECT_DOWN = exports.RANGE_SELECT_UP = exports.RANGE_SELECT_TO_NODE = exports.UNSELECT_NODE = exports.ADD_SELECTED_NODE = exports.SET_FOCUSED_NODE = exports.SET_SELECTED_NODE = exports.UNHOVER_NODE = exports.SET_DRAG_HOVERED_NODE = exports.UNCHECK_NODE = exports.CHECK_NODE = exports.FINISH_EDITING_WORKING_SET = exports.START_EDITING_WORKING_SET = exports.SET_WORKING_SETS_STORE = exports.SET_OPEN_FILES_WORKING_SET = exports.WORKING_SET_CHANGE_REQUESTED = exports.SET_WORKING_SET = exports.SET_REPOSITORIES = exports.SET_VCS_STATUSES = exports.SET_FOCUS_EDITOR_ON_FILE_SELECTION = exports.SET_AUTO_EXPAND_SINGLE_CHILD = exports.SET_USE_PREFIX_NAV = exports.SET_USE_PREVIEW_TABS = exports.SET_INITIAL_DATA = exports.MOVE_TO_NODE = exports.REORDER_ROOTS = exports.REORDER_DRAG_INTO = exports.OPEN_AND_REVEAL_DIRECTORY_PATH = exports.OPEN_AND_REVEAL_FILE_PATHS = exports.OPEN_AND_REVEAL_FILE_PATH = exports.REVEAL_FILE_PATH = exports.REVEAL_NODE_KEY = exports.END_REORDER_DRAG = exports.START_REORDER_DRAG = exports.OPEN_PASTE_DIALOG = exports.OPEN_NEXT_DUPLICATE_DIALOG = exports.OPEN_DUPLICATE_DIALOG = exports.OPEN_RENAME_DIALOG = exports.OPEN_ADD_FILE_DIALOG_RELATIVE = exports.OPEN_ADD_FILE_DIALOG = exports.OPEN_ADD_FOLDER_DIALOG = exports.OPEN_ENTRY_SPLIT = exports.OPEN_SELECTED_ENTRY_SPLIT = exports.OPEN_SELECTED_ENTRY = exports.KEEP_PREVIEW_TAB = exports.CLEAR_TRACKED_NODE_IF_NOT_LOADING = exports.CLEAR_TRACKED_NODE = exports.SET_REMOTE_PROJECTS_SERVICE = exports.SET_TRACKED_NODE = exports.SET_ROOTS = exports.SET_LOADING = exports.SET_IGNORED_NAMES = exports.SET_IS_CALCULATING_CHANGES = exports.SET_HIDE_VCS_IGNORED_PATHS = exports.SET_HIDE_IGNORED_NAMES = exports.SET_CWD_API = exports.SET_CWD_TO_SELECTION = exports.SET_CWD = exports.EXPAND_NODE_DEEP = exports.SET_EXCLUDE_VCS_IGNORED_PATHS = exports.LOAD_DATA = exports.EXPAND_SELECTION = exports.EXPAND_NODE = exports.DELETE_SELECTION = exports.DELETE_SELECTED_NODES = exports.COPY_FILENAMES_WITH_DIR = exports.CONFIRM_NODE = exports.COLLAPSE_ALL = exports.COLLAPSE_SELECTION = exports.COLLAPSE_NODE_DEEP = exports.COLLAPSE_NODE = exports.CLEAR_SELECTION_RANGE = exports.CLEAR_SELECTION = exports.CLEAR_LOADING = exports.CLEAR_DRAG_HOVER = void 0;
 exports.CLEAR_FOCUSED = void 0;
+=======
+exports.UNFOCUS = exports.FOCUS = exports.UNSELECT = exports.SELECT = exports.UPLOAD_DROPPED_FILES = exports.GOT_REMOTE_TRANSFER_SERVICE = exports.UPDATE_ROOT_DIRECTORIES = exports.UPDATE_REPOSITORIES = exports.REMOVE_FILTER_LETTER = exports.ADD_FILTER_LETTER = exports.UPDATE_GENERATED_STATUSES = exports.SET_TARGET_NODE = exports.INVALIDATE_REMOVED_FOLDER = exports.SET_FOLDERS_EXPANDED = exports.SET_UNCOMMITTED_CHANGES_EXPANDED = exports.SET_OPEN_FILES_EXPANDED = exports.REMOVE_ROOT_FOLDER_SELECTION = exports.REMOVE_EXTRA_PROJECT_SELECTION_CONTENT = exports.ADD_EXTRA_PROJECT_SELECTION_CONTENT = exports.CLEAR_FILTER = exports.MOVE_SELECTION_TO_BOTTOM = exports.MOVE_SELECTION_TO_TOP = exports.MOVE_SELECTION_DOWN = exports.MOVE_SELECTION_UP = exports.RANGE_SELECT_DOWN = exports.RANGE_SELECT_UP = exports.RANGE_SELECT_TO_NODE = exports.UNSELECT_NODE = exports.ADD_SELECTED_NODE = exports.SET_FOCUSED_NODE = exports.SET_SELECTED_NODE = exports.UNHOVER_NODE = exports.SET_DRAG_HOVERED_NODE = exports.UNCHECK_NODE = exports.CHECK_NODE = exports.FINISH_EDITING_WORKING_SET = exports.START_EDITING_WORKING_SET = exports.SET_WORKING_SETS_STORE = exports.SET_OPEN_FILES_WORKING_SET = exports.WORKING_SET_CHANGE_REQUESTED = exports.SET_WORKING_SET = exports.SET_REPOSITORIES = exports.SET_VCS_STATUSES = exports.SET_FOCUS_EDITOR_ON_FILE_SELECTION = exports.SET_AUTO_EXPAND_SINGLE_CHILD = exports.SET_USE_PREFIX_NAV = exports.SET_USE_PREVIEW_TABS = exports.SET_INITIAL_DATA = exports.MOVE_PATH_TO_NODE = exports.MOVE_TO_NODE = exports.REORDER_ROOTS = exports.REORDER_DRAG_INTO = exports.OPEN_AND_REVEAL_DIRECTORY_PATH = exports.OPEN_AND_REVEAL_FILE_PATHS = exports.OPEN_AND_REVEAL_FILE_PATH = exports.REVEAL_FILE_PATH = exports.REVEAL_NODE_KEY = exports.END_REORDER_DRAG = exports.START_REORDER_DRAG = exports.OPEN_PASTE_DIALOG = exports.OPEN_NEXT_DUPLICATE_DIALOG = exports.OPEN_DUPLICATE_DIALOG = exports.OPEN_RENAME_DIALOG = exports.OPEN_ADD_FILE_DIALOG_RELATIVE = exports.OPEN_ADD_FILE_DIALOG = exports.OPEN_ADD_FOLDER_DIALOG = exports.OPEN_ENTRY_SPLIT = exports.OPEN_SELECTED_ENTRY_SPLIT = exports.OPEN_SELECTED_ENTRY = exports.KEEP_PREVIEW_TAB = exports.CLEAR_TRACKED_NODE_IF_NOT_LOADING = exports.CLEAR_TRACKED_NODE = exports.SET_REMOTE_PROJECTS_SERVICE = exports.SET_TRACKED_NODE = exports.SET_ROOTS = exports.SET_LOADING = exports.SET_IGNORED_NAMES = exports.SET_IS_CALCULATING_CHANGES = exports.SET_HIDE_VCS_IGNORED_PATHS = exports.SET_HIDE_IGNORED_NAMES = exports.SET_CWD_API = exports.SET_CWD_TO_SELECTION = exports.SET_CWD = exports.EXPAND_NODE_DEEP = exports.SET_EXCLUDE_VCS_IGNORED_PATHS = exports.LOAD_DATA = exports.EXPAND_SELECTION = exports.EXPAND_NODE = exports.DELETE_SELECTION = exports.DELETE_SELECTED_NODES = exports.COPY_FILENAMES_WITH_DIR = exports.CONFIRM_NODE = exports.COLLAPSE_ALL = exports.COLLAPSE_SELECTION = exports.COLLAPSE_NODE_DEEP = exports.COLLAPSE_NODE = exports.CLEAR_SELECTION_RANGE = exports.CLEAR_SELECTION = exports.CLEAR_LOADING = exports.CLEAR_DRAG_HOVER = void 0;
+exports.CLEAR_FOCUSED = exports.CLEAR_SELECTED = void 0;
+>>>>>>> Update
 
 function Immutable() {
   const data = _interopRequireWildcard(require("immutable"));
@@ -237,6 +246,11 @@ const REORDER_ROOTS = 'REORDER_ROOTS';
 exports.REORDER_ROOTS = REORDER_ROOTS;
 const MOVE_TO_NODE = 'MOVE_TO_NODE';
 exports.MOVE_TO_NODE = MOVE_TO_NODE;
+<<<<<<< HEAD
+=======
+const MOVE_PATH_TO_NODE = 'MOVE_PATH_TO_NODE';
+exports.MOVE_PATH_TO_NODE = MOVE_PATH_TO_NODE;
+>>>>>>> Update
 const SET_INITIAL_DATA = 'SET_INITIAL_DATA';
 exports.SET_INITIAL_DATA = SET_INITIAL_DATA;
 const SET_USE_PREVIEW_TABS = 'SET_USE_PREVIEW_TABS';
@@ -492,6 +506,17 @@ function moveToNode(rootKey, nodeKey) {
   };
 }
 
+<<<<<<< HEAD
+=======
+function movePathToNode(uri, destination) {
+  return {
+    type: MOVE_PATH_TO_NODE,
+    uri,
+    destination
+  };
+}
+
+>>>>>>> Update
 function setUsePreviewTabs(usePreviewTabs) {
   return {
     type: SET_USE_PREVIEW_TABS,

@@ -9,7 +9,11 @@ exports.hgRunCommand = hgRunCommand;
 exports.formatCommitMessage = formatCommitMessage;
 exports.getInteractiveCommitEditorConfig = getInteractiveCommitEditorConfig;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -113,7 +117,11 @@ async function hgAsyncExecute(args_, options_) {
 
 function hgObserveExecution(args_, options_) {
   // TODO(T17463635)
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(getHgExecParams(args_, Object.assign({}, options_, {
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(getHgExecParams(args_, Object.assign({}, options_, {
+>>>>>>> Update
     TTY_OUTPUT: process.platform !== 'win32'
   }))).switchMap(({
     command,
@@ -125,7 +133,11 @@ function hgObserveExecution(args_, options_) {
 
       /* TODO(T17353599) */
       isExitError: () => false
+<<<<<<< HEAD
     })).catch(error => _RxMin.Observable.of({
+=======
+    })).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       kind: 'error',
       error
     })); // TODO(T17463635)
@@ -138,7 +150,11 @@ function hgObserveExecution(args_, options_) {
 
 
 function hgRunCommand(args_, options_) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(getHgExecParams(args_, options_)).switchMap(({
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(getHgExecParams(args_, options_)).switchMap(({
+>>>>>>> Update
     command,
     args,
     options

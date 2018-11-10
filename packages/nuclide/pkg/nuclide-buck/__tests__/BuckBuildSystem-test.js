@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _BuckBuildSystem() {
   const data = require("../lib/BuckBuildSystem");
@@ -30,7 +34,11 @@ describe('BuckBuildSystem', () => {
   });
   describe('_consumeEventStream', () => {
     it("doesn't swallow log messages", async () => {
+<<<<<<< HEAD
       const result = await buckBuildSystem._consumeEventStream(_RxMin.Observable.from([{
+=======
+      const result = await buckBuildSystem._consumeEventStream(_rxjsCompatUmdMin.Observable.from([{
+>>>>>>> Update
         type: 'log',
         message: 'test',
         level: 'error'
@@ -71,7 +79,11 @@ describe('BuckBuildSystem', () => {
         type: 'Error',
         filePath: 'a'
       };
+<<<<<<< HEAD
       const result = await buckBuildSystem._consumeEventStream(_RxMin.Observable.from([{
+=======
+      const result = await buckBuildSystem._consumeEventStream(_rxjsCompatUmdMin.Observable.from([{
+>>>>>>> Update
         type: 'diagnostics',
         diagnostics: [diagnostic]
       }, {

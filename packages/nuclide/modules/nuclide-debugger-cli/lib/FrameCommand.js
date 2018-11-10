@@ -5,6 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _TokenizedLine() {
+  const data = _interopRequireDefault(require("./TokenizedLine"));
+
+  _TokenizedLine = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -39,9 +54,17 @@ will use the selected frame for context; for example:
     this._debugger = debug;
   }
 
+<<<<<<< HEAD
   async execute(args) {
     const activeThread = this._debugger.getActiveThread();
 
+=======
+  async execute(line) {
+    const activeThread = this._debugger.getActiveThread();
+
+    const args = line.stringTokens().slice(1);
+
+>>>>>>> Update
     if (args.length !== 1) {
       throw new Error("'frame' takes the index of the frame to select");
     }

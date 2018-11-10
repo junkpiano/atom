@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HgRepositoryClient = void 0;
 
+<<<<<<< HEAD
+=======
+function _HgService() {
+  const data = require("../../nuclide-hg-rpc/lib/HgService");
+
+  _HgService = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
 
@@ -75,7 +88,11 @@ function _hgConstants() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _lruCache() {
   const data = _interopRequireDefault(require("lru-cache"));
@@ -161,6 +178,7 @@ const FETCH_BOOKMARKS_TIMEOUT = 15 * 1000;
  */
 const DID_CHANGE_CONFLICT_STATE = 'did-change-conflict-state';
 
+<<<<<<< HEAD
 function getRevisionStatusCache(revisionsCache, workingDirectoryPath) {
   try {
     // $FlowFB
@@ -197,6 +215,8 @@ function getRevisionStatusCache(revisionsCache, workingDirectoryPath) {
  */
 
 
+=======
+>>>>>>> Update
 class HgRepositoryClient {
   // An instance of HgRepositoryClient may be cloned to share the subscriptions
   // across multiple atom projects in the same hg repository, but allow
@@ -223,7 +243,10 @@ class HgRepositoryClient {
     this._sharedMembers.isInConflict = false;
     this._sharedMembers.isDestroyed = false;
     this._sharedMembers.revisionsCache = new (_RevisionsCache().default)(this._sharedMembers.workingDirectoryPath, hgService);
+<<<<<<< HEAD
     this._sharedMembers.revisionStatusCache = getRevisionStatusCache(this._sharedMembers.revisionsCache, this._sharedMembers.workingDirectoryPath);
+=======
+>>>>>>> Update
     this._sharedMembers.revisionIdToFileChanges = new (_lruCache().default)({
       max: 100
     });
@@ -232,6 +255,7 @@ class HgRepositoryClient {
     });
     this._sharedMembers.emitter = new (_eventKit().Emitter)();
     this._sharedMembers.subscriptions = new (_UniversalDisposable().default)(this._sharedMembers.emitter);
+<<<<<<< HEAD
     this._sharedMembers.isFetchingPathStatuses = new _RxMin.Subject();
     this._sharedMembers.manualStatusRefreshRequests = new _RxMin.Subject();
     this._sharedMembers.refreshLocksFilesObserver = new _RxMin.Subject();
@@ -241,6 +265,16 @@ class HgRepositoryClient {
       bookmarks: []
     });
     this._sharedMembers.bufferDiffsFromHeadCache = new Map();
+=======
+    this._sharedMembers.isFetchingPathStatuses = new _rxjsCompatUmdMin.Subject();
+    this._sharedMembers.manualStatusRefreshRequests = new _rxjsCompatUmdMin.Subject();
+    this._sharedMembers.refreshLocksFilesObserver = new _rxjsCompatUmdMin.Subject();
+    this._sharedMembers.hgStatusCache = new Map();
+    this._sharedMembers.bookmarks = new _rxjsCompatUmdMin.BehaviorSubject({
+      isLoading: true,
+      bookmarks: []
+    });
+>>>>>>> Update
     this._sharedMembers.repoSubscriptions = this._sharedMembers.service.createRepositorySubscriptions(this._sharedMembers.workingDirectoryPath).catch(error => {
       atom.notifications.addWarning('Mercurial: failed to subscribe to watchman!');
       (0, _log4js().getLogger)('nuclide-hg-repository-client').error(`Failed to subscribe to watchman in ${this._sharedMembers.workingDirectoryPath}`, error);
@@ -249,7 +283,11 @@ class HgRepositoryClient {
 
     const fileChanges = this._tryObserve(s => s.observeFilesDidChange().refCount());
 
+<<<<<<< HEAD
     const repoStateChanges = _RxMin.Observable.merge(this._tryObserve(s => s.observeHgRepoStateDidChange().refCount()), this._sharedMembers.manualStatusRefreshRequests);
+=======
+    const repoStateChanges = _rxjsCompatUmdMin.Observable.merge(this._tryObserve(s => s.observeHgRepoStateDidChange().refCount()), this._sharedMembers.manualStatusRefreshRequests);
+>>>>>>> Update
 
     const activeBookmarkChanges = this._tryObserve(s => s.observeActiveBookmarkDidChange().refCount());
 
@@ -269,6 +307,7 @@ class HgRepositoryClient {
       this._sharedMembers.emitter.emit('did-change-statuses');
     });
 
+<<<<<<< HEAD
     const shouldRevisionsUpdate = _RxMin.Observable.merge(this._sharedMembers.bookmarks.asObservable(), commitChanges, repoStateChanges).let((0, _observable().fastDebounce)(REVISION_DEBOUNCE_DELAY));
 
     const bookmarksUpdates = _RxMin.Observable.merge(activeBookmarkChanges, allBookmarkChanges).startWith(null).let((0, _observable().fastDebounce)(BOOKMARKS_DEBOUNCE_DELAY)).switchMap(() => _RxMin.Observable.defer(() => {
@@ -276,6 +315,15 @@ class HgRepositoryClient {
     }).retry(2).catch(error => {
       (0, _log4js().getLogger)('nuclide-hg-repository-client').error('failed to fetch bookmarks info:', error);
       return _RxMin.Observable.empty();
+=======
+    const shouldRevisionsUpdate = _rxjsCompatUmdMin.Observable.merge(this._sharedMembers.bookmarks.asObservable(), commitChanges, repoStateChanges).let((0, _observable().fastDebounce)(REVISION_DEBOUNCE_DELAY));
+
+    const bookmarksUpdates = _rxjsCompatUmdMin.Observable.merge(activeBookmarkChanges, allBookmarkChanges).startWith(null).let((0, _observable().fastDebounce)(BOOKMARKS_DEBOUNCE_DELAY)).switchMap(() => _rxjsCompatUmdMin.Observable.defer(() => {
+      return _rxjsCompatUmdMin.Observable.fromPromise(this._sharedMembers.service.fetchBookmarks(this._sharedMembers.workingDirectoryPath)).timeout(FETCH_BOOKMARKS_TIMEOUT);
+    }).retry(2).catch(error => {
+      (0, _log4js().getLogger)('nuclide-hg-repository-client').error('failed to fetch bookmarks info:', error);
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }));
 
     this._sharedMembers.subscriptions.add(statusChangesSubscription, bookmarksUpdates.subscribe(bookmarks => this._sharedMembers.bookmarks.next({
@@ -295,9 +343,15 @@ class HgRepositoryClient {
 
 
   _tryObserve(observe) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._sharedMembers.repoSubscriptions).switchMap(repoSubscriptions => {
       if (repoSubscriptions == null) {
         return _RxMin.Observable.never();
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._sharedMembers.repoSubscriptions).switchMap(repoSubscriptions => {
+      if (repoSubscriptions == null) {
+        return _rxjsCompatUmdMin.Observable.never();
+>>>>>>> Update
       }
 
       return observe(repoSubscriptions);
@@ -317,7 +371,11 @@ class HgRepositoryClient {
   }
 
   _observeStatus(fileChanges, repoStateChanges, fetchStatuses) {
+<<<<<<< HEAD
     const triggers = _RxMin.Observable.merge(fileChanges, repoStateChanges).let((0, _observable().fastDebounce)(STATUS_DEBOUNCE_DELAY_MS)).share().startWith(null); // Share comes before startWith. That's because fileChanges/repoStateChanges
+=======
+    const triggers = _rxjsCompatUmdMin.Observable.merge(fileChanges, repoStateChanges).let((0, _observable().fastDebounce)(STATUS_DEBOUNCE_DELAY_MS)).share().startWith(null); // Share comes before startWith. That's because fileChanges/repoStateChanges
+>>>>>>> Update
     // are already hot and can be shared fine. But we want both our subscribers,
     // statusChanges and isCalculatingChanges, to pick up their own copy of
     // startWith(null) no matter which order they subscribe.
@@ -328,12 +386,20 @@ class HgRepositoryClient {
 
       return fetchStatuses().refCount().catch(error => {
         (0, _log4js().getLogger)('nuclide-hg-repository-client').error('HgService cannot fetch statuses', error);
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }).finally(() => {
         this._sharedMembers.isFetchingPathStatuses.next(false);
       });
     }).map(uriToStatusIds => (0, _collection().mapTransform)(uriToStatusIds, (v, k) => _hgConstants().StatusCodeIdToNumber[v])));
+<<<<<<< HEAD
     const isCalculatingChanges = (0, _observable().cacheWhileSubscribed)(_RxMin.Observable.merge(triggers.map(_ => true), statusChanges.map(_ => false)).distinctUntilChanged());
+=======
+    const isCalculatingChanges = (0, _observable().cacheWhileSubscribed)(_rxjsCompatUmdMin.Observable.merge(triggers.map(_ => true), statusChanges.map(_ => false)).distinctUntilChanged());
+>>>>>>> Update
     return {
       statusChanges,
       isCalculatingChanges
@@ -404,10 +470,13 @@ class HgRepositoryClient {
     return this._sharedMembers.isFetchingPathStatuses.asObservable();
   }
 
+<<<<<<< HEAD
   observeRevisionStatusesChanges() {
     return this._sharedMembers.revisionStatusCache.observeRevisionStatusesChanges();
   }
 
+=======
+>>>>>>> Update
   observeUncommittedStatusChanges() {
     return this._sharedMembers.hgUncommittedStatusChanges;
   }
@@ -437,11 +506,33 @@ class HgRepositoryClient {
   }
 
   observeLockFiles() {
+<<<<<<< HEAD
     return _RxMin.Observable.merge(this._tryObserve(s => s.observeLockFilesDidChange().refCount()), this._sharedMembers.refreshLocksFilesObserver.asObservable());
   }
 
   observeHeadRevision() {
     return this.observeRevisionChanges().map(revisionInfoFetched => revisionInfoFetched.revisions.find(revision => revision.isHead)).let(_observable().compact).distinctUntilChanged((prevRev, nextRev) => prevRev.hash === nextRev.hash);
+=======
+    return _rxjsCompatUmdMin.Observable.merge(this._tryObserve(s => s.observeLockFilesDidChange().refCount()), this._sharedMembers.refreshLocksFilesObserver.asObservable());
+  }
+
+  observeWatchmanHealth() {
+    return this._tryObserve(s => s.observeWatchmanHealth().refCount());
+  }
+  /*
+   * fetchPreviousHashes: setting this would fetch all the hashes that this commit
+   * was represented by, for example a rebase can change the hash from a -> b and
+   * setting this flag will fetch 'a' as well as part of revisionInfo previousHashes
+   */
+
+
+  observeHeadRevision(fetchPreviousHashes = false) {
+    return this.observeRevisionChanges().map(revisionInfoFetched => revisionInfoFetched.revisions.find(revision => revision.isHead)).let(_observable().compact).distinctUntilChanged((prevRev, nextRev) => prevRev.hash === nextRev.hash).switchMap(rev => {
+      return fetchPreviousHashes === false ? _rxjsCompatUmdMin.Observable.of(rev) : this._sharedMembers.service.fetchHeadRevisionInfo(this.getWorkingDirectory()).refCount().map(previousRevisionInfos => Object.assign({}, rev, {
+        previousHashes: previousRevisionInfos.map(previousRevisionInfo => previousRevisionInfo.hash)
+      }));
+    });
+>>>>>>> Update
   }
   /**
    *
@@ -721,6 +812,7 @@ class HgRepositoryClient {
    */
 
 
+<<<<<<< HEAD
   setDiffInfo(filePath, diffInfo) {
     if (this.isPathRelevantToRepository(filePath)) {
       this._sharedMembers.bufferDiffsFromHeadCache.set(filePath, diffInfo);
@@ -737,6 +829,10 @@ class HgRepositoryClient {
 
   getDiffStats(filePath) {
     return this._sharedMembers.bufferDiffsFromHeadCache.get(filePath) || {
+=======
+  getDiffStats(filePath) {
+    return {
+>>>>>>> Update
       added: 0,
       deleted: 0
     };
@@ -754,9 +850,13 @@ class HgRepositoryClient {
 
 
   getLineDiffs(filePath, text) {
+<<<<<<< HEAD
     const diffInfo = this._sharedMembers.bufferDiffsFromHeadCache.get(filePath);
 
     return diffInfo != null ? diffInfo.lineDiffs : [];
+=======
+    return [];
+>>>>>>> Update
   }
   /**
    *
@@ -867,7 +967,11 @@ class HgRepositoryClient {
     const committedContents = fileContentsAtRevision.get(filePath);
 
     if (committedContents != null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(committedContents);
+=======
+      return _rxjsCompatUmdMin.Observable.of(committedContents);
+>>>>>>> Update
     } else {
       return this._sharedMembers.service.fetchFileContentAtRevision(this._sharedMembers.workingDirectoryPath, filePath, revision).refCount().do(contents => fileContentsAtRevision.set(filePath, contents));
     }
@@ -881,7 +985,11 @@ class HgRepositoryClient {
     const changes = this._sharedMembers.revisionIdToFileChanges.get(revision);
 
     if (changes != null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(changes);
+=======
+      return _rxjsCompatUmdMin.Observable.of(changes);
+>>>>>>> Update
     } else {
       return this._sharedMembers.service.fetchFilesChangedAtRevision(this._sharedMembers.workingDirectoryPath, revision).refCount().do(fetchedChanges => this._sharedMembers.revisionIdToFileChanges.set(revision, fetchedChanges));
     }
@@ -915,6 +1023,7 @@ class HgRepositoryClient {
     });
   }
 
+<<<<<<< HEAD
   refreshRevisionsStatuses() {
     this._sharedMembers.revisionStatusCache.refresh();
   }
@@ -925,6 +1034,10 @@ class HgRepositoryClient {
 
   getCachedRevisionStatuses() {
     return this._sharedMembers.revisionStatusCache.getCachedRevisionStatuses();
+=======
+  getCachedRevisions() {
+    return this._sharedMembers.revisionsCache.getCachedRevisions().revisions;
+>>>>>>> Update
   } // See HgService.getBaseRevision.
 
 

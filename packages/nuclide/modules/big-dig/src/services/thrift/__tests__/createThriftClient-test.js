@@ -48,7 +48,14 @@ describe('createThriftClient', () => {
       remoteUri: '',
       remoteCommand: '',
       remoteCommandArgs: [],
+<<<<<<< HEAD
       remotePort: 0,
+=======
+      remoteConnection: {
+        type: 'tcp',
+        port: 0
+      },
+>>>>>>> Update
       thriftTransport: 'buffered',
       thriftProtocol: 'binary',
       thriftService: {},

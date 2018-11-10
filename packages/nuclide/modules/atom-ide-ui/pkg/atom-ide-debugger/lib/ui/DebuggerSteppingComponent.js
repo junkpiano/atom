@@ -57,7 +57,11 @@ function _ButtonGroup() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _constants() {
   const data = require("../constants");
@@ -191,7 +195,11 @@ class DebuggerSteppingComponent extends React.Component {
     } = this.props;
     const model = service.getModel();
 
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(service.onDidChangeProcessMode.bind(service)), (0, _event().observableFromSubscribeFunction)(model.onDidChangeCallStack.bind(model)), (0, _event().observableFromSubscribeFunction)(service.viewModel.onDidChangeDebuggerFocus.bind(service.viewModel))).startWith(null).let((0, _observable().fastDebounce)(10)).subscribe(() => {
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(service.onDidChangeProcessMode.bind(service)), (0, _event().observableFromSubscribeFunction)(model.onDidChangeCallStack.bind(model)), (0, _event().observableFromSubscribeFunction)(service.viewModel.onDidChangeDebuggerFocus.bind(service.viewModel))).startWith(null).let((0, _observable().fastDebounce)(10)).subscribe(() => {
+>>>>>>> Update
       const {
         viewModel
       } = this.props.service;

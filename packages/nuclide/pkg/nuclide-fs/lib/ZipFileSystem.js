@@ -19,6 +19,7 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _admZip() {
@@ -30,6 +31,9 @@ function _admZip() {
 
   return data;
 }
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileSystem() {
   const data = require("./FileSystem");
@@ -153,7 +157,11 @@ class ZipFileSystem {
   }
 
   createReadStream(path, options) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => _RxMin.Observable.fromPromise(this.readFile(path, options))).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => _rxjsCompatUmdMin.Observable.fromPromise(this.readFile(path, options))).publish();
+>>>>>>> Update
   }
 
   async isNfs(path) {

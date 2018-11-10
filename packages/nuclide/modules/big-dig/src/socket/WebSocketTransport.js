@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.WebSocketTransport = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -64,7 +68,11 @@ class WebSocketTransport {
     this.id = clientId;
     this._emitter = new (_eventKit().Emitter)();
     this._socket = socket;
+<<<<<<< HEAD
     this._messages = new _RxMin.Subject();
+=======
+    this._messages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._syncCompression = options == null || options.syncCompression !== false;
     logger.info('Client #%s connecting with a new socket!', this.id);
     socket.on('message', data => {

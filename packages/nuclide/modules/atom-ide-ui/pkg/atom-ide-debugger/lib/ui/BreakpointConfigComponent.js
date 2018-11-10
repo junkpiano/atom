@@ -87,7 +87,11 @@ function _Modal() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _analytics() {
   const data = require("../../../../../nuclide-commons/analytics");
@@ -151,7 +155,11 @@ class BreakpointConfigComponent extends React.Component {
       fileExtension: _nuclideUri().default.extname(this.props.breakpoint.uri)
     });
 
+<<<<<<< HEAD
     this._disposables.add(atom.commands.add('atom-workspace', 'core:cancel', this.props.onDismiss), atom.commands.add('atom-workspace', 'core:confirm', this._updateBreakpoint.bind(this)), _RxMin.Observable.timer(100).subscribe(() => {
+=======
+    this._disposables.add(atom.commands.add('atom-workspace', 'core:cancel', this.props.onDismiss), atom.commands.add('atom-workspace', 'core:confirm', this._updateBreakpoint.bind(this)), _rxjsCompatUmdMin.Observable.timer(100).subscribe(() => {
+>>>>>>> Update
       if (this._condition != null) {
         this._condition.focus();
       }
@@ -182,14 +190,24 @@ class BreakpointConfigComponent extends React.Component {
     const bp = {
       line: breakpoint.line,
       column: breakpoint.column,
+<<<<<<< HEAD
       enabled: breakpoint.enabled
+=======
+      enabled: breakpoint.enabled,
+      id: breakpoint.getId(),
+      uri: breakpoint.uri
+>>>>>>> Update
     };
 
     if (condition !== '') {
       bp.condition = condition;
     }
 
+<<<<<<< HEAD
     await service.addBreakpoints(breakpoint.uri, [bp]);
+=======
+    await service.addUIBreakpoints([bp]);
+>>>>>>> Update
     (0, _analytics().track)(_constants().AnalyticsEvents.DEBUGGER_BREAKPOINT_UPDATE_CONDITION, {
       path: breakpoint.uri,
       line: breakpoint.line,
@@ -208,7 +226,11 @@ class BreakpointConfigComponent extends React.Component {
       className: "debugger-bp-config-header"
     }, "Edit breakpoint"), React.createElement("div", {
       className: "block"
+<<<<<<< HEAD
     }, React.createElement("label", null, "Breakpoint at ", _nuclideUri().default.basename(this.props.breakpoint.uri), ":", this.props.breakpoint.endLine != null ? this.props.breakpoint.endLine : this.props.breakpoint.line)), React.createElement("div", {
+=======
+    }, React.createElement("label", null, "Breakpoint at ", _nuclideUri().default.basename(this.props.breakpoint.uri), ":", this.props.breakpoint.line)), React.createElement("div", {
+>>>>>>> Update
       className: "block"
     }, React.createElement(_Checkbox().Checkbox, {
       onChange: isChecked => {

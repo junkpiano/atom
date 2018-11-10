@@ -49,7 +49,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../../../nuclide-commons/UniversalDisposable"));
@@ -147,7 +151,11 @@ class StatusBarTile {
     this._diagnosticUpdaters.set(diagnosticUpdater, diagnosticCount);
 
     this._subscriptions.add((0, _event().observableFromSubscribeFunction)(diagnosticUpdater.observeMessages).let((0, _observable().fastDebounce)(RENDER_DEBOUNCE_TIME)).combineLatest(isStaleMessageEnabledStream) // $FlowFixMe
+<<<<<<< HEAD
     .throttle(([_, isStaleMessageEnabled]) => _RxMin.Observable.interval(isStaleMessageEnabled ? _utils().STALE_MESSAGE_UPDATE_THROTTLE_TIME : 0), {
+=======
+    .throttle(([_, isStaleMessageEnabled]) => _rxjsCompatUmdMin.Observable.interval(isStaleMessageEnabled ? _utils().STALE_MESSAGE_UPDATE_THROTTLE_TIME : 0), {
+>>>>>>> Update
       leading: true,
       trailing: true
     }).map(([diagnostics, isStaleMessageEnabled]) => diagnostics.map(diagnostic => {

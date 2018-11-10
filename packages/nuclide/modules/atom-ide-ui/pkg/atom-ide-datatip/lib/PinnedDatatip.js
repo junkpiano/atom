@@ -9,7 +9,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _classnames() {
   const data = _interopRequireDefault(require("classnames"));
@@ -72,7 +76,11 @@ let _mouseMove$;
 
 function documentMouseMove$() {
   if (_mouseMove$ == null) {
+<<<<<<< HEAD
     _mouseMove$ = _RxMin.Observable.fromEvent(document, 'mousemove');
+=======
+    _mouseMove$ = _rxjsCompatUmdMin.Observable.fromEvent(document, 'mousemove');
+>>>>>>> Update
   }
 
   return _mouseMove$;
@@ -82,7 +90,11 @@ let _mouseUp$;
 
 function documentMouseUp$() {
   if (_mouseUp$ == null) {
+<<<<<<< HEAD
     _mouseUp$ = _RxMin.Observable.fromEvent(document, 'mouseup');
+=======
+    _mouseUp$ = _rxjsCompatUmdMin.Observable.fromEvent(document, 'mouseup');
+>>>>>>> Update
   }
 
   return _mouseUp$;
@@ -108,7 +120,11 @@ class PinnedDatatip {
     this._checkedScrollable = false;
     this._isScrollable = false;
 
+<<<<<<< HEAD
     this._subscriptions.add(_RxMin.Observable.fromEvent(this._hostElement, 'wheel').subscribe(e => {
+=======
+    this._subscriptions.add(_rxjsCompatUmdMin.Observable.fromEvent(this._hostElement, 'wheel').subscribe(e => {
+>>>>>>> Update
       if (!this._checkedScrollable) {
         this._isScrollable = (0, _isScrollable().default)(this._hostElement, e);
         this._checkedScrollable = true;

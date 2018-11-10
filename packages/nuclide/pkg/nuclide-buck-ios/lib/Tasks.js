@@ -36,7 +36,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,12 +55,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 // eslint-disable-next-line nuclide-internal/no-cross-atom-imports
+<<<<<<< HEAD
 function getTasks(buckRoot, ruleType, device, debuggerAvailable) {
   // $FlowIgnore typecast
   const iosDeployable = device;
   const tasks = new Set(['build']);
 
   if (iosDeployable.buildOnly !== true) {
+=======
+function getTasks(buckRoot, ruleType, buildOnly, debuggerAvailable) {
+  const tasks = new Set(['build']);
+
+  if (!buildOnly) {
+>>>>>>> Update
     if (_types().RUNNABLE_RULE_TYPES.has(ruleType)) {
       tasks.add('run');
     }
@@ -66,7 +77,11 @@ function getTasks(buckRoot, ruleType, device, debuggerAvailable) {
     }
 
     if (debuggerAvailable) {
+<<<<<<< HEAD
       tasks.add('debug');
+=======
+      tasks.add('build-launch-debug');
+>>>>>>> Update
     }
   }
 
@@ -74,6 +89,7 @@ function getTasks(buckRoot, ruleType, device, debuggerAvailable) {
 }
 
 function runTask(builder, taskType, ruleType, buildTarget, settings, device, buckRoot, debuggerCallback) {
+<<<<<<< HEAD
   // $FlowIgnore typecast
   const iosDeployable = device;
   const {
@@ -82,6 +98,21 @@ function runTask(builder, taskType, ruleType, buildTarget, settings, device, buc
     type
   } = iosDeployable;
   const iosPlatform = type === 'simulator' ? 'iphonesimulator' : 'iphoneos';
+=======
+  const {
+    udid,
+    type
+  } = device;
+  let {
+    arch
+  } = device;
+  const iosPlatform = type === 'simulator' ? 'iphonesimulator' : 'iphoneos'; // iPhone XS returns this as architecture, but we still want to build for arm64
+
+  if (arch.startsWith('arm64e')) {
+    arch = 'arm64';
+  }
+
+>>>>>>> Update
   const flavor = `${iosPlatform}-${arch}`;
   const newTarget = Object.assign({}, buildTarget, {
     flavors: buildTarget.flavors.concat([flavor])
@@ -95,7 +126,11 @@ function runTask(builder, taskType, ruleType, buildTarget, settings, device, buc
       const remoteWorkflow = require("./fb-RemoteWorkflow");
 
       runRemoteTask = () => {
+<<<<<<< HEAD
         return remoteWorkflow.runRemoteTask(buckRoot, builder, taskType, ruleType, buildTarget, settings, iosDeployable, flavor);
+=======
+        return remoteWorkflow.runRemoteTask(buckRoot, builder, taskType, ruleType, buildTarget, settings, device, flavor);
+>>>>>>> Update
       };
     } catch (_) {
       runRemoteTask = () => {
@@ -108,10 +143,17 @@ function runTask(builder, taskType, ruleType, buildTarget, settings, device, buc
     const subcommand = _getLocalSubcommand(taskType, ruleType);
 
     if (subcommand === 'install' || subcommand === 'test') {
+<<<<<<< HEAD
       startLogger(iosDeployable);
     }
 
     const debug = taskType === 'debug';
+=======
+      startLogger(device);
+    }
+
+    const debug = taskType === 'build-launch-debug';
+>>>>>>> Update
     return builder.runSubcommand(buckRoot, subcommand, newTarget, settings, debug, udid, debug ? debuggerCallback : null);
   }
 }
@@ -133,9 +175,15 @@ function _getLocalSubcommand(taskType, ruleType) {
   return (0, _BuckTaskRunner().getBuckSubcommandForTaskType)(taskType);
 }
 
+<<<<<<< HEAD
 function startLogger(iosDeployable) {
   return _RxMin.Observable.create(observer => {
     if (iosDeployable.type === 'simulator') {
+=======
+function startLogger(device) {
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+    if (device.type === 'simulator') {
+>>>>>>> Update
       atom.commands.dispatch(atom.views.getView(atom.workspace), 'nuclide-ios-simulator-logs:start');
     }
 

@@ -37,7 +37,11 @@ function _SimpleValueComponent() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _Section() {
   const data = require("../../../../../nuclide-commons-ui/Section");
@@ -157,22 +161,41 @@ class ScopesComponent extends React.Component {
       viewModel
     } = this.props.service;
 
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel)), (0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeExpressionContext.bind(viewModel))).debounceTime(100).startWith(null).switchMap(() => this._getScopes()).subscribe(scopes => {
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel)).map(() => false), (0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeExpressionContext.bind(viewModel)).map(() => true)).debounceTime(100).startWith(false).switchMap(forceRefresh => this._getScopes(forceRefresh)).subscribe(scopes => {
+>>>>>>> Update
       this.setState({
         scopes
       });
     }));
   }
 
+<<<<<<< HEAD
   _getScopes() {
+=======
+  _getScopes(forceRefresh) {
+>>>>>>> Update
     const {
       focusedStackFrame
     } = this.props.service.viewModel;
 
     if (focusedStackFrame == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(_expected().Expect.value([]));
     } else {
       return _RxMin.Observable.of(_expected().Expect.pending()).concat(_RxMin.Observable.fromPromise(focusedStackFrame.getScopes().then(scopes => _expected().Expect.value(scopes), error => _expected().Expect.error(error))));
+=======
+      return _rxjsCompatUmdMin.Observable.of(_expected().Expect.value([]));
+    } else {
+      // If refreshing explicitly, don't start with pending because
+      // there's no reason to show a spinner in an already-populated
+      // scopes tree.
+      const result = _rxjsCompatUmdMin.Observable.fromPromise(focusedStackFrame.getScopes(forceRefresh).then(scopes => _expected().Expect.value(scopes), error => _expected().Expect.error(error)));
+
+      return forceRefresh ? result : _rxjsCompatUmdMin.Observable.of(_expected().Expect.pending()).concat(result);
+>>>>>>> Update
     }
   }
 
@@ -210,7 +233,11 @@ class ScopesComponent extends React.Component {
   }
 
   _getScopeVariables(scope) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(_expected().Expect.pending()).concat(_RxMin.Observable.fromPromise(scope.getChildren().then(variables => _expected().Expect.value(variables), error => _expected().Expect.error(error))));
+=======
+    return _rxjsCompatUmdMin.Observable.of(_expected().Expect.pending()).concat(_rxjsCompatUmdMin.Observable.fromPromise(scope.getChildren().then(variables => _expected().Expect.value(variables), error => _expected().Expect.error(error))));
+>>>>>>> Update
   }
 
   _isScopeExpanded(scope) {

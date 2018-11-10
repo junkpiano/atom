@@ -2,7 +2,11 @@
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _fsPromise() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/fsPromise"));
@@ -131,8 +135,14 @@ async function main() {
     }
   });
   console.log('Began indexing all files'); // Check all files for missing imports
+<<<<<<< HEAD
 
   _RxMin.Observable.merge(indexModulesStream, indexDirStream).concat( // Don't bother checking non-Flow files.
+=======
+  // eslint-disable-next-line nuclide-internal/unused-subscription
+
+  _rxjsCompatUmdMin.Observable.merge(indexModulesStream, indexDirStream).concat( // Don't bother checking non-Flow files.
+>>>>>>> Update
   (0, _process().observeProcess)('flow', ['ls', root, '--ignore', '.*/\\(node_modules\\|VendorLib\\|3rdParty\\)/.*']).filter(event => event.kind === 'stdout').mergeMap(event => {
     if (!(event.kind === 'stdout')) {
       throw new Error("Invariant violation: \"event.kind === 'stdout'\"");

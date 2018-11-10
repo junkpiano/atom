@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+<<<<<<< HEAD
 exports.shortenHostname = shortenHostname;
 exports.convertToSandcastleHost = convertToSandcastleHost;
 
@@ -18,6 +19,10 @@ function _nuclideUri() {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+=======
+exports.convertToSandcastleHost = convertToSandcastleHost;
+
+>>>>>>> Update
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -28,6 +33,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
 function shortenHostname(hostOrUri) {
   let result = hostOrUri;
 
@@ -54,6 +60,8 @@ function shortenHostname(hostOrUri) {
   return result;
 }
 
+=======
+>>>>>>> Update
 function convertToSandcastleHost(fbHost, scHost) {
   let prefix = '';
 

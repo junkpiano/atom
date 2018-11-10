@@ -30,7 +30,11 @@ function Epics() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -47,6 +51,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
  * @emails oncall+nuclide
  */
 describe('Epics', () => {
+<<<<<<< HEAD
   describe('registerOutputProviderEpic', () => {
     it('observes the status', () => {
       const mockStore = {
@@ -66,6 +71,33 @@ describe('Epics', () => {
       const actions = new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of(Actions().registerOutputProvider(provider)));
       let results = [];
       Epics().registerRecordProviderEpic(actions, mockStore).subscribe(results.push.bind(results));
+=======
+  describe('provideConsole (registerSourceEpic)', () => {
+    it('observes the status', () => {
+      const mockStore = {
+        subscribe: () => () => {},
+        dispatch: () => {},
+        getState: () => ({})
+      };
+      const id = 'test';
+      const provider = {
+        id,
+        name: id,
+        messages: _rxjsCompatUmdMin.Observable.never(),
+        start: () => {},
+        stop: () => {}
+      };
+      const actions = new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of(Actions().registerSource(provider)));
+      let results = [];
+      Epics().registerRecordProviderEpic(actions, mockStore).subscribe(results.push.bind(results));
+      const statusSubject = new _rxjsCompatUmdMin.Subject();
+
+      const setStatus = status => {
+        statusSubject.next(Actions().updateStatus(id, status));
+      };
+
+      statusSubject.subscribe(results.push.bind(results));
+>>>>>>> Update
 
       if (!(setStatus != null)) {
         throw new Error("Invariant violation: \"setStatus != null\"");

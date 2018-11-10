@@ -57,7 +57,11 @@ function _UniversalDisposable() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ThreadTreeNode() {
   const data = _interopRequireDefault(require("./ThreadTreeNode"));
@@ -153,7 +157,11 @@ class ProcessTreeNode extends React.Component {
       viewModel
     } = service;
 
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel))).let((0, _observable().fastDebounce)(15)).subscribe(this._handleFocusChanged), (0, _event().observableFromSubscribeFunction)(model.onDidChangeCallStack.bind(model)).let((0, _observable().fastDebounce)(15)).subscribe(this._handleCallStackChanged), (0, _event().observableFromSubscribeFunction)(service.onDidChangeProcessMode.bind(service)).subscribe(() => this.setState(prevState => this._getState(prevState.isCollapsed))));
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel))).let((0, _observable().fastDebounce)(15)).subscribe(this._handleFocusChanged), (0, _event().observableFromSubscribeFunction)(model.onDidChangeCallStack.bind(model)).let((0, _observable().fastDebounce)(15)).subscribe(this._handleCallStackChanged), (0, _event().observableFromSubscribeFunction)(service.onDidChangeProcessMode.bind(service)).subscribe(() => this.setState(prevState => this._getState(prevState.isCollapsed))));
+>>>>>>> Update
   }
 
   componentWillUnmount() {

@@ -24,7 +24,11 @@ function _stream() {
 
 var _crypto = _interopRequireDefault(require("crypto"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _temp() {
   const data = _interopRequireDefault(require("temp"));
@@ -414,7 +418,11 @@ describe('RemoteFile', () => {
     it('resubscribes after a rename', () => {
       const changeHandler = jest.fn();
       const deletionHandler = jest.fn();
+<<<<<<< HEAD
       const mockWatch = new _RxMin.Subject();
+=======
+      const mockWatch = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       jest.spyOn(_connection_mock().default, 'getFileWatch').mockReturnValue(mockWatch);
       const file = new (_RemoteFile().RemoteFile)(_connection_mock().default, 'test');
       file.onDidChange(changeHandler);

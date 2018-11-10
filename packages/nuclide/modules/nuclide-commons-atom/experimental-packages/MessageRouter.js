@@ -25,7 +25,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function jsonrpc() {
   const data = _interopRequireWildcard(require("vscode-jsonrpc"));
@@ -114,7 +118,11 @@ class MessageRouter {
     let subject = this._sockets.get(socket);
 
     if (subject == null) {
+<<<<<<< HEAD
       subject = new _RxMin.Subject();
+=======
+      subject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
       this._sockets.set(socket, subject);
 
@@ -122,7 +130,11 @@ class MessageRouter {
 
       this._buffer.delete(socket);
 
+<<<<<<< HEAD
       return _RxMin.Observable.from(buffered).concat(subject);
+=======
+      return _rxjsCompatUmdMin.Observable.from(buffered).concat(subject);
+>>>>>>> Update
     }
 
     return subject;

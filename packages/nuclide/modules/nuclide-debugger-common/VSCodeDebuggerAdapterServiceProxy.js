@@ -204,7 +204,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 679
+=======
+        line: 691
+>>>>>>> Update
       },
       name: "ProcessExitMessage",
       definition: {
@@ -242,7 +246,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 685
+=======
+        line: 697
+>>>>>>> Update
       },
       name: "ProcessMessage",
       definition: {
@@ -451,7 +459,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "process.js",
+<<<<<<< HEAD
         line: 702
+=======
+        line: 714
+>>>>>>> Update
       },
       name: "ProcessInfo",
       definition: {

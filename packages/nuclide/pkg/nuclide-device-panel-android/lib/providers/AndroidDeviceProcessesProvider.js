@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.AndroidDeviceProcessesProvider = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _utils() {
   const data = require("../../../../modules/nuclide-adb/lib/utils");
@@ -34,7 +38,11 @@ class AndroidDeviceProcessesProvider {
 
   observe(host, device) {
     const intervalTime = 3000;
+<<<<<<< HEAD
     return _RxMin.Observable.interval(intervalTime).startWith(0).switchMap(() => (0, _utils().getAdbServiceByNuclideUri)(host).getProcesses(device.identifier, intervalTime).refCount().catch(() => _RxMin.Observable.of([])));
+=======
+    return _rxjsCompatUmdMin.Observable.interval(intervalTime).startWith(0).switchMap(() => (0, _utils().getAdbServiceByNuclideUri)(host).getProcesses(device.identifier, intervalTime).refCount().catch(() => _rxjsCompatUmdMin.Observable.of([])));
+>>>>>>> Update
   }
 
 }

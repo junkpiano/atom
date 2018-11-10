@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("./UniversalDisposable"));
@@ -70,7 +74,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class Model {
   constructor(initialState) {
+<<<<<<< HEAD
     this._states = new _RxMin.BehaviorSubject(initialState);
+=======
+    this._states = new _rxjsCompatUmdMin.BehaviorSubject(initialState);
+>>>>>>> Update
   }
 
   setState(newState) {

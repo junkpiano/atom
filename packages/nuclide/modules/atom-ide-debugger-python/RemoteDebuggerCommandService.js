@@ -10,7 +10,11 @@ var _http = _interopRequireDefault(require("http"));
 
 var _net = _interopRequireDefault(require("net"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -46,7 +50,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 let isServerSetup = false;
+<<<<<<< HEAD
 const debugRequests = new _RxMin.Subject();
+=======
+const debugRequests = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 const attachReady = new Map();
 const DEBUGGER_REGISTRY_PORT = 9615;
 
@@ -54,9 +62,15 @@ function observeRemoteDebugCommands() {
   let setupStep;
 
   if (!isServerSetup) {
+<<<<<<< HEAD
     setupStep = _RxMin.Observable.fromPromise(setupServer()).ignoreElements();
   } else {
     setupStep = _RxMin.Observable.empty();
+=======
+    setupStep = _rxjsCompatUmdMin.Observable.fromPromise(setupServer()).ignoreElements();
+  } else {
+    setupStep = _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }
 
   return setupStep.concat(debugRequests).publish();
@@ -66,7 +80,11 @@ function observeAttachDebugTargets() {
   // Validate attach-ready values with the processes with used ports (ready to attach).
   // Note: we can't use process ids because we could be debugging processes inside containers
   // where the process ids don't map to the host running this code.
+<<<<<<< HEAD
   return _RxMin.Observable.interval(3000).startWith(0).switchMap(() => Promise.all(Array.from(attachReady.values()).map(async target => {
+=======
+  return _rxjsCompatUmdMin.Observable.interval(3000).startWith(0).switchMap(() => Promise.all(Array.from(attachReady.values()).map(async target => {
+>>>>>>> Update
     if (!(await isPortUsed(target.port))) {
       attachReady.delete(target.port);
     }

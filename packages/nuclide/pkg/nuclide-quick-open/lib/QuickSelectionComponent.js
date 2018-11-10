@@ -15,7 +15,11 @@ function _nullthrows() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _AtomInput() {
   const data = require("../../../modules/nuclide-commons-ui/AtomInput");
@@ -396,11 +400,19 @@ class QuickSelectionComponent extends React.PureComponent {
     modalNode, 'pane:show-previous-item', this._handleMovePreviousTab), atom.commands.add( // $FlowFixMe
     modalNode, 'pane:show-next-item', this._handleMoveNextTab), atom.commands.add('body', 'core:cancel', () => {
       this.props.onCancellation();
+<<<<<<< HEAD
     }), _RxMin.Observable.fromEvent(document, 'mousedown').subscribe(this._handleDocumentMouseDown), // The text editor often changes during dispatches, so wait until the next tick.
     (0, _event().observableFromSubscribeFunction)(cb => (0, _nullthrows().default)(this._queryInput).onDidChange(cb)).startWith(null).audit(() => _observable().microtask).subscribe(this._handleTextInputChange), (0, _event().observableFromSubscribeFunction)(cb => this.props.searchResultManager.onProvidersChanged(cb)).debounceTime(0, _RxMin.Scheduler.animationFrame).subscribe(this._handleProvidersChange), (0, _event().observableFromSubscribeFunction)(cb => this.props.searchResultManager.onResultsChanged(cb)).let((0, _observable().fastDebounce)(50)) // debounceTime seems to have issues canceling scheduled work. So
     // schedule it after we've debounced the events. See
     // https://github.com/ReactiveX/rxjs/pull/2135
     .debounceTime(0, _RxMin.Scheduler.animationFrame).subscribe(this._handleResultsChange));
+=======
+    }), _rxjsCompatUmdMin.Observable.fromEvent(document, 'mousedown').subscribe(this._handleDocumentMouseDown), // The text editor often changes during dispatches, so wait until the next tick.
+    (0, _event().observableFromSubscribeFunction)(cb => (0, _nullthrows().default)(this._queryInput).onDidChange(cb)).startWith(null).audit(() => _observable().microtask).subscribe(this._handleTextInputChange), (0, _event().observableFromSubscribeFunction)(cb => this.props.searchResultManager.onProvidersChanged(cb)).debounceTime(0, _rxjsCompatUmdMin.Scheduler.animationFrame).subscribe(this._handleProvidersChange), (0, _event().observableFromSubscribeFunction)(cb => this.props.searchResultManager.onResultsChanged(cb)).let((0, _observable().fastDebounce)(50)) // debounceTime seems to have issues canceling scheduled work. So
+    // schedule it after we've debounced the events. See
+    // https://github.com/ReactiveX/rxjs/pull/2135
+    .debounceTime(0, _rxjsCompatUmdMin.Scheduler.animationFrame).subscribe(this._handleResultsChange));
+>>>>>>> Update
 
     this._getTextEditor().selectAll();
   }

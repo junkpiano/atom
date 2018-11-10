@@ -61,9 +61,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const HEARTBEAT_INTERVAL_MS = 10000;
 const HEARTBEAT_TIMEOUT_MS = 10000;
 const MAX_HEARTBEAT_AWAY_RECONNECT_MS = 60000;
+<<<<<<< HEAD
 const CERT_NOT_YET_VALID_DELAY = 3000;
 const CERT_NOT_YET_VALID_RETRIES = 10;
 const ECONNRESET_ERRORS_IN_ROW_LIMIT = 4;
+=======
+const RETRY_DELAY = 3000;
+const MAX_RETRY_COUNT = 4;
+const ECONNRESET_ERRORS_IN_ROW_LIMIT = 4;
+const logger = (0, _log4js().getLogger)('XhrConnectionHeartbeat');
+>>>>>>> Update
 
 class XhrConnectionHeartbeat {
   constructor(serverUri, heartbeatChannel, agentOptions) {
@@ -93,11 +100,34 @@ class XhrConnectionHeartbeat {
     this._heartbeat();
 
     this._heartbeatInterval = setInterval(() => this._heartbeat(), HEARTBEAT_INTERVAL_MS);
+<<<<<<< HEAD
+=======
+  }
+
+  _restartHeartbeatIfNecessary() {
+    if (this._heartbeatInterval == null && this._heartbeatConnectedOnce) {
+      logger.warn('restarting heartbeat interval');
+
+      this._monitorServerHeartbeat();
+    }
+  }
+
+  _disableHeartbeatIfNecessary() {
+    if (this._heartbeatInterval != null) {
+      clearInterval(this._heartbeatInterval);
+      logger.warn('stopped heartbeats while retrying');
+      this._heartbeatInterval = null;
+    }
+>>>>>>> Update
   } // Returns version
 
 
   async sendHeartBeat() {
+<<<<<<< HEAD
     let retries = CERT_NOT_YET_VALID_RETRIES;
+=======
+    let retries = MAX_RETRY_COUNT;
+>>>>>>> Update
 
     while (true) {
       try {
@@ -105,6 +135,7 @@ class XhrConnectionHeartbeat {
         const {
           body
         } = await (0, _asyncRequest().default)(this._options);
+<<<<<<< HEAD
         return body;
       } catch (err) {
         if (retries-- > 0 && err.code === 'CERT_NOT_YET_VALID') {
@@ -112,6 +143,23 @@ class XhrConnectionHeartbeat {
 
           await (0, _promise().sleep)(CERT_NOT_YET_VALID_DELAY);
         } else {
+=======
+
+        this._restartHeartbeatIfNecessary();
+
+        return body;
+      } catch (err) {
+        if (retries-- > 0 && (err.code === 'CERT_NOT_YET_VALID' || this._heartbeatConnectedOnce && err.code === 'ECONNREFUSED')) {
+          this._disableHeartbeatIfNecessary();
+
+          logger.warn(`${err.code}, retrying ${retries} more times after ${RETRY_DELAY}ms...`); // TODO: (semmy) exponential backoff would be more effective
+          // eslint-disable-next-line no-await-in-loop
+
+          await (0, _promise().sleep)(RETRY_DELAY);
+        } else {
+          this._restartHeartbeatIfNecessary();
+
+>>>>>>> Update
           throw err;
         }
       }
@@ -202,10 +250,20 @@ class XhrConnectionHeartbeat {
           break;
 
         case 'CERT_HAS_EXPIRED':
+<<<<<<< HEAD
         case 'CERT_SIGNATURE_FAILURE':
           code = 'INVALID_CERTIFICATE';
           break;
 
+=======
+          code = 'INVALID_CERTIFICATE';
+          break;
+
+        case 'CERT_SIGNATURE_FAILURE':
+          code = 'CERT_SIGNATURE_FAILURE';
+          break;
+
+>>>>>>> Update
         default:
           code = originalCode;
           break;

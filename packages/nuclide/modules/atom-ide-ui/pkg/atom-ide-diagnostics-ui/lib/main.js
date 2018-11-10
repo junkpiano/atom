@@ -40,6 +40,7 @@ function _analytics() {
   return data;
 }
 
+<<<<<<< HEAD
 function _idbKeyval() {
   const data = _interopRequireDefault(require("idb-keyval"));
 
@@ -50,6 +51,8 @@ function _idbKeyval() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _createPackage() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/createPackage"));
 
@@ -150,7 +153,11 @@ function _textEditor() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/feature-config"));
@@ -229,13 +236,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 const MAX_OPEN_ALL_FILES = 20;
 const SHOW_TRACES_SETTING = 'atom-ide-diagnostics-ui.showDiagnosticTraces';
+<<<<<<< HEAD
 const NUX_ASYNC_STORAGE_KEY = 'nuclide_diagnostics_nux_shown';
+=======
+>>>>>>> Update
 const NUCLIDE_DIAGNOSTICS_STALE_GK = 'nuclide_diagnostics_stale';
 
 class Activation {
   constructor(state) {
     var _ref;
 
+<<<<<<< HEAD
     this._gatekeeperServices = new _RxMin.BehaviorSubject();
 
     this._dismissNux = () => {
@@ -246,11 +257,19 @@ class Activation {
 
     this._model = new (_Model().default)({
       showNuxContent: false,
+=======
+    this._gatekeeperServices = new _rxjsCompatUmdMin.BehaviorSubject();
+    this._model = new (_Model().default)({
+>>>>>>> Update
       filterByActiveTextEditor: ((_ref = state) != null ? _ref.filterByActiveTextEditor : _ref) === true,
       diagnosticUpdater: null,
       openedMessageIds: new Set()
     });
+<<<<<<< HEAD
     this._subscriptions = new (_UniversalDisposable().default)(this.registerOpenerAndCommand(), this._registerActionsMenu(), this._observeDiagnosticsAndOfferTable(), (0, _showAtomLinterWarning().default)());
+=======
+    this._subscriptions = new (_UniversalDisposable().default)(this.registerOpenerAndCommand(), this._registerActionsMenu(), (0, _showAtomLinterWarning().default)());
+>>>>>>> Update
     this._fileDiagnostics = new WeakMap();
   }
 
@@ -312,8 +331,13 @@ class Activation {
         this._subscriptions.remove(subscription);
 
         this._fileDiagnostics.delete(editor);
+<<<<<<< HEAD
       }).subscribe(update => {
         this._fileDiagnostics.set(editor, update.messages);
+=======
+      }).subscribe(providerToMessages => {
+        this._fileDiagnostics.set(editor, providerToMessages);
+>>>>>>> Update
       });
 
       this._subscriptions.add(subscription);
@@ -371,7 +395,11 @@ class Activation {
     const packageStates = this._model.toObservable();
 
     const updaters = packageStates.map(state => state.diagnosticUpdater).distinctUntilChanged();
+<<<<<<< HEAD
     const diagnosticMessageIdsStream = updaters.switchMap(updater => updater == null ? _RxMin.Observable.of([]) : (0, _event().observableFromSubscribeFunction)(updater.observeMessages)).map(diagnostics => {
+=======
+    const diagnosticMessageIdsStream = updaters.switchMap(updater => updater == null ? _rxjsCompatUmdMin.Observable.of([]) : (0, _event().observableFromSubscribeFunction)(updater.observeMessages)).map(diagnostics => {
+>>>>>>> Update
       const messageIds = diagnostics.map(message => message.id).filter(Boolean);
       return new Set(messageIds);
     }).let((0, _observable().diffSets)());
@@ -390,6 +418,7 @@ class Activation {
     }));
   }
 
+<<<<<<< HEAD
   _observeDiagnosticsAndOfferTable() {
     return new (_UniversalDisposable().default)(this._gatekeeperServices.switchMap(gatekeeperService => {
       if (gatekeeperService == null) {
@@ -440,6 +469,8 @@ class Activation {
     }));
   }
 
+=======
+>>>>>>> Update
   _createDiagnosticsViewModel() {
     return new (_DiagnosticsViewModel().DiagnosticsViewModel)(this._getGlobalViewStates());
   }
@@ -450,7 +481,11 @@ class Activation {
         return gkService.passesGK(NUCLIDE_DIAGNOSTICS_STALE_GK);
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.of(false);
+=======
+      return _rxjsCompatUmdMin.Observable.of(false);
+>>>>>>> Update
     }).distinctUntilChanged();
   }
   /**
@@ -466,12 +501,16 @@ class Activation {
       const packageStates = this._model.toObservable();
 
       const updaters = packageStates.map(state => state.diagnosticUpdater).distinctUntilChanged();
+<<<<<<< HEAD
       const showNuxContentStream = packageStates.map(state => state.showNuxContent);
       const diagnosticsStream = updaters.switchMap(updater => updater == null ? _RxMin.Observable.of([]) : (0, _event().observableFromSubscribeFunction)(updater.observeMessages)).combineLatest(this._getIsStaleMessageEnabledStream()) // $FlowFixMe
       .throttle(([_, isStaleMessageEnabled]) => _RxMin.Observable.interval(isStaleMessageEnabled ? _utils().STALE_MESSAGE_UPDATE_THROTTLE_TIME : 0), {
         leading: true,
         trailing: true
       }).map(([diagnostics, isStaleMessageEnabled]) => diagnostics.filter(d => d.type !== 'Hint').map(diagnostic => {
+=======
+      const diagnosticsStream = updaters.switchMap(updater => updater == null ? _rxjsCompatUmdMin.Observable.of([]) : (0, _event().observableFromSubscribeFunction)(updater.observeMessages)).combineLatest(this._getIsStaleMessageEnabledStream()).let((0, _observable().throttle)(([, isStaleMessageEnabled]) => _rxjsCompatUmdMin.Observable.interval(isStaleMessageEnabled ? _utils().STALE_MESSAGE_UPDATE_THROTTLE_TIME : 0))).map(([diagnostics, isStaleMessageEnabled]) => diagnostics.filter(d => d.type !== 'Hint').map(diagnostic => {
+>>>>>>> Update
         if (!isStaleMessageEnabled) {
           // Note: reason of doing this is currently Flow is sending message
           // marked as stale sometimes(on user type or immediately on save).
@@ -481,7 +520,11 @@ class Activation {
         }
 
         return diagnostic;
+<<<<<<< HEAD
       })).let((0, _observable().fastDebounce)(100)).startWith([]);
+=======
+      })).let((0, _observable().throttle)(300)).startWith([]);
+>>>>>>> Update
 
       const showTracesStream = _featureConfig().default.observeAsStream(SHOW_TRACES_SETTING);
 
@@ -502,10 +545,17 @@ class Activation {
         });
       };
 
+<<<<<<< HEAD
       const supportedMessageKindsStream = updaters.switchMap(updater => updater == null ? _RxMin.Observable.of(new Set(['lint'])) : (0, _event().observableFromSubscribeFunction)(updater.observeSupportedMessageKinds.bind(updater))).distinctUntilChanged(_collection().areSetsEqual);
       const uiConfigStream = updaters.switchMap(updater => updater == null ? _RxMin.Observable.of([]) : (0, _event().observableFromSubscribeFunction)(updater.observeUiConfig.bind(updater)));
       this._globalViewStates = _RxMin.Observable.combineLatest(diagnosticsStream, filterByActiveTextEditorStream, pathToActiveTextEditorStream, showTracesStream, showDirectoryColumnStream, autoVisibilityStream, supportedMessageKindsStream, showNuxContentStream, uiConfigStream, // $FlowFixMe
       (diagnostics, filterByActiveTextEditor, pathToActiveTextEditor, showTraces, showDirectoryColumn, autoVisibility, supportedMessageKinds, showNuxContent, uiConfig) => ({
+=======
+      const supportedMessageKindsStream = updaters.switchMap(updater => updater == null ? _rxjsCompatUmdMin.Observable.of(new Set(['lint'])) : (0, _event().observableFromSubscribeFunction)(updater.observeSupportedMessageKinds.bind(updater))).distinctUntilChanged(_collection().areSetsEqual);
+      const uiConfigStream = updaters.switchMap(updater => updater == null ? _rxjsCompatUmdMin.Observable.of([]) : (0, _event().observableFromSubscribeFunction)(updater.observeUiConfig.bind(updater)));
+      this._globalViewStates = _rxjsCompatUmdMin.Observable.combineLatest(diagnosticsStream, filterByActiveTextEditorStream, pathToActiveTextEditorStream, showTracesStream, showDirectoryColumnStream, autoVisibilityStream, supportedMessageKindsStream, uiConfigStream, // $FlowFixMe
+      (diagnostics, filterByActiveTextEditor, pathToActiveTextEditor, showTraces, showDirectoryColumn, autoVisibility, supportedMessageKinds, uiConfig) => ({
+>>>>>>> Update
         diagnostics,
         filterByActiveTextEditor,
         pathToActiveTextEditor,
@@ -514,9 +564,13 @@ class Activation {
         autoVisibility,
         onShowTracesChange: setShowTraces,
         onFilterByActiveTextEditorChange: setFilterByActiveTextEditor,
+<<<<<<< HEAD
         onDismissNux: this._dismissNux,
         supportedMessageKinds,
         showNuxContent,
+=======
+        supportedMessageKinds,
+>>>>>>> Update
         uiConfig
       }));
     }
@@ -569,6 +623,7 @@ class Activation {
   }
 
   _getMessagesAtPosition(editor, position) {
+<<<<<<< HEAD
     const messagesForFile = this._fileDiagnostics.get(editor);
 
     if (messagesForFile == null) {
@@ -576,6 +631,27 @@ class Activation {
     }
 
     return messagesForFile.filter(message => message.range != null && message.range.containsPoint(position));
+=======
+    const messages = this._fileDiagnostics.get(editor);
+
+    if (messages == null) {
+      return [];
+    }
+
+    const messagesAtPosition = [];
+
+    for (const message of messages) {
+      if (message.range && message.range.end.row > position.row) {
+        break;
+      }
+
+      if (message.range != null && message.range.containsPoint(position)) {
+        messagesAtPosition.push(message);
+      }
+    }
+
+    return messagesAtPosition;
+>>>>>>> Update
   }
 
   _gutterConsumeDiagnosticUpdates(diagnosticUpdater) {
@@ -602,7 +678,11 @@ class Activation {
         _reactDom.default.unmountComponentAtNode(blockDecorationContainer);
       });
 
+<<<<<<< HEAD
       const subscription = _RxMin.Observable.combineLatest(updateOpenedMessageIds, getEditorDiagnosticUpdates(editor, diagnosticUpdater, this._getIsStaleMessageEnabledStream())).finally(() => {
+=======
+      const subscription = _rxjsCompatUmdMin.Observable.combineLatest(updateOpenedMessageIds, getEditorDiagnosticUpdates(editor, diagnosticUpdater, this._getIsStaleMessageEnabledStream())).finally(() => {
+>>>>>>> Update
         subscriptions.remove(subscription);
       }).subscribe(([openedMessageIds, update]) => {
         // Although the subscription should be cleaned up on editor destroy,
@@ -640,7 +720,12 @@ function addAtomCommands(diagnosticUpdater) {
   };
 
   const openAllFilesWithErrors = () => {
+<<<<<<< HEAD
     _analytics().default.track('diagnostics-panel-open-all-files-with-errors');
+=======
+    _analytics().default.track('diagnostics-panel-open-all-files-with-errors'); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
     (0, _event().observableFromSubscribeFunction)(diagnosticUpdater.observeMessages).first().subscribe(messages => {
       const errorsToOpen = getTopMostErrorLocationsByFilePath(messages);
@@ -692,15 +777,24 @@ function getActiveEditorPaths() {
     const textEditor = textEditor_;
 
     if (textEditor == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(null);
     } // An observable that emits the editor path and then, when the editor's destroyed, null.
 
 
     return _RxMin.Observable.concat(_RxMin.Observable.of(textEditor.getPath()), (0, _event().observableFromSubscribeFunction)(textEditor.onDidDestroy.bind(textEditor)).take(1).mapTo(null));
+=======
+      return _rxjsCompatUmdMin.Observable.of(null);
+    } // An observable that emits the editor path and then, when the editor's destroyed, null.
+
+
+    return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(textEditor.getPath()), (0, _event().observableFromSubscribeFunction)(textEditor.onDidDestroy.bind(textEditor)).take(1).mapTo(null));
+>>>>>>> Update
   }).distinctUntilChanged();
 }
 
 function getEditorDiagnosticUpdates(editor, diagnosticUpdater, isStaleMessageEnabledStream) {
+<<<<<<< HEAD
   return (0, _event().observableFromSubscribeFunction)(editor.onDidChangePath.bind(editor)).startWith(editor.getPath()).switchMap(filePath => filePath != null ? (0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeFileMessages(filePath, cb)) : _RxMin.Observable.empty()).combineLatest(isStaleMessageEnabledStream) // $FlowFixMe
   .throttle(([_, isStaleMessageEnabled]) => _RxMin.Observable.interval(isStaleMessageEnabled ? _utils().STALE_MESSAGE_UPDATE_THROTTLE_TIME : 0), {
     leading: true,
@@ -720,6 +814,20 @@ function getEditorDiagnosticUpdates(editor, diagnosticUpdater, isStaleMessageEna
       })
     });
   }).takeUntil((0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor)));
+=======
+  return (0, _event().observableFromSubscribeFunction)(editor.onDidChangePath.bind(editor)).startWith(editor.getPath()).switchMap(filePath => filePath != null ? (0, _event().observableFromSubscribeFunction)(cb => diagnosticUpdater.observeFileMessagesIterator(filePath, cb)) : _rxjsCompatUmdMin.Observable.empty()).combineLatest(isStaleMessageEnabledStream).let((0, _observable().throttle)(([_, isStaleMessageEnabled]) => _rxjsCompatUmdMin.Observable.interval(isStaleMessageEnabled ? _utils().STALE_MESSAGE_UPDATE_THROTTLE_TIME : 0))).map(([messages, isStaleMessageEnabled]) => // Flow and other providers have begun sending updates that mark prior
+  // messages as stale. For users outside the stale diagnostics GK,
+  // never show these messages as stale.
+  isStaleMessageEnabled ? messages : function* () {
+    for (const message of messages) {
+      if (message != null && message.type !== 'Hint') {
+        message.stale = false;
+      }
+
+      yield message;
+    }
+  }()).takeUntil((0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor)));
+>>>>>>> Update
 }
 
 (0, _createPackage().default)(module.exports, Activation);

@@ -43,7 +43,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -179,6 +183,14 @@ function getOwners(rootPath, filePath, extraArguments, kindFilter) {
 
 
 async function getBuckConfig(rootPath, section, property) {
+<<<<<<< HEAD
+=======
+  // NOTE: This function should really just be a call to `buck audit config`.
+  // Unfortunately, at time of writing, making such a call takes between 800ms
+  // (with buckd warmed and ready to go) to 4 seconds (when restarting buckd),
+  // or potentially even 10 seconds (if we need to download a new version of
+  // buck). In other words, not viable for performance-sensitive code.
+>>>>>>> Update
   const buckConfig = await _loadBuckConfig(rootPath);
 
   if (!buckConfig.hasOwnProperty(section)) {
@@ -191,7 +203,11 @@ async function getBuckConfig(rootPath, section, property) {
     return null;
   }
 
+<<<<<<< HEAD
   return sectionConfig[property];
+=======
+  return _resolveValue(sectionConfig[property], buckConfig);
+>>>>>>> Update
 }
 /**
  * TODO(natthu): Also load .buckconfig.local. Consider loading .buckconfig from the home directory
@@ -201,10 +217,65 @@ async function getBuckConfig(rootPath, section, property) {
 
 async function _loadBuckConfig(rootPath) {
   const header = 'scope = global\n';
+<<<<<<< HEAD
   const buckConfigContent = await _fsPromise().default.readFile(_nuclideUri().default.join(rootPath, '.buckconfig'), 'utf8');
   return _ini().default.parse(header + buckConfigContent);
 }
 /**
+=======
+
+  const buckConfigPath = _nuclideUri().default.join(rootPath, '.buckconfig');
+
+  const buckConfigContent = await _readBuckConfigFile(buckConfigPath);
+  return _ini().default.parse(header + buckConfigContent);
+}
+/**
+ * Reads a .buckconfig file, resolving any includes which may be contained
+ * within. Returns the full buckconfig contents after resolving includes.
+ */
+
+
+async function _readBuckConfigFile(configPath) {
+  const contents = await _fsPromise().default.readFile(configPath, 'utf8');
+
+  const configDir = _nuclideUri().default.dirname(configPath);
+
+  return _replaceAsync(/<file:(.*)>$/gm, contents, async (match, includeRelpath) => {
+    const includePath = _nuclideUri().default.normalize(_nuclideUri().default.join(configDir, includeRelpath));
+
+    return _readBuckConfigFile(includePath);
+  });
+}
+
+async function _replaceAsync(regexp, str, callback) {
+  const replacePromises = [];
+  str.replace(regexp, (...replaceArgs) => {
+    replacePromises.push(callback(...replaceArgs));
+    return replaceArgs[0];
+  });
+  const results = await Promise.all(replacePromises);
+  return str.replace(regexp, () => results.shift());
+}
+/**
+ * Takes a string `value` pulled from a buckconfig and resolves any
+ * `$(config ...)` macros inside, using the data from config.
+ */
+
+
+function _resolveValue(value, config) {
+  return value.replace(/\$\(config (.*)\)/g, directive => {
+    const requestedConfig = directive.substring(9, directive.length - 1);
+    const pieces = requestedConfig.split('.'); // configs should be of the form `foo.bar`
+
+    if (!(pieces.length === 2)) {
+      throw new Error("Invariant violation: \"pieces.length === 2\"");
+    }
+
+    return config[pieces[0]][pieces[1]];
+  });
+}
+/**
+>>>>>>> Update
  * Runs `buck build --keep-going --build-report <tempfile>` with the specified targets. Regardless
  * whether the build is successful, this returns the parsed version of the JSON report
  * produced by the {@code --build-report} option:
@@ -216,7 +287,11 @@ async function _loadBuckConfig(rootPath) {
 
 
 function build(rootPath, buildTargets, options) {
+<<<<<<< HEAD
   return BuckServiceImpl().build(rootPath, buildTargets, options);
+=======
+  return BuckServiceImpl().build(rootPath, buildTargets, options).toPromise();
+>>>>>>> Update
 }
 /**
  * Runs `buck install --keep-going --build-report <tempfile>` with the specified targets.
@@ -237,7 +312,11 @@ function install(rootPath, buildTargets, simulator, run, debug) {
     simulator,
     run,
     debug
+<<<<<<< HEAD
   });
+=======
+  }).toPromise();
+>>>>>>> Update
 }
 /**
  * Same as `build`, but returns additional output via an Observable.
@@ -325,13 +404,21 @@ function _buildWithOutput(rootPath, buildTargets, options) {
     buildTargets
   });
 
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(BuckServiceImpl()._getBuckCommandAndOptions(rootPath)).switchMap(({
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(BuckServiceImpl()._getBuckCommandAndOptions(rootPath)).switchMap(({
+>>>>>>> Update
     pathToBuck,
     buckCommandOptions
   }) => (0, _process().observeProcess)(pathToBuck, args, Object.assign({}, buckCommandOptions, {
     /* TODO(T17353599) */
     isExitError: () => false
+<<<<<<< HEAD
   })).catch(error => _RxMin.Observable.of({
+=======
+  })).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     kind: 'error',
     error
   })) // TODO(T17463635)
@@ -469,7 +556,12 @@ function _normalizeNameForBuckQuery(aliasOrTarget) {
   return canonicalName;
 }
 
+<<<<<<< HEAD
 const _cachedPorts = new Map();
+=======
+const _cachedPorts = new Map(); // Returns -1 if the port can't be obtained (e.g. calling `buck server` fails)
+
+>>>>>>> Update
 
 async function getHTTPServerPort(rootPath) {
   let port = _cachedPorts.get(rootPath);
@@ -490,6 +582,7 @@ async function getHTTPServerPort(rootPath) {
   }
 
   const args = ['server', 'status', '--json', '--http-port'];
+<<<<<<< HEAD
   const result = await BuckServiceImpl().runBuckCommandFromProjectRoot(rootPath, args).toPromise();
   const json = JSON.parse(result);
   port = json['http.port'];
@@ -497,6 +590,21 @@ async function getHTTPServerPort(rootPath) {
   _cachedPorts.set(rootPath, port);
 
   return port;
+=======
+
+  try {
+    const result = await BuckServiceImpl().runBuckCommandFromProjectRoot(rootPath, args).toPromise();
+    const json = JSON.parse(result);
+    port = json['http.port'];
+
+    _cachedPorts.set(rootPath, port);
+
+    return port;
+  } catch (error) {
+    (0, _log4js().getLogger)('nuclide-buck-rpc').warn(`Failed to get httpPort for ${_nuclideUri().default.getPath(rootPath)}`, error);
+    return -1;
+  }
+>>>>>>> Update
 }
 /** Runs `buck query --json` with the specified query. */
 
@@ -516,6 +624,7 @@ function query(rootPath, queryString, extraArguments) {
 
 
 async function queryWithArgs(rootPath, queryString, args) {
+<<<<<<< HEAD
   const completeArgs = ['query', '--json', queryString].concat(args);
   const result = await BuckServiceImpl().runBuckCommandFromProjectRoot(rootPath, completeArgs).toPromise();
   const json = JSON.parse(result); // `buck query` does not include entries in the JSON for params that did not match anything. We
@@ -528,6 +637,18 @@ async function queryWithArgs(rootPath, queryString, args) {
   }
 
   return json;
+=======
+  const result = await BuckServiceImpl().query(rootPath, queryString, args).toPromise(); // `buck query` does not include entries in the JSON for params that did not match anything. We
+  // massage the output to ensure that every argument has an entry in the output.
+
+  for (const arg of args) {
+    if (!result.hasOwnProperty(arg)) {
+      result[arg] = [];
+    }
+  }
+
+  return result;
+>>>>>>> Update
 }
 /**
  * Executes a query with additional attributes.
@@ -543,9 +664,14 @@ async function queryWithArgs(rootPath, queryString, args) {
 
 
 async function queryWithAttributes(rootPath, queryString, attributes) {
+<<<<<<< HEAD
   const completeArgs = ['query', '--json', queryString, '--output-attributes', ...attributes];
   const result = await BuckServiceImpl().runBuckCommandFromProjectRoot(rootPath, completeArgs).toPromise();
   return JSON.parse(result);
+=======
+  const result = await BuckServiceImpl().query(rootPath, queryString, ['--output-attributes', ...attributes]).toPromise();
+  return result;
+>>>>>>> Update
 } // TODO: Nuclide's RPC framework won't allow BuckWebSocketMessage here unless we cover
 // all possible message types. For now, we'll manually typecast at the callsite.
 
@@ -603,18 +729,30 @@ async function resetCompilationDatabase(params) {
 }
 
 function getCompilationDatabase(src, params) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise((0, _BuckClangCompilationDatabase().getCompilationDatabaseHandler)(params).getCompilationDatabase(src)).publish();
 }
 
 function isNativeExoPackage(rootPath, target) {
   return _RxMin.Observable.defer(async () => {
+=======
+  return (0, _BuckClangCompilationDatabase().getCompilationDatabaseHandler)(params).getCompilationDatabase(src).publish();
+}
+
+function isNativeExoPackage(rootPath, target) {
+  return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
     const exoPackageModes = await getExoPackageModes(rootPath, target);
     return exoPackageModes.indexOf('native_library') >= 0;
   }).publish();
 }
 
 function isExoPackage(rootPath, target) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(async () => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
     const exoPackageModes = await getExoPackageModes(rootPath, target);
     return exoPackageModes.length > 0;
   }).publish();

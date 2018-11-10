@@ -87,7 +87,11 @@ function _log4js() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ConnectionDialog() {
   const data = require("./ConnectionDialog");
@@ -161,8 +165,11 @@ const logger = (0, _log4js().getLogger)('nuclide-remote-projects');
  */
 
 function startConnectFlow(options) {
+<<<<<<< HEAD
   var _options$attemptImmed;
 
+=======
+>>>>>>> Update
   let resolveConnectionPromise;
   let dismiss;
   const flow = new ConnectFlow(Object.assign({}, options, {
@@ -172,7 +179,11 @@ function startConnectFlow(options) {
     }
   }));
 
+<<<<<<< HEAD
   if ((_options$attemptImmed = options.attemptImmediateConnection) !== null && _options$attemptImmed !== void 0 ? _options$attemptImmed : false) {
+=======
+  if (options === null || options === void 0 ? void 0 : options.attemptImmediateConnection) {
+>>>>>>> Update
     flow.connect();
   }
 
@@ -292,6 +303,7 @@ class ConnectFlow {
       let config = config_;
 
       if (config == null) {
+<<<<<<< HEAD
         const connectionParams = this._defaultConnectionProfile.params;
 
         if (connectionParams.authMethod === 'PASSWORD') {
@@ -301,6 +313,11 @@ class ConnectFlow {
         // SshConnectionConfiguration so we need to convert.
 
 
+=======
+        const connectionParams = this._defaultConnectionProfile.params; // There are some slight differences between the connection profile params type and the
+        // SshConnectionConfiguration so we need to convert.
+
+>>>>>>> Update
         config = {
           host: connectionParams.server,
           sshPort: parseInt(connectionParams.sshPort, 10),
@@ -459,16 +476,28 @@ class ConnectFlow {
 }
 
 function connect(delegate, connectionConfig) {
+<<<<<<< HEAD
   return new (_UniversalDisposable().default)(_RxMin.Observable.defer(() => _nuclideRemoteConnection().RemoteConnection.reconnect(connectionConfig.host, connectionConfig.cwd, connectionConfig.displayTitle)).switchMap(existingConnection => {
+=======
+  return new (_UniversalDisposable().default)(_rxjsCompatUmdMin.Observable.defer(() => _nuclideRemoteConnection().RemoteConnection.reconnect(connectionConfig.host, connectionConfig.cwd, connectionConfig.displayTitle)).switchMap(existingConnection => {
+>>>>>>> Update
     if (existingConnection != null) {
       delegate.onWillConnect(connectionConfig); // required for the API
 
       delegate.onDidConnect(existingConnection, connectionConfig);
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     }
 
     const sshHandshake = (0, _connectBigDigSshHandshake().default)(connectionConfig, delegate);
     return _RxMin.Observable.create(() => {
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    const sshHandshake = (0, _connectBigDigSshHandshake().default)(connectionConfig, delegate);
+    return _rxjsCompatUmdMin.Observable.create(() => {
+>>>>>>> Update
       return () => sshHandshake.cancel();
     });
   }).subscribe(next => {}, err => delegate.onError(err.sshHandshakeErrorType || 'UNKNOWN', err, connectionConfig)));

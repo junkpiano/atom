@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BigDigClient = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -95,7 +99,12 @@ class BigDigClient {
         this.sendMessage(_types().THRIFT_SERVICE_TAG, message);
       }
     }, this._tunnelManager);
+<<<<<<< HEAD
     const observable = reliableSocketTransport.onMessage();
+=======
+    const observable = reliableSocketTransport.onMessage(); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
     observable.subscribe({
       // Must use arrow function so that `this` is bound correctly.
       next: message => {
@@ -132,10 +141,29 @@ class BigDigClient {
   }
 
   async createTunnel(localPort, remotePort, options = {}) {
+<<<<<<< HEAD
     if (!options.isReverse) {
       return this._tunnelManager.createTunnel(localPort, remotePort, options.useIPv4);
     } else {
       return this._tunnelManager.createReverseTunnel(localPort, remotePort, options.useIPv4);
+=======
+    const useIPv4 = options.useIPv4 || false;
+    const tunnelConfig = {
+      local: {
+        useIPv4,
+        port: localPort
+      },
+      remote: {
+        useIPv4,
+        port: remotePort
+      }
+    };
+
+    if (options.isReverse) {
+      return this._tunnelManager.createReverseTunnel(tunnelConfig);
+    } else {
+      return this._tunnelManager.createTunnel(tunnelConfig);
+>>>>>>> Update
     }
   }
 
@@ -173,7 +201,11 @@ class BigDigClient {
     let subject = this._tagToSubject.get(tag);
 
     if (subject == null) {
+<<<<<<< HEAD
       subject = new _RxMin.Subject();
+=======
+      subject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
       this._tagToSubject.set(tag, subject);
     }

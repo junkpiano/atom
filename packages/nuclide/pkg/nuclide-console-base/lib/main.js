@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.changeConsoleVisibility = changeConsoleVisibility;
 exports.pipeProcessMessagesToConsole = pipeProcessMessagesToConsole;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.

@@ -52,7 +52,20 @@ describe('Proxy', () => {
   let transport;
   beforeEach(async () => {
     transport = (0, _util().TestTransportFactory)();
+<<<<<<< HEAD
     testProxy = await _Proxy().Proxy.createProxy('test-tunnel', TEST_PORT, 5678, false, transport);
+=======
+    testProxy = await _Proxy().Proxy.createProxy('test-tunnel', {
+      local: {
+        port: TEST_PORT,
+        useIPv4: false
+      },
+      remote: {
+        port: 5678,
+        useIPv4: false
+      }
+    }, transport);
+>>>>>>> Update
   });
   afterEach(() => {
     testProxy.close();

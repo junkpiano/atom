@@ -10,7 +10,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideRemoteConnection() {
   const data = require("../../nuclide-remote-connection");
@@ -92,7 +96,11 @@ describe('ObservableDiagnosticsProvider', () => {
   const TEST_FILE = 'test.txt';
   const mockLanguageService = {
     observeDiagnostics() {
+<<<<<<< HEAD
       return _RxMin.Observable.of(new Map([[TEST_FILE, []]])).publish();
+=======
+      return _rxjsCompatUmdMin.Observable.of(new Map([[TEST_FILE, []]])).publish();
+>>>>>>> Update
     }
 
   };

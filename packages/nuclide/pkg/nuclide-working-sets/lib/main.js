@@ -30,10 +30,17 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _nuclideAnalytics() {
   const data = require("../../nuclide-analytics");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _nuclideAnalytics() {
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -117,7 +124,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // $FlowFB
 class Activation {
   constructor() {
+<<<<<<< HEAD
     this._projectManagers = new _RxMin.BehaviorSubject();
+=======
+    this._projectManagers = new _rxjsCompatUmdMin.BehaviorSubject();
+>>>>>>> Update
     this.workingSetsStore = new (_WorkingSetsStore().WorkingSetsStore)();
     this._workingSetsConfig = new (_WorkingSetsConfig().WorkingSetsConfig)();
     this._disposables = new (_UniversalDisposable().default)();
@@ -130,7 +141,11 @@ class Activation {
       this.workingSetsStore.updateUserDefinitions(definitions);
     }));
 
+<<<<<<< HEAD
     this._disposables.add(this._projectManagers.switchMap(projectManager => projectManager == null ? _RxMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(cb => projectManager.observeActiveProjectSpec(cb))).subscribe(spec => {
+=======
+    this._disposables.add(this._projectManagers.switchMap(projectManager => projectManager == null ? _rxjsCompatUmdMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(cb => projectManager.observeActiveProjectSpec(cb))).subscribe(spec => {
+>>>>>>> Update
       this.workingSetsStore.updateProjectDefinitions((0, _extractDefinitionsFromProject().default)(spec));
     }));
 

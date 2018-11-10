@@ -7,7 +7,11 @@ exports.ResizeObservable = exports.PerformanceObservable = exports.MutationObser
 
 var _os = _interopRequireDefault(require("os"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
@@ -46,7 +50,76 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-env browser */
 
 /* global IntersectionObserver, PerformanceObserver, ResizeObserver, DOMRect */
+<<<<<<< HEAD
 class DOMObserverObservable extends _RxMin.Observable {
+=======
+
+/**
+ * Creates an observable sequence from a DOM-style Observer.
+ *
+ * **Use this sparingly: prefer to use the extended, specialized classes below
+ *   or add a new one below when a new DOM-style Observer comes along*
+ *
+ * Emits the same array or EntryList (as with PerformanceObservers) as the
+ * original DOM Observable.
+ *
+ * Known to work with DOM `MutationObserver`, `IntersectionObserver`,
+ * `ResizeObserver`, and `PerformanceObserver`
+ *
+ * A DOM-style Observer is defined as implementing the `DOMObserver` interface
+ * below. Here's an example with `MutationObserver`:
+ *
+ *   const mutations = DOMObserverObservable.create(
+ *    MutationObserver,
+ *    document.getElementById('bar'),
+ *    { attributes: true, childList: true, characterData: true }
+ *   );
+ *
+ *   mutations.subscribe(record => console.log(record));
+ *
+ * This emits and logs each batch of MutationRecords unmodified as an array. To
+ * emit and log each record individually on the observable, call
+ * `.flattenEntries()` before subscribing:
+ *
+ *   const mutations = DOMObserverObservable.create(
+ *    MutationObserver,
+ *    document.getElementById('bar'),
+ *    { attributes: true, childList: true, characterData: true }
+ *   ).flattenEntries();
+ *
+ *   mutations.subscribe(record => console.log(record));
+ *
+ * This results in MutationRecord objects emitted *individually* and
+ * synchonrously every time a mutation occurs.
+ *
+ * To add additional observations to the observable, use `observe`:
+ *
+ *   const mutations = DOMObserverObservable.create(MutationObserver)
+ *      .observe(
+ *        document.getElementById('bar'),
+ *        {attributes: true, childList: true, characterData: true}
+ *      )
+ *      .observe(
+ *        document.getElementById('bar'),
+ *        {attributes: true}
+ *      )
+ *      .flattenEntries();
+ *
+ *   mutations.subscribe(record => console.log(record));
+ */
+// A bug in Chrome < 62 frees PerformanceObservers and their listeners
+// once the PerformanceObserver is eligible for GC:
+// https://bugs.chromium.org/p/chromium/issues/detail?id=742530
+//
+// This means that callbacks for a PerformanceObserver will stop getting called
+// (and themselves GCed) at an abitrary time.
+//
+// Intentionally hold references to all DOM Observers in this set, and delete
+// them when the last subscriber unsubscribes.
+const observers = new Set(); // $FlowFixMe(>=0.55.0) Flow suppress
+
+class DOMObserverObservable extends _rxjsCompatUmdMin.Observable {
+>>>>>>> Update
   constructor(DOMObserverCtor, ...observeArgs) {
     super();
     this._observations = [];
@@ -102,12 +175,21 @@ class DOMObserverObservable extends _RxMin.Observable {
     return this.mergeMap(records => {
       if ((0, _collection().isIterable)(records)) {
         // $FlowFixMe
+<<<<<<< HEAD
         return _RxMin.Observable.from(records); // $FlowFixMe
       } else if (typeof records.getEntries === 'function') {
         return _RxMin.Observable.from(records.getEntries());
       }
 
       return _RxMin.Observable.throw(new Error('Tried to merge DOM Observer entries, but they were not iterable nor were they an EntryList.'));
+=======
+        return _rxjsCompatUmdMin.Observable.from(records); // $FlowFixMe
+      } else if (typeof records.getEntries === 'function') {
+        return _rxjsCompatUmdMin.Observable.from(records.getEntries());
+      }
+
+      return _rxjsCompatUmdMin.Observable.throw(new Error('Tried to merge DOM Observer entries, but they were not iterable nor were they an EntryList.'));
+>>>>>>> Update
     });
   }
 
@@ -124,9 +206,17 @@ class DOMObserverObservable extends _RxMin.Observable {
       for (const observation of this._observations) {
         this._domObserver.observe(...observation);
       }
+<<<<<<< HEAD
     }
 
     const subscription = new _RxMin.Subscription();
+=======
+
+      observers.add(this._domObserver);
+    }
+
+    const subscription = new _rxjsCompatUmdMin.Subscription();
+>>>>>>> Update
     this._refs++;
     subscription.add(() => {
       this._refs--; // the underlying observer should only disconnect when all subscribers have
@@ -140,6 +230,10 @@ class DOMObserverObservable extends _RxMin.Observable {
         this._domObserver.disconnect();
 
         this._domObserver = null;
+<<<<<<< HEAD
+=======
+        observers.delete(this._domObserver);
+>>>>>>> Update
       }
     });
     return subscription;
@@ -181,7 +275,11 @@ class MutationObservable extends DOMObserverObservable {
     } // $FlowFixMe(>=0.55.0) Flow suppress
 
 
+<<<<<<< HEAD
     super(MutationObserver, target);
+=======
+    super(MutationObserver, target, options);
+>>>>>>> Update
   }
 
 }
@@ -253,7 +351,11 @@ function remeasureContentRect(element, contentRect) {
   } = computedStyle;
   const height = clientHeight - parseFloat(paddingTop) - parseFloat(paddingBottom);
   const width = clientWidth - parseFloat(paddingLeft) - parseFloat(paddingRight);
+<<<<<<< HEAD
   return new DOMRect(contentRect.x, contentRect.y, width, height);
+=======
+  return new DOMRectReadOnly(contentRect.x, contentRect.y, width, height);
+>>>>>>> Update
 }
 /*
  * The values provided by the ResizeOverver on Windows do not seem to reflect the actual size

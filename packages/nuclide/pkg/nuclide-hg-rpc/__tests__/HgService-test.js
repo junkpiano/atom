@@ -40,7 +40,11 @@ function _hgConstants() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -180,7 +184,12 @@ describe('HgService', () => {
         oldStart: 150,
         oldLines: 1,
         newStart: 150,
+<<<<<<< HEAD
         newLines: 2
+=======
+        newLines: 2,
+        oldText: 'hi\n'
+>>>>>>> Update
       }]
     };
     it('fetches the unified diff output for the given path.', async () => {
@@ -297,7 +306,11 @@ describe('HgService', () => {
         }
 
         committedToHg = true;
+<<<<<<< HEAD
         return _RxMin.Observable.of(processMessage);
+=======
+        return _rxjsCompatUmdMin.Observable.of(processMessage);
+>>>>>>> Update
       });
     });
     describe('::commit', () => {
@@ -336,7 +349,11 @@ describe('HgService', () => {
       let wasCalled = false;
       jest.spyOn(hgUtils(), 'hgRunCommand').mockImplementation((args, options) => {
         wasCalled = true;
+<<<<<<< HEAD
         return _RxMin.Observable.of(mockOutput);
+=======
+        return _rxjsCompatUmdMin.Observable.of(mockOutput);
+>>>>>>> Update
       });
       const mergeConflictsEnriched = await hgService.fetchMergeConflicts(TEST_WORKING_DIRECTORY).refCount().toPromise();
       expect(wasCalled).toBeTruthy();
@@ -355,7 +372,11 @@ describe('HgService', () => {
   describe('::resolveConflictedFile()', () => {
     beforeEach(() => {
       jest.spyOn(hgUtils(), 'hgObserveExecution').mockImplementation(path => {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       });
     });
     it('calls hg resolve', async () => {
@@ -404,7 +425,11 @@ describe('HgService', () => {
   });
   describe('::_disposeObserver', () => {
     it('should end published observables when disposed', async () => {
+<<<<<<< HEAD
       const subject = new _RxMin.Subject();
+=======
+      const subject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const repoSubscriptions = new (HgService().HgRepositorySubscriptions)(TEST_WORKING_DIRECTORY);
       repoSubscriptions._lockFilesDidChange = subject;
       const locksObservable = repoSubscriptions.observeLockFilesDidChange().refCount().toArray().toPromise();

@@ -15,7 +15,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons-atom/feature-config"));
@@ -28,7 +32,11 @@ function _featureConfig() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -95,13 +103,21 @@ function writeWatchConfig(setting) {
 function promptConfigChange(prevConfigArgs, nextConfigArgs) {
   const watchSetting = readWatchConfig();
 
+<<<<<<< HEAD
   if (nextConfigArgs.findIndex(arg => arg.startsWith('client.id')) !== -1 || prevConfigArgs != null && (0, _collection().arrayEqual)(prevConfigArgs, nextConfigArgs) || watchSetting === 'Never') {
+=======
+  if (nextConfigArgs.findIndex(arg => arg.startsWith('client.id')) !== -1 || (0, _collection().arrayEqual)(prevConfigArgs || [], nextConfigArgs) || watchSetting === 'Never') {
+>>>>>>> Update
     return Promise.resolve(false);
   } else if (watchSetting === 'Always') {
     return Promise.resolve(true);
   } else {
     return new Promise((resolve, reject) => {
+<<<<<<< HEAD
       const notification = atom.notifications.addInfo(`You recently ran Buck with config flags \`[${nextConfigArgs.join(' ')}]\` from the command line.<br />` + 'Would you like Nuclide to automatically use the most recent config' + 'for compilation database calls for language services? (to avoid resetting the Buck cache)', {
+=======
+      const notification = atom.notifications.addInfo(`You recently ran Buck with config flags \`[${nextConfigArgs.join(' ')}]\` from the command line.<br />` + 'Would you like Nuclide to automatically use the most recent config' + ' for compilation database calls for language services? (to avoid resetting the Buck cache)', {
+>>>>>>> Update
         dismissable: true,
         icon: 'nuclicon-buck',
         buttons: [{
@@ -165,14 +181,24 @@ function promptTaskRunner(args) {
   });
 }
 
+<<<<<<< HEAD
 function observeBuildCommands(buckRoot, currentTaskSettings) {
+=======
+function observeBuildCommands(buckRoot, currentTaskSettings, currentUnsanitizedTaskSettings) {
+>>>>>>> Update
   // Check the most recent Buck log at a fixed interval to check for
   // Buck command invocations.
   // We can't use Watchman because these logs are typically ignored.
   const buckService = (0, _nuclideRemoteConnection().getBuckServiceByNuclideUri)(buckRoot);
+<<<<<<< HEAD
   return _RxMin.Observable.interval(CHECK_INTERVAL).startWith(0).switchMap(() => {
     return _RxMin.Observable.fromPromise(buckService.getLastBuildCommandInfo(buckRoot)) // Ignore errors.
     .catch(() => _RxMin.Observable.of(null)).filter(Boolean).filter(({
+=======
+  return _rxjsCompatUmdMin.Observable.interval(CHECK_INTERVAL).startWith(0).switchMap(() => {
+    return _rxjsCompatUmdMin.Observable.fromPromise(buckService.getLastBuildCommandInfo(buckRoot)) // Ignore errors.
+    .catch(() => _rxjsCompatUmdMin.Observable.of(null)).filter(Boolean).filter(({
+>>>>>>> Update
       timestamp
     }) => Date.now() - timestamp <= CHECK_INTERVAL);
   }).switchMap(({
@@ -181,6 +207,7 @@ function observeBuildCommands(buckRoot, currentTaskSettings) {
     if (_featureConfig().default.get(CONFIG_KEY) !== true || args.length !== 1 || args[0].startsWith('-') || args[0].startsWith('@')) {
       const configFlag = '--config'; // Attempt to extract only @args files and --config arguments from the command.
 
+<<<<<<< HEAD
       const configArgs = args.filter((arg, index) => arg.startsWith('@') || arg.startsWith(configFlag) || args[index - 1] === configFlag);
       const currentSettings = currentTaskSettings();
       return _RxMin.Observable.fromPromise(promptConfigChange(currentSettings.compileDbArguments, configArgs)).filter(shouldUpdate => shouldUpdate === true).map(() => Actions().setTaskSettings(Object.assign({}, currentSettings, {
@@ -189,5 +216,16 @@ function observeBuildCommands(buckRoot, currentTaskSettings) {
     }
 
     return _RxMin.Observable.fromPromise(promptTaskRunner(args)).filter(answer => answer === true).map(() => Actions().setBuildTarget(args[0]));
+=======
+      const configArgs = args.filter((arg, index) => arg.startsWith('@mode/') || arg.startsWith(configFlag) || args[index - 1] === configFlag);
+      const currentSettings = currentTaskSettings();
+      const currentUnsanitizedSettings = currentUnsanitizedTaskSettings();
+      return _rxjsCompatUmdMin.Observable.fromPromise(promptConfigChange(currentSettings.compileDbArguments, configArgs)).filter(shouldUpdate => shouldUpdate === true).map(() => Actions().setTaskSettings(Object.assign({}, currentSettings, {
+        compileDbArguments: configArgs
+      }), currentUnsanitizedSettings));
+    }
+
+    return _rxjsCompatUmdMin.Observable.fromPromise(promptTaskRunner(args)).filter(answer => answer === true).map(() => Actions().setBuildTarget(args[0]));
+>>>>>>> Update
   });
 }

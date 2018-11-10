@@ -20,7 +20,11 @@ function _nullthrows() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _collection() {
   const data = require("../../../modules/nuclide-commons/collection");
@@ -89,7 +93,11 @@ function childProcessSummary(ps) {
 
 function queryPs(cmd) {
   if (_os.default.platform() !== 'darwin' && _os.default.platform() !== 'linux') {
+<<<<<<< HEAD
     return _RxMin.Observable.of(new Map());
+=======
+    return _rxjsCompatUmdMin.Observable.of(new Map());
+>>>>>>> Update
   }
 
   return (0, _process().runCommand)('ps', ['-eo', `pid,ppid,pcpu,time,rss,vsz,${cmd}`], {

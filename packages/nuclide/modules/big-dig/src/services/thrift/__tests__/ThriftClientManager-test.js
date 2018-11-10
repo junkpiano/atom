@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MockedThriftClientClass = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _jest_mock_utils() {
   const data = require("../../../../../../jest/jest_mock_utils");
@@ -98,7 +102,15 @@ jest.mock(require.resolve("../../tunnel/TunnelManager"), () => {
   class MockTunnelManager {
     constructor() {
       this.createTunnel = jest.fn().mockReturnValue({
+<<<<<<< HEAD
         getLocalPort: jest.fn().mockReturnValue(1),
+=======
+        getConfig: jest.fn().mockReturnValue({
+          local: {
+            port: 1
+          }
+        }),
+>>>>>>> Update
         close: jest.fn()
       });
     }
@@ -159,7 +171,14 @@ describe('ThriftClientManager', () => {
     remoteUri: '',
     remoteCommand: '',
     remoteCommandArgs: [],
+<<<<<<< HEAD
     remotePort: 0,
+=======
+    remoteConnection: {
+      type: 'tcp',
+      port: 0
+    },
+>>>>>>> Update
     thriftTransport: 'buffered',
     thriftProtocol: 'binary',
     thriftService: {},
@@ -179,8 +198,13 @@ describe('ThriftClientManager', () => {
 
     }
 
+<<<<<<< HEAD
     serverMessage = new _RxMin.Subject();
     clientMessage = new _RxMin.Subject();
+=======
+    serverMessage = new _rxjsCompatUmdMin.Subject();
+    clientMessage = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     mockedTransport = new MockedTransport();
     mockedTunnelManager = new (_TunnelManager().TunnelManager)(new MockedTransport());
     manager = new (_ThriftClientManager().ThriftClientManager)(mockedTransport, mockedTunnelManager);
@@ -334,7 +358,14 @@ describe('ThriftClientManager', () => {
       remoteUri: '',
       remoteCommand: '',
       remoteCommandArgs: [],
+<<<<<<< HEAD
       remotePort: 0,
+=======
+      remoteConnection: {
+        type: 'tcp',
+        port: 0
+      },
+>>>>>>> Update
       thriftTransport: 'buffered',
       thriftProtocol: 'binary',
       thriftService: {},

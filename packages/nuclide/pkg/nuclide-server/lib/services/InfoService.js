@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.getServerVersion = getServerVersion;
 exports.getServerPlatform = getServerPlatform;
 exports.getOriginalEnvironment = getOriginalEnvironment;
+<<<<<<< HEAD
+=======
+exports.getServerEnvironment = getServerEnvironment;
+>>>>>>> Update
 exports.closeConnection = closeConnection;
 
 function _process() {
@@ -60,6 +64,13 @@ async function getServerPlatform() {
 
 async function getOriginalEnvironment() {
   return (0, _process().getOriginalEnvironmentArray)();
+<<<<<<< HEAD
+=======
+}
+
+async function getServerEnvironment() {
+  return (0, _process().getEnvironment)();
+>>>>>>> Update
 } // Mark this as async so the client can wait for an acknowledgement.
 // However, we can't close the connection right away, as otherwise the response never gets sent!
 // Add a small delay to allow the return message to go through.

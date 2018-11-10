@@ -43,7 +43,13 @@ class Inspector extends React.Component {
 
       if (Array.isArray(themes) && themes.length > 1) {
         theme = themes[1];
+<<<<<<< HEAD
       }
+=======
+      } // NB: electron-flowtype-definitions doesn't yet generate a Type for WebView
+      // so we'll type it as `any` and get the WebContents out
+
+>>>>>>> Update
 
       const element = event.target;
       const requirePaths = require.cache[__filename].paths;
@@ -54,7 +60,11 @@ class Inspector extends React.Component {
         ${JSON.stringify(inspectorDevTools)},
         ${JSON.stringify(requirePaths)},
         ${JSON.stringify(theme)}
+<<<<<<< HEAD
       );`);
+=======
+      );`, true);
+>>>>>>> Update
     }, _temp;
   }
 

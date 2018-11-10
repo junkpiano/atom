@@ -25,7 +25,11 @@ function _observable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -82,20 +86,36 @@ function isEqualRevisions(revisionsFetched1, revisionsFetched2) {
 class RevisionsCache {
   constructor(workingDirectory, service) {
     this._workingDirectory = workingDirectory;
+<<<<<<< HEAD
     this._revisions = new _RxMin.BehaviorSubject({
       revisions: [],
       fromFilesystem: false
     });
     this._fetchRevisionsRequests = new _RxMin.Subject();
     this._isFetchingRevisions = new _RxMin.Subject();
+=======
+    this._revisions = new _rxjsCompatUmdMin.BehaviorSubject({
+      revisions: [],
+      fromFilesystem: false
+    });
+    this._fetchRevisionsRequests = new _rxjsCompatUmdMin.Subject();
+    this._isFetchingRevisions = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._service = service;
     this._lazyRevisionFetcher = this._fetchRevisionsRequests.startWith(null) // Initially, no refresh requests applied.
     .let((0, _observable().fastDebounce)(FETCH_REVISIONS_DEBOUNCE_MS)).switchMap(() => // Using `defer` will guarantee a fresh subscription / execution on retries,
     // even though `_fetchSmartlogRevisions` returns a `refCount`ed shared Observable.
+<<<<<<< HEAD
     _RxMin.Observable.defer(() => this._fetchSmartlogRevisions()).retry(FETCH_REVISIONS_RETRY_COUNT).catch(error => {
       (0, _log4js().getLogger)('nuclide-hg-repository-client').error('RevisionsCache Error:', error); // Failed to fetch smartlog, timeout and return an empty array
 
       return _RxMin.Observable.of({
+=======
+    _rxjsCompatUmdMin.Observable.defer(() => this._fetchSmartlogRevisions()).retry(FETCH_REVISIONS_RETRY_COUNT).catch(error => {
+      (0, _log4js().getLogger)('nuclide-hg-repository-client').error('RevisionsCache Error:', error); // Failed to fetch smartlog, timeout and return an empty array
+
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         revisions: [],
         fromFilesystem: true
       });
@@ -110,7 +130,11 @@ class RevisionsCache {
       revisions,
       fromFilesystem: true
     })).timeout(FETCH_REVISIONS_TIMEOUT_MS).catch(err => {
+<<<<<<< HEAD
       if (err instanceof _RxMin.TimeoutError) {
+=======
+      if (err instanceof _rxjsCompatUmdMin.TimeoutError) {
+>>>>>>> Update
         throw new Error('Timed out fetching smartlog revisions');
       }
 

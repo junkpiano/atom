@@ -73,9 +73,17 @@ function setDeploymentTarget(deploymentTarget) {
   };
 }
 
+<<<<<<< HEAD
 function setTaskSettings(settings) {
   return {
     type: SET_TASK_SETTINGS,
     settings
+=======
+function setTaskSettings(settings, unsanitizedSettings) {
+  return {
+    type: SET_TASK_SETTINGS,
+    settings,
+    unsanitizedSettings
+>>>>>>> Update
   };
 }

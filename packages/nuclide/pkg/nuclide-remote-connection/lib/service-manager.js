@@ -12,7 +12,11 @@ exports.awaitService = awaitService;
 
 var _fs = _interopRequireDefault(require("fs"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _IpcTransports() {
   const data = require("./IpcTransports");
@@ -65,7 +69,11 @@ function _featureConfig() {
 }
 
 function _runtimeInfo() {
+<<<<<<< HEAD
   const data = require("../../commons-node/runtime-info");
+=======
+  const data = require("../../../modules/nuclide-commons/runtime-info");
+>>>>>>> Update
 
   _runtimeInfo = function () {
     return data;
@@ -144,7 +152,11 @@ function createLocalRpcClient() {
   }; // We cannot synchronously spawn the process here due to the shell environment.
   // process.js will wait for Atom's shell environment to become ready.
 
+<<<<<<< HEAD
   const localServerProcess = _runtimeInfo().__DEV__ && _fs.default.existsSync(fbNodeRun) && process.platform !== 'win32' ? _RxMin.Observable.defer(() => Promise.all([(0, _serverPort().getAvailableServerPort)(), (0, _process().getOriginalEnvironment)()])).do(([port]) => {
+=======
+  const localServerProcess = _runtimeInfo().__DEV__ && _fs.default.existsSync(fbNodeRun) && process.platform !== 'win32' ? _rxjsCompatUmdMin.Observable.defer(() => Promise.all([(0, _serverPort().getAvailableServerPort)(), (0, _process().getOriginalEnvironment)()])).do(([port]) => {
+>>>>>>> Update
     // eslint-disable-next-line no-console
     console.log(`Starting local RPC process with --inspect=${port}`);
   }).switchMap(([port, env]) => (0, _process().spawn)(fbNodeRun, ['node', // Electron v1.7.x will also allow --inspect=0.

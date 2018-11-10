@@ -8,7 +8,11 @@ exports.setBuckRootEpic = setBuckRootEpic;
 exports.setBuildTargetEpic = setBuildTargetEpic;
 exports.setRuleTypeEpic = setRuleTypeEpic;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideBuckBase() {
   const data = require("../../../nuclide-buck-base");
@@ -93,8 +97,13 @@ function setProjectRootEpic(actions, store) {
     const {
       projectRoot
     } = action;
+<<<<<<< HEAD
     const rootObs = projectRoot == null ? _RxMin.Observable.of(null) : _RxMin.Observable.fromPromise((0, _nuclideBuckBase().getBuckProjectRoot)(projectRoot));
     return rootObs.switchMap(buckRoot => _RxMin.Observable.of(Actions().setBuckRoot(buckRoot), // Also refresh the rule type of the current target.
+=======
+    const rootObs = projectRoot == null ? _rxjsCompatUmdMin.Observable.of(null) : _rxjsCompatUmdMin.Observable.fromPromise((0, _nuclideBuckBase().getBuckProjectRoot)(projectRoot));
+    return rootObs.switchMap(buckRoot => _rxjsCompatUmdMin.Observable.of(Actions().setBuckRoot(buckRoot), // Also refresh the rule type of the current target.
+>>>>>>> Update
     Actions().setBuildTarget(store.getState().buildTarget)));
   });
 }
@@ -110,11 +119,19 @@ function setBuckRootEpic(actions, store) {
     } = action;
 
     if (buckRoot == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     }
 
     const watcherService = (0, _nuclideRemoteConnection().getFileWatcherServiceByNuclideUri)(buckRoot);
     return _RxMin.Observable.merge(_RxMin.Observable.of(undefined).concat(watcherService.watchWithNode(buckRoot, true).refCount().filter(event => _nuclideUri().default.basename(event.path) === '.buckversion')).switchMap(() => readBuckversionFile(buckRoot)).map(fileContents => Actions().setBuckversionFileContents(fileContents)), (0, _observeBuildCommands().observeBuildCommands)(buckRoot, () => store.getState().taskSettings));
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    const watcherService = (0, _nuclideRemoteConnection().getFileWatcherServiceByNuclideUri)(buckRoot);
+    return _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(undefined).concat(watcherService.watchWithNode(buckRoot, true).refCount().filter(event => _nuclideUri().default.basename(event.path) === '.buckversion')).switchMap(() => readBuckversionFile(buckRoot)).map(fileContents => Actions().setBuckversionFileContents(fileContents)), (0, _observeBuildCommands().observeBuildCommands)(buckRoot, () => store.getState().taskSettings, () => store.getState().unsanitizedTaskSettings));
+>>>>>>> Update
   });
 }
 
@@ -162,12 +179,17 @@ function setBuildTargetEpic(actions, store) {
     } = store.getState();
 
     if (buckRoot == null || buildTarget === '') {
+<<<<<<< HEAD
       return _RxMin.Observable.of(null);
+=======
+      return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
     }
 
     const buckService = (0, _nuclideBuckBase().getBuckService)(buckRoot);
 
     if (buckService == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.of(null);
     }
 
@@ -178,6 +200,18 @@ function setBuildTargetEpic(actions, store) {
       return _RxMin.Observable.of(null);
     });
   }).switchMap(ruleType => _RxMin.Observable.of(setRuleType(ruleType)));
+=======
+      return _rxjsCompatUmdMin.Observable.of(null);
+    }
+
+    return _rxjsCompatUmdMin.Observable.defer(() => {
+      return buckService.buildRuleTypeFor(buckRoot, buildTarget);
+    }).catch(error => {
+      (0, _log4js().getLogger)().error(error);
+      return _rxjsCompatUmdMin.Observable.of(null);
+    });
+  }).switchMap(ruleType => _rxjsCompatUmdMin.Observable.of(setRuleType(ruleType)));
+>>>>>>> Update
 }
 
 function setRuleTypeEpic(actions, store) {
@@ -199,7 +233,11 @@ function setRuleTypeEpic(actions, store) {
 
       return state.platformService.getPlatformGroups(state.buckRoot, ruleType.type, state.buildTarget).map(platformGroups => setPlatformGroups(platformGroups));
     } else {
+<<<<<<< HEAD
       return _RxMin.Observable.of(setPlatformGroups([]));
+=======
+      return _rxjsCompatUmdMin.Observable.of(setPlatformGroups([]));
+>>>>>>> Update
     }
   });
 }

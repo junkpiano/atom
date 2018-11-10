@@ -55,6 +55,10 @@ class BreakpointCollection {
     this._breakpoints = new Map();
     this._nextIndex = 1;
     this._allowOnceState = false;
+<<<<<<< HEAD
+=======
+    this._allowConditional = false;
+>>>>>>> Update
   }
 
   enableOnceState() {
@@ -63,11 +67,26 @@ class BreakpointCollection {
     this._breakpoints.forEach(breakpoint => breakpoint.enableSupportsOnce());
   }
 
+<<<<<<< HEAD
+=======
+  enableConditional() {
+    this._allowConditional = true;
+  }
+
+>>>>>>> Update
   supportsOnceState() {
     return this._allowOnceState;
   }
 
+<<<<<<< HEAD
   addSourceBreakpoint(path, line, once) {
+=======
+  supportsConditional() {
+    return this._allowConditional;
+  }
+
+  addSourceBreakpoint(path, line, once, condition) {
+>>>>>>> Update
     this._breakpoints.forEach((breakpoint, index) => {
       if (breakpoint.path === path && breakpoint.line === line) {
         throw new Error(`There is already a breakpoint (#${index}) here.`);
@@ -84,12 +103,21 @@ class BreakpointCollection {
       breakpoint.setState(_Breakpoint().BreakpointState.ONCE);
     }
 
+<<<<<<< HEAD
+=======
+    breakpoint.setCondition(condition);
+
+>>>>>>> Update
     this._breakpoints.set(index, breakpoint);
 
     return index;
   }
 
+<<<<<<< HEAD
   addFunctionBreakpoint(func, once) {
+=======
+  addFunctionBreakpoint(func, once, condition) {
+>>>>>>> Update
     this._breakpoints.forEach((breakpoint, index) => {
       if (breakpoint.func === func) {
         throw new Error(`There is already a breakpoint (#${index}) here.`);
@@ -105,6 +133,11 @@ class BreakpointCollection {
       breakpoint.setState(_Breakpoint().BreakpointState.ONCE);
     }
 
+<<<<<<< HEAD
+=======
+    breakpoint.setCondition(condition);
+
+>>>>>>> Update
     this._breakpoints.set(index, breakpoint);
 
     return index;
@@ -118,7 +151,12 @@ class BreakpointCollection {
         verified: _.verified,
         enabled: true,
         path: (0, _nullthrows().default)(_.path),
+<<<<<<< HEAD
         line: (0, _nullthrows().default)(_.line)
+=======
+        line: (0, _nullthrows().default)(_.line),
+        condition: _.condition()
+>>>>>>> Update
       }));
     } catch (_) {
       throw new Error('Path or line missing in getAllEnabledBreakpointsForSource');
@@ -139,7 +177,12 @@ class BreakpointCollection {
         enabled: true,
         path: x.path,
         line: x.line,
+<<<<<<< HEAD
         func: (0, _nullthrows().default)(x.func)
+=======
+        func: (0, _nullthrows().default)(x.func),
+        condition: x.condition()
+>>>>>>> Update
       }));
     } catch (_) {
       throw new Error('Missing function in function breakpoint');

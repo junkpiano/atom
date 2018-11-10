@@ -26,7 +26,11 @@ function _observable() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -47,7 +51,11 @@ function _log4js() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _atom = require("atom");
 
@@ -174,7 +182,11 @@ class SearchResultManager {
     this._subscriptions = new (_UniversalDisposable().default)();
     this._querySubscriptions = new (_UniversalDisposable().default)();
     this._quickOpenProviderRegistry = quickOpenProviderRegistry;
+<<<<<<< HEAD
     this._queryStream = new _RxMin.Subject();
+=======
+    this._queryStream = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
     this._subscriptions.add(this._debouncedUpdateDirectories, atom.project.onDidChangePaths(this._debouncedUpdateDirectories), this._quickOpenProviderRegistry.observeProviders(this._registerProvider.bind(this)), this._quickOpenProviderRegistry.onDidRemoveProvider(this._deregisterProvider.bind(this)));
 

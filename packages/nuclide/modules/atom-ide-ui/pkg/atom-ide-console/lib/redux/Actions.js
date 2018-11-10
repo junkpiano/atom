@@ -8,11 +8,17 @@ exports.recordReceived = recordReceived;
 exports.recordUpdated = recordUpdated;
 exports.registerExecutor = registerExecutor;
 exports.execute = execute;
+<<<<<<< HEAD
 exports.registerOutputProvider = registerOutputProvider;
 exports.registerRecordProvider = registerRecordProvider;
 exports.registerSource = registerSource;
 exports.unregisterRecordProvider = unregisterRecordProvider;
 exports.unregisterOutputProvider = unregisterOutputProvider;
+=======
+exports.registerRecordProvider = registerRecordProvider;
+exports.registerSource = registerSource;
+exports.unregisterRecordProvider = unregisterRecordProvider;
+>>>>>>> Update
 exports.selectExecutor = selectExecutor;
 exports.setMaxMessageCount = setMaxMessageCount;
 exports.removeSource = removeSource;
@@ -108,6 +114,7 @@ function execute(code) {
   };
 }
 
+<<<<<<< HEAD
 function registerOutputProvider(outputProvider) {
   // Transform the messages into actions and merge them into the action stream.
   // TODO: Add enabling/disabling of registered source and only subscribe when enabled. That
@@ -131,6 +138,8 @@ function registerOutputProvider(outputProvider) {
   }));
 }
 
+=======
+>>>>>>> Update
 function registerRecordProvider(recordProvider) {
   return {
     type: REGISTER_RECORD_PROVIDER,
@@ -153,10 +162,13 @@ function unregisterRecordProvider(recordProvider) {
   return removeSource(recordProvider.id);
 }
 
+<<<<<<< HEAD
 function unregisterOutputProvider(outputProvider) {
   return removeSource(outputProvider.id);
 }
 
+=======
+>>>>>>> Update
 function selectExecutor(executorId) {
   return {
     type: SELECT_EXECUTOR,

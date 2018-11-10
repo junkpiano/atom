@@ -20,7 +20,11 @@ var _electron = _interopRequireDefault(require("electron"));
 
 var _url = _interopRequireDefault(require("url"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -87,7 +91,11 @@ function _openInNewWindow(uri) {
   newWindow.once('window:loaded', () => {
     // Needs to match sendURIMessage:
     // https://github.com/atom/atom/blob/d2d3ad9fb8a4aadb2fe0e53edf7d95bd109fc0f7/src/main-process/atom-window.js#L286
+<<<<<<< HEAD
     newWindow.send('uri-message', uri);
+=======
+    newWindow.webContents.send('uri-message', uri);
+>>>>>>> Update
   });
 }
 
@@ -105,7 +113,11 @@ class DeepLinkService {
     this._observers = new Map();
     this._pendingEvents = new Map();
     this._observables = new (_SharedObservableCache().default)(path => {
+<<<<<<< HEAD
       return _RxMin.Observable.create(observer => {
+=======
+      return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
         this._observers.set(path, observer);
 
         return () => this._observers.delete(path);

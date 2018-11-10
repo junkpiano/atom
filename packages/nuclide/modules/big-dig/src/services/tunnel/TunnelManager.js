@@ -57,6 +57,19 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _TunnelConfigUtils() {
+  const data = require("./TunnelConfigUtils");
+
+  _TunnelConfigUtils = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -102,25 +115,45 @@ class TunnelManager extends _events.default {
     }).subscribe(msg => this._handleMessage(msg));
   }
 
+<<<<<<< HEAD
   async createTunnel(localPort, remotePort, useIPv4) {
+=======
+  async createTunnel(tunnelConfig) {
+>>>>>>> Update
     if (!!this._isClosed) {
       throw new Error('trying to create a tunnel with a closed tunnel manager');
     }
 
+<<<<<<< HEAD
     this._logger.info(`creating tunnel ${localPort}->${remotePort}`);
 
     return this._createTunnel(localPort, remotePort, useIPv4 != null ? useIPv4 : false, false);
   }
 
   async createReverseTunnel(localPort, remotePort, useIPv4) {
+=======
+    this._logger.info(`creating tunnel ${(0, _TunnelConfigUtils().getDescriptor)(tunnelConfig, false)}`);
+
+    return this._createTunnel(tunnelConfig, false);
+  }
+
+  async createReverseTunnel(tunnelConfig) {
+>>>>>>> Update
     if (!!this._isClosed) {
       throw new Error('trying to create a reverse tunnel with a closed tunnel manager');
     }
 
+<<<<<<< HEAD
     this._logger.info(`creating reverse tunnel ${localPort}<-${remotePort}`);
 
     return new Promise(async (resolve, reject) => {
       const tunnel = await this._createTunnel(localPort, remotePort, useIPv4 != null ? useIPv4 : false, true); // now wait until we get the 'proxyCreated' or 'proxyError' message
+=======
+    this._logger.info(`creating reverse tunnel ${(0, _TunnelConfigUtils().getDescriptor)(tunnelConfig, true)}`);
+
+    return new Promise(async (resolve, reject) => {
+      const tunnel = await this._createTunnel(tunnelConfig, true); // now wait until we get the 'proxyCreated' or 'proxyError' message
+>>>>>>> Update
 
       this.once(`proxyMessage:${tunnel.getId()}`, msg => {
         if (msg.event === 'proxyCreated') {
@@ -135,6 +168,7 @@ class TunnelManager extends _events.default {
     });
   }
 
+<<<<<<< HEAD
   async _createTunnel(localPort, remotePort, useIPv4, isReverse) {
     let tunnel = this._checkForExistingTunnel(localPort, remotePort, useIPv4, isReverse);
 
@@ -143,6 +177,16 @@ class TunnelManager extends _events.default {
         tunnel = await _Tunnel().Tunnel.createReverseTunnel(localPort, remotePort, useIPv4, this._transport);
       } else {
         tunnel = await _Tunnel().Tunnel.createTunnel(localPort, remotePort, useIPv4, this._transport);
+=======
+  async _createTunnel(tunnelConfig, isReverse) {
+    let tunnel = this._checkForExistingTunnel(tunnelConfig, isReverse);
+
+    if (tunnel == null) {
+      if (isReverse) {
+        tunnel = await _Tunnel().Tunnel.createReverseTunnel(tunnelConfig, this._transport);
+      } else {
+        tunnel = await _Tunnel().Tunnel.createTunnel(tunnelConfig, this._transport);
+>>>>>>> Update
       }
 
       this._idToTunnel.set(tunnel.getId(), tunnel);
@@ -181,6 +225,7 @@ class TunnelManager extends _events.default {
     return Array.from(this._idToTunnel.values());
   }
 
+<<<<<<< HEAD
   _checkForExistingTunnel(localPort, remotePort, useIPv4, isReverse) {
     for (const tunnel of this._idToTunnel.values()) {
       if (tunnel instanceof _Tunnel().Tunnel) {
@@ -196,6 +241,23 @@ class TunnelManager extends _events.default {
           throw new Error(`there already exists a tunnel connecting to remotePort ${remotePort}`);
         }
       }
+=======
+  _checkForExistingTunnel(tunnelConfig, isReverse) {
+    for (const tunnel of this._idToTunnel.values()) {
+      if (!(tunnel instanceof _Tunnel().Tunnel)) {
+        continue;
+      }
+
+      if (tunnel.isTunnelConfigEqual(tunnelConfig)) {
+        if (isReverse === tunnel.isReverse()) {
+          return tunnel;
+        } else {
+          throw new Error("there is already a tunnel with those ports, but it's in the wrong direction");
+        }
+      }
+
+      tunnel.assertNoOverlap(tunnelConfig);
+>>>>>>> Update
     }
   }
 
@@ -206,7 +268,11 @@ class TunnelManager extends _events.default {
 
     if (msg.event === 'proxyCreated') {
       if (tunnelComponent == null) {
+<<<<<<< HEAD
         const socketManager = new (_SocketManager().SocketManager)(msg.tunnelId, msg.remotePort, msg.useIPv4, this._transport);
+=======
+        const socketManager = new (_SocketManager().SocketManager)(msg.tunnelId, msg.proxyConfig, this._transport);
+>>>>>>> Update
 
         this._idToTunnel.set(msg.tunnelId, socketManager);
       }
@@ -230,7 +296,11 @@ class TunnelManager extends _events.default {
       }
     } else if (msg.event === 'createProxy') {
       try {
+<<<<<<< HEAD
         const proxy = await _Proxy().Proxy.createProxy(msg.tunnelId, msg.localPort, msg.remotePort, msg.useIPv4, this._transport);
+=======
+        const proxy = await _Proxy().Proxy.createProxy(msg.tunnelId, msg.tunnelConfig, this._transport);
+>>>>>>> Update
 
         this._idToTunnel.set(msg.tunnelId, proxy);
       } catch (e) {// We already responded with proxyError, nothing else to do

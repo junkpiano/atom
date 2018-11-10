@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SwiftPMTaskRunner = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var React = _interopRequireWildcard(require("react"));
 
@@ -186,7 +190,11 @@ class SwiftPMTaskRunner {
     this.id = 'swiftpm';
     this.name = 'Swift';
     this._initialState = initialState;
+<<<<<<< HEAD
     this._projectRoot = new _RxMin.Subject();
+=======
+    this._projectRoot = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._disposables = new (_UniversalDisposable().default)(this._projectRoot.subscribe(path => this._getFlux().actions.updateProjectRoot(path)));
   }
 
@@ -250,7 +258,11 @@ class SwiftPMTaskRunner {
     const observable = (0, _tasks().createMessage)(`${command.command} ${command.args.join(' ')}`, 'log').concat((0, _process().observeProcess)(command.command, command.args, {
       /* TODO(T17353599) */
       isExitError: () => false
+<<<<<<< HEAD
     }).catch(error => _RxMin.Observable.of({
+=======
+    }).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       kind: 'error',
       error
     })) // TODO(T17463635)
@@ -270,7 +282,11 @@ class SwiftPMTaskRunner {
           }
 
         default:
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
     }));
     return (0, _tasks().taskFromObservable)(observable);
@@ -289,14 +305,22 @@ class SwiftPMTaskRunner {
     const enabledObservable = storeReady.map(store => store.getProjectRoot()).distinctUntilChanged().switchMap(root => {
       // flowlint-next-line sketchy-null-string:off
       if (!root || _nuclideUri().default.isRemote(root)) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(false);
+=======
+        return _rxjsCompatUmdMin.Observable.of(false);
+>>>>>>> Update
       }
 
       return this._packageFileExistsAtPath(root);
     }).distinctUntilChanged();
     const tasksObservable = storeReady.map(store => _SwiftPMTaskRunnerTaskMetadata().SwiftPMTaskRunnerTaskMetadata);
 
+<<<<<<< HEAD
     const subscription = _RxMin.Observable.combineLatest(enabledObservable, tasksObservable).subscribe(([enabled, tasks]) => callback(enabled, tasks));
+=======
+    const subscription = _rxjsCompatUmdMin.Observable.combineLatest(enabledObservable, tasksObservable).subscribe(([enabled, tasks]) => callback(enabled, tasks));
+>>>>>>> Update
 
     this._projectRoot.next(projectRoot);
 

@@ -67,7 +67,11 @@ function _nuclideDebuggerCommon() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _analytics() {
   const data = require("../nuclide-commons/analytics");
@@ -160,9 +164,15 @@ function listenToRemoteDebugCommands() {
 
     if (service == null) {
       (0, _log4js().getLogger)().error('null remote command service for uri:', rootUri);
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     } else {
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    } else {
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         service,
         rootUri
       });
@@ -180,7 +190,11 @@ function listenToRemoteDebugCommands() {
     return service.observeRemoteDebugCommands().refCount().catch(error => {
       // eslint-disable-next-line no-console
       console.warn('Failed to listen to remote debug commands - ' + 'You could be running locally with two Atom windows. ' + `IsLocal: ${String(rootUri === '')}`);
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }).map(command => ({
       rootUri,
       command

@@ -35,10 +35,17 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _nuclideAnalytics() {
   const data = require("../../nuclide-analytics");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _nuclideAnalytics() {
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -125,8 +132,13 @@ class DefaultMetroAtomService {
 
     this._projectRootPath = projectRootPath;
     this._disposables = new (_UniversalDisposable().default)();
+<<<<<<< HEAD
     this._port = new _RxMin.BehaviorSubject(8081);
     this._extraArgs = new _RxMin.BehaviorSubject([]);
+=======
+    this._port = new _rxjsCompatUmdMin.BehaviorSubject(8081);
+    this._extraArgs = new _rxjsCompatUmdMin.BehaviorSubject([]);
+>>>>>>> Update
     this._logTailer = this._createLogTailer(projectRootPath, this._port, this._extraArgs);
 
     this._disposables.add(() => this.stop(), this._registerShutdownOnWorkingRootChange());
@@ -242,11 +254,19 @@ var _initialiseProps = function () {
   };
 
   this._createLogTailer = (projectRootPath, port, extraArgs) => {
+<<<<<<< HEAD
     const metroEvents = _RxMin.Observable.defer(() => {
       const path = projectRootPath.getValue();
 
       if (path == null) {
         return _RxMin.Observable.empty();
+=======
+    const metroEvents = _rxjsCompatUmdMin.Observable.defer(() => {
+      const path = projectRootPath.getValue();
+
+      if (path == null) {
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const metroService = (0, _nuclideRemoteConnection().getMetroServiceByNuclideUri)(path);
@@ -275,7 +295,11 @@ var _initialiseProps = function () {
         });
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.throw(error);
+=======
+      return _rxjsCompatUmdMin.Observable.throw(error);
+>>>>>>> Update
     }).share();
 
     const messages = metroEvents.filter(event => event.type === 'message').map(event => {

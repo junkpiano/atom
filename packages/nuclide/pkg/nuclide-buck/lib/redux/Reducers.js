@@ -106,7 +106,12 @@ function accumulateState(state, action) {
 
     case Actions().SET_TASK_SETTINGS:
       return Object.assign({}, state, {
+<<<<<<< HEAD
         taskSettings: action.settings
+=======
+        taskSettings: action.settings,
+        unsanitizedTaskSettings: action.unsanitizedSettings
+>>>>>>> Update
       });
   }
 

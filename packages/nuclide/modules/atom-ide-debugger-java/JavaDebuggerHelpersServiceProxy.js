@@ -25,6 +25,7 @@ module.exports = _client => {
     });
   };
 
+<<<<<<< HEAD
   remoteModule.prepareForTerminalLaunch = function (arg0) {
     return _client.callRemoteFunction("JavaDebuggerHelpersService/prepareForTerminalLaunch", "promise", _client.marshalArguments(Array.from(arguments), [{
       name: "config",
@@ -67,11 +68,29 @@ module.exports = _client => {
   };
 
   remoteModule.getSdkVersionSourcePath = function (arg0) {
+=======
+  remoteModule.getSdkVersionSourcePath = function (arg0, arg1) {
+>>>>>>> Update
     return _client.callRemoteFunction("JavaDebuggerHelpersService/getSdkVersionSourcePath", "promise", _client.marshalArguments(Array.from(arguments), [{
       name: "sdkVersion",
       type: {
         kind: "string"
       }
+<<<<<<< HEAD
+=======
+    }, {
+      name: "options",
+      type: {
+        kind: "object",
+        fields: [{
+          name: "useSdkManager",
+          type: {
+            kind: "boolean"
+          },
+          optional: false
+        }]
+      }
+>>>>>>> Update
     }])).then(value => {
       return _client.unmarshal(value, {
         kind: "nullable",
@@ -149,7 +168,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 24
+=======
+        line: 23
+>>>>>>> Update
       },
       name: "JavaLaunchTargetConfig",
       definition: {
@@ -193,7 +216,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 31
+=======
+        line: 30
+>>>>>>> Update
       },
       name: "JavaAttachPortTargetConfig",
       definition: {
@@ -237,7 +264,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 39
+=======
+        line: 38
+>>>>>>> Update
       },
       name: "JavaTargetConfig",
       definition: {
@@ -319,7 +350,11 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 43
+=======
+        line: 42
+>>>>>>> Update
       },
       name: "TerminalLaunchInfo",
       definition: {
@@ -374,13 +409,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 58
+=======
+        line: 53
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
           line: 58
+=======
+          line: 53
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -439,13 +482,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 62
+=======
+        line: 57
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
           line: 62
+=======
+          line: 57
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -463,6 +514,7 @@ Object.defineProperty(module.exports, "defs", {
         }
       }
     },
+<<<<<<< HEAD
     prepareForTerminalLaunch: {
       kind: "function",
       name: "prepareForTerminalLaunch",
@@ -552,19 +604,29 @@ Object.defineProperty(module.exports, "defs", {
         }
       }
     },
+=======
+>>>>>>> Update
     getSdkVersionSourcePath: {
       kind: "function",
       name: "getSdkVersionSourcePath",
       location: {
         type: "source",
         fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
         line: 228
+=======
+        line: 131
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "JavaDebuggerHelpersService.js",
+<<<<<<< HEAD
           line: 228
+=======
+          line: 131
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [{
@@ -572,6 +634,21 @@ Object.defineProperty(module.exports, "defs", {
           type: {
             kind: "string"
           }
+<<<<<<< HEAD
+=======
+        }, {
+          name: "options",
+          type: {
+            kind: "object",
+            fields: [{
+              name: "useSdkManager",
+              type: {
+                kind: "boolean"
+              },
+              optional: false
+            }]
+          }
+>>>>>>> Update
         }],
         returnType: {
           kind: "promise",

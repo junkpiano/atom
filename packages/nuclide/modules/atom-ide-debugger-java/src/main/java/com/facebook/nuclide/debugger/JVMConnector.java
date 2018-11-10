@@ -20,6 +20,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> Update
 import java.util.Map;
 
 /** JVM connector that provides launch/attach/listen functionality for debugger. */
@@ -27,13 +32,34 @@ public class JVMConnector {
   private boolean _readConnectMessage = false;
   private Object _syncObj = new Object();
 
+<<<<<<< HEAD
   // Port to ask the child to listen on. 8888 is already taken by this debugger's
   // Nuclide socket.
   private final int TARGET_PORT = 8889;
+=======
+  // Port to ask the child to listen on.
+  public static final int TARGET_PORT = 8889;
+
+  public static List<String> getProcessCommandList(
+      ContextManager contextManager, String commandLine, String args) {
+    ArrayList<String> processCommandList = new ArrayList<String>(7);
+    String javaPath = Utils.getJavaPath();
+    processCommandList.add(javaPath);
+    processCommandList.add("-Xdebug");
+    processCommandList.add(
+        "-Xrunjdwp:transport=dt_socket,address=127.0.0.1:" + TARGET_PORT + ",server=y,suspend=y");
+    processCommandList.add("-classpath");
+    processCommandList.add(contextManager.getClassPath());
+    processCommandList.add(commandLine);
+    processCommandList.add(args);
+    return processCommandList;
+  }
+>>>>>>> Update
 
   /** Launch a java class for debugging. */
   public void launch(ContextManager contextManager, String commandLine, String args)
       throws VMStartException, IllegalConnectorArgumentsException, IOException {
+<<<<<<< HEAD
     String javaPath = Utils.getJavaPath();
     ProcessBuilder builder =
         new ProcessBuilder(
@@ -46,6 +72,10 @@ public class JVMConnector {
             contextManager.getClassPath(),
             commandLine,
             args);
+=======
+    List<String> processCommandList = getProcessCommandList(contextManager, commandLine, args);
+    ProcessBuilder builder = new ProcessBuilder(processCommandList);
+>>>>>>> Update
     Process p = builder.start();
     processInputStream(contextManager, p.getInputStream(), Utils.UserMessageLevel.TEXT, true);
     processInputStream(contextManager, p.getErrorStream(), Utils.UserMessageLevel.ERROR, false);

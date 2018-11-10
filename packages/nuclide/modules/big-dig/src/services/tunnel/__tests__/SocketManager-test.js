@@ -78,7 +78,14 @@ describe('SocketManager', () => {
       clientId
     }];
     transport = (0, _util().TestTransportFactory)();
+<<<<<<< HEAD
     socketManager = new (_SocketManager().SocketManager)('tunnel1', TEST_PORT, false, transport);
+=======
+    socketManager = new (_SocketManager().SocketManager)('tunnel1', {
+      port: TEST_PORT,
+      useIPv4: false
+    }, transport);
+>>>>>>> Update
     expect(socketManager).not.toBe(undefined);
     sendMessages(socketManager, messages);
     return new Promise(resolve => {
@@ -106,7 +113,14 @@ describe('SocketManager', () => {
       arg: 'hello world'
     }];
     transport = (0, _util().TestTransportFactory)();
+<<<<<<< HEAD
     socketManager = new (_SocketManager().SocketManager)('tunnel1', TEST_PORT, false, transport);
+=======
+    socketManager = new (_SocketManager().SocketManager)('tunnel1', {
+      port: TEST_PORT,
+      useIPv4: false
+    }, transport);
+>>>>>>> Update
     sendMessages(socketManager, messages);
     await waitsForSpy(dataSpy);
     expect(dataSpy.mock.calls.length).toBeGreaterThan(0);
@@ -132,7 +146,14 @@ describe('SocketManager', () => {
       arg: '2nd connect'
     }];
     transport = (0, _util().TestTransportFactory)();
+<<<<<<< HEAD
     socketManager = new (_SocketManager().SocketManager)('tunnel1', TEST_PORT, false, transport);
+=======
+    socketManager = new (_SocketManager().SocketManager)('tunnel1', {
+      port: TEST_PORT,
+      useIPv4: false
+    }, transport);
+>>>>>>> Update
     sendMessages(socketManager, messages);
     await waitsForSpy(dataSpy, 2); // XXX: the remote ports should be different, this isn't very
     // self-explanatory here, and it's tied to the spy call above
@@ -152,7 +173,14 @@ describe('SocketManager', () => {
       arg: data
     }];
     transport = (0, _util().TestTransportFactory)();
+<<<<<<< HEAD
     socketManager = new (_SocketManager().SocketManager)('tunnel1', TEST_PORT, false, transport);
+=======
+    socketManager = new (_SocketManager().SocketManager)('tunnel1', {
+      port: TEST_PORT,
+      useIPv4: false
+    }, transport);
+>>>>>>> Update
     sendMessages(socketManager, messages);
     await waitsForSpy(dataSpy);
     await waitsForSpy(transport.send);

@@ -16,7 +16,11 @@ function _reduxMin() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _reduxObservable() {
   const data = require("../../../../nuclide-commons/redux-observable");
@@ -73,7 +77,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 // $FlowFixMe - Redux is currently untyped!!
 // TODO create this lazily
+<<<<<<< HEAD
 const errors = new _RxMin.Subject();
+=======
+const errors = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
 function handleError(error) {
   (0, _log4js().getLogger)('nuclide-refactorizer').error('Uncaught exception in refactoring:', error);

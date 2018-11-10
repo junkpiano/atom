@@ -12,9 +12,26 @@ exports.trackSampled = trackSampled;
 exports.startTracking = startTracking;
 exports.trackTiming = trackTiming;
 exports.trackTimingSampled = trackTimingSampled;
+<<<<<<< HEAD
 exports.setRawAnalyticsService = setRawAnalyticsService;
 exports.default = exports.TimingTracker = void 0;
 
+=======
+exports.decorateTrackTimingSampled = decorateTrackTimingSampled;
+exports.setRawAnalyticsService = setRawAnalyticsService;
+exports.default = exports.TimingTracker = void 0;
+
+function _nullthrows() {
+  const data = _interopRequireDefault(require("nullthrows"));
+
+  _nullthrows = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("./UniversalDisposable"));
 
@@ -61,7 +78,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 let rawAnalyticsService = {
   track() {},
 
+<<<<<<< HEAD
   isTrackSupported: () => false
+=======
+  isTrackSupported: () => false,
+  setApplicationSessionObservable: ob => {}
+>>>>>>> Update
 };
 
 /**
@@ -137,13 +159,26 @@ class TimingTracker {
     this._trackTimingEvent(error);
   }
 
+<<<<<<< HEAD
+=======
+  onCancel() {
+    this._trackTimingEvent(
+    /* error */
+    null, true);
+  }
+
+>>>>>>> Update
   onSuccess() {
     this._trackTimingEvent(
     /* error */
     null);
   }
 
+<<<<<<< HEAD
   _trackTimingEvent(exception) {
+=======
+  _trackTimingEvent(exception, canceled = false) {
+>>>>>>> Update
     if (canMeasure) {
       /* eslint-disable no-undef */
       // call measure to add this information to the devtools timeline in the
@@ -160,7 +195,12 @@ class TimingTracker {
       duration: Math.round((0, _performanceNow().default)() - this._startTime).toString(),
       eventName: this._eventName,
       error: exception ? '1' : '0',
+<<<<<<< HEAD
       exception: exception ? exception.toString() : ''
+=======
+      exception: exception ? exception.toString() : '',
+      canceled
+>>>>>>> Update
     }));
   }
 
@@ -224,7 +264,24 @@ function trackTimingSampled(eventName, operation, sampleRate, values = {}) {
   return operation();
 }
 
+<<<<<<< HEAD
 function setRawAnalyticsService(analyticsService) {
+=======
+function decorateTrackTimingSampled(fn, sampleRate, values = {}) {
+  const name = (0, _nullthrows().default)(fn.displayName || fn.name);
+
+  function decoratedTrackTimingSampled(...args) {
+    // $FlowFixMe
+    return trackTimingSampled(name, fn.bind(this, ...args), sampleRate, values);
+  }
+
+  decoratedTrackTimingSampled.displayName = `trackTimingSampled(${name})`;
+  return decoratedTrackTimingSampled;
+}
+
+function setRawAnalyticsService(analyticsService, ob) {
+  analyticsService.setApplicationSessionObservable(ob);
+>>>>>>> Update
   rawAnalyticsService = analyticsService;
 }
 

@@ -223,8 +223,13 @@ function mapEqual(map1, map2, equalComparator) {
 
   const equalFunction = equalComparator || ((a, b) => a === b);
 
+<<<<<<< HEAD
   for (const [key1, value1] of map1) {
     if (!map2.has(key1) || !equalFunction(value1, map2.get(key1))) {
+=======
+  for (const [key, value1] of map1) {
+    if (!map2.has(key) || !equalFunction(value1, map2.get(key))) {
+>>>>>>> Update
       return false;
     }
   }

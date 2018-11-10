@@ -36,6 +36,7 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 function _ini() {
   const data = _interopRequireDefault(require("ini"));
 
@@ -46,6 +47,8 @@ function _ini() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -67,6 +70,7 @@ async function getStartCommandFromBuck(projectRoot) {
 
   if (buckProjectRoot == null) {
     return null;
+<<<<<<< HEAD
   } // TODO(matthewwithanm): Move this to BuckUtils?
 
 
@@ -79,13 +83,24 @@ async function getStartCommandFromBuck(projectRoot) {
   const section = parsed['react-native'];
 
   if (section == null || section.server == null) {
+=======
+  }
+
+  const serverCommand = await (0, _nuclideBuckRpc().getBuckConfig)(buckProjectRoot, 'react-native', 'server');
+
+  if (serverCommand == null) {
+>>>>>>> Update
     return null;
   }
 
   return {
     cwd: buckProjectRoot,
     args: ['--disable-global-hotkey'],
+<<<<<<< HEAD
     command: section.server
+=======
+    command: serverCommand
+>>>>>>> Update
   };
 }
 /**

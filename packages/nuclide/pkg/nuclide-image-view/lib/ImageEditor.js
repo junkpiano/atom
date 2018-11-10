@@ -57,7 +57,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73,8 +77,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class ImageEditor {
   constructor(filePath) {
+<<<<<<< HEAD
     this._disposed = new _RxMin.ReplaySubject(1);
     this._didTerminatePendingState = new _RxMin.Subject();
+=======
+    this._disposed = new _rxjsCompatUmdMin.ReplaySubject(1);
+    this._didTerminatePendingState = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this.file = _nuclideUri().default.isRemote(filePath) ? new (_LocalFileCopy().default)(filePath) : new _atom.File(filePath);
     (0, _event().observableFromSubscribeFunction)(cb => this.file.onDidDelete(cb)).takeUntil(this._disposed).subscribe(() => {
       const pane = atom.workspace.paneForURI(filePath);

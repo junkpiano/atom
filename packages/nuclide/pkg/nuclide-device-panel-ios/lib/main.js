@@ -20,7 +20,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -78,7 +82,11 @@ class Activation {
     return api.registerListProvider({
       observe: host => {
         if (_nuclideUri().default.isRemote(host)) {
+<<<<<<< HEAD
           return _RxMin.Observable.of(_expected().Expect.error(new Error('iOS devices on remote hosts are not currently supported.')));
+=======
+          return _rxjsCompatUmdMin.Observable.of(_expected().Expect.error(new Error('iOS devices on remote hosts are not currently supported.')));
+>>>>>>> Update
         } else {
           return (0, _nuclideFbsimctl().observeIosDevices)().map(expected => expected.map(devices => devices.map(device => ({
             identifier: device.udid,

@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileCache() {
   const data = require("../lib/FileCache");
@@ -72,7 +76,11 @@ describe('FileCache', () => {
 
   beforeEach(() => {
     cache = new (_FileCache().FileCache)();
+<<<<<<< HEAD
     const done = new _RxMin.Subject();
+=======
+    const done = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const events = cache.observeFileEvents().takeUntil(done).map(event => {
       const result = Object.assign({}, event, {
         filePath: event.fileVersion.filePath,

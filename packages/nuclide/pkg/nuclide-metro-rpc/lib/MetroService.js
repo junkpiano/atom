@@ -19,7 +19,11 @@ function _StartCommand() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -112,7 +116,11 @@ async function getStartCommand(projectRoot) {
 
 
 function startMetro(projectRoot, editorArgs, port = 8081, extraArgs = []) {
+<<<<<<< HEAD
   const output = _RxMin.Observable.defer(() => getStartCommand(projectRoot)).switchMap(commandInfo => commandInfo == null ? _RxMin.Observable.throw(noMetroProjectError()) : _RxMin.Observable.of(commandInfo)).switchMap(commandInfo => {
+=======
+  const output = _rxjsCompatUmdMin.Observable.defer(() => getStartCommand(projectRoot)).switchMap(commandInfo => commandInfo == null ? _rxjsCompatUmdMin.Observable.throw(noMetroProjectError()) : _rxjsCompatUmdMin.Observable.of(commandInfo)).switchMap(commandInfo => {
+>>>>>>> Update
     const {
       command,
       cwd
@@ -127,9 +135,15 @@ function startMetro(projectRoot, editorArgs, port = 8081, extraArgs = []) {
       killTreeWhenDone: true
     }).catch(error => {
       if (error.exitCode === 22) {
+<<<<<<< HEAD
         return _RxMin.Observable.throw(metroPortBusyError());
       } else {
         return _RxMin.Observable.throw(error);
+=======
+        return _rxjsCompatUmdMin.Observable.throw(metroPortBusyError());
+      } else {
+        return _rxjsCompatUmdMin.Observable.throw(error);
+>>>>>>> Update
       }
     });
   }).filter(event => event.kind === 'stdout' || event.kind === 'stderr').map(event => {

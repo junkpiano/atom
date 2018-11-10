@@ -37,7 +37,11 @@ function _bindObservableAsProps() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _WatchExpressionComponent() {
   const data = _interopRequireDefault(require("./WatchExpressionComponent"));
@@ -87,7 +91,11 @@ class WatchView extends React.PureComponent {
     const watchExpressionChanges = (0, _event().observableFromSubscribeFunction)(model.onDidChangeWatchExpressions.bind(model));
     const focusChanges = (0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel));
     const expressionContextChanges = (0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeExpressionContext.bind(viewModel));
+<<<<<<< HEAD
     this._watchExpressionComponentWrapped = (0, _bindObservableAsProps().bindObservableAsProps)(_RxMin.Observable.merge(watchExpressionChanges, focusChanges, expressionContextChanges).startWith(null).map(() => ({
+=======
+    this._watchExpressionComponentWrapped = (0, _bindObservableAsProps().bindObservableAsProps)(_rxjsCompatUmdMin.Observable.merge(watchExpressionChanges, focusChanges, expressionContextChanges).startWith(null).map(() => ({
+>>>>>>> Update
       focusedProcess: viewModel.focusedProcess,
       focusedStackFrame: viewModel.focusedStackFrame,
       watchExpressions: model.getWatchExpressions()

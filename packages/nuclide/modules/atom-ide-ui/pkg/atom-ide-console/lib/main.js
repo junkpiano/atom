@@ -40,7 +40,11 @@ function _epicHelpers() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _reduxObservable() {
   const data = require("../../../../nuclide-commons/redux-observable");
@@ -142,6 +146,19 @@ function _nullthrows() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _uuid() {
+  const data = _interopRequireDefault(require("uuid"));
+
+  _uuid = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -170,7 +187,27 @@ class Activation {
       atom.clipboard.write(el.innerText);
     }), atom.commands.add('atom-workspace', 'console:clear', () => this._getStore().dispatch(Actions().clearRecords())), _featureConfig().default.observe('atom-ide-console.maximumMessageCount', maxMessageCount => {
       this._getStore().dispatch(Actions().setMaxMessageCount(maxMessageCount));
+<<<<<<< HEAD
     }), _RxMin.Observable.combineLatest((0, _event().observableFromSubscribeFunction)(cb => atom.config.observe('editor.fontSize', cb)), _featureConfig().default.observeAsStream('atom-ide-console.fontScale'), (fontSize, fontScale) => fontSize * parseFloat(fontScale)).map(Actions().setFontSize).subscribe(this._store.dispatch), this._registerCommandAndOpener());
+=======
+    }), _rxjsCompatUmdMin.Observable.combineLatest((0, _event().observableFromSubscribeFunction)(cb => atom.config.observe('editor.fontSize', cb)), _featureConfig().default.observeAsStream('atom-ide-console.fontScale'), (fontSize, fontScale) => fontSize * parseFloat(fontScale)).map(Actions().setFontSize).subscribe(this._store.dispatch), this._registerCommandAndOpener());
+  }
+
+  async _open(event) {
+    const consoleAlreadyOpen = atom.workspace.getPanes().some(pane => pane.getItems().some(item => item instanceof _Console().Console)); // eslint-disable-next-line nuclide-internal/atom-apis
+
+    const consoleObject = await atom.workspace.open(_Console().WORKSPACE_VIEW_URI, {
+      searchAllPanes: true
+    });
+
+    if (!(consoleObject instanceof _Console().Console)) {
+      throw new Error("Invariant violation: \"consoleObject instanceof Console\"");
+    }
+
+    consoleObject.open(Object.assign({}, event, {
+      consoleAlreadyOpen
+    }));
+>>>>>>> Update
   }
 
   _getStore() {
@@ -398,6 +435,10 @@ class Activation {
             tags: message.tags,
             scopeName: message.scopeName,
             sourceId: sourceInfo.id,
+<<<<<<< HEAD
+=======
+            sourceName: sourceInfo.name,
+>>>>>>> Update
             kind: message.kind || 'message',
             timestamp: new Date(),
             // TODO: Allow this to come with the message?
@@ -409,7 +450,11 @@ class Activation {
           if (incomplete) {
             // An ID is only required for incomplete messages, which need
             // to be looked up for mutations.
+<<<<<<< HEAD
             record.messageId = activation._nextMessageId++;
+=======
+            record.messageId = _uuid().default.v4();
+>>>>>>> Update
             token = createToken(record.messageId);
           }
 
@@ -426,6 +471,20 @@ class Activation {
           activation._getStore().dispatch(Actions().updateStatus(sourceInfo.id, status));
         },
 
+<<<<<<< HEAD
+=======
+        open(options) {
+          if (!(activation != null && !disposed)) {
+            throw new Error("Invariant violation: \"activation != null && !disposed\"");
+          }
+
+          return activation._open({
+            id: sourceInfo.id,
+            isolate: options != null ? options.isolate : false
+          });
+        },
+
+>>>>>>> Update
         dispose() {
           if (!(activation != null)) {
             throw new Error("Invariant violation: \"activation != null\"");
@@ -443,6 +502,7 @@ class Activation {
     };
   }
 
+<<<<<<< HEAD
   provideOutputService() {
     // Create a local, nullable reference so that the service consumers don't keep the Activation
     // instance in memory.
@@ -470,6 +530,8 @@ class Activation {
     };
   }
 
+=======
+>>>>>>> Update
   provideRegisterExecutor() {
     // Create a local, nullable reference so that the service consumers don't keep the Activation
     // instance in memory.
@@ -537,7 +599,18 @@ function deserializeAppState(rawState) {
 
 function deserializeRecord(record) {
   return Object.assign({}, record, {
+<<<<<<< HEAD
     timestamp: parseDate(record.timestamp) || new Date(0)
+=======
+    timestamp: parseDate(record.timestamp) || new Date(0),
+    // At one point in the time the messageId was a number, so the user might
+    // have a number serialized.
+    messageId: record == null || record.messageId == null || // Sigh. We (I, -jeldredge) had a bug at one point where we accidentally
+    // converted serialized values of `undefined` to the string `"undefiend"`.
+    // Those could then have been serialized back to disk. So, for a little
+    // while at least, we should ensure we fix these bad values.
+    record.messageId === 'undefined' ? undefined : String(record.messageId)
+>>>>>>> Update
   });
 }
 

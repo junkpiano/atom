@@ -9,7 +9,11 @@ exports.getHasSentDeepLink = getHasSentDeepLink;
 
 var _electron = _interopRequireDefault(require("electron"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,7 +44,11 @@ const CHANNEL = 'nuclide-url-open';
 let hasSentDeepLink = false;
 
 function observeDeepLinks() {
+<<<<<<< HEAD
   return _RxMin.Observable.fromEvent(ipcRenderer, CHANNEL, (event, data) => data);
+=======
+  return _rxjsCompatUmdMin.Observable.fromEvent(ipcRenderer, CHANNEL, (event, data) => data);
+>>>>>>> Update
 }
 
 function sendDeepLink(browserWindow, path, params) {

@@ -29,6 +29,19 @@ function _Encoder() {
 
 var _events = _interopRequireDefault(require("events"));
 
+<<<<<<< HEAD
+=======
+function _ProxyConfigUtils() {
+  const data = require("./ProxyConfigUtils");
+
+  _ProxyConfigUtils = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -45,12 +58,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const logger = (0, _log4js().getLogger)('tunnel-socket-manager');
 
 class SocketManager extends _events.default {
+<<<<<<< HEAD
   constructor(tunnelId, port, useIPv4, transport) {
     super();
     this._tunnelId = tunnelId;
     this._port = port;
     this._transport = transport;
     this._useIPv4 = useIPv4;
+=======
+  constructor(tunnelId, proxyConfig, transport) {
+    super();
+    this._tunnelId = tunnelId;
+    this._transport = transport;
+    this._proxyConfig = proxyConfig;
+>>>>>>> Update
     this._socketByClientId = new Map();
   }
 
@@ -59,6 +80,7 @@ class SocketManager extends _events.default {
   }
 
   receive(msg) {
+<<<<<<< HEAD
     const {
       clientId
     } = msg;
@@ -109,6 +131,88 @@ class SocketManager extends _events.default {
           arg,
           clientId
         });
+=======
+    switch (msg.event) {
+      case 'connection':
+        this._createConnection(msg.clientId);
+
+        return;
+
+      case 'data':
+        this._forwardData(msg.clientId, msg.arg);
+
+        return;
+
+      case 'close':
+        this._ensureSocketClosed(msg.clientId);
+
+        return;
+
+      case 'error':
+        this._destroySocket(msg.clientId, msg.error);
+
+        return;
+
+      case 'end':
+        this._endSocket(msg.clientId);
+
+        return;
+
+      default:
+        throw new Error(`Invalid tunnel message: ${msg.event}`);
+    } // const {clientId} = msg;
+    // invariant(msg.clientId != null);
+
+  }
+
+  _createConnection(clientId) {
+    const connectOptions = (0, _ProxyConfigUtils().matchProxyConfig)({
+      tcp: c => ({
+        port: c.port,
+        family: c.useIPv4 ? 4 : 6
+      }),
+      ipcSocket: c => ({
+        path: c.path
+      })
+    }, this._proxyConfig);
+    logger.info(`creating socket with ${JSON.stringify(connectOptions)}`);
+
+    const socket = _net.default.createConnection(connectOptions); // forward events over the transport
+    // NOTE: Needs to be explicit otherwise Flow will complain about the
+    // type. We prefer this as opposed to using `any` types in such important infra code.
+
+
+    socket.on('timeout', arg => {
+      this._sendMessage({
+        event: 'timeout',
+        arg,
+        clientId,
+        tunnelId: this._tunnelId
+      });
+    });
+    socket.on('end', arg => {
+      this._sendMessage({
+        event: 'end',
+        arg,
+        clientId,
+        tunnelId: this._tunnelId
+      });
+    });
+    socket.on('close', arg => {
+      this._sendMessage({
+        event: 'close',
+        arg,
+        clientId,
+        tunnelId: this._tunnelId
+      });
+    });
+    socket.on('data', arg => {
+      this._sendMessage({
+        event: 'data',
+        arg,
+        clientId,
+        tunnelId: this._tunnelId
+>>>>>>> Update
       });
     });
     socket.on('error', error => {
@@ -116,8 +220,14 @@ class SocketManager extends _events.default {
 
       this._sendMessage({
         event: 'error',
+<<<<<<< HEAD
         error,
         clientId
+=======
+        tunnelId: this._tunnelId,
+        clientId,
+        error
+>>>>>>> Update
       });
 
       socket.destroy(error);
@@ -183,9 +293,13 @@ class SocketManager extends _events.default {
   }
 
   _sendMessage(msg) {
+<<<<<<< HEAD
     this._transport.send(_Encoder().default.encode(Object.assign({
       tunnelId: this._tunnelId
     }, msg)));
+=======
+    this._transport.send(_Encoder().default.encode(msg));
+>>>>>>> Update
   }
 
   close() {

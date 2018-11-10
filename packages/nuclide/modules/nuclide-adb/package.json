@@ -21,7 +21,12 @@
     "nuclide-commons": "0.7.3-dev",
     "nuclide-commons-atom": "0.7.3-dev",
     "nullthrows": "1.0.0",
+<<<<<<< HEAD
     "rxjs": "5.5.5",
     "shallowequal": "0.2.2"
+=======
+    "rxjs-compat": "6.3.3",
+    "shallowequal": "1.1.0"
+>>>>>>> Update
   }
 }

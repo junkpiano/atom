@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.forkHostServices = forkHostServices;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -190,7 +194,11 @@ class HostServicesRelay {
   // fired. It is signaled by calling _disposables.dispose(), which fires
   // the _childIsDisposed.next().
   constructor(aggregator, id, child) {
+<<<<<<< HEAD
     this._childIsDisposed = new _RxMin.Subject();
+=======
+    this._childIsDisposed = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._disposables = new (_UniversalDisposable().default)();
     this._aggregator = aggregator;
     this._id = id;
@@ -211,7 +219,11 @@ class HostServicesRelay {
 
   dialogNotification(level, text) {
     if (this._aggregator.isDisposed()) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty().publish();
+=======
+      return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
     }
 
     return this._aggregator._parent.dialogNotification(level, text).refCount().takeUntil(this._childIsDisposed).publish(); // If the host is disposed, then the ConnectedObservable we return will
@@ -221,7 +233,11 @@ class HostServicesRelay {
 
   dialogRequest(level, text, buttonLabels, closeLabel) {
     if (this._aggregator.isDisposed()) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty().publish();
+=======
+      return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
     }
 
     return this._aggregator._parent.dialogRequest(level, text, buttonLabels, closeLabel).refCount().takeUntil(this._childIsDisposed).publish();
@@ -252,7 +268,11 @@ class HostServicesRelay {
 
     const parentPromise = this._aggregator._parent.showProgress(title, options);
 
+<<<<<<< HEAD
     let progress = await _RxMin.Observable.from(parentPromise).takeUntil(this._childIsDisposed).toPromise(); // Should a cancellation come while we're waiting for our parent,
+=======
+    let progress = await _rxjsCompatUmdMin.Observable.from(parentPromise).takeUntil(this._childIsDisposed).toPromise(); // Should a cancellation come while we're waiting for our parent,
+>>>>>>> Update
     // then we'll immediately return a no-op wrapper and ensure that
     // the one from our parent will eventually be disposed.
     // The "or" check below is in case parentProgress returned something
@@ -290,7 +310,11 @@ class HostServicesRelay {
 
   showActionRequired(title, options) {
     if (this._aggregator.isDisposed()) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty().publish();
+=======
+      return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
     }
 
     return this._aggregator._parent.showActionRequired(title, options).refCount().takeUntil(this._childIsDisposed).publish();

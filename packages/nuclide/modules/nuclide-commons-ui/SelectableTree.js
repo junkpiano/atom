@@ -37,7 +37,11 @@ function _classnames() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _shallowequal() {
   const data = _interopRequireDefault(require("shallowequal"));
@@ -181,7 +185,11 @@ class Tree extends React.Component {
       'core:move-left': this._collapseNodeViaKeyboard,
       'core:move-right': this._expandNodeViaKeyboard,
       'core:confirm': () => this.state.focusedPath && this._handleConfirm(this.state.focusedPath)
+<<<<<<< HEAD
     }), _RxMin.Observable.merge(_RxMin.Observable.fromEvent(rootNode, 'focusin').mapTo(true), _RxMin.Observable.fromEvent(rootNode, 'focusout').mapTo(false)).subscribe(isFocused => this.setState({
+=======
+    }), _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.fromEvent(rootNode, 'focusin').mapTo(true), _rxjsCompatUmdMin.Observable.fromEvent(rootNode, 'focusout').mapTo(false)).subscribe(isFocused => this.setState({
+>>>>>>> Update
       isFocused
     })));
   }

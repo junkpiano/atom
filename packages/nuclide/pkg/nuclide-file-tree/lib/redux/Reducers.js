@@ -107,7 +107,11 @@ function _nuclideWorkingSetsCommon() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../../nuclide-analytics");
+=======
+  const data = require("../../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -172,19 +176,28 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
  */
 // $FlowFixMe(>=0.53.0) Flow suppress
 const DEFAULT_CONF = {
+<<<<<<< HEAD
   vcsStatuses: Immutable().Map(),
+=======
+>>>>>>> Update
   workingSet: new (_nuclideWorkingSetsCommon().WorkingSet)(),
   editedWorkingSet: new (_nuclideWorkingSetsCommon().WorkingSet)(),
   hideIgnoredNames: true,
   excludeVcsIgnoredPaths: true,
   hideVcsIgnoredPaths: true,
   ignoredPatterns: Immutable().Set(),
+<<<<<<< HEAD
   usePreviewTabs: false,
   focusEditorOnFileSelection: true,
   isEditingWorkingSet: false,
   openFilesWorkingSet: new (_nuclideWorkingSetsCommon().WorkingSet)(),
   reposByRoot: {},
   fileChanges: Immutable().Map()
+=======
+  isEditingWorkingSet: false,
+  openFilesWorkingSet: new (_nuclideWorkingSetsCommon().WorkingSet)(),
+  reposByRoot: {}
+>>>>>>> Update
 };
 exports.DEFAULT_CONF = DEFAULT_CONF;
 const actionTrackers = new Map(); // TODO: Don't `export default` an object.
@@ -222,7 +235,14 @@ const DEFAULT_STATE = {
   _cwdKey: null,
   _trackedRootKey: null,
   _trackedNodeKey: null,
+<<<<<<< HEAD
   remoteTransferService: null
+=======
+  remoteTransferService: null,
+  vcsStatuses: Immutable().Map(),
+  usePreviewTabs: false,
+  focusEditorOnFileSelection: true
+>>>>>>> Update
 };
 
 function reduceState(state_, action) {
@@ -531,8 +551,14 @@ function clearSelectionRange(state) {
 }
 
 function clearDragHover(state) {
+<<<<<<< HEAD
   return updateRoots(state, root => {
     return root.setRecursive(node => node.containsDragHover ? null : node, node => node.setIsDragHovered(false));
+=======
+  const getNodeContainsDragHover = Selectors().getNodeContainsDragHover(state);
+  return updateRoots(state, root => {
+    return root.setRecursive(node => getNodeContainsDragHover(node) ? null : node, node => node.setIsDragHovered(false));
+>>>>>>> Update
   });
 }
 /**
@@ -670,7 +696,11 @@ function reorderDragInto(state, targetRootKey) {
   if (targetIdx <= reorderPreviewStatus.sourceIdx) {
     targetNode = targetRootNode;
   } else {
+<<<<<<< HEAD
     targetNode = targetRootNode.findLastRecursiveChild();
+=======
+    targetNode = Selectors().findLastRecursiveChild(state)(targetRootNode);
+>>>>>>> Update
   }
 
   return Object.assign({}, state, {
@@ -730,6 +760,10 @@ function setExcludeVcsIgnoredPaths(state, excludeVcsIgnoredPaths) {
 
 
 function updateConf(state, mutator) {
+<<<<<<< HEAD
+=======
+  const getNodeContainsHidden = Selectors().getNodeContainsHidden(state);
+>>>>>>> Update
   const nextConf = Object.assign({}, state._conf);
   mutator(nextConf);
   const nodesToUnselect = new Set();
@@ -737,7 +771,11 @@ function updateConf(state, mutator) {
     // TODO: We're no longer changing anything here so we should be using an iteration helper
     // instead of `setRecursive()`
     return root.updateConf(nextConf).setRecursive( // Remove selection from hidden nodes under this root
+<<<<<<< HEAD
     node => node.containsHidden ? null : node, node => {
+=======
+    node => getNodeContainsHidden(node) ? null : node, node => {
+>>>>>>> Update
       if (node.shouldBeShown) {
         return node;
       } // The node is hidden - unselect all nodes under it if there are any
@@ -762,14 +800,24 @@ function setHideVcsIgnoredPaths(state, hideVcsIgnoredPaths) {
 }
 
 function setUsePreviewTabs(state, usePreviewTabs) {
+<<<<<<< HEAD
   return updateConf(state, conf => {
     conf.usePreviewTabs = usePreviewTabs;
+=======
+  return Object.assign({}, state, {
+    usePreviewTabs
+>>>>>>> Update
   });
 }
 
 function setFocusEditorOnFileSelection(state, focusEditorOnFileSelection) {
+<<<<<<< HEAD
   return updateConf(state, conf => {
     conf.focusEditorOnFileSelection = focusEditorOnFileSelection;
+=======
+  return Object.assign({}, state, {
+    focusEditorOnFileSelection
+>>>>>>> Update
   });
 }
 
@@ -855,13 +903,21 @@ function setIgnoredNames(state, ignoredNames) {
 }
 
 function setVcsStatuses(state, rootKey, vcsStatuses) {
+<<<<<<< HEAD
   let nextState = Object.assign({}, state); // We use file changes for populating the uncommitted list, this is different as compared
+=======
+  // We use file changes for populating the uncommitted list, this is different as compared
+>>>>>>> Update
   // to what is computed in the vcsStatuses in that it does not need the exact path but just
   // the root folder present in atom and the file name and its status. Another difference is
   // in the terms used for status change, while uncommitted changes needs the HgStatusChange
   // codes the file tree doesn't.
+<<<<<<< HEAD
 
   nextState = setFileChanges(nextState, rootKey, vcsStatuses); // We can't build on the child-derived properties to maintain vcs statuses in the entire
+=======
+  const nextState = setFileChanges(state, rootKey, vcsStatuses); // We can't build on the child-derived properties to maintain vcs statuses in the entire
+>>>>>>> Update
   // tree, since the reported VCS status may be for a node that is not yet present in the
   // fetched tree, and so it it can't affect its parents statuses. To have the roots colored
   // consistently we manually add all parents of all of the modified nodes up till the root
@@ -896,8 +952,13 @@ function setVcsStatuses(state, rootKey, vcsStatuses) {
       }
     }
   });
+<<<<<<< HEAD
   return updateConf(nextState, conf => {
     conf.vcsStatuses = conf.vcsStatuses.set(rootKey, enrichedVcsStatuses);
+=======
+  return Object.assign({}, nextState, {
+    vcsStatuses: nextState.vcsStatuses.set(rootKey, enrichedVcsStatuses)
+>>>>>>> Update
   });
 }
 
@@ -1110,6 +1171,7 @@ function moveSelectionUp(state) {
   let nodeToSelect;
 
   if (selectedNodes.isEmpty()) {
+<<<<<<< HEAD
     nodeToSelect = (0, _nullthrows().default)(state._roots.last()).findLastRecursiveChild();
   } else {
     const selectedNode = (0, _nullthrows().default)(selectedNodes.first());
@@ -1118,6 +1180,16 @@ function moveSelectionUp(state) {
 
   while (nodeToSelect != null && !nodeToSelect.matchesFilter) {
     nodeToSelect = nodeToSelect.findPrevious();
+=======
+    nodeToSelect = Selectors().findLastRecursiveChild(state)((0, _nullthrows().default)(state._roots.last()));
+  } else {
+    const selectedNode = (0, _nullthrows().default)(selectedNodes.first());
+    nodeToSelect = Selectors().findPrevious(state)(selectedNode);
+  }
+
+  while (nodeToSelect != null && !nodeToSelect.matchesFilter) {
+    nodeToSelect = Selectors().findPrevious(state)(nodeToSelect);
+>>>>>>> Update
   }
 
   if (nodeToSelect == null) {
@@ -1151,6 +1223,10 @@ function setSelectedAndFocusedNode(state, rootKey, nodeKey) {
 
 
 function rangeSelectToNode(state, rootKey, nodeKey) {
+<<<<<<< HEAD
+=======
+  const getShownChildrenCount = Selectors().getShownChildrenCount(state);
+>>>>>>> Update
   const {
     updatedState,
     data
@@ -1172,7 +1248,11 @@ function rangeSelectToNode(state, rootKey, nodeKey) {
     return nextState;
   }
 
+<<<<<<< HEAD
   const nextRangeIndex = nextRangeNode.calculateVisualIndex();
+=======
+  const nextRangeIndex = Selectors().getVisualIndex(state)(nextRangeNode);
+>>>>>>> Update
 
   if (nextRangeIndex === rangeIndex) {
     return nextState;
@@ -1193,19 +1273,31 @@ function rangeSelectToNode(state, rootKey, nodeKey) {
       return node;
     }
 
+<<<<<<< HEAD
     if (node.shownChildrenCount === 1) {
+=======
+    if (getShownChildrenCount(node) === 1) {
+>>>>>>> Update
       beginIndex++;
       return node;
     }
 
+<<<<<<< HEAD
     const endIndex = beginIndex + node.shownChildrenCount - 1;
+=======
+    const endIndex = beginIndex + getShownChildrenCount(node) - 1;
+>>>>>>> Update
 
     if (beginIndex <= modMaxIndex && modMinIndex <= endIndex) {
       beginIndex++;
       return null;
     }
 
+<<<<<<< HEAD
     beginIndex += node.shownChildrenCount;
+=======
+    beginIndex += getShownChildrenCount(node);
+>>>>>>> Update
     return node;
   }, // flip the isSelected flag accordingly, based on previous and current range.
   node => {
@@ -1213,7 +1305,11 @@ function rangeSelectToNode(state, rootKey, nodeKey) {
       return node;
     }
 
+<<<<<<< HEAD
     const curIndex = beginIndex - node.shownChildrenCount;
+=======
+    const curIndex = beginIndex - getShownChildrenCount(node);
+>>>>>>> Update
     const inOldRange = Math.sign(curIndex - anchorIndex) * Math.sign(curIndex - rangeIndex) !== 1;
     const inNewRange = Math.sign(curIndex - anchorIndex) * Math.sign(curIndex - nextRangeIndex) !== 1;
 
@@ -1233,7 +1329,11 @@ function rangeSelectToNode(state, rootKey, nodeKey) {
     _focusedUris: deleteNodes(addNodes(nextState._focusedUris, nodesToSelect), nodesToUnselect)
   }); // expand the range to merge existing selected nodes.
 
+<<<<<<< HEAD
   const getNextNode = cur => nextRangeIndex < rangeIndex ? cur.findPrevious() : cur.findNext();
+=======
+  const getNextNode = cur => nextRangeIndex < rangeIndex ? Selectors().findPrevious(state)(cur) : Selectors().findNext(state)(cur);
+>>>>>>> Update
 
   let probe = getNextNode(nextRangeNode);
 
@@ -1280,8 +1380,13 @@ function refreshSelectionRange(state) {
     return invalidate();
   }
 
+<<<<<<< HEAD
   const anchorIndex = anchorNode.calculateVisualIndex();
   const rangeIndex = rangeNode.calculateVisualIndex();
+=======
+  const anchorIndex = Selectors().getVisualIndex(state)(anchorNode);
+  const rangeIndex = Selectors().getVisualIndex(state)(rangeNode);
+>>>>>>> Update
   const direction = rangeIndex > anchorIndex ? 'down' : rangeIndex === anchorIndex ? 'none' : 'up';
   selectionRange = new (_FileTreeSelectionRange().SelectionRange)(_FileTreeSelectionRange().RangeKey.of(anchorNode), _FileTreeSelectionRange().RangeKey.of(rangeNode));
   return {
@@ -1319,7 +1424,11 @@ function rangeSelectMove(state, move) {
     direction
   } = data;
 
+<<<<<<< HEAD
   const getNextNode = cur => move === 'up' ? cur.findPrevious() : cur.findNext();
+=======
+  const getNextNode = cur => move === 'up' ? Selectors().findPrevious(state)(cur) : Selectors().findNext(state)(cur);
+>>>>>>> Update
 
   const isExpanding = direction === move || direction === 'none';
 
@@ -1391,11 +1500,19 @@ function moveSelectionDown(state) {
     nodeToSelect = state._roots.first();
   } else {
     const selectedNode = (0, _nullthrows().default)(selectedNodes.first());
+<<<<<<< HEAD
     nodeToSelect = selectedNode.findNext();
   }
 
   while (nodeToSelect != null && !nodeToSelect.matchesFilter) {
     nodeToSelect = nodeToSelect.findNext();
+=======
+    nodeToSelect = Selectors().findNext(state)(selectedNode);
+  }
+
+  while (nodeToSelect != null && !nodeToSelect.matchesFilter) {
+    nodeToSelect = Selectors().findNext(state)(nodeToSelect);
+>>>>>>> Update
   }
 
   if (nodeToSelect == null) {
@@ -1413,7 +1530,11 @@ function moveSelectionToTop(state) {
   let nodeToSelect = state._roots.first();
 
   if (nodeToSelect != null && !nodeToSelect.shouldBeShown) {
+<<<<<<< HEAD
     nodeToSelect = nodeToSelect.findNext();
+=======
+    nodeToSelect = Selectors().findNext(state)(nodeToSelect);
+>>>>>>> Update
   }
 
   if (nodeToSelect == null) {
@@ -1434,7 +1555,11 @@ function moveSelectionToBottom(state) {
     throw new Error("Invariant violation: \"lastRoot != null\"");
   }
 
+<<<<<<< HEAD
   const lastChild = lastRoot.findLastRecursiveChild();
+=======
+  const lastChild = Selectors().findLastRecursiveChild(state)(lastRoot);
+>>>>>>> Update
 
   if (!(lastChild != null)) {
     throw new Error("Invariant violation: \"lastChild != null\"");
@@ -1529,10 +1654,18 @@ function setTargetNode(state, rootKey, nodeKey) {
 }
 
 function addFilterLetter(state, letter) {
+<<<<<<< HEAD
   let nextState = Object.assign({}, state);
   nextState._filter = state._filter + letter;
   nextState = updateRoots(nextState, root => {
     return root.setRecursive(node => node.containsFilterMatches ? null : node, node => {
+=======
+  const getNodeContainsFilterMatches = Selectors().getNodeContainsFilterMatches(state);
+  let nextState = Object.assign({}, state);
+  nextState._filter = state._filter + letter;
+  nextState = updateRoots(nextState, root => {
+    return root.setRecursive(node => getNodeContainsFilterMatches(node) ? null : node, node => {
+>>>>>>> Update
       return (0, _FileTreeFilterHelper().matchesFilter)(node.name, nextState._filter) ? node.set({
         highlightedText: nextState._filter,
         matchesFilter: true

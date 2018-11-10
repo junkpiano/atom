@@ -17,6 +17,19 @@ function Immutable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _nuclideUri() {
+  const data = _interopRequireDefault(require("../../../../modules/nuclide-commons/nuclideUri"));
+
+  _nuclideUri = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _Dropdown() {
   const data = require("../../../../modules/nuclide-commons-ui/Dropdown");
 
@@ -47,6 +60,7 @@ function _ButtonGroup() {
   return data;
 }
 
+<<<<<<< HEAD
 function _hostnames() {
   const data = require("../../../commons-node/hostnames");
 
@@ -56,6 +70,9 @@ function _hostnames() {
 
   return data;
 }
+=======
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+>>>>>>> Update
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -90,7 +107,11 @@ class Selectors extends React.Component {
   }
 
   _getLabelForHost(host) {
+<<<<<<< HEAD
     return host === '' ? 'localhost' : (0, _hostnames().shortenHostname)(host);
+=======
+    return host === '' ? 'localhost' : _nuclideUri().default.nuclideUriToDisplayHostname(host);
+>>>>>>> Update
   }
 
   _getHostOptions() {

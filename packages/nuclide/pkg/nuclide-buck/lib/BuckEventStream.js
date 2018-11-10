@@ -8,7 +8,21 @@ exports.getEventsFromProcess = getEventsFromProcess;
 exports.combineEventStreams = combineEventStreams;
 exports.getDiagnosticEvents = getDiagnosticEvents;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+function _passesGK() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+
+  _passesGK = function () {
+    return data;
+  };
+
+  return data;
+}
+
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _stripAnsi() {
   const data = _interopRequireDefault(require("strip-ansi"));
@@ -65,6 +79,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const PROGRESS_OUTPUT_INTERVAL = 5 * 1000;
 const BUILD_FAILED_MESSAGE = 'BUILD FAILED:';
 const BUILD_OUTPUT_REGEX = /^OK {3}(.*?) (.*?) (.*?)$/;
+<<<<<<< HEAD
+=======
+const RESET_ANSI = '?7l';
+const ERROR_ANSI = '?7h[31m';
+>>>>>>> Update
 
 function convertJavaLevel(level) {
   switch (level) {
@@ -82,7 +101,11 @@ function convertJavaLevel(level) {
 }
 
 function getEventsFromSocket(socketStream) {
+<<<<<<< HEAD
   const log = (message, level = 'log') => _RxMin.Observable.of({
+=======
+  const log = (message, level = 'log') => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     type: 'log',
     message,
     level
@@ -91,7 +114,11 @@ function getEventsFromSocket(socketStream) {
   const eventStream = socketStream.flatMap(message => {
     switch (message.type) {
       case 'SocketConnected':
+<<<<<<< HEAD
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           type: 'socket-connected'
         });
 
@@ -102,6 +129,7 @@ function getEventsFromSocket(socketStream) {
         return log('Parsing finished. Starting build...');
 
       case 'ConsoleEvent':
+<<<<<<< HEAD
         const match = message.message.match(BUILD_OUTPUT_REGEX);
 
         if (match != null && match.length === 4) {
@@ -111,6 +139,18 @@ function getEventsFromSocket(socketStream) {
           return log(message.message, convertJavaLevel(message.level.name));
         } else {
           return _RxMin.Observable.empty();
+=======
+        const strippedMessage = (0, _stripAnsi().default)(message.message);
+        const match = strippedMessage.match(BUILD_OUTPUT_REGEX);
+
+        if (match != null && match.length === 4) {
+          // The result is also printed to stdout and converted into build-output there.
+          return _rxjsCompatUmdMin.Observable.empty();
+        } else if (strippedMessage !== '') {
+          return log(strippedMessage, convertJavaLevel(message.level.name));
+        } else {
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }
 
       case 'InstallFinished':
@@ -120,7 +160,11 @@ function getEventsFromSocket(socketStream) {
         return log(`Build finished with exit code ${message.exitCode}.`, message.exitCode === 0 ? 'info' : 'error');
 
       case 'BuildProgressUpdated':
+<<<<<<< HEAD
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           type: 'progress',
           progress: message.progressValue
         });
@@ -130,6 +174,7 @@ function getEventsFromSocket(socketStream) {
         return log(message.error, 'error');
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
   }).catch(err => {
     (0, _log4js().getLogger)('nuclide-buck').error('Got Buck websocket error', err); // Return to indeterminate progress.
@@ -147,10 +192,38 @@ function getEventsFromSocket(socketStream) {
 
     return _RxMin.Observable.empty();
   });
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+  }).catch(err => {
+    (0, _log4js().getLogger)('nuclide-buck').error('Got Buck websocket error', err); // Return to indeterminate progress.
+
+    return _rxjsCompatUmdMin.Observable.of({
+      type: 'progress',
+      progress: null
+    });
+  }).share();
+
+  const progressEvents = _rxjsCompatUmdMin.Observable.fromPromise((0, _passesGK().default)('nuclide_buck_superconsole')).switchMap(passed => {
+    if (!passed) {
+      // Periodically emit log events for progress updates.
+      return eventStream.switchMap(event => {
+        if (event.type === 'progress' && event.progress != null && event.progress > 0 && event.progress < 1) {
+          return log(`Building... [${Math.round(event.progress * 100)}%]`);
+        }
+
+        return _rxjsCompatUmdMin.Observable.empty();
+      });
+    } else {
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+  });
+
+>>>>>>> Update
   return eventStream.merge(progressEvents.take(1).concat(progressEvents.sampleTime(PROGRESS_OUTPUT_INTERVAL)));
 }
 
 function getEventsFromProcess(processStream) {
+<<<<<<< HEAD
   return processStream.map(message => {
     switch (message.kind) {
       case 'error':
@@ -203,6 +276,82 @@ function getEventsFromProcess(processStream) {
         message;
         throw new Error('impossible');
     }
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise((0, _passesGK().default)('nuclide_buck_superconsole')).switchMap(useSuperconsole => {
+    return processStream.map(message => {
+      switch (message.kind) {
+        case 'error':
+          return {
+            type: 'error',
+            message: `Buck failed: ${message.error.message}`
+          };
+
+        case 'exit':
+          const logMessage = `Buck exited with ${(0, _process().exitEventToMessage)(message)}.`;
+
+          if (message.exitCode === 0) {
+            return {
+              type: 'log',
+              message: logMessage,
+              level: 'info'
+            };
+          }
+
+          return {
+            type: 'error',
+            message: logMessage
+          };
+
+        case 'stderr':
+        case 'stdout':
+          const match = message.data.trim().match(BUILD_OUTPUT_REGEX);
+
+          if (match != null && match.length === 4) {
+            return {
+              type: 'build-output',
+              output: {
+                target: match[1],
+                successType: match[2],
+                path: match[3]
+              }
+            };
+          } else if (useSuperconsole) {
+            const mdata = message.data;
+            const reset = mdata.includes(RESET_ANSI);
+            const error = mdata.includes(ERROR_ANSI);
+            const stripped = (0, _stripAnsi().default)(message.data);
+
+            if (message.data.indexOf(BUILD_FAILED_MESSAGE) !== -1) {
+              return {
+                type: 'log',
+                level: 'error',
+                message: stripped
+              };
+            }
+
+            return {
+              type: 'buck-status',
+              message: stripped,
+              error,
+              reset
+            };
+          } else {
+            return {
+              type: 'log',
+              // Some Buck steps output ansi escape codes regardless of terminal setting.
+              message: (0, _stripAnsi().default)(message.data),
+              // Build failure messages typically do not show up in the web socket.
+              // TODO(hansonw): fix this on the Buck side
+              level: message.data.indexOf(BUILD_FAILED_MESSAGE) === -1 ? 'log' : 'error'
+            };
+          }
+
+        default:
+          message;
+          throw new Error('impossible');
+      }
+    });
+>>>>>>> Update
   });
 }
 
@@ -218,9 +367,15 @@ function combineEventStreams(subcommand, socketEvents, processEvents) {
 
 
   const finiteSocketEvents = socketEvents.takeUntil(processEvents.ignoreElements() // Despite the docs, takeUntil doesn't respond to completion.
+<<<<<<< HEAD
   .concat(_RxMin.Observable.of(null))).share();
 
   let mergedEvents = _RxMin.Observable.merge(finiteSocketEvents, // Take all process output until the first socket message.
+=======
+  .concat(_rxjsCompatUmdMin.Observable.of(null))).share();
+
+  let mergedEvents = _rxjsCompatUmdMin.Observable.merge(finiteSocketEvents, // Take all process output until the first socket message.
+>>>>>>> Update
   // There's a slight risk of output duplication if the socket message is late,
   // but this is pretty rare.
   processEvents.takeUntil(finiteSocketEvents).takeWhile(isRegularLogMessage), // Error/info logs from the process represent exit/error conditions, so always take them.
@@ -230,15 +385,24 @@ function combineEventStreams(subcommand, socketEvents, processEvents) {
   if (subcommand === 'test' || subcommand === 'run') {
     // The websocket does not reliably provide test output.
     // After the build finishes, fall back to the Buck output stream.
+<<<<<<< HEAD
     mergedEvents = _RxMin.Observable.concat(mergedEvents.takeUntil(finiteSocketEvents.filter(isBuildFinishEvent)), // Return to indeterminate progress.
     _RxMin.Observable.of({
+=======
+    mergedEvents = _rxjsCompatUmdMin.Observable.concat(mergedEvents.takeUntil(finiteSocketEvents.filter(isBuildFinishEvent)), // Return to indeterminate progress.
+    _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       type: 'progress',
       progress: null
     }), processEvents);
   } else if (subcommand === 'install') {
     // Add a message indicating that install has started after build completes.
     // The websocket does not naturally provide any indication.
+<<<<<<< HEAD
     mergedEvents = _RxMin.Observable.merge(mergedEvents, finiteSocketEvents.filter(isBuildFinishEvent).switchMapTo(_RxMin.Observable.of({
+=======
+    mergedEvents = _rxjsCompatUmdMin.Observable.merge(mergedEvents, finiteSocketEvents.filter(isBuildFinishEvent).switchMapTo(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       type: 'progress',
       progress: null
     }, {
@@ -256,12 +420,20 @@ function getDiagnosticEvents(events, buckRoot) {
   return events.flatMap(event => {
     // For log messages, try to detect compile errors and emit diagnostics.
     if (event.type === 'log') {
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(diagnosticsParser.getDiagnostics(event.message, event.level, buckRoot)).map(diagnostics => ({
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(diagnosticsParser.getDiagnostics(event.message, event.level, buckRoot)).map(diagnostics => ({
+>>>>>>> Update
         type: 'diagnostics',
         diagnostics
       }));
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   });
 }

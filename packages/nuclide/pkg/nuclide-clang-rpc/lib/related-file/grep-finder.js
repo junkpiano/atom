@@ -26,10 +26,17 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _nuclideAnalytics() {
   const data = require("../../../nuclide-analytics");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _nuclideAnalytics() {
+  const data = require("../../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -112,7 +119,11 @@ function findIncludingSourceFile(headerFile, projectRoot) {
       projectRoot,
       error: e.toString()
     });
+<<<<<<< HEAD
     return _RxMin.Observable.of(null);
+=======
+    return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
   });
 }
 
@@ -157,7 +168,11 @@ function _findIncludingSourceFile(header, projectRoot) {
     const match = regex.exec(result.line);
 
     if (match == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     } // Source-relative includes have to be verified.
     // Relative paths will match the (../)* rule (at index 2).
 
@@ -166,10 +181,18 @@ function _findIncludingSourceFile(header, projectRoot) {
       const includePath = _nuclideUri().default.normalize(_nuclideUri().default.join(_nuclideUri().default.dirname(result.file), match[1]));
 
       if (includePath !== header) {
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
       }
     }
 
     return _RxMin.Observable.of(result.file);
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+    }
+
+    return _rxjsCompatUmdMin.Observable.of(result.file);
+>>>>>>> Update
   }).do(file => logger.info('found source file by grepping', file));
 }

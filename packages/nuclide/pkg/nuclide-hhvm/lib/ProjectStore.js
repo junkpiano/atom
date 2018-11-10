@@ -27,7 +27,11 @@ function _debounce() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideHackCommon() {
   const data = require("../../nuclide-hack-common");
@@ -50,7 +54,11 @@ function _HackLanguage() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -139,7 +147,11 @@ class ProjectStore {
 
     this._emitter = new _atom.Emitter();
     this._currentFilePath = null;
+<<<<<<< HEAD
     this._projectRoot = new _RxMin.BehaviorSubject();
+=======
+    this._projectRoot = new _rxjsCompatUmdMin.BehaviorSubject();
+>>>>>>> Update
     this._currentProjectRoot = null;
     this._isProjectRootHackRoot = false;
     this._debugMode = 'webserver';
@@ -156,7 +168,11 @@ class ProjectStore {
       this._isProjectRootHackRoot = false;
 
       this._emitter.emit('change');
+<<<<<<< HEAD
     }).switchMap(root => _RxMin.Observable.fromPromise(this._isFileHHVMProject(root)).switchMap(isHHVM => _RxMin.Observable.of({
+=======
+    }).switchMap(root => _rxjsCompatUmdMin.Observable.fromPromise(this._isFileHHVMProject(root)).switchMap(isHHVM => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       root,
       isHHVM
     }))).subscribe(data => {

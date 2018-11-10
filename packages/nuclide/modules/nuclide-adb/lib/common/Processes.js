@@ -15,7 +15,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _os = _interopRequireDefault(require("os"));
 
@@ -51,7 +55,11 @@ class Processes {
 
   fetch(timeout) {
     const internalTimeout = timeout * 2 / 3;
+<<<<<<< HEAD
     return _RxMin.Observable.forkJoin(this._adb.getProcesses().timeout(internalTimeout).catch(() => _RxMin.Observable.of([])), this._adb.getDebuggableProcesses().timeout(internalTimeout).catch(() => _RxMin.Observable.of([])), this._getProcessAndMemoryUsage().timeout(internalTimeout).catch(() => _RxMin.Observable.of(new Map()))).map(([processes, javaProcesses, cpuAndMemUsage]) => {
+=======
+    return _rxjsCompatUmdMin.Observable.forkJoin(this._adb.getProcesses().timeout(internalTimeout).catch(() => _rxjsCompatUmdMin.Observable.of([])), this._adb.getDebuggableProcesses().timeout(internalTimeout).catch(() => _rxjsCompatUmdMin.Observable.of([])), this._getProcessAndMemoryUsage().timeout(internalTimeout).catch(() => _rxjsCompatUmdMin.Observable.of(new Map()))).map(([processes, javaProcesses, cpuAndMemUsage]) => {
+>>>>>>> Update
       const javaPids = new Set(javaProcesses.map(javaProc => Number(javaProc.pid)));
       return (0, _collection().arrayCompact)(processes.map(simpleProcess => {
         const pid = parseInt(simpleProcess.pid, 10);
@@ -84,8 +92,13 @@ class Processes {
   }
 
   _getProcessAndMemoryUsage() {
+<<<<<<< HEAD
     return _RxMin.Observable.interval(2000).startWith(0).switchMap(() => {
       return _RxMin.Observable.forkJoin(this._getProcessesTime(), this._getGlobalCPUTime());
+=======
+    return _rxjsCompatUmdMin.Observable.interval(2000).startWith(0).switchMap(() => {
+      return _rxjsCompatUmdMin.Observable.forkJoin(this._getProcessesTime(), this._getGlobalCPUTime());
+>>>>>>> Update
     }).take(2).toArray().map(times => {
       const [procTimePrev, cpuTimePrev] = times[0];
       const [procTime, cpuTime] = times[1]; // pid => cpuUsage, memory usage
@@ -138,7 +151,11 @@ class Processes {
     let pidLines;
 
     try {
+<<<<<<< HEAD
       pidLines = await this._adb.runShortCommand('shell', 'ps', '|', 'grep', '-i', packageName).toPromise();
+=======
+      pidLines = await this._adb.runPsCommand('|', 'grep', '-i', packageName).toPromise();
+>>>>>>> Update
     } catch (e) {
       pidLines = '';
     }

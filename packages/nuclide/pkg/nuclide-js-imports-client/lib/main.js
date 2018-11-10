@@ -10,6 +10,19 @@ function _createPackage() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _nuclideUri() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
+
+  _nuclideUri = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
 
@@ -31,7 +44,11 @@ function _textEdit() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -296,7 +313,11 @@ class Activation {
         missingExports
       } = await languageService.sendLspRequest(editorPath, 'workspace/executeCommand', {
         command: 'getAllImports',
+<<<<<<< HEAD
         arguments: [editorPath]
+=======
+        arguments: [_nuclideUri().default.getPath(editorPath)]
+>>>>>>> Update
       });
 
       if (!(0, _textEdit().applyTextEditsToBuffer)(buffer, convert().lspTextEdits_atomTextEdits(edits || []))) {

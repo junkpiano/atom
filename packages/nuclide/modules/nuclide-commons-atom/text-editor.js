@@ -18,6 +18,7 @@ exports.centerScrollToBufferLine = centerScrollToBufferLine;
 
 var _atom = require("atom");
 
+<<<<<<< HEAD
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../nuclide-commons/UniversalDisposable"));
 
@@ -29,6 +30,9 @@ function _UniversalDisposable() {
 }
 
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../nuclide-commons/event");
@@ -40,8 +44,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+=======
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -115,7 +122,11 @@ function setPositionAndScroll(editor, position, scrollTop) {
 }
 
 function getCursorPositions(editor) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
     // This will behave strangely in the face of multiple cursors. Consider supporting multiple
     // cursors in the future.
     const cursor = editor.getCursors()[0];
@@ -124,12 +135,17 @@ function getCursorPositions(editor) {
       throw new Error("Invariant violation: \"cursor != null\"");
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.merge(_RxMin.Observable.of(cursor.getBufferPosition()), (0, _event().observableFromSubscribeFunction)(cursor.onDidChangePosition.bind(cursor)).map(event => event.newBufferPosition));
+=======
+    return _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of(cursor.getBufferPosition()), (0, _event().observableFromSubscribeFunction)(cursor.onDidChangePosition.bind(cursor)).map(event => event.newBufferPosition));
+>>>>>>> Update
   });
 }
 
 function observeEditorDestroy(editor) {
   return (0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor)).map(event => editor).take(1);
+<<<<<<< HEAD
 } // As of the introduction of atom.workspace.buildTextEditor(), it is no longer possible to
 // subclass TextEditor to create a ReadOnlyTextEditor. Instead, the way to achieve this effect
 // is to create an ordinary TextEditor and then override any methods that would allow it to
@@ -173,6 +189,19 @@ function enforceReadOnlyBuffer(textBuffer, readOnlyExceptions = []) {
     const buffer = textBuffer;
     readOnlyExceptions.forEach(functionName => buffer[functionName] = originalReadOnlyExceptionFunctions[functionName]);
   });
+=======
+} // Use atom readOnly attribute to set read-only state.
+
+
+function enforceReadOnlyEditor(textEditor, readOnlyExceptions = ['append', 'setText']) {
+  textEditor.getElement().setAttribute('readonly', '');
+  return {
+    dispose() {
+      textEditor.getElement().removeAttribute('readonly');
+    }
+
+  };
+>>>>>>> Update
 } // Turn off soft wrap setting for these editors so diffs properly align.
 // Some text editor register sometimes override the set soft wrapping
 // after mounting an editor to the workspace - here, that's watched and reset to `false`.

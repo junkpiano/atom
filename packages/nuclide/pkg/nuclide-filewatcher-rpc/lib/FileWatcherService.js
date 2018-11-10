@@ -30,7 +30,11 @@ function _SharedObservableCache() {
 
 var _fs = _interopRequireDefault(require("fs"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _fsPromise() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/fsPromise"));
@@ -106,7 +110,11 @@ function watchFile(filePath) {
 }
 
 function watchWithNode(watchedPath, isDirectory) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     const watcher = _fs.default.watch(watchedPath, {
       persistent: false
     }, // Note: Flow doesn't know this, but `fs.watch` may emit null filenames.
@@ -144,12 +152,20 @@ function watchDirectory(directoryPath) {
 }
 
 function watchEntity(entityPath, isFile) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(getRealOrWatchablePath(entityPath, isFile)).switchMap(realPath => (0, _debounceDeletes().default)(entityWatches.get(realPath)));
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(getRealOrWatchablePath(entityPath, isFile)).switchMap(realPath => (0, _debounceDeletes().default)(entityWatches.get(realPath)));
+>>>>>>> Update
 } // Register an observable for the given path.
 
 
 function registerWatch(path) {
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     entityObserver.set(path, observer);
     return () => {
       entityObserver.delete(path);
@@ -188,10 +204,17 @@ function watchDirectoryRecursive(directoryPath) {
   const client = getWatchmanClient();
 
   if (client.hasSubscription(directoryPath)) {
+<<<<<<< HEAD
     return _RxMin.Observable.of('EXISTING').publish();
   }
 
   return _RxMin.Observable.fromPromise(client.watchDirectoryRecursive(directoryPath, `filewatcher-${directoryPath}`, // Reloading with file changes should happen
+=======
+    return _rxjsCompatUmdMin.Observable.of('EXISTING').publish();
+  }
+
+  return _rxjsCompatUmdMin.Observable.fromPromise(client.watchDirectoryRecursive(directoryPath, `filewatcher-${directoryPath}`, // Reloading with file changes should happen
+>>>>>>> Update
   // during source control operations to reflect the file contents / tree state.
   {
     defer_vcs: false
@@ -201,7 +224,11 @@ function watchDirectoryRecursive(directoryPath) {
       onWatcherChange(watcher, entries);
     });
     watchedDirectories.add(directoryPath);
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       // Notify success watcher setup.
       observer.next('SUCCESS');
       return () => unwatchDirectoryRecursive(directoryPath);

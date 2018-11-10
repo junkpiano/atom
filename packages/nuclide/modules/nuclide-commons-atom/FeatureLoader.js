@@ -77,7 +77,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -174,7 +178,11 @@ class FeatureLoader {
         atom.packages.loadPackage(feature.path);
       });
     }), // Load "experimental" format packages.
+<<<<<<< HEAD
     didLoadPackage(this._pkgName).switchMap(() => _RxMin.Observable.create(() => new (_UniversalDisposable().default)((0, _activatePackages().default)([...featuresToLoad])))).subscribe());
+=======
+    didLoadPackage(this._pkgName).switchMap(() => _rxjsCompatUmdMin.Observable.create(() => new (_UniversalDisposable().default)((0, _activatePackages().default)([...featuresToLoad])))).subscribe());
+>>>>>>> Update
 
     const featureNames = new Set(this._features.map(feature => feature.pkg.name)); // Ensure that the root package is initialized before all of its features. This is important
     // because the root package defines the config for all managed features and we need to make
@@ -223,7 +231,11 @@ class FeatureLoader {
       this.updateActiveFeatures();
     }), atom.config.onDidChange(this.getEnabledFeatureGroupsKeyPath(), () => {
       this.updateActiveFeatures();
+<<<<<<< HEAD
     }), _RxMin.Observable.merge(didAddFirstPath, didAddFirstTextEditor).take(1).subscribe(() => {
+=======
+    }), _rxjsCompatUmdMin.Observable.merge(didAddFirstPath, didAddFirstTextEditor).take(1).subscribe(() => {
+>>>>>>> Update
       // Hopefully we've opened a project so we don't have to load all the features.
       this._deferringFeatureActivation = false;
       this.updateActiveFeatures();

@@ -29,6 +29,10 @@ exports.codeLensData_lspCodeLens = codeLensData_lspCodeLens;
 exports.lspCodeLens_codeLensData = lspCodeLens_codeLensData;
 exports.lspSignatureHelp_atomSignatureHelp = lspSignatureHelp_atomSignatureHelp;
 exports.watchmanFileChange_lspFileEvent = watchmanFileChange_lspFileEvent;
+<<<<<<< HEAD
+=======
+exports.lspStatus_atomStatus = lspStatus_atomStatus;
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -401,12 +405,16 @@ function lspCompletionItem_atomCompletion(item, supportsResolve) {
     snippet: useSnippet ? item.insertText || item.label : undefined,
     // flowlint-next-line sketchy-null-string:off
     text: useSnippet ? undefined : item.insertText || item.label,
+<<<<<<< HEAD
     // LSP: [nuclide-specific] itemType is return type of function
     // Atom: it's convention to display return types in the left column
     leftLabel: item.itemType,
     // LSP: [nuclide-specific] inlineDetail is to be displayed next to label
     // Atom: it's convention to display details like parameters to the right
     rightLabel: item.inlineDetail,
+=======
+    rightLabel: item.detail,
+>>>>>>> Update
     // LSP: kind indicates what icon should be used
     // ATOM: type is to indicate icon and its background color
     // ATOM: iconHTML can be used to override the icon
@@ -698,6 +706,13 @@ defaultSource) {
     atomDiagnostic.code = parseInt(String(diagnostic.code), 10);
   }
 
+<<<<<<< HEAD
+=======
+  if (diagnostic.stale != null) {
+    atomDiagnostic.stale = diagnostic.stale;
+  }
+
+>>>>>>> Update
   return atomDiagnostic;
 }
 
@@ -731,6 +746,13 @@ function atomDiagnostic_lspDiagnostic(diagnostic) {
       lspDiagnostic.code = diagnostic.code;
     }
 
+<<<<<<< HEAD
+=======
+    if (diagnostic.stale != null) {
+      lspDiagnostic.stale = diagnostic.stale;
+    }
+
+>>>>>>> Update
     return lspDiagnostic;
   }
 
@@ -789,4 +811,42 @@ function watchmanFileChange_lspFileEvent(fileChange, watchmanRoot) {
     uri: localPath_lspUri(_nuclideUri().default.resolve(watchmanRoot, fileChange.name)),
     type: fileChange.new ? _protocol().FileChangeType.Created : !fileChange.exists ? _protocol().FileChangeType.Deleted : _protocol().FileChangeType.Changed
   };
+<<<<<<< HEAD
+=======
+}
+
+function lspStatus_atomStatus(params) {
+  const actions = params.actions || [];
+  const buttons = actions.map(action => action.title);
+
+  switch (params.type) {
+    case _protocol().MessageType.Error:
+      return {
+        kind: 'red',
+        message: params.message == null ? '' : params.message,
+        buttons
+      };
+
+    case _protocol().MessageType.Warning:
+      return {
+        kind: 'yellow',
+        message: params.message == null ? '' : params.message,
+        shortMessage: params.shortMessage,
+        progress: params.progress == null ? undefined : {
+          numerator: params.progress.numerator,
+          denominator: params.progress.denominator
+        },
+        buttons
+      };
+
+    case _protocol().MessageType.Info:
+      return {
+        kind: 'green',
+        message: params.message
+      };
+
+    default:
+      return null;
+  }
+>>>>>>> Update
 }

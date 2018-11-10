@@ -5,6 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _event() {
+  const data = require("../../../modules/nuclide-commons/event");
+
+  _event = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
@@ -49,6 +62,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+>>>>>>> Update
 function Actions() {
   const data = _interopRequireWildcard(require("../lib/redux/Actions"));
 
@@ -79,6 +97,19 @@ function _ProjectSelection() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _nuclideAnalytics() {
+  const data = require("../../../modules/nuclide-analytics");
+
+  _nuclideAnalytics = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function Selectors() {
   const data = _interopRequireWildcard(require("../lib/redux/Selectors"));
 
@@ -117,10 +148,13 @@ class VirtualizedFileTree extends React.PureComponent {
     this._indexOfFirstRowInView = 0;
     this._indexOfLastRowInView = 0;
 
+<<<<<<< HEAD
     this._getShownNodes = () => countShownNodes(this.props.roots);
 
     this._getTrackedIndex = () => findIndexOfTheTrackedNode(this.props.trackedNode, this._getShownNodes());
 
+=======
+>>>>>>> Update
     this._setListRef = node => {
       this._listRef = node;
     };
@@ -163,7 +197,11 @@ class VirtualizedFileTree extends React.PureComponent {
         style
       } = args;
 
+<<<<<<< HEAD
       if (index === this._getShownNodes()) {
+=======
+      if (index === this.props.shownNodes) {
+>>>>>>> Update
         // The footer
         return React.createElement("div", {
           key: key,
@@ -173,7 +211,11 @@ class VirtualizedFileTree extends React.PureComponent {
           remeasureHeight: this._clearFooterHeight
         }));
       } else {
+<<<<<<< HEAD
         const node = this._getNodeByIndex(index);
+=======
+        const node = this.props.getNodeByIndex(index);
+>>>>>>> Update
 
         if (node == null) {
           return null;
@@ -198,11 +240,17 @@ class VirtualizedFileTree extends React.PureComponent {
       } = args;
       this._indexOfFirstRowInView = startIndex;
       this._indexOfLastRowInView = stopIndex;
+<<<<<<< HEAD
 
       const trackedIndex = this._getTrackedIndex(); // Stop tracking the node once we've rendered it. If it was already visible when we set the
       // List's `scrollToIndex`, this will happen on the next render. That's fine though.
 
 
+=======
+      const trackedIndex = this.props.trackedIndex; // Stop tracking the node once we've rendered it. If it was already visible when we set the
+      // List's `scrollToIndex`, this will happen on the next render. That's fine though.
+
+>>>>>>> Update
       if (trackedIndex != null && trackedIndex >= startIndex && trackedIndex <= stopIndex) {
         this.props.clearTrackedNodeIfNotLoading();
       }
@@ -214,7 +262,10 @@ class VirtualizedFileTree extends React.PureComponent {
       });
     };
 
+<<<<<<< HEAD
     this._getNodeByIndex = this._buildGetNodeByIndex(props.roots);
+=======
+>>>>>>> Update
     this.state = {
       rootHeight: null,
       nodeHeight: null,
@@ -228,7 +279,14 @@ class VirtualizedFileTree extends React.PureComponent {
 
     this._disposables.add( // Remeasure if the theme changes, and on initial theme load, which may
     // happen after this component mounts.
+<<<<<<< HEAD
     atom.themes.onDidChangeActiveThemes(() => {
+=======
+    (0, _event().observableFromSubscribeFunction)(cb => atom.themes.onDidChangeActiveThemes(cb)).switchMap(() => _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(null), // Atom does not actually wait for the `<style>` tag to be loaded
+    // before triggering `onDidChangeActiveThemes`. For now we will
+    // check again after 100ms and see if that catches the issue.
+    _rxjsCompatUmdMin.Observable.of(null).delay(100))).subscribe(() => {
+>>>>>>> Update
       this._remeasureHeights(true);
     }));
   }
@@ -236,7 +294,13 @@ class VirtualizedFileTree extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     this._remeasureHeights();
 
+<<<<<<< HEAD
     const shownNodes = this._getShownNodes();
+=======
+    const {
+      shownNodes
+    } = this.props;
+>>>>>>> Update
 
     if (shownNodes !== this._prevShownNodes) {
       this._prevShownNodes = shownNodes; // Some folder was expanded/collaplsed or roots were modified.
@@ -270,6 +334,14 @@ class VirtualizedFileTree extends React.PureComponent {
         if (rootHeight > 0) {
           newState.rootHeight = rootHeight;
           heightUpdated = true;
+<<<<<<< HEAD
+=======
+          (0, _nuclideAnalytics().track)('file-tee-remeasure-root-height', {
+            activeThemes: atom.themes.getActiveThemeNames().join(', '),
+            rootHeight,
+            force
+          });
+>>>>>>> Update
         }
       }
     }
@@ -315,11 +387,18 @@ class VirtualizedFileTree extends React.PureComponent {
         this._listRef.recomputeRowHeights();
       }
     }
+<<<<<<< HEAD
   } // TODO: Memoize
 
 
   render() {
     var _this$_getTrackedInde;
+=======
+  }
+
+  render() {
+    var _this$props$trackedIn;
+>>>>>>> Update
 
     const classes = {
       'nuclide-file-tree': true,
@@ -327,13 +406,21 @@ class VirtualizedFileTree extends React.PureComponent {
       'tree-view': true,
       'nuclide-file-tree-editing-working-set': this.props.isEditingWorkingSet
     };
+<<<<<<< HEAD
     const scrollToIndex = (_this$_getTrackedInde = this._getTrackedIndex()) !== null && _this$_getTrackedInde !== void 0 ? _this$_getTrackedInde : -1; // If we're moving to an offscreen index, let's center it. Otherwise, we'll maintain the current
+=======
+    const scrollToIndex = (_this$props$trackedIn = this.props.trackedIndex) !== null && _this$props$trackedIn !== void 0 ? _this$props$trackedIn : -1; // If we're moving to an offscreen index, let's center it. Otherwise, we'll maintain the current
+>>>>>>> Update
     // scroll position. In practice, this means centering only when the user used "Reveal in File
     // Tree" to show an offscreen file.
 
     const scrollToAlignment = scrollToIndex !== -1 && (scrollToIndex <= this._indexOfFirstRowInView || scrollToIndex >= this._indexOfLastRowInView) ? 'center' : 'auto';
     return React.createElement("div", {
+<<<<<<< HEAD
       className: (0, _classnames().default)('list-tree has-collapsable-children file-tree-scroller', classes),
+=======
+      className: (0, _classnames().default)('list-tree', 'has-collapsable-children', 'file-tree-scroller', 'nuclide-scrollbar-style-fix', classes),
+>>>>>>> Update
       tabIndex: 0,
       onMouseEnter: this.props.onMouseEnter,
       onMouseLeave: this.props.onMouseLeave
@@ -341,7 +428,11 @@ class VirtualizedFileTree extends React.PureComponent {
       height: this.props.height,
       width: this.props.width,
       ref: this._setListRef,
+<<<<<<< HEAD
       rowCount: this._getShownNodes() + 1,
+=======
+      rowCount: this.props.shownNodes + 1,
+>>>>>>> Update
       rowRenderer: this._rowRenderer,
       rowHeight: this._rowHeight,
       scrollToIndex: scrollToIndex,
@@ -379,6 +470,7 @@ class VirtualizedFileTree extends React.PureComponent {
     }));
   }
 
+<<<<<<< HEAD
   _buildGetNodeByIndex(roots) {
     let prevRoots = roots;
     let prevIndexQuery = -1;
@@ -425,6 +517,14 @@ class VirtualizedFileTree extends React.PureComponent {
     }
 
     const node = this._getNodeByIndex(rowIndex);
+=======
+  _rowTypeMapper(rowIndex) {
+    if (rowIndex === this.props.shownNodes) {
+      return 'footer';
+    }
+
+    const node = this.props.getNodeByIndex(rowIndex);
+>>>>>>> Update
 
     if (node != null) {
       return node.isRoot ? 'root' : 'node';
@@ -433,6 +533,7 @@ class VirtualizedFileTree extends React.PureComponent {
     return 'footer';
   }
 
+<<<<<<< HEAD
 }
 
 function findIndexOfTheTrackedNode(trackedNode, shownNodes) {
@@ -461,6 +562,61 @@ const mapStateToProps = state => ({
   focusedNodes: Selectors().getFocusedNodes(state).toSet(),
   isEditingWorkingSet: Selectors().isEditingWorkingSet(state),
   getNodeByIndex: index => Selectors().getNodeByIndex(state)(index)
+=======
+} // A version of `Selectors.getNodeByIndex()` that's optimized for sequential access.
+
+
+const getNodeByIndex = (() => {
+  let prevRoots;
+  let prevIndexQuery = -1;
+  let prevNode = null;
+
+  const fallbackGetByIndex = (state, index) => {
+    prevRoots = Selectors().getRoots(state);
+    prevIndexQuery = index;
+    prevNode = Selectors().getNodeByIndex(state)(index + 1);
+    return prevNode;
+  };
+
+  return (state, index) => {
+    const roots = Selectors().getRoots(state);
+
+    if (roots !== prevRoots) {
+      // The tree structure was updated
+      return fallbackGetByIndex(state, index);
+    }
+
+    if (index === prevIndexQuery) {
+      return prevNode;
+    }
+
+    if (index === prevIndexQuery + 1) {
+      // The likely case when we're moving forward in our scanning - FileTreeNode has
+      // more efficient utility to find the next node - we prefer that to a naive scanning
+      // from the root of the tree
+      prevIndexQuery = index;
+
+      if (prevNode == null) {
+        return null;
+      }
+
+      prevNode = Selectors().findNext(state)(prevNode);
+      return prevNode;
+    }
+
+    return fallbackGetByIndex(state, index);
+  };
+})();
+
+const mapStateToProps = (state, ownProps) => ({
+  roots: Selectors().getRoots(state),
+  selectedNodes: Selectors().getSelectedNodes(state).toSet(),
+  focusedNodes: Selectors().getFocusedNodes(state).toSet(),
+  isEditingWorkingSet: Selectors().isEditingWorkingSet(state),
+  getNodeByIndex: index => getNodeByIndex(state, index),
+  shownNodes: Selectors().countShownNodes(state),
+  trackedIndex: Selectors().getTrackedIndex(state)
+>>>>>>> Update
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

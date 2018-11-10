@@ -18,7 +18,11 @@ function _fsPromise() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _stream() {
   const data = require("../../../modules/nuclide-commons/stream");
@@ -52,7 +56,11 @@ function readCompilationFlags(flagsFile) {
   // 2. 434 MB compilation db with 660 entries,
   //    -  full read: "Error: toString() failed"
   //    -  chunked read: 4500ms
+<<<<<<< HEAD
   return _RxMin.Observable.create(subscriber => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(subscriber => {
+>>>>>>> Update
     let chunk = '';
 
     function emitChunk() {

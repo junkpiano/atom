@@ -35,7 +35,11 @@ function _nuclideMarshalersCommon() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process2() {
   const data = require("../../../modules/nuclide-commons/process");
@@ -130,7 +134,11 @@ async function getLibClangOverrideFromFlags(flagsData) {
 }
 
 function spawnClangProcess(src, serverArgsPromise, flagsPromise) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(Promise.all([serverArgsPromise, flagsPromise, flagsPromise.then(getLibClangOverrideFromFlags)])).switchMap(([serverArgs, flagsData, flagOverrides]) => {
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(Promise.all([serverArgsPromise, flagsPromise, flagsPromise.then(getLibClangOverrideFromFlags)])).switchMap(([serverArgs, flagsData, flagOverrides]) => {
+>>>>>>> Update
     var _ref;
 
     const flags = (_ref = flagsData) != null ? _ref.flags : _ref;
@@ -181,9 +189,15 @@ class ClangServer {
   constructor(src, contents, serverArgsPromise, flagsPromise) {
     this._usesDefaultFlags = false;
     this._pendingCompileRequests = 0;
+<<<<<<< HEAD
     this._serverStatus = new _RxMin.BehaviorSubject(ClangServer.Status.FINDING_FLAGS);
     this._flagsChanged = false;
     this._flagsSubscription = _RxMin.Observable.fromPromise(flagsPromise).do(flagsData => {
+=======
+    this._serverStatus = new _rxjsCompatUmdMin.BehaviorSubject(ClangServer.Status.FINDING_FLAGS);
+    this._flagsChanged = false;
+    this._flagsSubscription = _rxjsCompatUmdMin.Observable.fromPromise(flagsPromise).do(flagsData => {
+>>>>>>> Update
       if (flagsData == null) {
         // Servers without flags will be left in the 'disposed' state forever.
         // This ensures that all language requests bounce without erroring.
@@ -197,7 +211,11 @@ class ClangServer {
         return (0, _nuclideFilewatcherRpc().watchWithNode)(flagsData.flagsFile).refCount().take(1);
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }).subscribe(x => {
       this._flagsChanged = true;
     }, () => {} // ignore errors

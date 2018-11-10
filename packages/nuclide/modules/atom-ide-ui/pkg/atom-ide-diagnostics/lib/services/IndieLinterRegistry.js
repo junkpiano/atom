@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.IndieLinterDelegate = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../../../nuclide-commons/UniversalDisposable"));
@@ -47,9 +51,15 @@ class IndieLinterDelegate {
     this._supportedMessageKinds = config.supportedMessageKinds || ['lint'];
     this._uiSettings = Object.freeze(config.uiSettings ? config.uiSettings.slice() : []);
     this._messages = [];
+<<<<<<< HEAD
     this._updates = new _RxMin.Subject();
     this._invalidations = new _RxMin.Subject();
     this._destroyed = new _RxMin.BehaviorSubject(false);
+=======
+    this._updates = new _rxjsCompatUmdMin.Subject();
+    this._invalidations = new _rxjsCompatUmdMin.Subject();
+    this._destroyed = new _rxjsCompatUmdMin.BehaviorSubject(false);
+>>>>>>> Update
     this.updates = this._updates.asObservable();
     this.invalidations = this._invalidations.asObservable();
   }
@@ -98,7 +108,11 @@ class IndieLinterDelegate {
   }
 
   onDidUpdate(callback) {
+<<<<<<< HEAD
     return new (_UniversalDisposable().default)(_RxMin.Observable.merge(this.updates, this.invalidations).subscribe(() => {
+=======
+    return new (_UniversalDisposable().default)(_rxjsCompatUmdMin.Observable.merge(this.updates, this.invalidations).subscribe(() => {
+>>>>>>> Update
       callback(this._messages);
     }));
   }

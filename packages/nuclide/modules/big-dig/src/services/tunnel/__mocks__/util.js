@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TestTransportFactory = TestTransportFactory;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
@@ -23,7 +27,11 @@ function TestTransportFactory(msgs) {
   return {
     send: jest.fn(),
     onMessage: () => {
+<<<<<<< HEAD
       return _RxMin.Observable.from(messages);
+=======
+      return _rxjsCompatUmdMin.Observable.from(messages);
+>>>>>>> Update
     }
   };
 }

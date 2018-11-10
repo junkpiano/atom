@@ -27,10 +27,17 @@ function _Checkbox() {
   return data;
 }
 
+<<<<<<< HEAD
 function _RadioGroup() {
   const data = _interopRequireDefault(require("../nuclide-commons-ui/RadioGroup"));
 
   _RadioGroup = function () {
+=======
+function _Dropdown() {
+  const data = require("../nuclide-commons-ui/Dropdown");
+
+  _Dropdown = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -485,7 +492,11 @@ class AutoGenLaunchAttachUiComponent extends React.Component {
       required
     } = property;
     const formattedName = (0, _string().capitalize)(name.replace(/([A-Z])/g, ' $1')) + (required ? ' (Required)' : '');
+<<<<<<< HEAD
     const nameLabel = React.createElement("label", null, formattedName, ":");
+=======
+    const nameLabel = type === 'boolean' ? formattedName : formattedName + ':';
+>>>>>>> Update
     const itemType = (_ref2 = property) != null ? _ref2.itemType : _ref2;
 
     if (this._atomInputType(type, itemType)) {
@@ -501,9 +512,18 @@ class AutoGenLaunchAttachUiComponent extends React.Component {
       }));
     } else if (type === 'boolean') {
       const checked = this.state.booleanValues.get(name) || false;
+<<<<<<< HEAD
       return React.createElement("div", null, React.createElement("div", null, nameLabel), React.createElement(_Checkbox().Checkbox, {
         checked: checked,
         label: description,
+=======
+      return React.createElement("div", {
+        className: "inline-block"
+      }, React.createElement(_Checkbox().Checkbox, {
+        checked: checked,
+        label: nameLabel,
+        title: description,
+>>>>>>> Update
         onChange: newValue => {
           this.state.booleanValues.set(name, newValue);
           this.props.configIsValidChanged(this._debugButtonShouldEnable());
@@ -511,6 +531,7 @@ class AutoGenLaunchAttachUiComponent extends React.Component {
       }));
     } else if (type === 'enum' && property.enums != null) {
       const enums = property.enums;
+<<<<<<< HEAD
       const selectedValue = this.state.enumValues.get(name) || '';
       return React.createElement("div", null, nameLabel, React.createElement(_RadioGroup().default, {
         selectedIndex: enums.indexOf(selectedValue),
@@ -521,6 +542,19 @@ class AutoGenLaunchAttachUiComponent extends React.Component {
           this.state.enumValues.set(name, enums[index]);
           this.props.configIsValidChanged(this._debugButtonShouldEnable());
         }
+=======
+      const selectedValue = this.state.enumValues.get(name) || null;
+      return React.createElement("div", null, nameLabel, React.createElement("div", null, React.createElement("label", null, description)), React.createElement(_Dropdown().Dropdown, {
+        options: enums.map(enumValue => ({
+          value: enumValue,
+          label: (0, _string().capitalize)(enumValue.replace(/([A-Z])/g, ' $1'))
+        })),
+        onChange: enumValue => {
+          this.state.enumValues.set(name, enumValue);
+          this.props.configIsValidChanged(this._debugButtonShouldEnable());
+        },
+        value: selectedValue
+>>>>>>> Update
       }));
     } else if (type === 'process') {
       return React.createElement("div", null, nameLabel, React.createElement(_SelectableFilterableProcessTable().default, {

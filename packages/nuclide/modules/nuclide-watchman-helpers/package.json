@@ -18,7 +18,11 @@
     "event-kit": "2.2.0",
     "fb-watchman": "2.0.0",
     "log4js": "1.1.1",
+<<<<<<< HEAD
     "rxjs": "5.5.5",
+=======
+    "rxjs-compat": "6.3.3",
+>>>>>>> Update
     "nuclide-commons": "0.7.3-dev"
   }
 }

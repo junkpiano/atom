@@ -15,6 +15,10 @@ exports.killProcess = killProcess;
 exports.killPid = killPid;
 exports.getOriginalEnvironment = getOriginalEnvironment;
 exports.getOriginalEnvironmentArray = getOriginalEnvironmentArray;
+<<<<<<< HEAD
+=======
+exports.getEnvironment = getEnvironment;
+>>>>>>> Update
 exports.exitEventToMessage = exitEventToMessage;
 exports.getChildrenOfProcess = getChildrenOfProcess;
 exports.psTree = psTree;
@@ -38,7 +42,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _util = _interopRequireDefault(require("util"));
 
@@ -283,7 +291,11 @@ function runCommandDetailed(command, args = [], options = {}, rest) {
   })).catch(error => {
     // Catch ProcessExitErrors so that we can add stdout to them.
     if (error instanceof ProcessExitError) {
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'process-exit-error',
         error
       });
@@ -398,7 +410,11 @@ function getOutputStream(proc, options, rest) {
   const maxBuffer = (_ref3 = options) != null ? _ref3.maxBuffer : _ref3;
   const isExitError = ((_ref4 = options) != null ? _ref4.isExitError : _ref4) || isExitErrorDefault;
   const exitErrorBufferSize = ((_ref5 = options) != null ? _ref5.exitErrorBufferSize : _ref5) || 2000;
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
     const stdoutEvents = chunk(limitBufferSize((0, _stream().observeStream)(proc.stdout), maxBuffer, 'stdout')).map(data => ({
       kind: 'stdout',
       data
@@ -412,7 +428,11 @@ function getOutputStream(proc, options, rest) {
     const accumulatedStderr = stderrEvents.scan((acc, event) => (acc + event.data).slice(0, exitErrorBufferSize), '').startWith('').let((0, _observable().takeWhileInclusive)(acc => acc.length < exitErrorBufferSize)); // We need to start listening for the exit event immediately, but defer emitting it until the
     // (buffered) output streams end.
 
+<<<<<<< HEAD
     const closeEvents = _RxMin.Observable.fromEvent(proc, // We listen to the "close" event instead of "exit" because we want to get all of the stdout
+=======
+    const closeEvents = _rxjsCompatUmdMin.Observable.fromEvent(proc, // We listen to the "close" event instead of "exit" because we want to get all of the stdout
+>>>>>>> Update
     // and stderr.
     'close', (exitCode, signal) => ({
       kind: 'exit',
@@ -427,7 +447,11 @@ function getOutputStream(proc, options, rest) {
     }).publishReplay();
 
     const exitSub = closeEvents.connect();
+<<<<<<< HEAD
     return _RxMin.Observable.merge(stdoutEvents, stderrEvents).concat(closeEvents).let((0, _observable().takeWhileInclusive)(event => event.kind !== 'error' && event.kind !== 'exit')).finally(() => {
+=======
+    return _rxjsCompatUmdMin.Observable.merge(stdoutEvents, stderrEvents).concat(closeEvents).let((0, _observable().takeWhileInclusive)(event => event.kind !== 'error' && event.kind !== 'exit')).finally(() => {
+>>>>>>> Update
       exitSub.unsubscribe();
     });
   });
@@ -496,8 +520,17 @@ function killPid(pid) {
       throw err;
     }
   }
+<<<<<<< HEAD
 } // If provided, read the original environment from NUCLIDE_ORIGINAL_ENV.
 // This should contain the base64-encoded output of `env -0`.
+=======
+} // Inside FB, Nuclide's RPC process doesn't inherit its parent environment and sets up its own instead.
+// It does this to prevent difficult-to-diagnose issues caused by unexpected code in users' dotfiles.
+// Before overwriting it, the original environment is base64-encoded in NUCLIDE_ORIGINAL_ENV.
+// WARNING: This function returns the environment that would have been inherited under normal conditions.
+// You can use it with a child process to let the user set its environment variables. By doing so, you are creating
+// an even more complicated mess of inheritance and non-inheritance in the process tree.
+>>>>>>> Update
 
 
 let cachedOriginalEnvironment = null;
@@ -537,7 +570,12 @@ async function getOriginalEnvironment() {
   }
 
   return cachedOriginalEnvironment;
+<<<<<<< HEAD
 }
+=======
+} // See getOriginalEnvironment above.
+
+>>>>>>> Update
 
 async function getOriginalEnvironmentArray() {
   await new Promise(resolve => {
@@ -554,6 +592,16 @@ async function getOriginalEnvironmentArray() {
 
   return [];
 }
+<<<<<<< HEAD
+=======
+
+async function getEnvironment() {
+  await new Promise(resolve => {
+    whenShellEnvironmentLoaded(resolve);
+  });
+  return process.env;
+}
+>>>>>>> Update
 /**
  * Returns a string suitable for including in displayed error messages.
  */
@@ -859,12 +907,20 @@ async function getAbsoluteBinaryPathForPid(pid) {
 async function _getLinuxBinaryPathForPid(pid) {
   const exeLink = `/proc/${pid}/exe`; // /proc/xxx/exe is a symlink to the real binary in the file system.
 
+<<<<<<< HEAD
   return runCommand('/bin/realpath', ['-q', '-e', exeLink]).catch(_ => _RxMin.Observable.of(null)).toPromise();
+=======
+  return runCommand('/bin/realpath', ['-q', '-e', exeLink]).catch(_ => _rxjsCompatUmdMin.Observable.of(null)).toPromise();
+>>>>>>> Update
 }
 
 async function _getDarwinBinaryPathForPid(pid) {
   return runCommand('/usr/sbin/lsof', ['-p', `${pid}`]).catch(_ => {
+<<<<<<< HEAD
     return _RxMin.Observable.of(null);
+=======
+    return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
   }).map(stdout => stdout == null ? null : stdout.split('\n').map(line => line.trim().split(/\s+/)).filter(line => line[3] === 'txt').map(line => line[8])[0]).take(1).toPromise();
 }
 /**
@@ -886,7 +942,11 @@ function createProcessStream(type = 'spawn', commandOrModulePath, args = [], opt
   let input;
 
   if (inputOption != null) {
+<<<<<<< HEAD
     input = typeof inputOption === 'string' ? _RxMin.Observable.of(inputOption) : inputOption;
+=======
+    input = typeof inputOption === 'string' ? _rxjsCompatUmdMin.Observable.of(inputOption) : inputOption;
+>>>>>>> Update
   }
 
   return (0, _event().observableFromSubscribeFunction)(whenShellEnvironmentLoaded).take(1).switchMap(() => {
@@ -897,7 +957,11 @@ function createProcessStream(type = 'spawn', commandOrModulePath, args = [], opt
       timeout
     } = options; // flowlint-next-line sketchy-null-number:off
 
+<<<<<<< HEAD
     const enforceTimeout = timeout ? x => x.timeoutWith(timeout, _RxMin.Observable.throw(new ProcessTimeoutError(timeout, proc))) : x => x;
+=======
+    const enforceTimeout = timeout ? x => x.timeoutWith(timeout, _rxjsCompatUmdMin.Observable.throw(new ProcessTimeoutError(timeout, proc))) : x => x;
+>>>>>>> Update
 
     const proc = _child_process.default[type](_nuclideUri().default.expandHomeDir(commandOrModulePath), args, // $FlowFixMe: child_process$spawnOpts and child_process$forkOpts have incompatible stdio types.
     Object.assign({}, options)); // Don't let Node throw stream errors and crash the process. Note that we never dispose of
@@ -909,11 +973,19 @@ function createProcessStream(type = 'spawn', commandOrModulePath, args = [], opt
     // would cause it to be removed. That would leave no attached error handler, so node would
     // throw, triggering Atom's uncaught exception handler.
 
+<<<<<<< HEAD
     const errors = _RxMin.Observable.fromEvent(proc, 'error').flatMap(_RxMin.Observable.throw).publish();
 
     errors.connect();
 
     const exitEvents = _RxMin.Observable.fromEvent(proc, 'exit', (exitCode, signal) => ({
+=======
+    const errors = _rxjsCompatUmdMin.Observable.fromEvent(proc, 'error').flatMap(_rxjsCompatUmdMin.Observable.throw).publish();
+
+    errors.connect();
+
+    const exitEvents = _rxjsCompatUmdMin.Observable.fromEvent(proc, 'exit', (exitCode, signal) => ({
+>>>>>>> Update
       kind: 'exit',
       exitCode,
       signal
@@ -925,14 +997,23 @@ function createProcessStream(type = 'spawn', commandOrModulePath, args = [], opt
       // unsubscribes or when the process exits ("close" events come after "exit" events).
       const now = (0, _performanceNow().default)();
 
+<<<<<<< HEAD
       _RxMin.Observable.fromEvent(proc, 'close').do(() => {
+=======
+      _rxjsCompatUmdMin.Observable.fromEvent(proc, 'close').do(() => {
+>>>>>>> Update
         logCall(Math.round((0, _performanceNow().default)() - now), commandOrModulePath, args);
       }).subscribe();
     }
 
     let finished = false;
+<<<<<<< HEAD
     return enforceTimeout(_RxMin.Observable.using( // Log stream errors, but only for as long as you're subscribed to the process observable.
     () => logStreamErrors(proc, commandOrModulePath, args, options), () => _RxMin.Observable.merge( // Node [delays the emission of process errors][1] by a tick in order to give
+=======
+    return enforceTimeout(_rxjsCompatUmdMin.Observable.using( // Log stream errors, but only for as long as you're subscribed to the process observable.
+    () => logStreamErrors(proc, commandOrModulePath, args, options), () => _rxjsCompatUmdMin.Observable.merge( // Node [delays the emission of process errors][1] by a tick in order to give
+>>>>>>> Update
     // consumers a chance to subscribe to the error event. This means that our observable
     // would normally emit the process and then, a tick later, error. However, it's more
     // convenient to never emit the process if there was an error. Although observables
@@ -941,10 +1022,17 @@ function createProcessStream(type = 'spawn', commandOrModulePath, args = [], opt
     // that an error is forthcoming.
     //
     // [1]: https://github.com/nodejs/node/blob/v7.10.0/lib/internal/child_process.js#L301
+<<<<<<< HEAD
     proc.pid == null ? _RxMin.Observable.empty() : _RxMin.Observable.of(proc), _RxMin.Observable.never() // Don't complete until we say so!
     )).merge( // Write any input to stdin. This is just for the side-effect. We merge it here to
     // ensure that writing to the stdin stream happens after our event listeners are added.
     input == null ? _RxMin.Observable.empty() : input.do({
+=======
+    proc.pid == null ? _rxjsCompatUmdMin.Observable.empty() : _rxjsCompatUmdMin.Observable.of(proc), _rxjsCompatUmdMin.Observable.never() // Don't complete until we say so!
+    )).merge( // Write any input to stdin. This is just for the side-effect. We merge it here to
+    // ensure that writing to the stdin stream happens after our event listeners are added.
+    input == null ? _rxjsCompatUmdMin.Observable.empty() : input.do({
+>>>>>>> Update
       next: str => {
         proc.stdin.write(str);
       },
@@ -1033,7 +1121,11 @@ function limitBufferSize(stream, maxBuffer, streamName) {
     return stream;
   }
 
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
     let totalSize = 0;
     return stream.do(data => {
       totalSize += data.length;
@@ -1052,5 +1144,9 @@ function limitBufferSize(stream, maxBuffer, streamName) {
 
 function getStreamErrorEvents(proc) {
   const streams = [['stdin', proc.stdin], ['stdout', proc.stdout], ['stderr', proc.stderr]];
+<<<<<<< HEAD
   return _RxMin.Observable.merge(...streams.map(([name, stream]) => stream == null ? _RxMin.Observable.empty() : _RxMin.Observable.fromEvent(stream, 'error').map(err => [err, name])));
+=======
+  return _rxjsCompatUmdMin.Observable.merge(...streams.map(([name, stream]) => stream == null ? _rxjsCompatUmdMin.Observable.empty() : _rxjsCompatUmdMin.Observable.fromEvent(stream, 'error').map(err => [err, name])));
+>>>>>>> Update
 }

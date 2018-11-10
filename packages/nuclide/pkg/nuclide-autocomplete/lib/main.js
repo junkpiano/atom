@@ -20,10 +20,17 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _passesGK() {
   const data = _interopRequireDefault(require("../../commons-node/passesGK"));
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _passesGK() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -81,7 +88,11 @@ class Activation {
     this._timeoutValue = DEFAULT_AUTOCOMPLETE_TIMEOUT;
     this._disposables = new (_UniversalDisposable().default)( // If we pass the configurable timeout gk, then update the timeout value
     // when configuration changes.
+<<<<<<< HEAD
     _RxMin.Observable.combineLatest(_RxMin.Observable.fromPromise((0, _passesGK().default)('nuclide_autocomplete_configurable_timeout')), _featureConfig().default.observeAsStream('nuclide-autocomplete.timeout')).subscribe(([gkResult, value]) => {
+=======
+    _rxjsCompatUmdMin.Observable.combineLatest(_rxjsCompatUmdMin.Observable.fromPromise((0, _passesGK().default)('nuclide_autocomplete_configurable_timeout')), _featureConfig().default.observeAsStream('nuclide-autocomplete.timeout')).subscribe(([gkResult, value]) => {
+>>>>>>> Update
       if (gkResult) {
         // value is an integer, as defined in package.json.
         this._timeoutValue = Number(value);

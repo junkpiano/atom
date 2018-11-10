@@ -1,5 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
+=======
+var _electron = require("electron");
+
+>>>>>>> Update
 var _querystring = _interopRequireDefault(require("querystring"));
 
 function _nuclideRemoteConnection() {
@@ -72,7 +77,11 @@ function _textEditor() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
@@ -94,8 +103,11 @@ function _nuclideOpenFiles() {
   return data;
 }
 
+<<<<<<< HEAD
 var _electron = require("electron");
 
+=======
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -121,7 +133,11 @@ class Activation {
 
       openRemoteFile(uri, line, column, isWaiting) {
         if (_nuclideRemoteConnection().ServerConnection.getForUri(uri) == null) {
+<<<<<<< HEAD
           return _RxMin.Observable.throw(new Error(`Atom is not connected to host for ${uri}`)).publish();
+=======
+          return _rxjsCompatUmdMin.Observable.throw(new Error(`Atom is not connected to host for ${uri}`)).publish();
+>>>>>>> Update
         }
 
         return openFile(uri, line, column, isWaiting);
@@ -179,6 +195,23 @@ class Activation {
         return Promise.resolve();
       },
 
+<<<<<<< HEAD
+=======
+      getClipboardContents() {
+        // $FlowFixMe missing flow def
+        const contents = _electron.clipboard.readText();
+
+        return Promise.resolve(contents.substring(0, 100 * 1024));
+      },
+
+      setClipboardContents(text) {
+        // $FlowFixMe missing flow def
+        _electron.clipboard.writeText(text);
+
+        return Promise.resolve();
+      },
+
+>>>>>>> Update
       dispose() {}
 
     };
@@ -256,7 +289,11 @@ class Activation {
 }
 
 function openFile(uri, line, column, isWaiting) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise((0, _goToLocation().goToLocation)(uri, {
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise((0, _goToLocation().goToLocation)(uri, {
+>>>>>>> Update
     line,
     column
   }).then(editor => {
@@ -285,7 +322,11 @@ function openFile(uri, line, column, isWaiting) {
     }
 
     return editor;
+<<<<<<< HEAD
   })).switchMap(editor => _RxMin.Observable.merge(_RxMin.Observable.of('open'), (0, _textEditor().observeEditorDestroy)(editor).map(value => 'close'))).publish();
+=======
+  })).switchMap(editor => _rxjsCompatUmdMin.Observable.merge(_rxjsCompatUmdMin.Observable.of('open'), (0, _textEditor().observeEditorDestroy)(editor).map(value => 'close'))).publish();
+>>>>>>> Update
 }
 
 (0, _createPackage().default)(module.exports, Activation);

@@ -25,7 +25,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,7 +53,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function syncAtomCommands(source, project, hash) {
   // Add empty sets before completing and erroring to make sure that we remove remaining commands
   // in both cases.
+<<<<<<< HEAD
   const sets = source.concat(_RxMin.Observable.of(new Set())).catch(err => _RxMin.Observable.of(new Set()).concat(_RxMin.Observable.throw(err)));
+=======
+  const sets = source.concat(_rxjsCompatUmdMin.Observable.of(new Set())).catch(err => _rxjsCompatUmdMin.Observable.of(new Set()).concat(_rxjsCompatUmdMin.Observable.throw(err)));
+>>>>>>> Update
   return (0, _observable().reconcileSets)(sets, item => {
     const commands = project(item);
     const disposables = Object.keys(commands).map(target => atom.commands.add(target, commands[target]));

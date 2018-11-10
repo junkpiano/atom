@@ -34,6 +34,10 @@ exports.openPasteDialogEpic = openPasteDialogEpic;
 exports.updateWorkingSetEpic = updateWorkingSetEpic;
 exports.deleteSelectedNodesEpic = deleteSelectedNodesEpic;
 exports.moveToNodeEpic = moveToNodeEpic;
+<<<<<<< HEAD
+=======
+exports.movePathToNodeEpic = movePathToNodeEpic;
+>>>>>>> Update
 exports.expandNodeEpic = expandNodeEpic;
 exports.expandNodeDeepEpic = expandNodeDeepEpic;
 exports.reorderRootsEpic = reorderRootsEpic;
@@ -42,7 +46,11 @@ exports.updateGeneratedStatusEpic = updateGeneratedStatusEpic;
 exports.uploadDroppedFilesEpic = uploadDroppedFilesEpic;
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = require("../../../commons-node/passesGK");
+=======
+  const data = require("../../../../modules/nuclide-commons/passesGK");
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -183,7 +191,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideVcsBase() {
   const data = require("../../../nuclide-vcs-base");
@@ -196,7 +208,11 @@ function _nuclideVcsBase() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../../nuclide-analytics");
+=======
+  const data = require("../../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -236,7 +252,11 @@ function _nuclideHgRpc() {
 }
 
 function _systemInfo() {
+<<<<<<< HEAD
   const data = require("../../../commons-node/system-info");
+=======
+  const data = require("../../../../modules/nuclide-commons/system-info");
+>>>>>>> Update
 
   _systemInfo = function () {
     return data;
@@ -338,12 +358,20 @@ function confirmNodeEpic(actions, store) {
     } else {
       (0, _nuclideAnalytics().track)('file-tree-open-file', {
         uri: nodeKey
+<<<<<<< HEAD
       });
       const conf = Selectors().getConf(store.getState()); // goToLocation doesn't support pending panes
       // eslint-disable-next-line nuclide-internal/atom-apis
 
       atom.workspace.open(FileTreeHelpers().keyToPath(nodeKey), {
         activatePane: pending && conf.focusEditorOnFileSelection || !pending,
+=======
+      }); // goToLocation doesn't support pending panes
+      // eslint-disable-next-line nuclide-internal/atom-apis
+
+      atom.workspace.open(FileTreeHelpers().keyToPath(nodeKey), {
+        activatePane: pending && Selectors().getFocusEditorOnFileSelection(store.getState()) || !pending,
+>>>>>>> Update
         searchAllPanes: true,
         pending
       });
@@ -434,15 +462,25 @@ function updateRepositoriesEpic(actions, store) {
       // We support HgRepositoryClient and GitRepositoryAsync objects.
       // Observe the repository so that the VCS statuses are kept up to date.
       // This observer should fire off an initial value after we subscribe to it,
+<<<<<<< HEAD
       let vcsChanges = _RxMin.Observable.empty();
 
       let vcsCalculating = _RxMin.Observable.of(false);
+=======
+      let vcsChanges = _rxjsCompatUmdMin.Observable.empty();
+
+      let vcsCalculating = _rxjsCompatUmdMin.Observable.of(false);
+>>>>>>> Update
 
       if (repo.isDestroyed()) {// Don't observe anything on a destroyed repo.
       } else if (repo.getType() === 'git') {
         // Different repo types emit different events at individual and refresh updates.
         // Hence, the need to debounce and listen to both change types.
+<<<<<<< HEAD
         vcsChanges = _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(repo.onDidChangeStatus.bind(repo)), (0, _event().observableFromSubscribeFunction)(repo.onDidChangeStatuses.bind(repo))).let((0, _observable().fastDebounce)(1000)).startWith(null).map(() => getCachedPathStatusesForGitRepo(repo));
+=======
+        vcsChanges = _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(repo.onDidChangeStatus.bind(repo)), (0, _event().observableFromSubscribeFunction)(repo.onDidChangeStatuses.bind(repo))).let((0, _observable().fastDebounce)(1000)).startWith(null).map(() => getCachedPathStatusesForGitRepo(repo));
+>>>>>>> Update
       } else if (repo.getType() === 'hg') {
         // We special-case the HgRepository because it offers up the
         // required observable directly, and because it actually allows us to pick
@@ -461,7 +499,11 @@ function updateRepositoriesEpic(actions, store) {
             default:
               kind;
 
+<<<<<<< HEAD
               const error = _RxMin.Observable.throw(new Error('Unrecognized ShowUncommittedChangesKind config'));
+=======
+              const error = _rxjsCompatUmdMin.Observable.throw(new Error('Unrecognized ShowUncommittedChangesKind config'));
+>>>>>>> Update
 
               return {
                 statusChanges: error,
@@ -535,7 +577,11 @@ function revealFilePathEpic(actions, store) {
       resultActions.push(Actions().revealNodeKey(filePath));
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.from(resultActions);
+=======
+    return _rxjsCompatUmdMin.Observable.from(resultActions);
+>>>>>>> Update
   });
 }
 
@@ -612,7 +658,11 @@ function setCwdApiEpic(actions) {
     const {
       cwdApi
     } = action;
+<<<<<<< HEAD
     return cwdApi == null ? _RxMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(cb => cwdApi.observeCwd(cb));
+=======
+    return cwdApi == null ? _rxjsCompatUmdMin.Observable.of(null) : (0, _event().observableFromSubscribeFunction)(cb => cwdApi.observeCwd(cb));
+>>>>>>> Update
   }).map(directory => {
     // flowlint-next-line sketchy-null-string:off
     const rootKey = directory && FileTreeHelpers().dirPathToKey(directory);
@@ -640,7 +690,11 @@ function setRemoteProjectsServiceEpic(actions) {
     // The fake root just stays in the file tree.
     // After remote projects have been reloaded, force a refresh to clear out the fake roots.
 
+<<<<<<< HEAD
     return service == null ? _RxMin.Observable.empty() : (0, _event().observableFromSubscribeFunction)(cb => service.waitForRemoteProjectReload(cb));
+=======
+    return service == null ? _rxjsCompatUmdMin.Observable.empty() : (0, _event().observableFromSubscribeFunction)(cb => service.waitForRemoteProjectReload(cb));
+>>>>>>> Update
   }).map(() => Actions().updateRootDirectories());
 }
 /**
@@ -669,7 +723,11 @@ function collapseSelectionEpic(actions, store) {
         *   * The node is not an expanded directory
         */
       const parent = (0, _nullthrows().default)(firstSelectedNode.parent);
+<<<<<<< HEAD
       return _RxMin.Observable.of(Actions().selectAndTrackNode(parent));
+=======
+      return _rxjsCompatUmdMin.Observable.of(Actions().selectAndTrackNode(parent));
+>>>>>>> Update
     }
 
     const collapseActions = selectedNodes.map(node => {
@@ -684,7 +742,11 @@ function collapseSelectionEpic(actions, store) {
         return Actions().collapseNode(node.rootUri, node.uri);
       }
     }).filter(Boolean);
+<<<<<<< HEAD
     return _RxMin.Observable.from(collapseActions);
+=======
+    return _rxjsCompatUmdMin.Observable.from(collapseActions);
+>>>>>>> Update
   });
 }
 
@@ -692,7 +754,11 @@ function collapseAllEpic(actions, store) {
   return actions.ofType(Actions().COLLAPSE_ALL).switchMap(() => {
     const roots = store.getState()._roots;
 
+<<<<<<< HEAD
     return _RxMin.Observable.from([...roots.values()].map(root => Actions().collapseNodeDeep(root.uri, root.uri)));
+=======
+    return _rxjsCompatUmdMin.Observable.from([...roots.values()].map(root => Actions().collapseNodeDeep(root.uri, root.uri)));
+>>>>>>> Update
   });
 }
 
@@ -758,7 +824,12 @@ function expandSelectionEpic(actions, store) {
       deep
     } = action;
     const resultActions = [Actions().clearFilter()];
+<<<<<<< HEAD
     Selectors().getSelectedNodes(store.getState()).forEach(node => {
+=======
+    const state = store.getState();
+    Selectors().getSelectedNodes(state).forEach(node => {
+>>>>>>> Update
       // Only directories can be expanded. Skip non-directory nodes.
       if (!node.isContainer) {
         return;
@@ -772,7 +843,11 @@ function expandSelectionEpic(actions, store) {
           let firstChild = node.children.first();
 
           if (firstChild != null && !firstChild.shouldBeShown) {
+<<<<<<< HEAD
             firstChild = firstChild.findNextShownSibling();
+=======
+            firstChild = Selectors().findNextShownSibling(state)(firstChild);
+>>>>>>> Update
           }
 
           if (firstChild != null) {
@@ -783,7 +858,11 @@ function expandSelectionEpic(actions, store) {
         }
       }
     });
+<<<<<<< HEAD
     return _RxMin.Observable.from(resultActions);
+=======
+    return _rxjsCompatUmdMin.Observable.from(resultActions);
+>>>>>>> Update
   });
 }
 
@@ -796,7 +875,11 @@ function openSelectedEntryEpic(actions, store) {
       resultActions.push(Actions().confirmNode(singleSelectedNode.rootUri, singleSelectedNode.uri));
     }
 
+<<<<<<< HEAD
     return _RxMin.Observable.from(resultActions);
+=======
+    return _rxjsCompatUmdMin.Observable.from(resultActions);
+>>>>>>> Update
   });
 }
 
@@ -996,11 +1079,19 @@ function openRenameDialogEpic(actions, store) {
     const nodePath = node.localPath;
     (0, _FileActionModal().openDialog)({
       iconClassName: 'icon-arrow-right',
+<<<<<<< HEAD
       initialValue: _nuclideUri().default.basename(nodePath),
       message: node.isContainer ? React.createElement("span", null, "Enter the new path for the directory.") : React.createElement("span", null, "Enter the new path for the file."),
       onConfirm: (newBasename, options) => {
         renameNode(node, nodePath, newBasename).catch(error => {
           atom.notifications.addError(`Rename to ${newBasename} failed: ${error.message}`);
+=======
+      initialValue: nodePath,
+      message: node.isContainer ? React.createElement("span", null, "Enter the new path for the directory.") : React.createElement("span", null, "Enter the new path for the file."),
+      onConfirm: (newPath, options) => {
+        renameNode(node, nodePath, newPath).catch(error => {
+          atom.notifications.addError(`Rename to ${newPath} failed: ${error.message}`);
+>>>>>>> Update
         });
       },
       onClose: _FileActionModal().closeDialog,
@@ -1196,13 +1287,70 @@ function moveToNodeEpic(actions, store) {
     const targetNode = Selectors().getNode(store.getState(), rootKey, nodeKey);
 
     if (targetNode == null || !targetNode.isContainer) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     const selectedNodes = Selectors().getSelectedNodes(store.getState()); // This is async but we don't care.
 
     FileTreeHgHelpers().moveNodes(selectedNodes.toArray(), targetNode.uri);
+<<<<<<< HEAD
     return _RxMin.Observable.of(Actions().clearDragHover(), Actions().clearSelection());
+=======
+    return _rxjsCompatUmdMin.Observable.of(Actions().clearDragHover(), Actions().clearSelection());
+  });
+}
+
+function movePathToNodeEpic(actions, store) {
+  return actions.ofType(Actions().MOVE_PATH_TO_NODE).mergeMap(action => {
+    if (!(action.type === Actions().MOVE_PATH_TO_NODE)) {
+      throw new Error("Invariant violation: \"action.type === Actions.MOVE_PATH_TO_NODE\"");
+    }
+
+    const {
+      uri,
+      destination
+    } = action;
+    (0, _nuclideAnalytics().track)('file-tree-move-dropped-external-file:started', {
+      source: uri,
+      destination: destination.uri
+    });
+
+    if (!destination.isContainer) {
+      (0, _nuclideAnalytics().track)('file-tree-move-dropped-external-file:failed', {
+        reason: 'Destination is not a container'
+      });
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    if (!FileTreeHgHelpers().isValidRename(uri, destination.uri)) {
+      const detail = `Unable to move \`${uri}\` to \`${destination.uri}\`.`;
+      (0, _nuclideAnalytics().track)('file-tree-move-dropped-external-file:failed', {
+        reason: detail
+      });
+      atom.notifications.addError('File move failed', {
+        detail
+      });
+      return _rxjsCompatUmdMin.Observable.empty();
+    }
+
+    const newPath = _nuclideUri().default.join(destination.uri, _nuclideUri().default.basename(uri));
+
+    FileTreeHgHelpers().movePaths([uri], destination.uri).then(() => {
+      // Note: While the move is "complete" FileTreeHgHelpers will silently skip
+      // files that it does not think it can move, and will noop if another move
+      // is already in progress.
+      (0, _nuclideAnalytics().track)('file-tree-move-dropped-external-file:completed', {
+        source: uri,
+        destination: destination.uri
+      });
+      EpicHelpers().ensureChildNode(store, newPath);
+    });
+    return _rxjsCompatUmdMin.Observable.of(Actions().clearDragHover(), Actions().clearSelection());
+>>>>>>> Update
   });
 }
 
@@ -1283,7 +1431,10 @@ function loadDataEpic(actions, store) {
         uri: rootUri,
         rootUri,
         isExpanded: true,
+<<<<<<< HEAD
         isSelected: false,
+=======
+>>>>>>> Update
         isLoading: true,
         children: Immutable().OrderedMap(),
         isCwd: false,
@@ -1306,7 +1457,11 @@ function loadDataEpic(actions, store) {
 }
 
 function updateGeneratedStatusEpic(actions, store) {
+<<<<<<< HEAD
   return _RxMin.Observable.merge(actions.ofType(Actions().SET_OPEN_FILES_WORKING_SET).map(action => {
+=======
+  return _rxjsCompatUmdMin.Observable.merge(actions.ofType(Actions().SET_OPEN_FILES_WORKING_SET).map(action => {
+>>>>>>> Update
     if (!(action.type === Actions().SET_OPEN_FILES_WORKING_SET)) {
       throw new Error("Invariant violation: \"action.type === Actions.SET_OPEN_FILES_WORKING_SET\"");
     }
@@ -1347,7 +1502,11 @@ function uploadDroppedFilesEpic(actions, store) {
     } = store.getState();
 
     if (remoteTransferService == null || !destination.isContainer) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     } // > Electron has added a path attribute to the File interface which exposes
     // > the file's real path on filesystem.
     // -- https://electronjs.org/docs/api/file-object
@@ -1358,7 +1517,11 @@ function uploadDroppedFilesEpic(actions, store) {
     (0, _nuclideAnalytics().track)('file-tree-upload-dropped-files', {
       count: files.length
     });
+<<<<<<< HEAD
     return _RxMin.Observable.concat(_RxMin.Observable.of(Actions().clearDragHover(), Actions().clearSelection()), _RxMin.Observable.fromPromise(remoteTransferService.uploadFiles(files, destination.uri)).mapTo(Actions().expandNode(destination.rootUri, destination.uri)));
+=======
+    return _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.of(Actions().clearDragHover(), Actions().clearSelection()), _rxjsCompatUmdMin.Observable.fromPromise(remoteTransferService.uploadFiles(files, destination.uri)).mapTo(Actions().expandNode(destination.rootUri, destination.uri)));
+>>>>>>> Update
   });
 } //
 // Helper functions
@@ -1493,13 +1656,21 @@ function openAddFileDialogImpl(rootNode, localPath, filePath, onDidConfirm) {
   }, additionalOptions);
 }
 
+<<<<<<< HEAD
 async function renameNode(node, nodePath, newBasename) {
+=======
+async function renameNode(node, nodePath, destPath) {
+>>>>>>> Update
   /*
    * Use `resolve` to strip trailing slashes because renaming a file to a name with a
    * trailing slash is an error.
    */
+<<<<<<< HEAD
   let newPath = _nuclideUri().default.resolve( // Trim leading and trailing whitespace to prevent bad filenames.
   _nuclideUri().default.join(_nuclideUri().default.dirname(nodePath), newBasename.trim())); // Create a remote nuclide uri when the node being moved is remote.
+=======
+  let newPath = _nuclideUri().default.resolve(destPath.trim()); // Create a remote nuclide uri when the node being moved is remote.
+>>>>>>> Update
 
 
   if (_nuclideUri().default.isRemote(node.uri)) {
@@ -1541,7 +1712,11 @@ async function copy(copyPaths, addToVCS, onDidConfirm) {
   onDidConfirm(successfulPaths);
 
   if (successfulPaths.length !== 0) {
+<<<<<<< HEAD
     const hgRepository = getHgRepositoryForPath(successfulPaths[0]);
+=======
+    const hgRepository = FileTreeHgHelpers().getHgRepositoryForPath(successfulPaths[0]);
+>>>>>>> Update
 
     if (hgRepository != null && addToVCS) {
       try {
@@ -1557,6 +1732,7 @@ async function copy(copyPaths, addToVCS, onDidConfirm) {
   }
 }
 
+<<<<<<< HEAD
 function getHgRepositoryForPath(filePath) {
   const repository = (0, _nuclideVcsBase().repositoryForPath)(filePath);
 
@@ -1567,6 +1743,8 @@ function getHgRepositoryForPath(filePath) {
   return null;
 }
 
+=======
+>>>>>>> Update
 async function paste(newPath, addToVCS, onDidConfirm = () => {}) {
   const copyPaths = [];
   const cb = atom.clipboard.readWithMetadata();

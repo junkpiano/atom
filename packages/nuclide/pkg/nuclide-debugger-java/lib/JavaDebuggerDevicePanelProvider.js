@@ -15,7 +15,11 @@ function _nuclideDebuggerCommon() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _debugger() {
   const data = require("../../../modules/nuclide-commons-atom/debugger");
@@ -72,7 +76,11 @@ class JavaDebuggerDevicePanelProvider {
   }
 
   getSupportedPIDs(host, device, procs) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(new Set(procs.filter(proc => proc.isJava).map(proc => proc.pid)));
+=======
+    return _rxjsCompatUmdMin.Observable.of(new Set(procs.filter(proc => proc.isJava).map(proc => proc.pid)));
+>>>>>>> Update
   }
 
   getName() {

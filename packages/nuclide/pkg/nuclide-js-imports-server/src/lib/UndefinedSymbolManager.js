@@ -167,11 +167,20 @@ function findUndefinedValues(path, undefinedSymbols, globals) {
     node,
     scope
   } = path;
+<<<<<<< HEAD
 
   if ( // Type Annotations are considered identifiers, so ignore them
   isTypeIdentifier(path.parent.type) || // Other weird cases where we want to ignore identifiers
   path.parent.type === 'ExportSpecifier' || // export {a} from 'a' (a would be undefined)
   path.parent.type === 'QualifiedTypeIdentifier' && path.parentKey !== 'qualification' || // SomeModule.SomeType
+=======
+  const type = path.parent.type;
+
+  if ( // Type Annotations are considered identifiers, so ignore them
+  isTypeIdentifier(type) || // Other weird cases where we want to ignore identifiers
+  type === 'ExportSpecifier' || // export {a} from 'a' (a would be undefined)
+  type === 'QualifiedTypeIdentifier' && path.parentKey !== 'qualification' || // SomeModule.SomeType
+>>>>>>> Update
   globals.has(node.name) || scope.hasBinding(node.name)) {
     return;
   }

@@ -35,6 +35,19 @@ function _analytics() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _fsPromise() {
+  const data = _interopRequireDefault(require("../../../../nuclide-commons/fsPromise"));
+
+  _fsPromise = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _serverPort() {
   const data = require("../../../../nuclide-commons/serverPort");
 
@@ -45,7 +58,11 @@ function _serverPort() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _process() {
   const data = require("../../../../nuclide-commons/process");
@@ -59,6 +76,19 @@ function _process() {
 
 var _net = _interopRequireDefault(require("net"));
 
+<<<<<<< HEAD
+=======
+function _uuid() {
+  const data = _interopRequireDefault(require("uuid"));
+
+  _uuid = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _configUtils() {
   const data = require("./config-utils");
 
@@ -94,6 +124,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
 const logger = (0, _log4js().getLogger)('thrift-service-server');
 const cache = new Map();
 
@@ -110,6 +141,24 @@ function startThriftServer(originalConfig) {
 
         return _RxMin.Observable.defer(() => replacePlaceholders(originalConfig)).switchMap(config => mayKillOldServerProcess(config).map(_ => config)).switchMap(config => _RxMin.Observable.merge(observeServerProcess(config).do(logProcessMessage(configId)).ignoreElements(), observeServerStatus(config.remotePort).do(() => logger.info(`(${config.name}) `, 'Thrift Server is ready')).map(() => config.remotePort)));
       }).finally(() => {
+=======
+// @fb-only: import {getEnv} from './fb-env';
+const IPC_PATH_PLACEHOLDER = '{IPC_PATH}';
+const PORT_PLACEHOLDER = '{PORT}';
+const SERVICES_PATH_PLACEHOLDER = '{BIG_DIG_SERVICES_PATH}';
+const logger = (0, _log4js().getLogger)('thrift-service-server');
+const cache = new Map();
+
+function startThriftServer(serverConfig) {
+  return _rxjsCompatUmdMin.Observable.defer(() => {
+    const configId = (0, _configUtils().genConfigId)(serverConfig);
+    let thriftServer = cache.get(configId);
+
+    if (thriftServer == null) {
+      const logTag = `${serverConfig.name}-${_uuid().default.v4()}`;
+      logger.info('Starting Thrift Server', logTag, serverConfig);
+      thriftServer = _rxjsCompatUmdMin.Observable.defer(() => replacePlaceholders(serverConfig)).switchMap(config => mayKillOldServerProcess(config).map(_ => config)).switchMap(config => _rxjsCompatUmdMin.Observable.merge(observeServerProcess(config).do(logProcessMessage(logTag)).ignoreElements(), observeServerStatus(config).do(() => logger.info(logTag, 'Thrift Server is ready', config))).map(_ => getConnectionOptions(config))).finally(() => {
+>>>>>>> Update
         cache.delete(configId);
         logger.info('Thrift Server has been closed ', configId);
       }).publishReplay(1).refCount();
@@ -120,6 +169,7 @@ function startThriftServer(originalConfig) {
   }).publish();
 }
 
+<<<<<<< HEAD
 async function replacePlaceholders(config) {
   return replaceEnvironmentPlaceholder((await replaceRemotePortPlaceholder(config)));
 }
@@ -148,6 +198,74 @@ async function replaceRemotePortPlaceholder(config) {
 
 function mayKillOldServerProcess(config) {
   return _RxMin.Observable.defer(async () => {
+=======
+async function replacePlaceholders(serverConfig) {
+  const replaceBigDigServicesPath = value => value.replace(SERVICES_PATH_PLACEHOLDER, _path.default.join(__dirname, '../../../'));
+
+  const remoteCommand = replaceBigDigServicesPath(serverConfig.remoteCommand);
+  const remoteCommandArgs = serverConfig.remoteCommandArgs.map(replaceBigDigServicesPath);
+  const hasValidCommand = (await (0, _which().default)(remoteCommand)) != null;
+
+  if (!hasValidCommand) {
+    throw new Error(`Remote command is invalid: ${remoteCommand}`);
+  }
+
+  switch (serverConfig.remoteConnection.type) {
+    case 'tcp':
+      if (serverConfig.remoteConnection.port === 0) {
+        const hasPlaceholderForPort = serverConfig.remoteCommandArgs.find(arg => arg.includes(PORT_PLACEHOLDER)) != null;
+
+        if (!hasPlaceholderForPort) {
+          throw new Error(`Expected placeholder "${PORT_PLACEHOLDER}" for remote port`);
+        }
+
+        const remotePort = await (0, _serverPort().getAvailableServerPort)();
+        return Object.assign({}, serverConfig, {
+          remoteConnection: {
+            type: 'tcp',
+            port: remotePort
+          },
+          remoteCommandArgs: remoteCommandArgs.map(arg => arg.replace(PORT_PLACEHOLDER, String(remotePort)))
+        });
+      }
+
+      break;
+
+    case 'ipcSocket':
+      if (serverConfig.remoteConnection.path.length === 0) {
+        const hasPlaceholderForIpcPath = serverConfig.remoteCommandArgs.find(arg => arg.includes(IPC_PATH_PLACEHOLDER)) != null;
+
+        if (!hasPlaceholderForIpcPath) {
+          throw new Error(`Expected placeholder "${IPC_PATH_PLACEHOLDER}" for remote IPC socket path`);
+        }
+
+        const ipcSocketPath = _path.default.join((await _fsPromise().default.tempdir()), 'socket');
+
+        return Object.assign({}, serverConfig, {
+          remoteConnection: {
+            type: 'ipcSocket',
+            path: ipcSocketPath
+          },
+          remoteCommandArgs: remoteCommandArgs.map(arg => arg.replace(IPC_PATH_PLACEHOLDER, String(ipcSocketPath)))
+        });
+      }
+
+      break;
+
+    default:
+      serverConfig.remoteConnection.type;
+      throw new Error('Invalid remote connection type');
+  }
+
+  return Object.assign({}, serverConfig, {
+    remoteCommand,
+    remoteCommandArgs
+  });
+}
+
+function mayKillOldServerProcess(config) {
+  return _rxjsCompatUmdMin.Observable.defer(async () => {
+>>>>>>> Update
     if (!config.killOldThriftServerProcess) {
       return;
     }
@@ -166,7 +284,13 @@ function observeServerProcess(config) {
     isExitError: () => true,
     detached: false,
     killTreeWhenDone: true,
+<<<<<<< HEAD
     env: Object.assign({}, process.env)
+=======
+    // @fb-only: env: getEnv(),
+    env: process.env // @oss-only
+
+>>>>>>> Update
   });
 }
 /**
@@ -175,6 +299,7 @@ function observeServerProcess(config) {
  */
 
 
+<<<<<<< HEAD
 function observeServerStatus(port) {
   const maxAttempts = 10;
   return _RxMin.Observable.create(observer => {
@@ -183,6 +308,15 @@ function observeServerStatus(port) {
     const client = _net.default.connect({
       port
     }).on('connect', () => {
+=======
+function observeServerStatus(config) {
+  const maxAttempts = 10;
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+    let ready = false;
+
+    const client = _net.default.connect( // $FlowIgnore
+    getConnectionOptions(config)).on('connect', () => {
+>>>>>>> Update
       client.destroy();
       ready = true;
       observer.next(ready);
@@ -209,7 +343,11 @@ function throwOrRetry(maxAttempts) {
     }
 
     logger.error(`(${attempt}/${maxAttempts}) Retrying to connect to thrift server after error `, error);
+<<<<<<< HEAD
     return _RxMin.Observable.timer(attempt * 1000);
+=======
+    return _rxjsCompatUmdMin.Observable.timer(attempt * 1000);
+>>>>>>> Update
   });
 }
 
@@ -236,6 +374,7 @@ function logProcessMessage(name) {
   };
 }
 
+<<<<<<< HEAD
 async function validateConfig(config) {
   if (config.remotePort === 0) {
     const hasPlaceholderForPort = config.remoteCommandArgs.find(arg => arg.includes('{PORT}')) != null;
@@ -260,4 +399,23 @@ async function validateConfig(config) {
   return {
     valid: true
   };
+=======
+function getConnectionOptions(config) {
+  switch (config.remoteConnection.type) {
+    case 'tcp':
+      return {
+        port: config.remoteConnection.port,
+        useIPv4: false
+      };
+
+    case 'ipcSocket':
+      return {
+        path: config.remoteConnection.path
+      };
+
+    default:
+      config.remoteConnection.type;
+      throw new Error('Invalid remote connection type');
+  }
+>>>>>>> Update
 }

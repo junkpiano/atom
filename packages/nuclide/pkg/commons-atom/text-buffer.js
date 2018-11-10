@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.observeBufferOpen = observeBufferOpen;
 exports.observeBufferCloseOrRename = observeBufferCloseOrRename;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _event() {
   const data = require("../../modules/nuclide-commons/event");
@@ -34,7 +38,11 @@ function observeBufferOpen() {
   return (0, _event().observableFromSubscribeFunction)(cb => atom.project.observeBuffers(cb)).mergeMap(buffer => {
     const end = (0, _event().observableFromSubscribeFunction)(buffer.onDidDestroy.bind(buffer));
     const rename = (0, _event().observableFromSubscribeFunction)(buffer.onDidChangePath.bind(buffer)).map(() => buffer).takeUntil(end);
+<<<<<<< HEAD
     return _RxMin.Observable.of(buffer).concat(rename);
+=======
+    return _rxjsCompatUmdMin.Observable.of(buffer).concat(rename);
+>>>>>>> Update
   });
 } // Note that on a rename, the openedPath will be the path of the buffer when the open was sent,
 // which may not match the current name of the buffer.

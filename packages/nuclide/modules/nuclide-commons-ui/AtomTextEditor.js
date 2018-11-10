@@ -39,7 +39,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _atomTabIndexForwarder() {
   const data = _interopRequireDefault(require("./atomTabIndexForwarder"));
@@ -103,6 +107,7 @@ function setupTextEditor(props) {
   }
 
   if (props.readOnly) {
+<<<<<<< HEAD
     (0, _textEditor().enforceReadOnlyEditor)(textEditor); // Remove the cursor line decorations because that's distracting in read-only mode.
 
     textEditor.getDecorations({
@@ -110,6 +115,9 @@ function setupTextEditor(props) {
     }).forEach(decoration => {
       decoration.destroy();
     });
+=======
+    (0, _textEditor().enforceReadOnlyEditor)(textEditor);
+>>>>>>> Update
   }
 
   return {
@@ -146,12 +154,20 @@ class AtomTextEditor extends React.Component {
     } = setup;
     this._editorDisposables = new (_UniversalDisposable().default)(disposables);
     const textEditorElement = this._textEditorElement = document.createElement('atom-text-editor');
+<<<<<<< HEAD
+=======
+    textEditorElement.classList.add('nuclide-wrapped-editor');
+>>>>>>> Update
 
     if (parseInt(this.props.tabIndex, 10) >= 0) {
       // Make tab move to next element instead of inserting a 'tab' character
       this._editorDisposables.add( // Make AtomTextEditor properly shift-tabbable
       (0, _atomTabIndexForwarder().default)(textEditorElement), // Make 'Tab' change focus instead of inserting tab character
+<<<<<<< HEAD
       _RxMin.Observable.fromEvent(textEditorElement, 'keydown').subscribe(event => {
+=======
+      _rxjsCompatUmdMin.Observable.fromEvent(textEditorElement, 'keydown').subscribe(event => {
+>>>>>>> Update
         if (event.key === 'Tab') {
           event.stopPropagation();
         }

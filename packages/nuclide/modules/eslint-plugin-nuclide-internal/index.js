@@ -27,6 +27,10 @@ module.exports = {
     'modules-dependencies': require('./modules-dependencies'),
     'no-commonjs': require('./no-commonjs'),
     'no-cross-atom-imports': require('./no-cross-atom-imports'),
+<<<<<<< HEAD
+=======
+    'no-fb-deps-from-oss': require('./no-fb-deps-from-oss'),
+>>>>>>> Update
     'no-unnecessary-disposable-wrapping': require('./no-unnecessary-disposable-wrapping'),
     'no-unobserved-gk': require('./no-unobserved-gk'),
     'no-unresolved': require('./no-unresolved'),
@@ -34,6 +38,10 @@ module.exports = {
     'react-virtualized-import': require('./react-virtualized-import'),
     'require-universal-disposable': require('./require-universal-disposable'),
     'use-nuclide-ui-components': require('./use-nuclide-ui-components'),
+<<<<<<< HEAD
+=======
+    'unused-subscription': require('./unused-subscription'),
+>>>>>>> Update
   },
   rulesConfig: {
     'api-spelling': 0,
@@ -47,6 +55,10 @@ module.exports = {
     'license-header': 0,
     'modules-dependencies': 0,
     'no-cross-atom-imports': 0,
+<<<<<<< HEAD
+=======
+    'no-fb-deps-from-oss': 0,
+>>>>>>> Update
     'no-unnecessary-disposable-wrapping': 0,
     'no-unobserved-gk': 0,
     'no-unresolved': 0,
@@ -54,5 +66,9 @@ module.exports = {
     'react-virtualized-import': 0,
     'require-universal-disposable': 0,
     'use-nuclide-ui-components': 0,
+<<<<<<< HEAD
+=======
+    'unused-subscription': 0,
+>>>>>>> Update
   },
 };

@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.RoutingAtomCommands = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _promise() {
   const data = require("../../../modules/nuclide-commons/promise");
@@ -53,7 +57,11 @@ class RoutingAtomCommands {
     if (commands != null) {
       return commands.openFile(filePath, line, column, isWaiting);
     } else {
+<<<<<<< HEAD
       return _RxMin.Observable.throw(Error('No connected Atom windows')).publish();
+=======
+      return _rxjsCompatUmdMin.Observable.throw(Error('No connected Atom windows')).publish();
+>>>>>>> Update
     }
   }
 
@@ -63,7 +71,11 @@ class RoutingAtomCommands {
     if (commands != null) {
       return commands.openRemoteFile(uri, line, column, isWaiting);
     } else {
+<<<<<<< HEAD
       return _RxMin.Observable.throw(Error('No connected Atom windows')).publish();
+=======
+      return _rxjsCompatUmdMin.Observable.throw(Error('No connected Atom windows')).publish();
+>>>>>>> Update
     }
   }
 
@@ -103,6 +115,29 @@ class RoutingAtomCommands {
     await Promise.all(promises);
   }
 
+<<<<<<< HEAD
+=======
+  getClipboardContents() {
+    const commands = this._server.getDefaultAtomCommands();
+
+    if (commands != null) {
+      return commands.getClipboardContents();
+    } else {
+      throw new Error('No connected Atom windows');
+    }
+  }
+
+  setClipboardContents(text) {
+    const commands = this._server.getDefaultAtomCommands();
+
+    if (commands != null) {
+      return commands.setClipboardContents(text);
+    } else {
+      throw new Error('No connected Atom windows');
+    }
+  }
+
+>>>>>>> Update
   dispose() {}
 
 }

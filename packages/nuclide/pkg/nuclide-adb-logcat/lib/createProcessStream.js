@@ -35,7 +35,11 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53,16 +57,26 @@ function createProcessStream() {
   const processEvents = (0, _process().observeProcess)(_featureConfig().default.get('nuclide-adb-logcat.pathToAdb'), ['logcat', '-v', 'long'], {
     /* TODO(T17353599) */
     isExitError: () => false
+<<<<<<< HEAD
   }).catch(error => _RxMin.Observable.of({
+=======
+  }).catch(error => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
     kind: 'error',
     error
   })) // TODO(T17463635)
   .share();
   const stdoutEvents = processEvents.filter(event => event.kind === 'stdout') // Not all versions of adb have a way to skip historical logs so we just ignore the first
   // second.
+<<<<<<< HEAD
   .skipUntil(_RxMin.Observable.interval(1000).take(1));
   const otherEvents = processEvents.filter(event => event.kind !== 'stdout');
   return (0, _observable().compact)(_RxMin.Observable.merge(stdoutEvents, otherEvents) // Forward the event, but add the last line of std err too. We can use this later if the
+=======
+  .skipUntil(_rxjsCompatUmdMin.Observable.interval(1000).take(1));
+  const otherEvents = processEvents.filter(event => event.kind !== 'stdout');
+  return (0, _observable().compact)(_rxjsCompatUmdMin.Observable.merge(stdoutEvents, otherEvents) // Forward the event, but add the last line of std err too. We can use this later if the
+>>>>>>> Update
   // process exits to provide more information.
   .scan((acc, event) => {
     switch (event.kind) {

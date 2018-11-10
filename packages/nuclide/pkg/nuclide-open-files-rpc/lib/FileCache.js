@@ -15,7 +15,11 @@ function _simpleTextBuffer() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileVersionNotifier() {
   const data = require("./FileVersionNotifier");
@@ -80,8 +84,13 @@ class FileCache {
   // stay in sync.
   constructor() {
     this._buffers = new Map();
+<<<<<<< HEAD
     this._fileEvents = new _RxMin.Subject();
     this._directoryEvents = new _RxMin.BehaviorSubject(new Set());
+=======
+    this._fileEvents = new _rxjsCompatUmdMin.Subject();
+    this._directoryEvents = new _rxjsCompatUmdMin.BehaviorSubject(new Set());
+>>>>>>> Update
     this._requests = new (_FileVersionNotifier().FileVersionNotifier)();
     this._resources = new (_UniversalDisposable().default)();
 
@@ -314,7 +323,11 @@ class FileCache {
   }
 
   observeFileEvents() {
+<<<<<<< HEAD
     return _RxMin.Observable.from(Array.from(this._buffers.entries()).map(([filePath, {
+=======
+    return _rxjsCompatUmdMin.Observable.from(Array.from(this._buffers.entries()).map(([filePath, {
+>>>>>>> Update
       buffer,
       languageId
     }]) => {

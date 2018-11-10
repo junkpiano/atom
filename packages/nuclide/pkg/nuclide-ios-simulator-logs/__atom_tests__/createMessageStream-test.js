@@ -20,7 +20,11 @@ function _createMessageStream() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,9 +46,15 @@ describe('createMessageStream', () => {
   it('splits the output by record', async () => {
     const original = _featureConfig().default.observeAsStream.bind(_featureConfig().default);
 
+<<<<<<< HEAD
     jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-ios-simulator-logs.whitelistedTags' ? _RxMin.Observable.of('.*') : original(name));
 
     const output = _RxMin.Observable.from(OUTPUT_LINES);
+=======
+    jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-ios-simulator-logs.whitelistedTags' ? _rxjsCompatUmdMin.Observable.of('.*') : original(name));
+
+    const output = _rxjsCompatUmdMin.Observable.from(OUTPUT_LINES);
+>>>>>>> Update
 
     const messages = await (0, _createMessageStream().createMessageStream)(output).map(message => message.text).toArray().toPromise();
     expect(messages).toEqual(['Message 1', 'Message 2']);
@@ -52,9 +62,15 @@ describe('createMessageStream', () => {
   it('only includes messages with whitelisted tags', async () => {
     const original = _featureConfig().default.observeAsStream.bind(_featureConfig().default);
 
+<<<<<<< HEAD
     jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-ios-simulator-logs.whitelistedTags' ? _RxMin.Observable.of('X|ExampleTag') : original(name));
 
     const output = _RxMin.Observable.from(OUTPUT_LINES);
+=======
+    jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-ios-simulator-logs.whitelistedTags' ? _rxjsCompatUmdMin.Observable.of('X|ExampleTag') : original(name));
+
+    const output = _rxjsCompatUmdMin.Observable.from(OUTPUT_LINES);
+>>>>>>> Update
 
     const messages = await (0, _createMessageStream().createMessageStream)(output).map(message => message.text).toArray().toPromise();
     expect(messages).toEqual(['Message 2']);
@@ -64,9 +80,15 @@ describe('createMessageStream', () => {
 
     const original = _featureConfig().default.observeAsStream.bind(_featureConfig().default);
 
+<<<<<<< HEAD
     jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-ios-simulator-logs.whitelistedTags' ? _RxMin.Observable.of('(') : original(name));
 
     const output = _RxMin.Observable.from(OUTPUT_LINES);
+=======
+    jest.spyOn(_featureConfig().default, 'observeAsStream').mockImplementation(name => name === 'nuclide-ios-simulator-logs.whitelistedTags' ? _rxjsCompatUmdMin.Observable.of('(') : original(name));
+
+    const output = _rxjsCompatUmdMin.Observable.from(OUTPUT_LINES);
+>>>>>>> Update
 
     await (0, _createMessageStream().createMessageStream)(output).toPromise();
     expect(atom.notifications.addError.mock.calls.length).toBe(1);

@@ -67,7 +67,11 @@ function _nuclideDebuggerCommon() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _TextEditorBanner() {
   const data = require("../../../../../nuclide-commons-ui/TextEditorBanner");
@@ -357,6 +361,15 @@ class ViewModel {
     }
   }
 
+<<<<<<< HEAD
+=======
+  evaluateContextChanged() {
+    this._emitter.emit(CHANGE_EXPRESSION_CONTEXT, {
+      explicit: true
+    });
+  }
+
+>>>>>>> Update
   setFocusedProcess(process, explicit) {
     if (process == null) {
       this._focusedProcess = null;
@@ -450,6 +463,12 @@ class DebugService {
         terminal.setProcessExitCallback(() => {});
         terminal.terminateProcess();
       });
+<<<<<<< HEAD
+=======
+
+      const spawn = (0, _event().observableFromSubscribeFunction)(cb => terminal.onSpawn(cb));
+      return spawn.take(1).toPromise();
+>>>>>>> Update
     };
 
     this._onSessionEnd = async session => {
@@ -518,6 +537,7 @@ class DebugService {
         this._timer.onSuccess();
 
         this._timer = null;
+<<<<<<< HEAD
       } // set breakpoints back to unverified since the session ended.
 
 
@@ -534,6 +554,9 @@ class DebugService {
       });
 
       this._model.updateBreakpoints(data);
+=======
+      }
+>>>>>>> Update
     };
 
     this._disposables = new (_UniversalDisposable().default)();
@@ -542,9 +565,16 @@ class DebugService {
     this._emitter = new _atom.Emitter();
     this._viewModel = new ViewModel();
     this._breakpointsToSendOnSave = new Set();
+<<<<<<< HEAD
     this._model = new (_DebuggerModel().Model)(this._loadBreakpoints(state), true, this._loadFunctionBreakpoints(state), this._loadExceptionBreakpoints(state), this._loadWatchExpressions(state));
 
     this._disposables.add(this._model);
+=======
+    this._consoleOutput = new _rxjsCompatUmdMin.Subject();
+    this._model = new (_DebuggerModel().Model)(this._loadBreakpoints(state), true, this._loadFunctionBreakpoints(state), this._loadExceptionBreakpoints(state), this._loadWatchExpressions(state), () => this._viewModel.focusedProcess);
+
+    this._disposables.add(this._model, this._consoleOutput);
+>>>>>>> Update
 
     this._registerListeners();
   }
@@ -682,6 +712,7 @@ class DebugService {
           atom.notifications.addWarning('No source available for the selected stack frame');
         }
 
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
       }
 
@@ -692,6 +723,20 @@ class DebugService {
         }
 
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+
+      return _rxjsCompatUmdMin.Observable.fromPromise(stackFrame.openInEditor()).switchMap(editor => {
+        if (editor == null) {
+          const uri = stackFrame.source.uri;
+          const errorMsg = uri == null || uri === '' ? 'The selected stack frame has no known source location' : `Nuclide could not open ${uri}`;
+          atom.notifications.addError(errorMsg);
+          return _rxjsCompatUmdMin.Observable.empty();
+        }
+
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           editor,
           explicit,
           stackFrame
@@ -716,7 +761,11 @@ class DebugService {
         return;
       }
 
+<<<<<<< HEAD
       this._model.setExceptionBreakpoints(stackFrame.thread.process.session.capabilities.exceptionBreakpointFilters || []);
+=======
+      this._model.setExceptionBreakpoints(process, stackFrame.thread.process.session.capabilities.exceptionBreakpointFilters || []);
+>>>>>>> Update
 
       if (lastFocusedThreadId != null && !explicit && stackFrame.thread.threadId !== lastFocusedThreadId && process === lastFocusedProcess) {
         let message = `Active thread changed from ${lastFocusedThreadId} to ${stackFrame.thread.threadId}`;
@@ -805,7 +854,11 @@ class DebugService {
       }
     }));
 
+<<<<<<< HEAD
     const toFocusThreads = new _RxMin.Subject();
+=======
+    const toFocusThreads = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
     const observeContinuedTo = threadId => {
       return session.observeContinuedEvents().filter(continued => continued.body.allThreadsContinued || threadId != null && threadId === continued.body.threadId).take(1);
@@ -813,9 +866,17 @@ class DebugService {
 
     this._sessionEndDisposables.add(session.observeStopEvents().subscribe(() => {
       this._onDebuggerModeChanged(process, _constants().DebuggerMode.PAUSED);
+<<<<<<< HEAD
     }), session.observeStopEvents().flatMap(event => _RxMin.Observable.fromPromise(threadFetcher()).ignoreElements().concat(_RxMin.Observable.of(event)).catch(error => {
       (0, _utils().onUnexpectedError)(error);
       return _RxMin.Observable.empty();
+=======
+    }), session.observeEvaluations().subscribe(() => {
+      this._viewModel.evaluateContextChanged();
+    }), session.observeStopEvents().flatMap(event => _rxjsCompatUmdMin.Observable.fromPromise(threadFetcher()).ignoreElements().concat(_rxjsCompatUmdMin.Observable.of(event)).catch(error => {
+      (0, _utils().onUnexpectedError)(error);
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }) // Proceeed processing the stopped event only if there wasn't
     // a continued event while we're fetching the threads
     .takeUntil(observeContinuedTo(event.body.threadId))).subscribe(event => {
@@ -848,7 +909,11 @@ class DebugService {
 
       if (focusedThread != null && focusedThread.stopped && focusedThread.getId() !== thread.getId() && preserveFocusHint) {
         // The debugger is already stopped elsewhere.
+<<<<<<< HEAD
         return _RxMin.Observable.empty();
+=======
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const thisThreadIsFocused = this._viewModel.focusedStackFrame != null && this._viewModel.focusedStackFrame.thread.getId() === thread.getId(); // Fetches the first call frame in this stack to allow the UI to
@@ -858,11 +923,19 @@ class DebugService {
       // stack because the UI will certainly need it, and we need it here to
       // try and auto-focus a frame.
 
+<<<<<<< HEAD
       return _RxMin.Observable.fromPromise(this._model.refreshCallStack(thread, thisThreadIsFocused)).ignoreElements().concat(_RxMin.Observable.of(thread)) // Avoid focusing a continued thread.
       .takeUntil(observeContinuedTo(thread.threadId)) // Verify the thread is still stopped.
       .filter(() => thread.stopped).catch(error => {
         (0, _utils().onUnexpectedError)(error);
         return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.fromPromise(this._model.refreshCallStack(thread, thisThreadIsFocused)).ignoreElements().concat(_rxjsCompatUmdMin.Observable.of(thread)) // Avoid focusing a continued thread.
+      .takeUntil(observeContinuedTo(thread.threadId)) // Verify the thread is still stopped.
+      .filter(() => thread.stopped).catch(error => {
+        (0, _utils().onUnexpectedError)(error);
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       });
     }).subscribe(thread => {
       this._tryToAutoFocusStackFrame(thread);
@@ -902,6 +975,25 @@ class DebugService {
       this._onDebuggerModeChanged(process, _constants().DebuggerMode.RUNNING);
     }));
 
+<<<<<<< HEAD
+=======
+    const outputEvents = session.observeOutputEvents().filter(event => event.body != null && typeof event.body.output === 'string').share();
+    const notificationStream = outputEvents.filter(e => e.body.category === 'nuclide_notification').map(e => ({
+      type: (0, _nullthrows().default)(e.body.data).type,
+      message: e.body.output
+    }));
+    const nuclideTrackStream = outputEvents.filter(e => e.body.category === 'nuclide_track');
+
+    this._sessionEndDisposables.add(notificationStream.subscribe(({
+      type,
+      message
+    }) => {
+      atom.notifications.add(type, message);
+    }), nuclideTrackStream.subscribe(e => {
+      (0, _analytics().track)(e.body.output, e.body.data || {});
+    }));
+
+>>>>>>> Update
     const createConsole = (0, _AtomServiceContainer().getConsoleService)();
 
     if (createConsole != null) {
@@ -913,6 +1005,7 @@ class DebugService {
 
       this._sessionEndDisposables.add(consoleApi);
 
+<<<<<<< HEAD
       const outputEvents = session.observeOutputEvents().filter(event => event.body != null && typeof event.body.output === 'string').share();
       const KNOWN_CATEGORIES = new Set(['stderr', 'console', 'telemetry', 'success']);
       const logStream = outputEvents.filter(e => !KNOWN_CATEGORIES.has(e.body.category)).map(e => (0, _stripAnsi().default)(e.body.output));
@@ -920,6 +1013,17 @@ class DebugService {
       const notificationStream = outputEvents.filter(e => e.body.category === 'nuclide_notification').map(e => ({
         type: (0, _nullthrows().default)(e.body.data).type,
         message: e.body.output
+=======
+      const CATEGORIES_MAP = new Map([['stderr', 'error'], ['console', 'warning'], ['success', 'success']]);
+      const IGNORED_CATEGORIES = new Set(['telemetry', 'nuclide_notification', 'nuclide_track']);
+      const logStream = outputEvents.filter(e => e.body.variablesReference == null).filter(e => !IGNORED_CATEGORIES.has(e.body.category)).map(e => ({
+        text: (0, _stripAnsi().default)(e.body.output),
+        level: CATEGORIES_MAP.get(e.body.category) || 'log'
+      })).filter(e => e.level != null);
+      const objectStream = outputEvents.filter(e => e.body.variablesReference != null).map(e => ({
+        category: e.body.category,
+        variablesReference: (0, _nullthrows().default)(e.body.variablesReference)
+>>>>>>> Update
       }));
       let lastEntryToken = null;
 
@@ -947,15 +1051,58 @@ class DebugService {
         }
       };
 
+<<<<<<< HEAD
       this._sessionEndDisposables.add(() => {
         lastEntryToken = null;
       }, errorStream.subscribe(line => handleMessage(line, 'error')), warningsStream.subscribe(line => handleMessage(line, 'warning')), successStream.subscribe(line => handleMessage(line, 'success')), logStream.subscribe(line => handleMessage(line, 'log')), notificationStream.subscribe(({
+=======
+      this._sessionEndDisposables.add(logStream.subscribe(e => handleMessage(e.text, e.level)), notificationStream.subscribe(({
+>>>>>>> Update
         type,
         message
       }) => {
         atom.notifications.add(type, message);
+<<<<<<< HEAD
       }) // TODO handle non string output (e.g. files & objects)
       );
+=======
+      }), objectStream.subscribe(({
+        category,
+        variablesReference
+      }) => {
+        const level = CATEGORIES_MAP.get(category) || 'log';
+        const container = new (_DebuggerModel().ExpressionContainer)(this._viewModel.focusedProcess, variablesReference, _uuid().default.v4());
+        container.getChildren().then(children => {
+          const result = {
+            type: 'objects',
+            objects: children.map(variable => ({
+              description: variable.getValue(),
+              type: variable.type,
+              expression: variable
+            }))
+          };
+
+          this._consoleOutput.next({
+            text: 'object',
+            data: result,
+            level
+          });
+        });
+      }), () => {
+        if (lastEntryToken != null) {
+          lastEntryToken.setComplete();
+        }
+
+        lastEntryToken = null;
+      } // TODO handle non string output (e.g. files)
+      ); // Once set up, isolate debugger console into its own pane to separate
+      // debugger output from other noisy console sources
+
+
+      consoleApi.open({
+        isolate: true
+      });
+>>>>>>> Update
     }
 
     this._sessionEndDisposables.add(session.observeBreakpointEvents().flatMap(event => {
@@ -965,7 +1112,11 @@ class DebugService {
       } = event.body;
 
       if (reason !== _constants().BreakpointEventReasons.CHANGED && reason !== _constants().BreakpointEventReasons.REMOVED) {
+<<<<<<< HEAD
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           reason,
           breakpoint,
           sourceBreakpoint: null,
@@ -982,9 +1133,15 @@ class DebugService {
         const functionBreakpoint = this._model.getFunctionBreakpoints().filter(b => b.idFromAdapter === breakpoint.id).pop();
 
         if (sourceBreakpoint == null && functionBreakpoint == null) {
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
         } else {
           return _RxMin.Observable.of({
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+        } else {
+          return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
             reason,
             breakpoint,
             sourceBreakpoint,
@@ -992,11 +1149,19 @@ class DebugService {
           });
         }
       }).take(1).timeout(MAX_BREAKPOINT_EVENT_DELAY_MS).catch(error => {
+<<<<<<< HEAD
         if (error instanceof _RxMin.TimeoutError) {
           _logger().default.error('Timed out breakpoint event handler', process.configuration.adapterType, reason, breakpoint);
         }
 
         return _RxMin.Observable.empty();
+=======
+        if (error instanceof _rxjsCompatUmdMin.TimeoutError) {
+          _logger().default.error('Timed out breakpoint event handler', process.configuration.adapterType, reason, breakpoint);
+        }
+
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       });
     }).subscribe(({
       reason,
@@ -1005,6 +1170,7 @@ class DebugService {
       functionBreakpoint
     }) => {
       if (reason === _constants().BreakpointEventReasons.NEW && breakpoint.source) {
+<<<<<<< HEAD
         const source = process.getSource(breakpoint.source);
 
         const bps = this._model.addBreakpoints(source.uri, [{
@@ -1018,6 +1184,19 @@ class DebugService {
             [bps[0].getId()]: breakpoint
           });
         }
+=======
+        // The debug adapter is adding a new (unexpected) breakpoint to the UI.
+        // TODO: Consider adding this to the current process only.
+        const source = process.getSource(breakpoint.source);
+
+        this._model.addUIBreakpoints([{
+          column: breakpoint.column || 0,
+          enabled: true,
+          line: breakpoint.line == null ? -1 : breakpoint.line,
+          uri: source.uri,
+          id: _uuid().default.v4()
+        }], false);
+>>>>>>> Update
       } else if (reason === _constants().BreakpointEventReasons.REMOVED) {
         if (sourceBreakpoint != null) {
           this._model.removeBreakpoints([sourceBreakpoint]);
@@ -1032,7 +1211,11 @@ class DebugService {
             breakpoint.column = undefined;
           }
 
+<<<<<<< HEAD
           this._model.updateBreakpoints({
+=======
+          this._model.updateProcessBreakpoints(process, {
+>>>>>>> Update
             [sourceBreakpoint.getId()]: breakpoint
           });
         }
@@ -1103,7 +1286,23 @@ class DebugService {
 
     try {
       result = state.sourceBreakpoints.map(breakpoint => {
+<<<<<<< HEAD
         return new (_DebuggerModel().Breakpoint)(breakpoint.uri, breakpoint.line, breakpoint.column, breakpoint.enabled, breakpoint.condition, breakpoint.hitCondition, breakpoint.adapterData);
+=======
+        const bp = {
+          uri: breakpoint.uri,
+          line: breakpoint.originalLine,
+          column: breakpoint.column,
+          enabled: breakpoint.enabled,
+          id: _uuid().default.v4()
+        };
+
+        if (breakpoint.condition != null && breakpoint.condition.trim() !== '') {
+          bp.condition = breakpoint.condition;
+        }
+
+        return bp;
+>>>>>>> Update
       });
     } catch (e) {}
 
@@ -1184,12 +1383,33 @@ class DebugService {
     return this._sendAllBreakpoints();
   }
 
+<<<<<<< HEAD
   addBreakpoints(uri, rawBreakpoints) {
     (0, _analytics().track)(_constants().AnalyticsEvents.DEBUGGER_BREAKPOINT_ADD);
 
     this._model.addBreakpoints(uri, rawBreakpoints);
 
     return this._sendBreakpoints(uri);
+=======
+  async addUIBreakpoints(uiBreakpoints) {
+    (0, _analytics().track)(_constants().AnalyticsEvents.DEBUGGER_BREAKPOINT_ADD);
+
+    this._model.addUIBreakpoints(uiBreakpoints);
+
+    const uris = new Set();
+
+    for (const bp of uiBreakpoints) {
+      uris.add(bp.uri);
+    }
+
+    const promises = [];
+
+    for (const uri of uris) {
+      promises.push(this._sendBreakpoints(uri));
+    }
+
+    await Promise.all(promises);
+>>>>>>> Update
   }
 
   addSourceBreakpoint(uri, line) {
@@ -1198,8 +1418,17 @@ class DebugService {
     const existing = this._model.getBreakpointAtLine(uri, line);
 
     if (existing == null) {
+<<<<<<< HEAD
       return this.addBreakpoints(uri, [{
         line
+=======
+      return this.addUIBreakpoints([{
+        line,
+        column: 0,
+        enabled: true,
+        id: _uuid().default.v4(),
+        uri
+>>>>>>> Update
       }]);
     }
 
@@ -1212,18 +1441,38 @@ class DebugService {
     const existing = this._model.getBreakpointAtLine(uri, line);
 
     if (existing == null) {
+<<<<<<< HEAD
       return this.addBreakpoints(uri, [{
         line
+=======
+      return this.addUIBreakpoints([{
+        line,
+        column: 0,
+        enabled: true,
+        id: _uuid().default.v4(),
+        uri
+>>>>>>> Update
       }]);
     } else {
       return this.removeBreakpoints(existing.getId(), true);
     }
   }
 
+<<<<<<< HEAD
   updateBreakpoints(uri, data) {
     this._model.updateBreakpoints(data);
 
     this._breakpointsToSendOnSave.add(uri);
+=======
+  updateBreakpoints(uiBreakpoints) {
+    this._model.updateBreakpoints(uiBreakpoints);
+
+    const urisToSend = new Set(uiBreakpoints.map(bp => bp.uri));
+
+    for (const uri of urisToSend) {
+      this._breakpointsToSendOnSave.add(uri);
+    }
+>>>>>>> Update
   }
 
   async removeBreakpoints(id, skipAnalytics = false) {
@@ -1314,8 +1563,17 @@ class DebugService {
     const existing = this._model.getBreakpointAtLine(uri, line);
 
     if (existing == null) {
+<<<<<<< HEAD
       await this.addBreakpoints(uri, [{
         line
+=======
+      await this.addUIBreakpoints([{
+        line,
+        column: 0,
+        enabled: true,
+        id: _uuid().default.v4(),
+        uri
+>>>>>>> Update
       }]);
 
       const runToLocationBreakpoint = this._model.getBreakpointAtLine(uri, line);
@@ -1425,7 +1683,11 @@ class DebugService {
         const newSession = await this._createVsDebugSession(config, config.adapterExecutable || adapterExecutable, sessionId); // If this is the first process, register the console executor.
 
         if (this._model.getProcesses().length === 0) {
+<<<<<<< HEAD
           this._consoleDisposables = this._registerConsoleExecutor();
+=======
+          this._registerConsoleExecutor();
+>>>>>>> Update
         }
 
         process = this._model.addProcess(config, newSession);
@@ -1461,7 +1723,11 @@ class DebugService {
           }
         }
 
+<<<<<<< HEAD
         this._model.setExceptionBreakpoints(newSession.getCapabilities().exceptionBreakpointFilters || []);
+=======
+        this._model.setExceptionBreakpoints(process, newSession.getCapabilities().exceptionBreakpointFilters || []);
+>>>>>>> Update
 
         return newSession;
       };
@@ -1609,11 +1875,17 @@ class DebugService {
     await this._doCreateProcess(config, _uuid().default.v4());
 
     if (this._model.getProcesses().length > 1) {
+<<<<<<< HEAD
       const debuggerTypes = [];
 
       this._model.getProcesses().forEach(process => {
         debuggerTypes.push(process.configuration.adapterType);
       });
+=======
+      const debuggerTypes = this._model.getProcesses().map(({
+        configuration
+      }) => `${configuration.adapterType}: ${configuration.processName || ''}`);
+>>>>>>> Update
 
       (0, _analytics().track)(_constants().AnalyticsEvents.DEBUGGER_MULTITARGET, {
         processesCount: this._model.getProcesses().length,
@@ -1642,14 +1914,22 @@ class DebugService {
       return;
     }
 
+<<<<<<< HEAD
     const breakpointsToSend = this._model.getBreakpoints().filter(bp => this._model.areBreakpointsActivated() && bp.enabled && bp.uri === uri);
 
+=======
+    const breakpointsToSend = (sourceModified ? this._model.getUIBreakpoints() : this._model.getBreakpoints()).filter(bp => this._model.areBreakpointsActivated() && bp.enabled && bp.uri === uri);
+>>>>>>> Update
     const rawSource = process.getSource({
       path: uri,
       name: _nuclideUri().default.basename(uri)
     }).raw;
 
+<<<<<<< HEAD
     if (breakpointsToSend.length && !rawSource.adapterData) {
+=======
+    if (!sourceModified && breakpointsToSend.length > 0 && !rawSource.adapterData && breakpointsToSend[0].adapterData) {
+>>>>>>> Update
       rawSource.adapterData = breakpointsToSend[0].adapterData;
     } // The UI is 0-based, while VSP is 1-based.
 
@@ -1657,12 +1937,32 @@ class DebugService {
     const response = await session.setBreakpoints({
       source: rawSource,
       lines: breakpointsToSend.map(bp => bp.line),
+<<<<<<< HEAD
       breakpoints: breakpointsToSend.map(bp => ({
         line: bp.line,
         column: bp.column,
         condition: bp.condition,
         hitCondition: bp.hitCondition
       })),
+=======
+      breakpoints: breakpointsToSend.map(bp => {
+        const bpToSend = {
+          line: bp.line
+        }; // Column and condition are optional in the protocol, but should
+        // only be included on the object sent to the debug adapter if
+        // they have values that exist.
+
+        if (bp.column != null && bp.column > 0) {
+          bpToSend.column = bp.column;
+        }
+
+        if (bp.condition != null && bp.condition !== '') {
+          bpToSend.condition = bp.condition;
+        }
+
+        return bpToSend;
+      }),
+>>>>>>> Update
       sourceModified
     });
 
@@ -1673,6 +1973,7 @@ class DebugService {
     const data = {};
 
     for (let i = 0; i < breakpointsToSend.length; i++) {
+<<<<<<< HEAD
       data[breakpointsToSend[i].getId()] = response.body.breakpoints[i];
 
       if (!breakpointsToSend[i].column) {
@@ -1682,6 +1983,23 @@ class DebugService {
     }
 
     this._model.updateBreakpoints(data);
+=======
+      // If sourceModified === true, we're dealing with new UI breakpoints that
+      // represent the new location(s) the breakpoints ended up in due to the
+      // file contents changing. These are of type IUIBreakpoint.  Otherwise,
+      // we have process breakpoints of type IBreakpoint here. These types both have
+      // an ID, but we get it a little differently.
+      const bpId = sourceModified ? breakpointsToSend[i].id : breakpointsToSend[i].getId();
+      data[bpId] = response.body.breakpoints[i];
+
+      if (!breakpointsToSend[i].column) {
+        // If there was no column sent ignore the breakpoint column response from the adapter
+        data[bpId].column = undefined;
+      }
+    }
+
+    this._model.updateProcessBreakpoints(process, data);
+>>>>>>> Update
   }
 
   _getCurrentSession() {
@@ -1732,6 +2050,7 @@ class DebugService {
     });
   }
 
+<<<<<<< HEAD
   _registerConsoleExecutor() {
     const disposables = new (_UniversalDisposable().default)();
     const registerExecutor = (0, _AtomServiceContainer().getConsoleRegisterExecutor)();
@@ -1775,10 +2094,65 @@ class DebugService {
         }
       }));
     };
+=======
+  _evaluateExpression(expression, level) {
+    const {
+      focusedProcess,
+      focusedStackFrame
+    } = this._viewModel;
+
+    if (focusedProcess == null) {
+      _logger().default.error('Cannot evaluate while there is no active debug session');
+
+      return;
+    }
+
+    const subscription = // We filter here because the first value in the BehaviorSubject is null no matter what, and
+    // we want the console to unsubscribe the stream after the first non-null value.
+    (0, _utils().expressionAsEvaluationResultStream)(expression, focusedProcess, focusedStackFrame, 'repl').skip(1) // Skip the first pending null value.
+    .subscribe(result => {
+      // Evaluate all watch expressions and fetch variables again since repl evaluation might have changed some.
+      this._viewModel.setFocusedStackFrame(this._viewModel.focusedStackFrame, false);
+
+      if (result == null || !expression.available) {
+        const message = {
+          text: expression.getValue(),
+          level: 'error'
+        };
+
+        this._consoleOutput.next(message);
+      } else {
+        this._consoleOutput.next({
+          text: 'object',
+          data: result,
+          level
+        });
+      }
+
+      this._consoleDisposables.remove(subscription);
+    });
+
+    this._consoleDisposables.add(subscription);
+  }
+
+  _registerConsoleExecutor() {
+    this._consoleDisposables = new (_UniversalDisposable().default)();
+    const registerExecutor = (0, _AtomServiceContainer().getConsoleRegisterExecutor)();
+
+    if (registerExecutor == null) {
+      return;
+    }
+>>>>>>> Update
 
     const emitter = new _atom.Emitter();
     const SCOPE_CHANGED = 'SCOPE_CHANGED';
     const viewModel = this._viewModel;
+<<<<<<< HEAD
+=======
+
+    const evaluateExpression = this._evaluateExpression.bind(this);
+
+>>>>>>> Update
     const executor = {
       id: 'debugger',
       name: 'Debugger',
@@ -1795,6 +2169,7 @@ class DebugService {
       },
 
       send(expression) {
+<<<<<<< HEAD
         evaluateExpression(expression);
       },
 
@@ -1806,6 +2181,20 @@ class DebugService {
     }));
     disposables.add(registerExecutor(executor));
     return disposables;
+=======
+        evaluateExpression(new (_DebuggerModel().Expression)(expression), 'log');
+      },
+
+      output: this._consoleOutput,
+      getProperties: _utils().fetchChildrenForLazyComponent
+    };
+
+    this._consoleDisposables.add(emitter, this._viewModel.onDidChangeDebuggerFocus(() => {
+      emitter.emit(SCOPE_CHANGED);
+    }));
+
+    this._consoleDisposables.add(registerExecutor(executor));
+>>>>>>> Update
   }
 
   dispose() {

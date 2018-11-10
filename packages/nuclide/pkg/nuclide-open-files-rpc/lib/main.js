@@ -22,12 +22,15 @@ Object.defineProperty(exports, "FileEventKind", {
     return _constants().FileEventKind;
   }
 });
+<<<<<<< HEAD
 Object.defineProperty(exports, "ConfigObserver", {
   enumerable: true,
   get: function () {
     return _ConfigObserver().ConfigObserver;
   }
 });
+=======
+>>>>>>> Update
 exports.OPEN_FILES_SERVICE = void 0;
 
 function _FileCache() {
@@ -60,6 +63,7 @@ function _constants() {
   return data;
 }
 
+<<<<<<< HEAD
 function _ConfigObserver() {
   const data = require("./ConfigObserver");
 
@@ -70,6 +74,8 @@ function _ConfigObserver() {
   return data;
 }
 
+=======
+>>>>>>> Update
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.

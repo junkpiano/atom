@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -47,6 +51,19 @@ function _SimpleConnect() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _log4js() {
+  const data = require("log4js");
+
+  _log4js = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -65,7 +82,11 @@ class RemoteProjectsService {
       return this._connect(config, false);
     };
 
+<<<<<<< HEAD
     this._subject = new _RxMin.ReplaySubject(1);
+=======
+    this._subject = new _rxjsCompatUmdMin.ReplaySubject(1);
+>>>>>>> Update
   }
 
   dispose() {
@@ -87,8 +108,16 @@ class RemoteProjectsService {
    * encapsulate the entire workflow.
    */
   connect(config) {
+<<<<<<< HEAD
     this._connect(config, true).catch(() => {
       atom.notifications.addError("hey matthew don't commit this without moving the error handling from openProjectModal you idiot");
+=======
+    this._connect(config, true).catch(err => {
+      atom.notifications.addError('There was an error connecting to the remote project.', {
+        detail: err.message
+      });
+      (0, _log4js().getLogger)('nuclide-remote-projects').error(err);
+>>>>>>> Update
     });
   }
 

@@ -26,7 +26,11 @@ function _nuclideUri() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = require("../../commons-node/passesGK");
+=======
+  const data = require("../../../modules/nuclide-commons/passesGK");
+>>>>>>> Update
 
   _passesGK = function () {
     return data;

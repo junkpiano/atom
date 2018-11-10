@@ -30,9 +30,15 @@ async function createThriftServer(serverConfig) {
   const thriftServerStream = (0, _startThriftServer().startThriftServer)(serverConfig);
   const thriftServerPromise = thriftServerStream.take(1).toPromise();
   const subscription = thriftServerStream.connect();
+<<<<<<< HEAD
   const thriftServerPort = await thriftServerPromise;
   return {
     getPort: () => thriftServerPort,
+=======
+  const connectionOptions = await thriftServerPromise;
+  return {
+    getConnectionOptions: () => connectionOptions,
+>>>>>>> Update
     close: () => subscription.unsubscribe()
   };
 }

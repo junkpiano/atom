@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.initializeLsp = initializeLsp;
+<<<<<<< HEAD
 exports.initialize = initialize;
 
 var _RxMin = require("rxjs/bundles/Rx.min.js");
@@ -27,6 +28,8 @@ function _collection() {
 
   return data;
 }
+=======
+>>>>>>> Update
 
 function _nuclideVscodeLanguageServiceRpc() {
   const data = require("../../nuclide-vscode-language-service-rpc");
@@ -38,6 +41,7 @@ function _nuclideVscodeLanguageServiceRpc() {
   return data;
 }
 
+<<<<<<< HEAD
 function _constants() {
   const data = require("../../nuclide-hack-common/lib/constants");
 
@@ -58,6 +62,8 @@ function _HackHelpers() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _hackConfig() {
   const data = require("./hack-config");
 
@@ -68,6 +74,7 @@ function _hackConfig() {
   return data;
 }
 
+<<<<<<< HEAD
 function _HackProcess() {
   const data = require("./HackProcess");
 
@@ -180,6 +187,8 @@ function _nuclideHackCommon() {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+=======
+>>>>>>> Update
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -191,7 +200,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 async function initializeLsp(command, args, projectFileNames, fileExtensions, logLevel, fileNotifier, host, initializationOptions) {
+<<<<<<< HEAD
   const cmd = command === '' ? await (0, _hackConfig().getHackCommand)() : command;
+=======
+  const cmd = command === '' ? await _hackConfig().DEFAULT_HACK_COMMAND : command;
+>>>>>>> Update
 
   if (cmd === '') {
     return null;
@@ -208,6 +221,7 @@ async function initializeLsp(command, args, projectFileNames, fileExtensions, lo
     additionalLogFilesRetentionPeriod: 5 * 60 * 1000 // 5 minutes
 
   });
+<<<<<<< HEAD
 }
 
 async function initialize(hackCommand, logLevel, fileNotifier) {
@@ -559,4 +573,6 @@ function getIdentifierAndRange(buffer, position) {
 function getIdentifierAtPosition(buffer, position) {
   const result = getIdentifierAndRange(buffer, position);
   return result == null ? null : result.id;
+=======
+>>>>>>> Update
 }

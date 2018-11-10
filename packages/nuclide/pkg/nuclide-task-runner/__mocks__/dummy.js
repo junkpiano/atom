@@ -16,7 +16,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,7 +40,11 @@ class TaskRunner {
     this.id = id || 'build-system'; // flowlint-next-line sketchy-null-string:off
 
     this.name = id || 'Build System';
+<<<<<<< HEAD
     this._taskLists = new _RxMin.Subject();
+=======
+    this._taskLists = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   getIcon() {

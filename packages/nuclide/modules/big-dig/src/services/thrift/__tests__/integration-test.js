@@ -1,5 +1,18 @@
 "use strict";
 
+<<<<<<< HEAD
+=======
+function _fsPromise() {
+  const data = _interopRequireDefault(require("../../../../../nuclide-commons/fsPromise"));
+
+  _fsPromise = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _process() {
   const data = require("../../../../../nuclide-commons/process");
 
@@ -20,7 +33,11 @@ function _serverPort() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ThriftClientManager() {
   const data = require("../ThriftClientManager");
@@ -82,6 +99,11 @@ function _waits_for() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+var _path = _interopRequireDefault(require("path"));
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -103,7 +125,14 @@ const CONFIG = {
   remoteUri: '',
   remoteCommand: 'node',
   remoteCommandArgs: [ADD_ONE_SERVER_PATH, '{PORT}'],
+<<<<<<< HEAD
   remotePort: 0,
+=======
+  remoteConnection: {
+    type: 'tcp',
+    port: 0
+  },
+>>>>>>> Update
   thriftTransport: 'buffered',
   thriftProtocol: 'binary',
   thriftService: _AddOne().default,
@@ -115,8 +144,13 @@ const CONFIG = {
  */
 
 function createTransport() {
+<<<<<<< HEAD
   const clientStream = new _RxMin.Subject();
   const serverStream = new _RxMin.Subject();
+=======
+  const clientStream = new _rxjsCompatUmdMin.Subject();
+  const serverStream = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   return {
     client: {
       send(message) {
@@ -173,6 +207,37 @@ async function isServerRunning(commandArgument) {
   return (await getProcessPidByCommandArgument(commandArgument)) != null;
 }
 
+<<<<<<< HEAD
+=======
+test('creates server in a random ipc socket', async () => {
+  const thriftClientManager = createThriftManager();
+  const thriftClient = await thriftClientManager.createThriftClient(Object.assign({}, CONFIG, {
+    remoteCommandArgs: [ADD_ONE_SERVER_PATH, '{IPC_PATH}'],
+    remoteConnection: {
+      type: 'ipcSocket',
+      path: ''
+    }
+  }));
+  expect((await thriftClient.getClient().calc(1))).toBe(2);
+  expect((await thriftClient.getClient().calc(2))).toBe(3);
+  thriftClient.close();
+});
+test('creates server in a specific socket', async () => {
+  const ipcSocketPath = _path.default.join((await _fsPromise().default.tempdir()), 'socket');
+
+  const thriftClientManager = createThriftManager();
+  const thriftClient = await thriftClientManager.createThriftClient(Object.assign({}, CONFIG, {
+    remoteCommandArgs: [ADD_ONE_SERVER_PATH, ipcSocketPath],
+    remoteConnection: {
+      type: 'ipcSocket',
+      path: ipcSocketPath
+    }
+  }));
+  expect((await thriftClient.getClient().calc(1))).toBe(2);
+  expect((await thriftClient.getClient().calc(2))).toBe(3);
+  thriftClient.close();
+});
+>>>>>>> Update
 test('creates server in a random port', async () => {
   const thriftClientManager = createThriftManager();
   const thriftClient = await thriftClientManager.createThriftClient(CONFIG);
@@ -185,7 +250,14 @@ test('creates server in a specific port', async () => {
   const thriftClientManager = createThriftManager();
   const thriftClient = await thriftClientManager.createThriftClient(Object.assign({}, CONFIG, {
     remoteCommandArgs: [ADD_ONE_SERVER_PATH, String(remotePort)],
+<<<<<<< HEAD
     remotePort
+=======
+    remoteConnection: {
+      type: 'tcp',
+      port: remotePort
+    }
+>>>>>>> Update
   }));
   expect((await thriftClient.getClient().calc(1))).toBe(2);
   thriftClient.close();
@@ -198,7 +270,14 @@ test('caches server', async () => {
 
   const config = Object.assign({}, CONFIG, {
     remoteCommandArgs: [ADD_ONE_SERVER_PATH, String(remotePort), commandArgument],
+<<<<<<< HEAD
     remotePort
+=======
+    remoteConnection: {
+      type: 'tcp',
+      port: remotePort
+    }
+>>>>>>> Update
   });
   const thriftClient1 = await thriftClientManager.createThriftClient(config);
   const thriftClient2 = await thriftClientManager.createThriftClient(config);
@@ -232,7 +311,14 @@ test('kills old server process', async () => {
   const remotePort = await (0, _serverPort().getAvailableServerPort)();
   const baseConfig = Object.assign({}, CONFIG, {
     remoteCommandArgs: [ADD_ONE_SERVER_PATH, String(remotePort), commandArgument],
+<<<<<<< HEAD
     remotePort
+=======
+    remoteConnection: {
+      type: 'tcp',
+      port: remotePort
+    }
+>>>>>>> Update
   });
   const config1 = Object.assign({}, baseConfig, {
     name: 'first-service'
@@ -261,8 +347,12 @@ test('throws if remote command is not valid', async () => {
 test('throws if remote port is 0 but "{PORT}" is not part of arguments', async () => {
   const thriftClientManager = createThriftManager();
   await expect(thriftClientManager.createThriftClient(Object.assign({}, CONFIG, {
+<<<<<<< HEAD
     remoteCommandArgs: [ADD_ONE_SERVER_PATH],
     remotePort: 0
+=======
+    remoteCommandArgs: [ADD_ONE_SERVER_PATH]
+>>>>>>> Update
   }))).rejects.toThrow('Failed to create server');
 });
 test('throws when server failed to be ready', async () => {

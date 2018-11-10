@@ -60,7 +60,11 @@ function dummy() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function Immutable() {
   const data = _interopRequireWildcard(require("immutable"));
@@ -364,9 +368,13 @@ describe('Epics', () => {
             initialPackagesActivated: true,
             taskRunners: Immutable().List([])
           };
+<<<<<<< HEAD
           const output = await runActions([Actions().registerTaskRunner(mockTaskRunner)], state).take(2).toArray().toPromise();
           const setStateAction = output[0];
           const addConsoleAction = output[1];
+=======
+          const [addConsoleAction, setStateAction] = await runActions([Actions().registerTaskRunner(mockTaskRunner)], state).take(2).toArray().toPromise();
+>>>>>>> Update
 
           if (!(addConsoleAction.type === Actions().ADD_CONSOLE_FOR_TASK_RUNNER)) {
             throw new Error("Invariant violation: \"addConsoleAction.type === Actions.ADD_CONSOLE_FOR_TASK_RUNNER\"");
@@ -455,7 +463,11 @@ describe('Epics', () => {
   });
   describe('TASK_STOPPED', () => {
     it('cancels the current task', async () => {
+<<<<<<< HEAD
       const task = (0, _tasks().taskFromObservable)(new _RxMin.Subject());
+=======
+      const task = (0, _tasks().taskFromObservable)(new _rxjsCompatUmdMin.Subject());
+>>>>>>> Update
       const taskRunner = new (dummy().TaskRunner)();
       jest.spyOn(taskRunner, 'runTask').mockReturnValue(task);
       jest.spyOn(task, 'cancel').mockImplementation(() => {});
@@ -473,6 +485,10 @@ describe('Epics', () => {
             metadata: taskMeta,
             task,
             progress: 1,
+<<<<<<< HEAD
+=======
+            status: null,
+>>>>>>> Update
             startDate: new Date()
           },
           taskRunner
@@ -485,7 +501,11 @@ describe('Epics', () => {
   describe('RUN_TASK', () => {
     it('runs a task to completion', async () => {
       const taskRunner = new (dummy().TaskRunner)();
+<<<<<<< HEAD
       const taskEvents = new _RxMin.Subject();
+=======
+      const taskEvents = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       const task = (0, _tasks().taskFromObservable)(taskEvents);
       jest.spyOn(task, 'cancel').mockImplementation(() => {});
       jest.spyOn(task, 'onDidComplete');
@@ -516,11 +536,19 @@ function createMockStore(state) {
 
 function runActions(actions, initialState, preferencesForWorkingRoots = createMockPreferences([])) {
   const store = createMockStore(initialState);
+<<<<<<< HEAD
   const input = new _RxMin.Subject();
   const output = new _RxMin.ReplaySubject();
   const options = {
     preferencesForWorkingRoots,
     states: _RxMin.Observable.never()
+=======
+  const input = new _rxjsCompatUmdMin.Subject();
+  const output = new _rxjsCompatUmdMin.ReplaySubject();
+  const options = {
+    preferencesForWorkingRoots,
+    states: _rxjsCompatUmdMin.Observable.never()
+>>>>>>> Update
   };
   getRootEpic()(new (_reduxObservable().ActionsObservable)(input), store, options).subscribe(output);
   actions.forEach(input.next.bind(input));

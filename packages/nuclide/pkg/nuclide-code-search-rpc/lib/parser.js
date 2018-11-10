@@ -17,7 +17,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47,7 +51,11 @@ function parseProcessLine(event, tool) {
 
     if (matches != null && matches.length === 4) {
       const [file, row, line] = matches.slice(1);
+<<<<<<< HEAD
       return _RxMin.Observable.of({
+=======
+      return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         file,
         row: parseInt(row, 10) - 1,
         line
@@ -55,7 +63,11 @@ function parseProcessLine(event, tool) {
     }
   }
 
+<<<<<<< HEAD
   return _RxMin.Observable.empty();
+=======
+  return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
 }
 
 function parseVcsGrepLine(event, cwd, regex) {

@@ -3,7 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+<<<<<<< HEAD
 exports.createOutlineTreeHierarchy = createOutlineTreeHierarchy;
+=======
+>>>>>>> Update
 exports.LspLanguageService = void 0;
 
 function _nuclideWatchmanHelpers() {
@@ -107,7 +110,11 @@ function _SafeStreamMessageReader() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -156,7 +163,11 @@ function convert() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -270,21 +281,36 @@ class LspLanguageService {
   // language server is free to ignore any cancellation request, so we could
   // still potentially have multiple outstanding requests of the same type.
   constructor(logger, fileCache, host, languageServerName, command, args, spawnOptions = {}, spawnWithFork = false, projectRoot, fileExtensions, initializationOptions, additionalLogFilesRetentionPeriod, useOriginalEnvironment = false, lspPreferences = {}) {
+<<<<<<< HEAD
     this._state = new _RxMin.BehaviorSubject('Initial');
+=======
+    this._state = new _rxjsCompatUmdMin.BehaviorSubject('Initial');
+>>>>>>> Update
     this._stateIndicator = new (_UniversalDisposable().default)();
     this._progressIndicators = new Map();
     this._actionRequiredIndicators = new Map();
     this._recentRestarts = [];
+<<<<<<< HEAD
     this._diagnosticUpdates = new _RxMin.BehaviorSubject(_RxMin.Observable.empty());
+=======
+    this._diagnosticUpdates = new _rxjsCompatUmdMin.BehaviorSubject(_rxjsCompatUmdMin.Observable.empty());
+>>>>>>> Update
     this._statusClickPromise = Promise.resolve(null);
 
     this._statusClickPromiseResolver = _ => {};
 
     this._statusCounter = 0;
+<<<<<<< HEAD
     this._statusUpdates = new _RxMin.BehaviorSubject({
       kind: 'null'
     });
     this._supportsSymbolSearch = new _RxMin.BehaviorSubject(null);
+=======
+    this._statusUpdates = new _rxjsCompatUmdMin.BehaviorSubject({
+      kind: 'null'
+    });
+    this._supportsSymbolSearch = new _rxjsCompatUmdMin.BehaviorSubject(null);
+>>>>>>> Update
     this._childOut = {
       stdout: '',
       stderr: ''
@@ -435,6 +461,7 @@ class LspLanguageService {
 
     this._statusClickPromise = new Promise((resolve, reject) => {
       this._statusClickPromiseResolver = resolve;
+<<<<<<< HEAD
     }); // red status updates are accompanied by an id to correlate statusClicks
 
     this._statusCounter++;
@@ -443,6 +470,17 @@ class LspLanguageService {
     });
 
     this._logger.trace(`_setStatus status: ${JSON.stringify(status2)}`);
+=======
+    }); // red and yellow status updates are accompanied by an id to correlate statusClicks
+
+    this._statusCounter++;
+    const status2 = status.kind !== 'red' && status.kind !== 'yellow' ? status : Object.assign({}, status, {
+      id: String(this._statusCounter)
+    });
+
+    this._logger.trace(`_setStatus status: ${JSON.stringify(status2)}`); // $FlowIgnore: flow has trouble disambiguating the 'kind: red' and 'kind: yellow' variants
+
+>>>>>>> Update
 
     this._statusUpdates.next(status2);
 
@@ -615,7 +653,11 @@ class LspLanguageService {
       // initialize, because any of these events might fire before initialize
       // has even returned.
 
+<<<<<<< HEAD
       this._lspConnection = new (_LspConnection().LspConnection)(jsonRpcConnection);
+=======
+      this._lspConnection = new (_LspConnection().LspConnection)(jsonRpcConnection, this._languageServerName);
+>>>>>>> Update
 
       this._lspConnection.onDispose(perConnectionDisposables.dispose.bind(perConnectionDisposables));
 
@@ -624,7 +666,11 @@ class LspLanguageService {
         // that _lspConnection might be invalid (since they're too burdensome)
         // but "yes please" to runtime exceptions.
       });
+<<<<<<< HEAD
       const perConnectionUpdates = new _RxMin.Subject();
+=======
+      const perConnectionUpdates = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
       perConnectionDisposables.add(perConnectionUpdates.complete.bind(perConnectionUpdates));
       jsonRpcConnection.onError(this._handleError.bind(this));
       jsonRpcConnection.onClose(this._handleClose.bind(this)); // Following handlers all set _childOut.stdout to null, to indicate
@@ -1316,6 +1362,7 @@ class LspLanguageService {
   async _handleStatusRequest(params, token) {
     // CARE! This method may be called before initialization has finished.
     const actions = params.actions || [];
+<<<<<<< HEAD
     let status;
 
     switch (params.type) {
@@ -1348,6 +1395,12 @@ class LspLanguageService {
 
       default:
         return null;
+=======
+    const status = convert().lspStatus_atomStatus(params);
+
+    if (status == null) {
+      return null;
+>>>>>>> Update
     }
 
     const response = await this._showStatus(status);
@@ -1367,7 +1420,11 @@ class LspLanguageService {
 
   async _handleShowMessageRequest(params, token) {
     // CARE! This method may be called before initialization has finished.
+<<<<<<< HEAD
     const cancelIsRequested = _RxMin.Observable.bindCallback(token.onCancellationRequested.bind(token))();
+=======
+    const cancelIsRequested = _rxjsCompatUmdMin.Observable.bindCallback(token.onCancellationRequested.bind(token))();
+>>>>>>> Update
 
     const actions = params.actions || []; // LSP gives us just a list of titles e.g. ['Open', 'Retry']
     // Nuclide will display an 'X' close icon in addition to those whichever
@@ -1465,16 +1522,24 @@ class LspLanguageService {
     const subscriptionTypes = new Set([[_protocol().WatchKind.Create, _protocol().FileChangeType.Created], [_protocol().WatchKind.Change, _protocol().FileChangeType.Changed], [_protocol().WatchKind.Delete, _protocol().FileChangeType.Deleted]] // eslint-disable-next-line no-bitwise
     .filter(([kind]) => (watcherKind & kind) !== 0).map(([_, changeType]) => changeType));
     const subscription = await watchmanClient.watchDirectoryRecursive(this._projectRoot, subscriptionName, subscriptionOptions);
+<<<<<<< HEAD
 
     _RxMin.Observable.fromEvent(subscription, 'change').subscribe(fileChanges => {
+=======
+    return new (_UniversalDisposable().default)(subscription, _rxjsCompatUmdMin.Observable.fromEvent(subscription, 'change').subscribe(fileChanges => {
+>>>>>>> Update
       const fileEvents = fileChanges.map(fileChange => convert().watchmanFileChange_lspFileEvent(fileChange, subscription.path)).filter(fileEvent => subscriptionTypes.has(fileEvent.type));
 
       this._lspConnection.didChangeWatchedFiles({
         changes: fileEvents
       });
+<<<<<<< HEAD
     });
 
     return subscription;
+=======
+    }));
+>>>>>>> Update
   }
 
   _handleUnregisterCapability(params) {
@@ -1839,7 +1904,11 @@ class LspLanguageService {
   }
 
   findReferences(fileVersion, position) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._findReferences(fileVersion, position)).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._findReferences(fileVersion, position)).publish();
+>>>>>>> Update
   }
 
   async _findReferences(fileVersion, position) {
@@ -1928,7 +1997,11 @@ class LspLanguageService {
   }
 
   rename(fileVersion, position, newName) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._rename(fileVersion, position, newName)).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._rename(fileVersion, position, newName)).publish();
+>>>>>>> Update
   }
 
   async _rename(fileVersion, position, newName) {
@@ -2560,7 +2633,11 @@ class LspLanguageService {
       textDocument: convert().localPath_lspTextDocumentIdentifier(fileVersion.filePath),
       reason: _protocol().TextDocumentSaveReason.Manual
     };
+<<<<<<< HEAD
     return _RxMin.Observable.create(observer => {
+=======
+    return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       // Comment above notes _lspConnection is really nullable... and it's been
       const connection = this._lspConnection;
 
@@ -2629,7 +2706,11 @@ class LspLanguageService {
     // Observable that emits no items but completes once the LSP state is 'running'.
     const waitUntilRunning = this._state.takeWhile(s => s !== 'Running').ignoreElements();
 
+<<<<<<< HEAD
     const observable = _RxMin.Observable.create(observer => {
+=======
+    const observable = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
       this._lspConnection._jsonRpcConnection.onNotification({
         method: notificationMethod
       }, params => {

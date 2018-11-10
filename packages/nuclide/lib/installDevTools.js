@@ -41,10 +41,17 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 function _ReactPerfMonitor() {
   const data = _interopRequireDefault(require("./ReactPerfMonitor"));
 
   _ReactPerfMonitor = function () {
+=======
+function _ReactDevPerfMonitor() {
+  const data = _interopRequireDefault(require("./ReactDevPerfMonitor"));
+
+  _ReactDevPerfMonitor = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -70,7 +77,11 @@ const log = console.debug || console.log;
 let installed;
 
 function installDevTools() {
+<<<<<<< HEAD
   const disposable = new (_UniversalDisposable().default)(new (_ReactPerfMonitor().default)());
+=======
+  const disposable = new (_UniversalDisposable().default)(new (_ReactDevPerfMonitor().default)());
+>>>>>>> Update
 
   if (installed) {
     return disposable;

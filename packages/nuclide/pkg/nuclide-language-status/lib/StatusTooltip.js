@@ -81,6 +81,7 @@ class StatusTooltipComponent extends React.Component {
         data
       } = this.props.status;
 
+<<<<<<< HEAD
       if (data.kind !== 'red' || data.buttons.length === 0) {
         return null;
       }
@@ -88,6 +89,16 @@ class StatusTooltipComponent extends React.Component {
       return React.createElement(_ButtonGroup().ButtonGroup, null, data.buttons.map(b => React.createElement(_Button().Button, {
         key: b,
         buttonType: _Button().ButtonTypes.ERROR,
+=======
+      if (data.kind !== 'red' && data.kind !== 'yellow' || data.buttons.length === 0) {
+        return null;
+      }
+
+      const buttonType = data.kind === 'red' ? _Button().ButtonTypes.ERROR : _Button().ButtonTypes.WARNING;
+      return React.createElement(_ButtonGroup().ButtonGroup, null, data.buttons.map(b => React.createElement(_Button().Button, {
+        key: b,
+        buttonType: buttonType,
+>>>>>>> Update
         onClick: () => {
           provider.clickStatus((0, _nullthrows().default)(this.props.editor), data.id || '', b);
           this.props.hideTooltip();

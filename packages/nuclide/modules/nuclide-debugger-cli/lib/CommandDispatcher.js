@@ -5,6 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _TokenizedLine() {
+  const data = _interopRequireDefault(require("./TokenizedLine"));
+
+  _TokenizedLine = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -41,6 +56,7 @@ class CommandDispatcher {
   }
 
   async execute(line) {
+<<<<<<< HEAD
     let tail = line;
     const tokens = []; // Here we're looking for quoted arguments.
     // \1 is the contents of a single-quoted arg that may contain spaces
@@ -61,10 +77,14 @@ class CommandDispatcher {
       tail = rest;
     }
 
+=======
+    const tokens = new (_TokenizedLine().default)(line);
+>>>>>>> Update
     return this.executeTokenizedLine(tokens);
   }
 
   async executeTokenizedLine(tokens) {
+<<<<<<< HEAD
     if (tokens.length === 0 || !tokens[0]) {
       return;
     } // Get all commands of which the given command is a prefix
@@ -72,12 +92,24 @@ class CommandDispatcher {
 
     const cmd = tokens[0]; // resolve aliases
 
+=======
+    // resolve aliases
+>>>>>>> Update
     const alias = this.resolveAlias(tokens);
 
     if (alias != null) {
       return this.execute(alias);
     }
 
+<<<<<<< HEAD
+=======
+    const cmd = tokens.stringTokens()[0];
+
+    if (cmd == null) {
+      return;
+    }
+
+>>>>>>> Update
     const matches = this.getCommandsMatching(cmd);
 
     if (matches.length === 0) {
@@ -90,15 +122,32 @@ class CommandDispatcher {
     }
 
     return new Promise((resolve, reject) => {
+<<<<<<< HEAD
       matches[0].execute(tokens.slice(1)).then(_ => resolve(null), _ => resolve(_));
+=======
+      matches[0].execute(tokens).then(_ => resolve(null), _ => resolve(_));
+>>>>>>> Update
     });
   }
 
   resolveAlias(tokens) {
+<<<<<<< HEAD
     const alias = this._aliases.get(tokens[0]);
 
     if (alias != null) {
       return `${alias} ${tokens.splice(1).join(' ')}`;
+=======
+    const cmd = tokens.stringTokens()[0];
+
+    if (cmd == null) {
+      return null;
+    }
+
+    const alias = this._aliases.get(cmd);
+
+    if (alias != null) {
+      return `${alias} ${tokens.rest(1)}`;
+>>>>>>> Update
     } // punctuation aliases are things like '=' for print ala hphpd
     // we have to be careful here since we want '=$x' to work to
     // print the value of x
@@ -114,7 +163,11 @@ class CommandDispatcher {
           continue;
         }
 
+<<<<<<< HEAD
         if (tokens[0].startsWith(key)) {
+=======
+        if (cmd.startsWith(key)) {
+>>>>>>> Update
           puncMatch = key;
         }
       }
@@ -127,8 +180,12 @@ class CommandDispatcher {
         throw new Error("Invariant violation: \"puncAlias != null\"");
       }
 
+<<<<<<< HEAD
       const tok0 = tokens[0].substr(puncMatch.length);
       return `${puncAlias} ${tok0} ${tokens.splice(1).join(' ')}`;
+=======
+      return `${puncAlias} ${tokens.rest(0).substr(puncMatch.length)}`;
+>>>>>>> Update
     }
 
     return null;

@@ -78,7 +78,11 @@ describe('observableFromSubscribeFunction', () => {
     callback(2);
     expect((await result)).toEqual([1, 2]);
   });
+<<<<<<< HEAD
   it('should properly unsubscribe and resubscribe', () => {
+=======
+  it('should properly unsubscribe and resubscribe from functions that return IDisposable', () => {
+>>>>>>> Update
     const observable = (0, _event().observableFromSubscribeFunction)(subscribeFunction);
     let subscription = observable.subscribe(() => {});
     expect(callback).not.toBeNull();
@@ -97,4 +101,29 @@ describe('observableFromSubscribeFunction', () => {
     subscription.unsubscribe();
     expect(disposable.dispose).toHaveBeenCalled();
   });
+<<<<<<< HEAD
+=======
+  it('should properly unsubscribe and resubscribe from functions that return disposal functions', () => {
+    let spy;
+
+    const returnsDisposalFunction = cb => {
+      callback = cb;
+      spy = jest.fn(() => callback = null);
+      return spy;
+    };
+
+    const observable = (0, _event().observableFromSubscribeFunction)(returnsDisposalFunction);
+    let subscription = observable.subscribe(() => {});
+    expect(callback).not.toBeNull();
+    expect(spy).not.toHaveBeenCalled();
+    subscription.unsubscribe();
+    expect(spy).toHaveBeenCalled();
+    expect(callback).toBeNull();
+    subscription = observable.subscribe(() => {});
+    expect(callback).not.toBeNull();
+    expect(spy).not.toHaveBeenCalled();
+    subscription.unsubscribe();
+    expect(spy).toHaveBeenCalled();
+  });
+>>>>>>> Update
 });

@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _SharedObservableCache() {
   const data = _interopRequireDefault(require("../SharedObservableCache"));
@@ -27,7 +31,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 describe('SharedObservableCache', () => {
   it('creates and deletes observables on demand', () => {
+<<<<<<< HEAD
     const mockObservable = new _RxMin.Subject();
+=======
+    const mockObservable = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const mockFactory = jest.fn().mockReturnValue(mockObservable);
     const map = new (_SharedObservableCache().default)(mockFactory);
     const stream1 = map.get('key');

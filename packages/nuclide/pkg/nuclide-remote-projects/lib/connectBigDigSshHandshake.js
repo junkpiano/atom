@@ -36,7 +36,11 @@ function _fsPlus() {
 }
 
 function _systemInfo() {
+<<<<<<< HEAD
   const data = require("../../commons-node/system-info");
+=======
+  const data = require("../../../modules/nuclide-commons/system-info");
+>>>>>>> Update
 
   _systemInfo = function () {
     return data;

@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _() {
   const data = require("..");
@@ -93,7 +97,11 @@ describe('serverStatusUpdatesToBusyMessages', () => {
         dispose() {}
 
       };
+<<<<<<< HEAD
       (0, _().serverStatusUpdatesToBusyMessages)(_RxMin.Observable.from(input), mockBusySignal);
+=======
+      (0, _().serverStatusUpdatesToBusyMessages)(_rxjsCompatUmdMin.Observable.from(input), mockBusySignal);
+>>>>>>> Update
       expect(messages).toEqual(expected);
     })();
   });

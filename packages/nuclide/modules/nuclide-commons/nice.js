@@ -16,7 +16,11 @@ function _lruCache() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _which() {
   const data = _interopRequireDefault(require("./which"));
@@ -128,5 +132,9 @@ function hasCommand(command) {
 }
 
 function niceObserveProcess(command, args, options) {
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => nicifyCommand(command, args, options)).switchMap(spawnArgs => (0, _process().observeProcess)(...spawnArgs));
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => nicifyCommand(command, args, options)).switchMap(spawnArgs => (0, _process().observeProcess)(...spawnArgs));
+>>>>>>> Update
 }

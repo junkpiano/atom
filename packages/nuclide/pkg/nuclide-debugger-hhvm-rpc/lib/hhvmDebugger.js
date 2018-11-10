@@ -56,6 +56,11 @@ function _2() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+var _fs = _interopRequireDefault(require("fs"));
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -113,6 +118,10 @@ class HHVMDebuggerWrapper {
   async _attachTarget(attachMessage, retries = 0) {
     const attachArgs = attachMessage.arguments;
     const args = await (0, _2().getDebuggerArgs)(attachArgs);
+<<<<<<< HEAD
+=======
+    const attachDomainSocket = args.domainSocketPath;
+>>>>>>> Update
     const attachPort = args.debugPort != null ? parseInt(args.debugPort, 10) : DEFAULT_HHVM_DEBUGGER_PORT;
 
     if (Number.isNaN(attachPort)) {
@@ -124,7 +133,20 @@ class HHVMDebuggerWrapper {
     }
 
     attachMessage.arguments = Object.assign({}, attachMessage.arguments, args);
+<<<<<<< HEAD
     const socket = new _net.default.Socket();
+=======
+    let socket;
+    let tcp = false;
+
+    if (attachDomainSocket != null && _fs.default.existsSync(attachDomainSocket)) {
+      socket = _net.default.createConnection(attachDomainSocket);
+    } else {
+      socket = new _net.default.Socket();
+      tcp = true;
+    }
+
+>>>>>>> Update
     socket.once('connect', () => {
       socket.on('data', chunk => {
         this._processDebuggerMessage(chunk);
@@ -155,6 +177,7 @@ class HHVMDebuggerWrapper {
       this._forwardBufferedMessages();
 
       this._debugging = true;
+<<<<<<< HEAD
       const attachResponse = {
         request_seq: attachMessage.seq,
         success: true,
@@ -162,6 +185,8 @@ class HHVMDebuggerWrapper {
       };
 
       this._writeResponseMessage(attachResponse);
+=======
+>>>>>>> Update
     }).on('error', error => {
       if (retries >= 5) {
         process.stderr.write('Error communicating with debugger target: ' + error.toString() + '\n');
@@ -187,10 +212,20 @@ class HHVMDebuggerWrapper {
         }, 2000);
       }
     });
+<<<<<<< HEAD
     socket.connect({
       port: attachPort,
       host: 'localhost'
     });
+=======
+
+    if (tcp) {
+      socket.connect({
+        port: attachPort,
+        host: 'localhost'
+      });
+    }
+>>>>>>> Update
   }
 
   async _launchTarget(launchMessage) {
@@ -397,6 +432,10 @@ class HHVMDebuggerWrapper {
               supportsRestartFrame: false,
               supportsStepInTargetsRequest: false,
               supportsFunctionBreakpoints: true,
+<<<<<<< HEAD
+=======
+              supportsBreakpointIdOnStop: true,
+>>>>>>> Update
               // Experimental support for terminate thread
               supportsTerminateThreadsRequest: true,
               // Non-standard capability to indicate we send a custom event when
@@ -601,6 +640,7 @@ class HHVMDebuggerWrapper {
               case 'info':
                 message.body.category = 'log';
                 break;
+<<<<<<< HEAD
             } // Detect HHVM refusing a connection due to another connection
             // existing and raise an explicit event for that.
             // TODO: (Ericblue) adding an explicit event in HHVM rather than
@@ -617,6 +657,8 @@ class HHVMDebuggerWrapper {
                 type: 'event',
                 event: 'hhvmConnectionRefused'
               });
+=======
+>>>>>>> Update
             }
 
             break;

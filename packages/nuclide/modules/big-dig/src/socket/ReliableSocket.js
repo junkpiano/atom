@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ReliableSocket = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _url = _interopRequireDefault(require("url"));
 
@@ -239,7 +243,12 @@ class ReliableSocket {
           } else {
             logger.error('pingId mismatch');
           }
+<<<<<<< HEAD
         });
+=======
+        }); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
         ws.onMessage().subscribe(() => {
           this._schedulePing(pingId, ws);
         });
@@ -378,7 +387,11 @@ class ReliableSocket {
 
   onMessage() {
     if (this.isClosed()) {
+<<<<<<< HEAD
       return _RxMin.Observable.throw(`Socket ${this.id} to server ${this._serverUri} is closed`);
+=======
+      return _rxjsCompatUmdMin.Observable.throw(`Socket ${this.id} to server ${this._serverUri} is closed`);
+>>>>>>> Update
     }
 
     if (!(this._transport != null)) {

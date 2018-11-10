@@ -25,7 +25,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideRemoteConnection() {
   const data = require("../../nuclide-remote-connection");
@@ -57,7 +61,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function setUpRsyncTransport(remoteRoot, localRoot, rsyncActions) {
   const remoteRsyncService = (0, _nuclideRemoteConnection().getRsyncServiceByNuclideUri)(remoteRoot);
   const localRsyncService = (0, _nuclideRemoteConnection().getRsyncServiceByNuclideUri)('');
+<<<<<<< HEAD
   return _RxMin.Observable.defer(() => (0, _consumeFirstProvider().default)('nuclide.ssh-tunnel')).switchMap(tunnelService => {
+=======
+  return _rxjsCompatUmdMin.Observable.defer(() => (0, _consumeFirstProvider().default)('nuclide.ssh-tunnel')).switchMap(tunnelService => {
+>>>>>>> Update
     return localRsyncService.startDaemon(localRoot).refCount().switchMap(({
       port
     }) => tunnelService.openTunnels([{

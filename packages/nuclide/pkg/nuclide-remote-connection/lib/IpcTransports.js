@@ -37,7 +37,11 @@ function _process() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideRpc() {
   const data = require("../../nuclide-rpc");
@@ -62,6 +66,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @format
  */
 const PIPE_FD = 3;
+<<<<<<< HEAD
+=======
+const NUCLIDE_E2E_TEST = 'NUCLIDE_E2E_TEST';
+>>>>>>> Update
 
 class IpcServerTransport {
   constructor() {
@@ -95,7 +103,18 @@ exports.IpcServerTransport = IpcServerTransport;
 class IpcClientTransport {
   constructor(processStream) {
     this._transport = new (_promise().Deferred)();
+<<<<<<< HEAD
     this._subscription = processStream.do(process => this._transport.resolve(new (_nuclideRpc().StreamTransport)(process.stdio[PIPE_FD], process.stdio[PIPE_FD]))).switchMap(process => (0, _process().getOutputStream)(process)).subscribe({
+=======
+    this._subscription = processStream.do(process => this._transport.resolve(new (_nuclideRpc().StreamTransport)(process.stdio[PIPE_FD], process.stdio[PIPE_FD]))).switchMap(process => (0, _process().getOutputStream)(process)).do(message => {
+      if (process.env[NUCLIDE_E2E_TEST] != null) {
+        if (message && (message.kind === 'stdout' || message.kind === 'stderr')) {
+          // eslint-disable-next-line no-console
+          console.log(`[IPC ${message.kind}]`, message.data);
+        }
+      }
+    }).subscribe({
+>>>>>>> Update
       error: err => {
         this._handleError(err);
       }
@@ -168,7 +187,11 @@ class IpcClientTransport {
   }
 
   onMessage() {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(this._transport.promise).switchMap(transport => transport.onMessage());
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(this._transport.promise).switchMap(transport => transport.onMessage());
+>>>>>>> Update
   }
 
   close() {

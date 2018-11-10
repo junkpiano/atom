@@ -47,7 +47,11 @@ function _analytics() {
 }
 
 function rawAnalyticsService() {
+<<<<<<< HEAD
   const data = _interopRequireWildcard(require("../../nuclide-analytics/lib/track"));
+=======
+  const data = _interopRequireWildcard(require("../../../modules/nuclide-analytics/lib/track"));
+>>>>>>> Update
 
   rawAnalyticsService = function () {
     return data;
@@ -57,7 +61,11 @@ function rawAnalyticsService() {
 }
 
 function _once() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../commons-node/once"));
+=======
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/once"));
+>>>>>>> Update
 
   _once = function () {
     return data;
@@ -76,6 +84,11 @@ function _config() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -119,5 +132,16 @@ const initializeLogging = (0, _once().default)(() => {
 exports.initializeLogging = initializeLogging;
 
 function setupLoggingService() {
+<<<<<<< HEAD
   (0, _analytics().setRawAnalyticsService)(rawAnalyticsService());
+=======
+  let obs = _rxjsCompatUmdMin.Observable.from([]);
+
+  try {
+    // $FlowFB
+    obs = require("../../fb-appsession-observer").observeApplicationSession();
+  } catch (_) {}
+
+  (0, _analytics().setRawAnalyticsService)(rawAnalyticsService(), obs);
+>>>>>>> Update
 }

@@ -57,7 +57,11 @@ function _stream() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _admZip() {
   const data = _interopRequireDefault(require("adm-zip"));
@@ -118,7 +122,11 @@ class FsFileSystem {
 
   findInDirectories(name, directories) {
     if (directories.length === 0) {
+<<<<<<< HEAD
       return _RxMin.Observable.throw(new Error('No directories to search in!')).publish();
+=======
+      return _rxjsCompatUmdMin.Observable.throw(new Error('No directories to search in!')).publish();
+>>>>>>> Update
     }
 
     const findArgs = [...directories, '-type', 'f', '-name', name];

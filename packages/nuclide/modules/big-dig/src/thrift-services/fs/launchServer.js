@@ -52,6 +52,7 @@ async function main() {
     process.exit(1);
   }
 
+<<<<<<< HEAD
   const port = parseInt(process.argv[2], 10);
 
   _log4js().default.getLogger().info('Initializing server on port', port);
@@ -60,6 +61,16 @@ async function main() {
   await server.initialize();
 
   _log4js().default.getLogger().info('Server listening on port', port);
+=======
+  const portOrPath = process.argv[2];
+
+  _log4js().default.getLogger().info('Initializing server on ', portOrPath);
+
+  const server = new (_fsServer().RemoteFileSystemServer)(portOrPath);
+  await server.initialize();
+
+  _log4js().default.getLogger().info('Server listening on ', portOrPath);
+>>>>>>> Update
 }
 
 _log4js().default.configure({

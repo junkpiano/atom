@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _BuckEventStream() {
   const data = require("../lib/BuckEventStream");
@@ -27,8 +31,13 @@ describe('combineEventStreams', () => {
   let socketSubject;
   let processSubject;
   beforeEach(() => {
+<<<<<<< HEAD
     socketSubject = new _RxMin.Subject();
     processSubject = new _RxMin.Subject();
+=======
+    socketSubject = new _rxjsCompatUmdMin.Subject();
+    processSubject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   });
   it('takes non-log-level messages from the process', async () => {
     const combinedStream = (0, _BuckEventStream().combineEventStreams)('build', socketSubject, processSubject);

@@ -35,6 +35,19 @@ function _classnames() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _DraggableFile() {
+  const data = _interopRequireDefault(require("../../modules/nuclide-commons-ui/DraggableFile"));
+
+  _DraggableFile = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../modules/nuclide-commons/nuclideUri"));
 
@@ -140,12 +153,24 @@ class ChangedFile extends React.Component {
   componentDidMount() {
     const node = _reactDom.default.findDOMNode(this);
 
+<<<<<<< HEAD
     this._disposables = new (_UniversalDisposable().default)(atom.commands.add(node, `${COMMAND_PREFIX}:goto-file`, event => {
       const {
         filePath,
         onFileChosen
       } = this.props;
       onFileChosen(filePath);
+=======
+    this._disposables = new (_UniversalDisposable().default)(atom.commands.add(node, `${COMMAND_PREFIX}:open-file`, event => {
+      const {
+        filePath,
+        onFileOpen
+      } = this.props;
+
+      if (onFileOpen != null) {
+        onFileOpen(filePath);
+      }
+>>>>>>> Update
     }), atom.commands.add(node, `${COMMAND_PREFIX}:copy-full-path`, event => {
       atom.clipboard.write(_nuclideUri().default.getPath(this.props.filePath || ''));
     }), atom.commands.add(node, `${COMMAND_PREFIX}:delete-file`, event => {
@@ -341,6 +366,10 @@ class ChangedFile extends React.Component {
       fileStatus,
       rootPath,
       onFileChosen,
+<<<<<<< HEAD
+=======
+      onFileOpen,
+>>>>>>> Update
       onOpenFileInDiffView,
       onForgetFile,
       onDeleteFile,
@@ -362,6 +391,10 @@ class ChangedFile extends React.Component {
 
     const enableResolve = onMarkFileResolved != null && (fileStatus === _nuclideVcsBase().FileChangeStatus.CHANGE_DELETE || fileStatus === _nuclideVcsBase().FileChangeStatus.BOTH_CHANGED);
 
+<<<<<<< HEAD
+=======
+    const enableOpen = onFileOpen != null;
+>>>>>>> Update
     const eligibleActions = [];
 
     if (enableDiffView) {
@@ -412,6 +445,10 @@ class ChangedFile extends React.Component {
       (0, _log4js().getLogger)('nuclide-ui').error('ChangedFile failed to get relative path for %s, %s\nDid the cwd change? ', rootPath, filePath, err);
     }
 
+<<<<<<< HEAD
+=======
+    const draggable = !(fileStatus === _nuclideVcsBase().FileChangeStatus.MISSING || fileStatus === _nuclideVcsBase().FileChangeStatus.REMOVED);
+>>>>>>> Update
     return React.createElement("li", {
       "data-name": displayPath,
       "data-path": filePath,
@@ -421,9 +458,19 @@ class ChangedFile extends React.Component {
       "data-enable-delete": enableDelete || null,
       "data-enable-add": enableAdd || null,
       "data-enable-revert": enableRestore || null,
+<<<<<<< HEAD
       className: this._getFileClassname(),
       key: filePath
     }, checkbox, React.createElement("span", {
+=======
+      "data-enable-open": enableOpen || null,
+      className: this._getFileClassname(),
+      key: filePath
+    }, checkbox, React.createElement(_DraggableFile().default, {
+      draggable: draggable,
+      trackingSource: 'changed-file',
+      uri: filePath,
+>>>>>>> Update
       className: "nuclide-changed-file-name",
       onClick: handleFileChosen
     }, React.createElement(_Icon().Icon, {
@@ -476,8 +523,16 @@ atom.contextMenu.add({
       return getCommandTargetForEvent(event).hasAttribute('data-enable-delete');
     }
   }, {
+<<<<<<< HEAD
     label: 'Goto File',
     command: `${COMMAND_PREFIX}:goto-file`
+=======
+    label: 'Open File',
+    command: `${COMMAND_PREFIX}:open-file`,
+    shouldDisplay: event => {
+      return getCommandTargetForEvent(event).hasAttribute('data-enable-open');
+    }
+>>>>>>> Update
   }, {
     label: 'Copy File Name',
     command: `${COMMAND_PREFIX}:copy-file-name`

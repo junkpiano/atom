@@ -30,7 +30,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FileFamilyAggregator() {
   const data = _interopRequireDefault(require("./FileFamilyAggregator"));
@@ -87,9 +91,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // $FlowFB
 class Activation {
   constructor() {
+<<<<<<< HEAD
     this._aggregators = new _RxMin.BehaviorSubject();
     this._cwds = new _RxMin.BehaviorSubject();
     this._providers = new _RxMin.BehaviorSubject(new Set());
+=======
+    this._aggregators = new _rxjsCompatUmdMin.BehaviorSubject();
+    this._cwds = new _rxjsCompatUmdMin.BehaviorSubject();
+    this._providers = new _rxjsCompatUmdMin.BehaviorSubject(new Set());
+>>>>>>> Update
 
     this._toggleAlternate = async () => {
       const provider = this._aggregator;

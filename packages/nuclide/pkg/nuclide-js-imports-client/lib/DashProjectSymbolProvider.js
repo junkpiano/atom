@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -38,7 +42,11 @@ class Omni2ProjectSymbolProvider {
   searchSymbolsForDirectory(query, directory, callback) {
     const directoryPath = directory.getPath();
 
+<<<<<<< HEAD
     const results = _RxMin.Observable.defer(() => this._languageService.getLanguageServiceForUri(directoryPath)).switchMap(service => service == null ? _RxMin.Observable.of([]) : service.symbolSearch(query, [directoryPath])).map(searchResults => searchResults || []).catch(() => _RxMin.Observable.of([]));
+=======
+    const results = _rxjsCompatUmdMin.Observable.defer(() => this._languageService.getLanguageServiceForUri(directoryPath)).switchMap(service => service == null ? _rxjsCompatUmdMin.Observable.of([]) : service.symbolSearch(query, [directoryPath])).map(searchResults => searchResults || []).catch(() => _rxjsCompatUmdMin.Observable.of([]));
+>>>>>>> Update
 
     return new (_UniversalDisposable().default)(results.subscribe(callback));
   }

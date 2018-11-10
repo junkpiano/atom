@@ -52,6 +52,19 @@ function _range() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _collection() {
+  const data = require("../../../../nuclide-commons/collection");
+
+  _collection = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _nuclideUri() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons/nuclideUri"));
 
@@ -239,15 +252,28 @@ class Activation {
       return `${definition.name} (${filePath})`;
     }
 
+<<<<<<< HEAD
     if (definitions.length === 1) {
       return {
         range: queryRange,
         callback: createCallback(definitions[0])
+=======
+    const distictDefinitions = (0, _collection().distinct)(definitions, def => `path:${def.path}\nrow:${def.position.row}`);
+
+    if (distictDefinitions.length === 1) {
+      return {
+        range: queryRange,
+        callback: createCallback(distictDefinitions[0])
+>>>>>>> Update
       };
     } else {
       return {
         range: queryRange,
+<<<<<<< HEAD
         callback: definitions.map(definition => {
+=======
+        callback: distictDefinitions.map(definition => {
+>>>>>>> Update
           return {
             title: createTitle(definition),
             callback: createCallback(definition)

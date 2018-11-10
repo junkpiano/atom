@@ -47,6 +47,19 @@ function _FeatureLoader() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _ActivateGKFeatures() {
+  const data = _interopRequireDefault(require("./ActivateGKFeatures"));
+
+  _ActivateGKFeatures = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _featureConfig() {
   const data = _interopRequireDefault(require("../modules/nuclide-commons-atom/feature-config"));
 
@@ -379,15 +392,26 @@ function _activate() {
     _log4js().default.configure((0, _nuclideLogging().getDefaultConfig)());
   }
 
+<<<<<<< HEAD
   if (process.env.SANDCASTLE == null) {
     (0, _installDevTools().default)();
+=======
+  disposables = new (_UniversalDisposable().default)();
+
+  if (process.env.SANDCASTLE == null) {
+    disposables.add((0, _installDevTools().default)());
+>>>>>>> Update
   } // TODO(T31782876): Remove once fixed upstream in Atom
   // https://github.com/atom/atom/pull/17702
 
 
   (0, _patchAtomTextEditor().default)(); // Add the "Nuclide" menu, if it's not there already.
 
+<<<<<<< HEAD
   disposables = new (_UniversalDisposable().default)(atom.menu.add([{
+=======
+  disposables.add(atom.menu.add([{
+>>>>>>> Update
     // On Windows, menu labels have an & before a letter to indicate which
     // ALT key combination maps to that menu. In our case, Alt+N should open
     // the Nuclide menu.
@@ -432,7 +456,13 @@ function _activate() {
   //
   // [1]: https://github.com/atom/atom/blob/v1.9.0/src/package-manager.coffee#L425
 
+<<<<<<< HEAD
   featureLoader.activate(); // Install public, 3rd-party Atom packages listed in this package's 'package-deps' setting. Run
+=======
+  featureLoader.activate(); // Activate packages with GK hooks.
+
+  disposables.add(new (_ActivateGKFeatures().default)()); // Install public, 3rd-party Atom packages listed in this package's 'package-deps' setting. Run
+>>>>>>> Update
   // this *after* other packages are activated so they can modify this setting if desired before
   // installation is attempted.
 

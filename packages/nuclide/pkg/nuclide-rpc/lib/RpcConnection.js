@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.RpcConnection = exports.RpcTimeoutError = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _ServiceRegistry() {
   const data = require("./ServiceRegistry");
@@ -48,7 +52,11 @@ function _builtinTypes() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -230,7 +238,11 @@ class RpcConnection {
     this._rpcRequestId = 1;
     this._rpcResponseId = 1;
     this._serviceRegistry = serviceRegistry;
+<<<<<<< HEAD
     this._objectRegistry = new (_ObjectRegistry().ObjectRegistry)(kind, this._serviceRegistry, this);
+=======
+    this._objectRegistry = new (_ObjectRegistry().ObjectRegistry)(kind, this._serviceRegistry, this); // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
 
     this._transport.onMessage().subscribe(message => {
       this._handleMessage(message);
@@ -411,7 +423,11 @@ class RpcConnection {
 
           let hadSubscription = false;
 
+<<<<<<< HEAD
           const observable = _RxMin.Observable.create(observer => {
+=======
+          const observable = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
             // Only allow a single subscription. This will be the common case,
             // and adding this restriction allows disposing of the observable
             // on the remote side after the initial subscription is complete.
@@ -470,10 +486,18 @@ class RpcConnection {
     let result; // Ensure that the return value is an observable.
 
     if (!isConnectableObservable(returnVal)) {
+<<<<<<< HEAD
       result = _RxMin.Observable.throw(new Error('Expected an Observable, but the function returned something else.')).publish();
     } else {
       result = returnVal;
     }
+=======
+      result = _rxjsCompatUmdMin.Observable.throw(new Error('Expected an Observable, but the function returned something else.')).publish();
+    } else {
+      result = returnVal;
+    } // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
 
     result // Marshal in a map() so that errors are caught below.
     .map(data => this.marshal(data, elementType)) // Send the next, error, and completion events of the observable across the socket.
@@ -824,7 +848,11 @@ class RpcConnection {
     });
 
     this._subscriptions.forEach(subscription => {
+<<<<<<< HEAD
       subscription.error(new Error('Connection Closed'));
+=======
+      subscription.complete();
+>>>>>>> Update
     });
 
     this._subscriptions.clear();

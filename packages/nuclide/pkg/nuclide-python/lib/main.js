@@ -1,7 +1,11 @@
 "use strict";
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../commons-node/passesGK"));
+=======
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;

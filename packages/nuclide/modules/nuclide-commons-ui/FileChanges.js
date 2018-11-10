@@ -300,7 +300,13 @@ class HunkDiff extends React.Component {
       }
     }
 
+<<<<<<< HEAD
     const gutter = createCustomLineNumberGutter(editor, lineNumberGenerator(), gutterWidth);
+=======
+    const gutter = createCustomLineNumberGutter(editor, lineNumberGenerator(), gutterWidth, {
+      onClick: this.props.onClickLine
+    });
+>>>>>>> Update
 
     this._disposables.add(() => {
       gutter.destroy();
@@ -484,7 +490,18 @@ class FileChanges extends React.Component {
         extraData: this.props.extraData,
         key: chunk.oldStart,
         grammar: grammar != null ? grammar : atom.grammars.selectGrammar(fileName, ''),
+<<<<<<< HEAD
         hunk: chunk
+=======
+        hunk: chunk,
+        onClickLine: line => {
+          if (fullPath != null) {
+            (0, _goToLocation().goToLocation)(fullPath, {
+              line
+            });
+          }
+        }
+>>>>>>> Update
       }));
       i++;
     }

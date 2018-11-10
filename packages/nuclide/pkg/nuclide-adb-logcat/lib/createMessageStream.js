@@ -55,7 +55,11 @@ function _parseLogcatMetadata() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71,7 +75,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function createMessageStream(line$) {
   // Separate the lines into groups, beginning with metadata lines.
+<<<<<<< HEAD
   const messages = _RxMin.Observable.create(observer => {
+=======
+  const messages = _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     let buffer = [];
     let prevMetadata = null;
 

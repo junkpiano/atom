@@ -17,6 +17,29 @@ function _nullthrows() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _analytics() {
+  const data = require("../nuclide-commons/analytics");
+
+  _analytics = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _promise() {
+  const data = require("../nuclide-commons/promise");
+
+  _promise = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _utils() {
   const data = require("../atom-ide-debugger-java/utils");
 
@@ -37,7 +60,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _consumeFirstProvider() {
   const data = _interopRequireDefault(require("../nuclide-commons-atom/consumeFirstProvider"));
@@ -110,6 +137,7 @@ async function launchAndroidServiceOrActivity(adbServiceUri, service, activity, 
 
 async function getPidFromPackageName(adbServiceUri, deviceSerial, packageName) {
   const adbService = (0, _nuclideAdb().getAdbServiceByNuclideUri)(adbServiceUri);
+<<<<<<< HEAD
   const pid = await adbService.getPidFromPackageName(deviceSerial, packageName);
 
   if (!Number.isInteger(pid)) {
@@ -117,6 +145,29 @@ async function getPidFromPackageName(adbServiceUri, deviceSerial, packageName) {
   }
 
   return pid;
+=======
+  let pid = await adbService.getPidFromPackageName(deviceSerial, packageName);
+  const firstTryFails = !Number.isInteger(pid);
+
+  if (firstTryFails) {
+    // Try twice after a short delay because sometimes it works.
+    await (0, _promise().sleep)(300);
+    pid = await adbService.getPidFromPackageName(deviceSerial, packageName);
+  }
+
+  const success = Number.isInteger(pid);
+  (0, _analytics().track)('atom-ide-debugger-java-android-getPidFromPackageName', {
+    triedTwice: firstTryFails,
+    success,
+    pid
+  });
+
+  if (success) {
+    return pid;
+  } else {
+    throw new Error(`Fail to get pid for package: ${packageName}. Instead got: ${pid}`);
+  }
+>>>>>>> Update
 }
 
 async function getAdbAttachPortTargetInfo(deviceSerial, adbServiceUri, targetUri, pid, subscriptions, packageName) {
@@ -133,7 +184,11 @@ async function getAdbAttachPortTargetInfo(deviceSerial, adbServiceUri, targetUri
     await cleanupSubject.toPromise();
   }
 
+<<<<<<< HEAD
   cleanupSubject = new _RxMin.Subject();
+=======
+  cleanupSubject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   subscriptions.add(async () => {
     const result = await adbService.removeJdwpForwardSpec(deviceSerial, forwardSpec);
 

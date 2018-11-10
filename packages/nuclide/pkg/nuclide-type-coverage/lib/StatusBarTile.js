@@ -7,7 +7,11 @@ exports.StatusBarTile = void 0;
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _StatusBarTileComponent() {
   const data = require("./StatusBarTileComponent");
@@ -46,7 +50,11 @@ class StatusBarTile extends React.Component {
       throw new Error("Invariant violation: \"this.subscription == null\"");
     }
 
+<<<<<<< HEAD
     const subscription = this.subscription = new _RxMin.Subscription();
+=======
+    const subscription = this.subscription = new _rxjsCompatUmdMin.Subscription();
+>>>>>>> Update
     subscription.add(this.props.results.subscribe(result => this._consumeResult(result)));
     subscription.add(this.props.isActive.subscribe(isActive => this._consumeIsActive(isActive)));
   }

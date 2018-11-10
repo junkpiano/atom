@@ -2,6 +2,7 @@
   "_args": [
     [
       {
+<<<<<<< HEAD
         "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
         "scope": null,
         "escapedName": null,
@@ -14,27 +15,58 @@
     ]
   ],
   "_from": "../d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
+=======
+        "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+        "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-11887-65707-10u81la.fyksocrf6r"
+    ]
+  ],
+  "_from": "../d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+>>>>>>> Update
   "_id": "linter@2.2.0",
   "_inCache": true,
   "_location": "/linter",
   "_phantomChildren": {},
   "_requested": {
+<<<<<<< HEAD
     "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
     "rawSpec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
     "spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
+=======
+    "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+    "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+>>>>>>> Update
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
+<<<<<<< HEAD
   "_resolved": "file:../d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
   "_shasum": "58c53b67851cb486e4d3d1d033438122fbf82104",
   "_shrinkwrap": null,
   "_spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-19804-1m7rvxu.imra2d42t9/package.tgz",
   "_where": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/apm-install-dir-11883-19804-1740t4k.6819vn29",
+=======
+  "_resolved": "file:../d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+  "_shasum": "58c53b67851cb486e4d3d1d033438122fbf82104",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-11887-65707-1oemyib.m1ciuxflxr/package.tgz",
+  "_where": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-11887-65707-10u81la.fyksocrf6r",
+>>>>>>> Update
   "author": {
     "name": "steelbrain"
   },

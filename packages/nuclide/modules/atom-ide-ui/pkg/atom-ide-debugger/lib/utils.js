@@ -23,7 +23,11 @@ function _nullthrows() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _logger() {
   const data = _interopRequireDefault(require("./logger"));
@@ -76,6 +80,7 @@ function getEditorLineNumber(editor, target) {
   }
 }
 
+<<<<<<< HEAD
 async function openSourceLocation(path, line) {
   // eslint-disable-next-line nuclide-internal/atom-apis
   const editor = await atom.workspace.open(path, {
@@ -87,6 +92,26 @@ async function openSourceLocation(path, line) {
     // Failed to open file. Return an empty text editor.
     // eslint-disable-next-line nuclide-internal/atom-apis
     return atom.workspace.open();
+=======
+async function getEditorOrNull(path) {
+  try {
+    // eslint-disable-next-line nuclide-internal/atom-apis
+    return await atom.workspace.open(path, {
+      searchAllPanes: true,
+      pending: true
+    });
+  } catch (error) {
+    return null;
+  }
+}
+
+async function openSourceLocation(path, line) {
+  const editor = await getEditorOrNull(path);
+
+  if (editor == null) {
+    // Failed to open file.
+    return null;
+>>>>>>> Update
   }
 
   editor.scrollToBufferPosition([line, 0]);
@@ -144,7 +169,11 @@ function expressionAsEvaluationResult(expression) {
 }
 
 function expressionAsEvaluationResultStream(expression, focusedProcess, focusedStackFrame, context) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(expression.evaluate(focusedProcess, focusedStackFrame, context)).map(() => expressionAsEvaluationResult(expression)).startWith(null);
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(expression.evaluate(focusedProcess, focusedStackFrame, context)).map(() => expressionAsEvaluationResult(expression)).startWith(null);
+>>>>>>> Update
 }
 
 function typeForSimpleValue(value) {
@@ -156,7 +185,11 @@ function typeForSimpleValue(value) {
 }
 
 function fetchChildrenForLazyComponent(expression) {
+<<<<<<< HEAD
   return _RxMin.Observable.fromPromise(expression.getChildren().then(children => children.map(child => ({
+=======
+  return _rxjsCompatUmdMin.Observable.fromPromise(expression.getChildren().then(children => children.map(child => ({
+>>>>>>> Update
     name: child.name,
     value: expressionAsEvaluationResult(child)
   })), error => null));

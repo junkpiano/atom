@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.search = search;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _handlerCommon() {
   const data = require("./handlerCommon");
@@ -47,7 +51,11 @@ function search(params) {
   const searchSources = params.recursive ? [params.directory] : params.files;
 
   if (searchSources.length === 0) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }
 
   const args = (regex.ignoreCase ? ['-i'] : []).concat(limit != null ? ['-m', String(limit)] : []).concat(leadingLines != null ? ['-B', String(leadingLines)] : []).concat(trailingLines != null ? ['-A', String(trailingLines)] : []).concat([// recursive, always print filename, print line number with null byte,

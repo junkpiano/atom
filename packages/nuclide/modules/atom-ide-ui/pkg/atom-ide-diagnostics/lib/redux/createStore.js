@@ -45,6 +45,19 @@ function _observable() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _observableFromReduxStore() {
+  const data = _interopRequireDefault(require("../../../../../nuclide-commons/observableFromReduxStore"));
+
+  _observableFromReduxStore = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function Reducers() {
   const data = _interopRequireWildcard(require("./Reducers"));
 
@@ -75,10 +88,19 @@ function _reduxMin() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -97,7 +119,12 @@ function createStore(messageRangeTracker, initialState = INITIAL_STATE) {
 
   const store = (0, _reduxMin().createStore)((0, _reduxMin().combineReducers)(Reducers()), initialState, (0, _reduxMin().applyMiddleware)((0, _reduxObservable().createEpicMiddleware)(rootEpic))); // When we get new messages with fixes, track them.
 
+<<<<<<< HEAD
   const messagesWithFixes = getFileMessages(store).map(messageSet => (0, _collection().setFilter)(messageSet, message => message.fix != null)).filter(messageSet => messageSet.size > 0);
+=======
+  const messagesWithFixes = getFileMessages(store).map(messageSet => (0, _collection().setFilter)(messageSet, message => message.fix != null)).filter(messageSet => messageSet.size > 0); // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
   messagesWithFixes.let((0, _observable().diffSets)()).subscribe(({
     added,
     removed
@@ -118,6 +145,7 @@ const INITIAL_STATE = {
   codeActionFetcher: null,
   codeActionsForMessage: new Map(),
   descriptions: new Map(),
+<<<<<<< HEAD
   providers: new Set()
 };
 
@@ -125,6 +153,14 @@ function getFileMessages(store) {
   // $FlowFixMe: Flow doesn't understand Symbol.observable.
   const states = _RxMin.Observable.from(store);
 
+=======
+  providers: new Set(),
+  lastUpdateSource: 'Provider'
+};
+
+function getFileMessages(store) {
+  const states = (0, _observableFromReduxStore().default)(store);
+>>>>>>> Update
   return states.map(state => state.messages).distinctUntilChanged().map(messages => {
     const pathsToFileMessages = [...messages.values()];
     const allMessages = (0, _collection().arrayFlatten)(pathsToFileMessages.map(map => (0, _collection().arrayFlatten)([...map.values()])));

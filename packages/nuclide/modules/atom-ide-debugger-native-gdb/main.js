@@ -40,6 +40,19 @@ function _AutoGenLaunchAttachProvider() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _nuclideUri() {
+  const data = _interopRequireDefault(require("../nuclide-commons/nuclideUri"));
+
+  _nuclideUri = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -63,8 +76,13 @@ class Activation {
       type: _nuclideDebuggerCommon().VsAdapterTypes.NATIVE_GDB,
       getLaunchAttachProvider: connection => {
         return new (_AutoGenLaunchAttachProvider().AutoGenLaunchAttachProvider)(_nuclideDebuggerCommon().VsAdapterNames.NATIVE_GDB, connection, (0, _autogenUtils().getNativeAutoGenConfig)(_nuclideDebuggerCommon().VsAdapterTypes.NATIVE_GDB), async () => {
+<<<<<<< HEAD
           // GDB not available on Win32.
           return Promise.resolve(process.platform !== 'win32');
+=======
+          // GDB not available locally on Win32.
+          return Promise.resolve(_nuclideUri().default.isRemote(connection) || process.platform !== 'win32');
+>>>>>>> Update
         });
       }
     };

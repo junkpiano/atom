@@ -299,6 +299,10 @@ class OutlineViewComponent extends React.PureComponent {
 
       default:
         outline;
+<<<<<<< HEAD
+=======
+        return null;
+>>>>>>> Update
     }
   }
 

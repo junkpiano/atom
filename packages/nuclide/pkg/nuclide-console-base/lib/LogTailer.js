@@ -16,7 +16,11 @@ function _UniversalDisposable() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -35,7 +39,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72,8 +80,13 @@ class LogTailer {
     options.ready.takeUntil(messages.materialize().takeLast(1));
     this._runningCallbacks = [];
     this._startCount = 0;
+<<<<<<< HEAD
     this._statuses = new _RxMin.BehaviorSubject('stopped');
     this._messages = _RxMin.Observable.merge(messages, this._ready == null ? _RxMin.Observable.empty() : this._ready.ignoreElements() // For the errors.
+=======
+    this._statuses = new _rxjsCompatUmdMin.BehaviorSubject('stopped');
+    this._messages = _rxjsCompatUmdMin.Observable.merge(messages, this._ready == null ? _rxjsCompatUmdMin.Observable.empty() : this._ready.ignoreElements() // For the errors.
+>>>>>>> Update
     ).do({
       complete: () => {
         // If the process completed without ever entering the "running" state, invoke the
@@ -120,8 +133,14 @@ class LogTailer {
         });
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     }).share().publish(); // Whenever the status becomes "running," invoke all of the registered running callbacks.
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    }).share().publish(); // Whenever the status becomes "running," invoke all of the registered running callbacks.
+    // eslint-disable-next-line nuclide-internal/unused-subscription
+>>>>>>> Update
 
     this._statuses.distinctUntilChanged().filter(status => status === 'running').subscribe(() => {
       this._invokeRunningCallbacks();
@@ -214,11 +233,19 @@ class LogTailer {
       this._subscription.unsubscribe();
     }
 
+<<<<<<< HEAD
     const sub = new _RxMin.Subscription();
 
     if (this._ready != null) {
       sub.add(this._ready // Ignore errors here. We'll catch them above.
       .catch(error => _RxMin.Observable.empty()).takeUntil(this._statuses.filter(status => status !== 'starting')).subscribe(() => {
+=======
+    const sub = new _rxjsCompatUmdMin.Subscription();
+
+    if (this._ready != null) {
+      sub.add(this._ready // Ignore errors here. We'll catch them above.
+      .catch(error => _rxjsCompatUmdMin.Observable.empty()).takeUntil(this._statuses.filter(status => status !== 'starting')).subscribe(() => {
+>>>>>>> Update
         this._statuses.next('running');
       }));
     }

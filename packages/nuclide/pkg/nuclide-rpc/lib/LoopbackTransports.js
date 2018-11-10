@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.LoopbackTransports = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -19,8 +23,13 @@ var _RxMin = require("rxjs/bundles/Rx.min.js");
  */
 class LoopbackTransports {
   constructor() {
+<<<<<<< HEAD
     const serverMessages = new _RxMin.Subject();
     const clientMessages = new _RxMin.Subject();
+=======
+    const serverMessages = new _rxjsCompatUmdMin.Subject();
+    const clientMessages = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this.serverTransport = {
       _isClosed: false,
 

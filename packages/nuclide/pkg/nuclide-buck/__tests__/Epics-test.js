@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _reduxObservable() {
   const data = require("../../../modules/nuclide-commons/redux-observable");
@@ -62,6 +66,13 @@ const mockPlatformService = {
 
 };
 const mockStore = {
+<<<<<<< HEAD
+=======
+  subscribe() {
+    return () => {};
+  },
+
+>>>>>>> Update
   dispatch(action) {},
 
   getState() {
@@ -79,7 +90,11 @@ const mockStore = {
 };
 describe('setProjectRootEpic', () => {
   it('Sets the Buck root to null for null projects', async () => {
+<<<<<<< HEAD
     const stream = await (0, _Epics().setProjectRootEpic)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of(Actions().setProjectRoot(null))), mockStore).toArray().toPromise();
+=======
+    const stream = await (0, _Epics().setProjectRootEpic)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of(Actions().setProjectRoot(null))), mockStore).toArray().toPromise();
+>>>>>>> Update
     expect(stream).toEqual([{
       type: Actions().SET_BUCK_ROOT,
       buckRoot: null
@@ -87,7 +102,11 @@ describe('setProjectRootEpic', () => {
   });
   it('Gets the Buck root for a real project', async () => {
     jest.spyOn(BuckBase(), 'getBuckProjectRoot').mockReturnValue(Promise.resolve('test_buck'));
+<<<<<<< HEAD
     const stream = await (0, _Epics().setProjectRootEpic)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of(Actions().setProjectRoot('test'))), mockStore).toArray().toPromise();
+=======
+    const stream = await (0, _Epics().setProjectRootEpic)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of(Actions().setProjectRoot('test'))), mockStore).toArray().toPromise();
+>>>>>>> Update
     expect(stream).toEqual([{
       type: Actions().SET_BUCK_ROOT,
       buckRoot: 'test_buck'
@@ -96,7 +115,11 @@ describe('setProjectRootEpic', () => {
 });
 describe('setBuildTargetEpic', () => {
   it('sets a null rule type and resolved build target with an empty build target', async () => {
+<<<<<<< HEAD
     const stream = await (0, _Epics().setBuildTargetEpic)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of(Actions().setBuildTarget(''))), mockStore).toArray().toPromise();
+=======
+    const stream = await (0, _Epics().setBuildTargetEpic)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of(Actions().setBuildTarget(''))), mockStore).toArray().toPromise();
+>>>>>>> Update
     expect(stream).toEqual([{
       type: Actions().SET_RULE_TYPE,
       ruleType: null
@@ -111,7 +134,11 @@ describe('setBuildTargetEpic', () => {
         }
 
       });
+<<<<<<< HEAD
       const stream = await (0, _Epics().setBuildTargetEpic)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of(Actions().setBuildTarget('test'))), mockStore).toArray().toPromise();
+=======
+      const stream = await (0, _Epics().setBuildTargetEpic)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of(Actions().setBuildTarget('test'))), mockStore).toArray().toPromise();
+>>>>>>> Update
       expect(stream).toEqual([{
         type: Actions().SET_RULE_TYPE,
         ruleType: fakeResolvedRule
@@ -121,7 +148,11 @@ describe('setBuildTargetEpic', () => {
 });
 describe('setRuleTypeEpic', () => {
   it('sets platforms to an empty array for null ruleType', async () => {
+<<<<<<< HEAD
     const stream = await (0, _Epics().setRuleTypeEpic)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of({
+=======
+    const stream = await (0, _Epics().setRuleTypeEpic)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       type: Actions().SET_RULE_TYPE,
       ruleType: null
     })), mockStore).toArray().toPromise();
@@ -131,8 +162,13 @@ describe('setRuleTypeEpic', () => {
     }]);
   });
   it('sets platform groups to groups returned from platform service', async () => {
+<<<<<<< HEAD
     jest.spyOn(mockPlatformService, 'getPlatformGroups').mockReturnValue(_RxMin.Observable.of('random platforms'));
     const stream = await (0, _Epics().setRuleTypeEpic)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of({
+=======
+    jest.spyOn(mockPlatformService, 'getPlatformGroups').mockReturnValue(_rxjsCompatUmdMin.Observable.of('random platforms'));
+    const stream = await (0, _Epics().setRuleTypeEpic)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       type: Actions().SET_RULE_TYPE,
       ruleType: 'haha'
     })), mockStore).toArray().toPromise();

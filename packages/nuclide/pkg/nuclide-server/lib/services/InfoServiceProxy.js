@@ -30,6 +30,18 @@ module.exports = _client => {
     });
   };
 
+<<<<<<< HEAD
+=======
+  remoteModule.getServerEnvironment = function () {
+    return _client.callRemoteFunction("InfoService/getServerEnvironment", "promise", _client.marshalArguments(Array.from(arguments), [])).then(value => {
+      return _client.unmarshal(value, {
+        kind: "named",
+        name: "Object"
+      });
+    });
+  };
+
+>>>>>>> Update
   remoteModule.closeConnection = function (arg0) {
     return _client.callRemoteFunction("InfoService/closeConnection", "promise", _client.marshalArguments(Array.from(arguments), [{
       name: "shutdownServer",
@@ -110,13 +122,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "InfoService.js",
+<<<<<<< HEAD
         line: 19
+=======
+        line: 22
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "InfoService.js",
+<<<<<<< HEAD
           line: 19
+=======
+          line: 22
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -134,13 +154,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "InfoService.js",
+<<<<<<< HEAD
         line: 23
+=======
+        line: 26
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "InfoService.js",
+<<<<<<< HEAD
           line: 23
+=======
+          line: 26
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -158,13 +186,21 @@ Object.defineProperty(module.exports, "defs", {
       location: {
         type: "source",
         fileName: "InfoService.js",
+<<<<<<< HEAD
         line: 27
+=======
+        line: 30
+>>>>>>> Update
       },
       type: {
         location: {
           type: "source",
           fileName: "InfoService.js",
+<<<<<<< HEAD
           line: 27
+=======
+          line: 30
+>>>>>>> Update
         },
         kind: "function",
         argumentTypes: [],
@@ -179,9 +215,15 @@ Object.defineProperty(module.exports, "defs", {
         }
       }
     },
+<<<<<<< HEAD
     closeConnection: {
       kind: "function",
       name: "closeConnection",
+=======
+    getServerEnvironment: {
+      kind: "function",
+      name: "getServerEnvironment",
+>>>>>>> Update
       location: {
         type: "source",
         fileName: "InfoService.js",
@@ -194,6 +236,34 @@ Object.defineProperty(module.exports, "defs", {
           line: 34
         },
         kind: "function",
+<<<<<<< HEAD
+=======
+        argumentTypes: [],
+        returnType: {
+          kind: "promise",
+          type: {
+            kind: "named",
+            name: "Object"
+          }
+        }
+      }
+    },
+    closeConnection: {
+      kind: "function",
+      name: "closeConnection",
+      location: {
+        type: "source",
+        fileName: "InfoService.js",
+        line: 41
+      },
+      type: {
+        location: {
+          type: "source",
+          fileName: "InfoService.js",
+          line: 41
+        },
+        kind: "function",
+>>>>>>> Update
         argumentTypes: [{
           name: "shutdownServer",
           type: {

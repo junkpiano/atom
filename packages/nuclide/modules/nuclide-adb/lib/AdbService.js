@@ -51,7 +51,11 @@ function _nuclideUri() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _Adb() {
   const data = require("./Adb");
@@ -117,7 +121,10 @@ async function getPidFromPackageName(serial, packageName) {
 }
 
 function installPackage(serial, packagePath) {
+<<<<<<< HEAD
   // TODO(T17463635)
+=======
+>>>>>>> Update
   return new (_Adb().Adb)(serial).installPackage(packagePath).publish();
 }
 

@@ -37,7 +37,11 @@ function _observable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -156,7 +160,11 @@ class ResizeSensor extends React.Component {
 class ResizeSensitiveContainer extends React.Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this._resizeEvents = new _RxMin.Subject();
+=======
+    this._resizeEvents = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
 
     this._handleContainer = el => {
       this._container = el;

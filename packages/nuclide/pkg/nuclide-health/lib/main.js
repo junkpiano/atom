@@ -2,7 +2,11 @@
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -15,7 +19,11 @@ function _log4js() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -170,6 +178,7 @@ class Activation {
     const viewTimeouts = configs.map(config => config.viewTimeout * 1000).distinctUntilChanged();
     const analyticsTimeouts = configs.map(config => config.analyticsTimeout * 60 * 1000).distinctUntilChanged(); // Update the stats immediately, and then periodically based on the config.
 
+<<<<<<< HEAD
     const statsStream = _RxMin.Observable.of(null).concat(viewTimeouts.switchMap(_RxMin.Observable.interval)).map(_getStats().default).publishReplay(1).refCount();
 
     const processTreeStream = _RxMin.Observable.of(null).concat(viewTimeouts.switchMap(_RxMin.Observable.interval)).switchMap(() => (0, _getChildProcesses().queryPs)('command')).map(_getChildProcesses().childProcessTree).share(); // Sample analytics streams at about the same time by sharing
@@ -183,6 +192,21 @@ class Activation {
     const domCounterStream = _RxMin.Observable.of(null).concat(analyticsTimeouts.switchMap(_RxMin.Observable.interval)).switchMap(() => (0, _getDOMCounters().default)()).publishReplay(1).refCount();
 
     this._paneItemStates = _RxMin.Observable.combineLatest(statsStream, domCounterStream, _RxMin.Observable.of(null).concat(processTreeStream), (stats, domCounters, childProcessesTree) => ({
+=======
+    const statsStream = _rxjsCompatUmdMin.Observable.of(null).concat(viewTimeouts.switchMap(_rxjsCompatUmdMin.Observable.interval)).map(_getStats().default).publishReplay(1).refCount();
+
+    const processTreeStream = _rxjsCompatUmdMin.Observable.of(null).concat(viewTimeouts.switchMap(_rxjsCompatUmdMin.Observable.interval)).switchMap(() => (0, _getChildProcesses().queryPs)('command')).map(_getChildProcesses().childProcessTree).share(); // Sample analytics streams at about the same time by sharing
+    // the timer stream.
+
+
+    const analyticsInterval = analyticsTimeouts.switchMap(_rxjsCompatUmdMin.Observable.interval).share(); // These aren't really aggregated because they're too expensive to fetch.
+    // We'll just fetch these once per analytics upload cycle.
+    // (Which means the first analytics upload won't have DOM counters).
+
+    const domCounterStream = _rxjsCompatUmdMin.Observable.of(null).concat(analyticsTimeouts.switchMap(_rxjsCompatUmdMin.Observable.interval)).switchMap(() => (0, _getDOMCounters().default)()).publishReplay(1).refCount();
+
+    this._paneItemStates = _rxjsCompatUmdMin.Observable.combineLatest(statsStream, domCounterStream, _rxjsCompatUmdMin.Observable.of(null).concat(processTreeStream), (stats, domCounters, childProcessesTree) => ({
+>>>>>>> Update
       stats,
       domCounters,
       childProcessesTree
@@ -190,7 +214,11 @@ class Activation {
     this._subscriptions = new (_UniversalDisposable().default)(this._registerCommandAndOpener());
 
     if ((0, _nuclideAnalytics().isTrackSupported)()) {
+<<<<<<< HEAD
       this._subscriptions.add(_RxMin.Observable.zip(statsStream.buffer(analyticsInterval), analyticsInterval.switchMap(_getDOMCounters().default), analyticsInterval.switchMap(() => (0, _getChildProcesses().queryPs)('comm').map(_getChildProcesses().childProcessSummary))).subscribe(([buffer, domCounters, processes]) => {
+=======
+      this._subscriptions.add(_rxjsCompatUmdMin.Observable.zip(statsStream.buffer(analyticsInterval), analyticsInterval.switchMap(_getDOMCounters().default), analyticsInterval.switchMap(() => (0, _getChildProcesses().queryPs)('comm').map(_getChildProcesses().childProcessSummary))).subscribe(([buffer, domCounters, processes]) => {
+>>>>>>> Update
         this._updateAnalytics(buffer, domCounters, processes);
       }, error => {
         (0, _log4js().getLogger)().error('Failed to gather nuclide-health analytics.', error.stack);

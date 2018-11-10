@@ -27,7 +27,11 @@ function _UniversalDisposable() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _FilterReminder() {
   const data = _interopRequireDefault(require("../../../../../nuclide-commons-ui/FilterReminder"));
@@ -193,7 +197,11 @@ class ConsoleView extends React.Component {
     this._startScrollToBottom = () => {
       if (!this._continuouslyScrollToBottom) {
         this._continuouslyScrollToBottom = true;
+<<<<<<< HEAD
         this._scrollingThrottle = _RxMin.Observable.timer(MAXIMUM_SCROLLING_TIME).subscribe(() => {
+=======
+        this._scrollingThrottle = _rxjsCompatUmdMin.Observable.timer(MAXIMUM_SCROLLING_TIME).subscribe(() => {
+>>>>>>> Update
           this._stopScrollToBottom();
         });
       }
@@ -258,7 +266,11 @@ class ConsoleView extends React.Component {
   componentDidUpdate(prevProps) {
     // If records are added while we're scrolled to the bottom (or very very close, at least),
     // automatically scroll.
+<<<<<<< HEAD
     if (this._isScrolledNearBottom && (0, _recordsChanged().default)(prevProps.displayableRecords, this.props.displayableRecords)) {
+=======
+    if (this._isScrolledNearBottom && (0, _recordsChanged().default)(prevProps.records, this.props.records)) {
+>>>>>>> Update
       this._startScrollToBottom();
     }
   }
@@ -295,14 +307,22 @@ class ConsoleView extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // If the messages were cleared, hide the notification.
+<<<<<<< HEAD
     if (nextProps.displayableRecords.length === 0) {
+=======
+    if (nextProps.records.length === 0) {
+>>>>>>> Update
       this._isScrolledNearBottom = true;
       this.setState({
         unseenMessages: false
       });
     } else if ( // If we receive new messages after we've scrolled away from the bottom, show the "new
     // messages" notification.
+<<<<<<< HEAD
     !this._isScrolledNearBottom && (0, _recordsChanged().default)(this.props.displayableRecords, nextProps.displayableRecords)) {
+=======
+    !this._isScrolledNearBottom && (0, _recordsChanged().default)(this.props.records, nextProps.records)) {
+>>>>>>> Update
       this.setState({
         unseenMessages: true
       });
@@ -366,13 +386,20 @@ class ConsoleView extends React.Component {
     }), React.createElement(_OutputTable().default // $FlowFixMe(>=0.53.0) Flow suppress
     , {
       ref: this._handleOutputTable,
+<<<<<<< HEAD
       displayableRecords: this.props.displayableRecords,
+=======
+      records: this.props.records,
+>>>>>>> Update
       showSourceLabels: this.props.selectedSourceIds.length > 1,
       fontSize: this.props.fontSize,
       getExecutor: this._getExecutor,
       getProvider: this._getProvider,
       onScroll: this._handleScroll,
+<<<<<<< HEAD
       onDisplayableRecordHeightChange: this.props.onDisplayableRecordHeightChange,
+=======
+>>>>>>> Update
       shouldScrollToBottom: this._shouldScrollToBottom
     }), React.createElement(_NewMessagesNotification().default, {
       visible: this.state.unseenMessages,

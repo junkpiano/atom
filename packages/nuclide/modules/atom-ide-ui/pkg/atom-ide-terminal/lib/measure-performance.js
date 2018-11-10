@@ -5,6 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = measurePerformance;
 
+<<<<<<< HEAD
+=======
+var _electron = require("electron");
+
+>>>>>>> Update
 function _featureConfig() {
   const data = _interopRequireDefault(require("../../../../nuclide-commons-atom/feature-config"));
 
@@ -35,10 +40,17 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 function _xterm() {
   const data = require("xterm");
 
   _xterm = function () {
+=======
+function _vscodeXterm() {
+  const data = require("vscode-xterm");
+
+  _vscodeXterm = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -89,7 +101,12 @@ const FRAME_SAMPLE_RATE = 10; // Take the average of the last N frames.
 const FRAME_BUFFER_SIZE = INITIAL_FRAMES_TO_MEASURE;
 /**
  * Track the performance of both terminal renderers and offer switching to
+<<<<<<< HEAD
  * the DOM-based fallback if we detect slow canvas rendering.
+=======
+ * the DOM-based fallback if we detect slow canvas rendering in an environment
+ * that doesn't support it well.
+>>>>>>> Update
  */
 
 function measurePerformance(terminal) {
@@ -97,7 +114,12 @@ function measurePerformance(terminal) {
 
   const rendererConfig = _featureConfig().default.get(_config().RENDERER_TYPE_CONFIG);
 
+<<<<<<< HEAD
   let shouldPromptSlow = rendererType === 'canvas' && rendererConfig === 'auto'; // Similar to https://github.com/Microsoft/vscode/commit/84eb4778f18215d00608ccf8fb7649e6f2cd428a
+=======
+  const supportsAcceleratedCanvas = _electron.remote.app.getGPUFeatureStatus()['2d_canvas'] === 'enabled';
+  let shouldPromptSlow = !supportsAcceleratedCanvas && rendererType === 'canvas' && rendererConfig === 'auto'; // Similar to https://github.com/Microsoft/vscode/commit/84eb4778f18215d00608ccf8fb7649e6f2cd428a
+>>>>>>> Update
   // However, we'll use a circular buffer to continuously measure performance over time.
 
   let frameTimeBuffer = new Array(FRAME_BUFFER_SIZE).fill(0);
@@ -112,6 +134,10 @@ function measurePerformance(terminal) {
     const averageTime = frameTimeSum / frameTimeBuffer.length;
     (0, _analytics().track)('nuclide-terminal.render-performance', {
       averageTime,
+<<<<<<< HEAD
+=======
+      supportsAcceleratedCanvas,
+>>>>>>> Update
       type: rendererType
     });
 

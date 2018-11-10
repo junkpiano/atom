@@ -57,7 +57,11 @@ function _showTriggerConflictWarning() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -92,6 +96,7 @@ const LOADING_DELAY = 250;
  */
 
 class HyperclickForTextEditor {
+<<<<<<< HEAD
   // A central "event bus" for all fetch events.
   // TODO: Rx-ify all incoming events to avoid using a subject.
   // Stored for testing.
@@ -120,14 +125,37 @@ class HyperclickForTextEditor {
 
     this._onContextMenu = this._onContextMenu.bind(this);
 
+=======
+  // Cache the most recent suggestion so we can avoid unnecessary fetching.
+  // A central "event bus" for all fetch events.
+  // TODO: Rx-ify all incoming events to avoid using a subject.
+  // Stored for testing.
+  constructor(textEditor, getSuggestion, showSuggestionList) {
+    _initialiseProps.call(this);
+
+    this._textEditor = textEditor;
+    this._getSuggestion = getSuggestion;
+    this._showSuggestionList = showSuggestionList;
+    this._textEditorView = atom.views.getView(textEditor);
+
+    this._setupMouseListeners();
+
+    this._textEditorView.addEventListener('keydown', this._onKeyDown);
+
+    this._textEditorView.addEventListener('keyup', this._onKeyUp);
+
+>>>>>>> Update
     this._textEditorView.addEventListener('contextmenu', this._onContextMenu);
 
     this._subscriptions.add(atom.commands.add(this._textEditorView, {
       'hyperclick:confirm-cursor': () => this._confirmSuggestionAtCursor()
     }));
 
+<<<<<<< HEAD
     this._isDestroyed = false;
     this._fetchStream = new _RxMin.Subject();
+=======
+>>>>>>> Update
     this._suggestionStream = this._observeSuggestions().share();
 
     this._subscriptions.add(_featureConfig().default.observe(process.platform === 'darwin' ? 'hyperclick.darwinTriggerKeys' : process.platform === 'win32' ? 'hyperclick.win32TriggerKeys' : 'hyperclick.linuxTriggerKeys', newValue_ => {
@@ -174,7 +202,11 @@ class HyperclickForTextEditor {
 
   _confirmSuggestion(suggestion) {
     if (Array.isArray(suggestion.callback) && suggestion.callback.length > 0) {
+<<<<<<< HEAD
       this._hyperclick.showSuggestionList(this._textEditor, suggestion);
+=======
+      this._showSuggestionList(this._textEditor, suggestion);
+>>>>>>> Update
     } else {
       if (!(typeof suggestion.callback === 'function')) {
         throw new Error("Invariant violation: \"typeof suggestion.callback === 'function'\"");
@@ -184,6 +216,7 @@ class HyperclickForTextEditor {
     }
   }
 
+<<<<<<< HEAD
   _onContextMenu(event) {
     const mouseEvent = event; // If the key trigger happens to cause the context menu to show up, then
     // cancel it. By this point, it's too late to know if you're at a suggestion
@@ -268,20 +301,28 @@ class HyperclickForTextEditor {
       this._clearSuggestion();
     }
   }
+=======
+>>>>>>> Update
   /**
    * Returns a `Promise` that's resolved when the latest suggestion's available.
    * (Exposed for testing.)
    */
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Update
   getSuggestionAtMouse() {
     return this._suggestionStream.take(1).toPromise();
   }
 
+<<<<<<< HEAD
   _fetchSuggestion(mouseEvent) {
     this._fetchStream.next(mouseEvent);
   }
 
+=======
+>>>>>>> Update
   _observeSuggestions() {
     return this._fetchStream.map(mouseEvent => {
       if (mouseEvent == null) {
@@ -326,6 +367,7 @@ class HyperclickForTextEditor {
       }
     }).switchMap(position => {
       if (position == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(null);
       }
 
@@ -333,6 +375,15 @@ class HyperclickForTextEditor {
       .catch(e => {
         (0, _log4js().getLogger)('hyperclick').error('Error getting Hyperclick suggestion:', e);
         return _RxMin.Observable.of(null);
+=======
+        return _rxjsCompatUmdMin.Observable.of(null);
+      }
+
+      return _rxjsCompatUmdMin.Observable.using(() => this._showLoading(), () => _rxjsCompatUmdMin.Observable.defer(() => this._getSuggestion(this._textEditor, position)).startWith(null) // Clear the previous suggestion immediately.
+      .catch(e => {
+        (0, _log4js().getLogger)('hyperclick').error('Error getting Hyperclick suggestion:', e);
+        return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
       }));
     }).distinctUntilChanged();
   }
@@ -405,7 +456,11 @@ class HyperclickForTextEditor {
   }
 
   async _confirmSuggestionAtCursor() {
+<<<<<<< HEAD
     const suggestion = await this._hyperclick.getSuggestion(this._textEditor, this._textEditor.getCursorBufferPosition());
+=======
+    const suggestion = await this._getSuggestion(this._textEditor, this._textEditor.getCursorBufferPosition());
+>>>>>>> Update
 
     if (suggestion) {
       this._confirmSuggestion(suggestion);
@@ -458,7 +513,11 @@ class HyperclickForTextEditor {
 
 
   _showLoading() {
+<<<<<<< HEAD
     return _RxMin.Observable.timer(LOADING_DELAY).switchMap(() => _RxMin.Observable.create(() => {
+=======
+    return _rxjsCompatUmdMin.Observable.timer(LOADING_DELAY).switchMap(() => _rxjsCompatUmdMin.Observable.create(() => {
+>>>>>>> Update
       this._textEditorView.classList.add('hyperclick-loading');
 
       return () => {
@@ -491,6 +550,97 @@ class HyperclickForTextEditor {
 
 exports.default = HyperclickForTextEditor;
 
+<<<<<<< HEAD
+=======
+var _initialiseProps = function () {
+  this._lastMouseEvent = null;
+  this._lastSuggestionAtMouse = null;
+  this._navigationMarkers = null;
+  this._lastWordRange = null;
+  this._subscriptions = new (_UniversalDisposable().default)();
+  this._isDestroyed = false;
+  this._fetchStream = new _rxjsCompatUmdMin.Subject();
+
+  this._onContextMenu = mouseEvent => {
+    // If the key trigger happens to cause the context menu to show up, then
+    // cancel it. By this point, it's too late to know if you're at a suggestion
+    // position to be more fine grained. So if your trigger keys are "ctrl+cmd",
+    // then you can't use that combination to bring up the context menu.
+    if (this._isHyperclickEvent(mouseEvent)) {
+      mouseEvent.stopPropagation();
+    }
+  };
+
+  this._onMouseMove = mouseEvent => {
+    // We save the last `MouseEvent` so the user can trigger Hyperclick by
+    // pressing the key without moving the mouse again. We only save the
+    // relevant properties to prevent retaining a reference to the event.
+    this._lastMouseEvent = {
+      clientX: mouseEvent.clientX,
+      clientY: mouseEvent.clientY
+    };
+
+    if (this._isHyperclickEvent(mouseEvent)) {
+      this._fetchStream.next(mouseEvent);
+    } else {
+      this._clearSuggestion();
+    }
+  };
+
+  this._onMouseDown = mouseEvent => {
+    if (!this._isHyperclickEvent(mouseEvent)) {
+      return;
+    } // If hyperclick and multicursor are using the same trigger, prevent multicursor.
+
+
+    if (isMulticursorEvent(mouseEvent)) {
+      mouseEvent.stopPropagation();
+
+      if (localStorage.getItem(WARN_ABOUT_TRIGGER_CONFLICT_KEY) !== 'false') {
+        localStorage.setItem(WARN_ABOUT_TRIGGER_CONFLICT_KEY, 'false');
+        (0, _showTriggerConflictWarning().default)();
+      }
+    }
+
+    if (this._lastMouseEvent == null) {
+      return;
+    }
+
+    const lastPosition = this._getMousePositionAsBufferPosition(this._lastMouseEvent);
+
+    if (lastPosition == null || !this._isInLastSuggestion(lastPosition)) {
+      return;
+    }
+
+    if (this._lastSuggestionAtMouse) {
+      const lastSuggestionAtMouse = this._lastSuggestionAtMouse; // Move the cursor to the click location to force a navigation-stack push.
+
+      this._textEditor.setCursorBufferPosition(lastPosition);
+
+      this._confirmSuggestion(lastSuggestionAtMouse); // Prevent the <meta-click> event from adding another cursor.
+
+
+      mouseEvent.stopPropagation();
+    }
+
+    this._clearSuggestion();
+  };
+
+  this._onKeyDown = event => {
+    // Show the suggestion at the last known mouse position.
+    if (this._isHyperclickEvent(event) && this._lastMouseEvent != null) {
+      this._fetchStream.next(this._lastMouseEvent);
+    }
+  };
+
+  this._onKeyUp = event => {
+    if (!this._isHyperclickEvent(event)) {
+      this._clearSuggestion();
+    }
+  };
+};
+
+>>>>>>> Update
 function isMulticursorEvent(event) {
   const {
     platform

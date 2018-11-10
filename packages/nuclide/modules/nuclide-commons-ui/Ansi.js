@@ -33,6 +33,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
+<<<<<<< HEAD
 function ansiToJSON(input) {
   return _anser().default.ansiToJson((0, _escapeCarriage().default)(input), {
     json: true,
@@ -49,6 +50,31 @@ function ansiJSONtoStyleBundle(ansiBundle) {
 
   if (ansiBundle.fg) {
     style.color = `rgb(${ansiBundle.fg})`;
+=======
+function ansiToJSON(input, useClasses) {
+  const classes = useClasses == null || !useClasses ? false : useClasses;
+  return _anser().default.ansiToJson((0, _escapeCarriage().default)(input), {
+    use_classes: classes,
+    json: true,
+    remove_empty: true
+  });
+} // make sure
+
+
+function ansiJSONtoStyleBundle(ansiBundle, colorStyle) {
+  const style = {};
+
+  if (ansiBundle.bg) {
+    style.backgroundColor = colorStyle != null ? `rgb(${colorStyle[ansiBundle.bg]})` : `rgb(${ansiBundle.bg})`;
+  }
+
+  if (ansiBundle.fg) {
+    style.color = colorStyle != null ? `rgb(${colorStyle[ansiBundle.fg]})` : `rgb(${ansiBundle.fg})`;
+  } else {
+    if (colorStyle != null) {
+      style.color = `rgb(${colorStyle.default})`;
+    }
+>>>>>>> Update
   }
 
   return {
@@ -57,8 +83,13 @@ function ansiJSONtoStyleBundle(ansiBundle) {
   };
 }
 
+<<<<<<< HEAD
 function ansiToInlineStyle(text) {
   return ansiToJSON(text).map(ansiJSONtoStyleBundle);
+=======
+function ansiToInlineStyle(text, useClasses, colorStyle) {
+  return ansiToJSON(text, useClasses).map(input => ansiJSONtoStyleBundle(input, colorStyle));
+>>>>>>> Update
 }
 
 function defaultRenderSegment({
@@ -76,12 +107,23 @@ class Ansi extends React.PureComponent {
   render() {
     const _this$props = this.props,
           {
+<<<<<<< HEAD
       children,
       renderSegment = defaultRenderSegment
     } = _this$props,
           passThroughProps = _objectWithoutProperties(_this$props, ["children", "renderSegment"]);
 
     return React.createElement("code", passThroughProps, ansiToInlineStyle(children).map(({
+=======
+      useClasses,
+      colorStyle,
+      children,
+      renderSegment = defaultRenderSegment
+    } = _this$props,
+          passThroughProps = _objectWithoutProperties(_this$props, ["useClasses", "colorStyle", "children", "renderSegment"]);
+
+    return React.createElement("code", passThroughProps, ansiToInlineStyle(children, useClasses, colorStyle).map(({
+>>>>>>> Update
       style,
       content
     }, key) => renderSegment({

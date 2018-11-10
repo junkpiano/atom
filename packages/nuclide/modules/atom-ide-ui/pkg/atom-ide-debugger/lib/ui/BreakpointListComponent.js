@@ -276,9 +276,13 @@ class BreakpointListComponent extends React.Component {
         return fileA.localeCompare(fileB);
       }
 
+<<<<<<< HEAD
       const lineA = breakpointA.endLine != null ? breakpointA.endLine : breakpointA.line;
       const lineB = breakpointB.endLine != null ? breakpointB.endLine : breakpointB.line;
       return lineA - lineB;
+=======
+      return breakpointA.line - breakpointB.line;
+>>>>>>> Update
     }).map((breakpoint, i) => {
       const host = this._getHostnameTranslated(breakpoint.uri) || 'local';
 
@@ -286,14 +290,22 @@ class BreakpointListComponent extends React.Component {
 
       const {
         line,
+<<<<<<< HEAD
         endLine,
+=======
+>>>>>>> Update
         verified,
         uri: path
       } = breakpoint;
       const enabled = breakpoint.enabled && available;
+<<<<<<< HEAD
       const dataLine = endLine != null && !Number.isNaN(endLine) ? endLine : line;
       const bpId = breakpoint.getId();
       const label = `${basename}:${dataLine}`;
+=======
+      const bpId = breakpoint.getId();
+      const label = `${basename}:${line}`;
+>>>>>>> Update
       const title = (!enabled ? 'Disabled breakpoint' : !verified ? 'Unresolved Breakpoint' : `Breakpoint at ${label} (resolved)`) + (available ? '' : ` - ${host}:${_nuclideUri().default.getPath(breakpoint.uri)}`);
       const conditionElement = supportsConditionalBreakpoints && breakpoint.condition != null ? React.createElement("div", {
         className: "debugger-breakpoint-condition",
@@ -305,6 +317,12 @@ class BreakpointListComponent extends React.Component {
           atom.commands.dispatch(event.target, 'debugger:edit-breakpoint');
         }
       }, "Condition: ", breakpoint.condition) : null;
+<<<<<<< HEAD
+=======
+      const hitcountElement = breakpoint.hitCount != null && breakpoint.hitCount > 0 ? React.createElement("div", {
+        className: "debugger-breakpoint-hitcount"
+      }, "Hit count: ", breakpoint.hitCount) : null;
+>>>>>>> Update
       const content = React.createElement("div", {
         className: "inline-block"
       }, React.createElement("div", {
@@ -348,7 +366,11 @@ class BreakpointListComponent extends React.Component {
           atom.commands.dispatch(event.target, 'debugger:remove-breakpoint');
           event.stopPropagation();
         }
+<<<<<<< HEAD
       })), label), conditionElement));
+=======
+      })), label), conditionElement, hitcountElement));
+>>>>>>> Update
       return React.createElement(_ListView().ListViewItem, {
         key: label,
         index: i,
@@ -367,7 +389,13 @@ class BreakpointListComponent extends React.Component {
       alternateBackground: true,
       onSelect: this._handleBreakpointClick,
       selectable: true
+<<<<<<< HEAD
     }, availableBreakpoints), exceptionBreakpoints.length > 0 ? React.createElement(_Section().Section, {
+=======
+    }, availableBreakpoints), breakpoints.length === 0 ? React.createElement("span", {
+      className: "debugger-breakpoint"
+    }, "You currently have no source breakpoints set.") : null, exceptionBreakpoints.length > 0 ? React.createElement(_Section().Section, {
+>>>>>>> Update
       className: "debugger-breakpoint-section",
       headline: "Exception breakpoints",
       collapsable: true,

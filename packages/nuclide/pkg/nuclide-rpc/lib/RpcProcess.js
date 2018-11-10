@@ -45,7 +45,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -89,8 +93,13 @@ class RpcProcess {
     this._subscription = null;
     this._serviceRegistry = serviceRegistry;
     this._rpcConnection = null;
+<<<<<<< HEAD
     this._disposals = new _RxMin.Subject();
     this._exitMessage = new _RxMin.Subject();
+=======
+    this._disposals = new _rxjsCompatUmdMin.Subject();
+    this._exitMessage = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   getName() {

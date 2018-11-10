@@ -7,10 +7,17 @@ exports.createTunnel = createTunnel;
 exports.tunnelDescription = tunnelDescription;
 exports.RemoteSocket = void 0;
 
+<<<<<<< HEAD
 function _hostnames() {
   const data = require("../../commons-node/hostnames");
 
   _hostnames = function () {
+=======
+function _nuclideUri() {
+  const data = _interopRequireDefault(require("../../../modules/nuclide-commons/nuclideUri"));
+
+  _nuclideUri = function () {
+>>>>>>> Update
     return data;
   };
 
@@ -27,7 +34,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 var _net = _interopRequireDefault(require("net"));
 
@@ -56,7 +67,11 @@ function createTunnel(t, cf) {
   // this (not creating a tunnel if there's already one on this port) should be
   // on the consumer of this service.
 
+<<<<<<< HEAD
   const tunnelKey = `${(0, _hostnames().shortenHostname)(t.from.host)}:${t.from.port}`;
+=======
+  const tunnelKey = `${_nuclideUri().default.nuclideUriToDisplayHostname(t.from.host)}:${t.from.port}`;
+>>>>>>> Update
   const existingTunnel = activeTunnels.get(tunnelKey);
 
   if (existingTunnel) {
@@ -64,7 +79,11 @@ function createTunnel(t, cf) {
     existingTunnel.dispose();
   }
 
+<<<<<<< HEAD
   return _RxMin.Observable.create(observer => {
+=======
+  return _rxjsCompatUmdMin.Observable.create(observer => {
+>>>>>>> Update
     const tunnel = t;
     trace(`Tunnel: creating tunnel -- ${tunnelDescription(tunnel)}`);
     const {
@@ -173,7 +192,11 @@ function createTunnel(t, cf) {
 }
 
 function tunnelDescription(tunnel) {
+<<<<<<< HEAD
   return `${(0, _hostnames().shortenHostname)(tunnel.from.host)}:${tunnel.from.port}->${(0, _hostnames().shortenHostname)(tunnel.to.host)}:${tunnel.to.port}`;
+=======
+  return `${_nuclideUri().default.nuclideUriToDisplayHostname(tunnel.from.host)}:${tunnel.from.port}->${_nuclideUri().default.nuclideUriToDisplayHostname(tunnel.to.host)}:${tunnel.to.port}`;
+>>>>>>> Update
 }
 
 class LocalSocket {

@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.diagnosticProviderForResultStream = diagnosticProviderForResultStream;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _observable() {
   const data = require("../../../modules/nuclide-commons/observable");
@@ -31,7 +35,11 @@ function diagnosticProviderForResultStream(results, isEnabledStream) {
   const toggledResults = results.let((0, _observable().toggle)(isEnabledStream));
   return {
     updates: (0, _observable().compact)(toggledResults.map(diagnosticsForResult)),
+<<<<<<< HEAD
     invalidations: _RxMin.Observable.merge( // Invalidate diagnostics when display is disabled
+=======
+    invalidations: _rxjsCompatUmdMin.Observable.merge( // Invalidate diagnostics when display is disabled
+>>>>>>> Update
     isEnabledStream.filter(enabled => !enabled), toggledResults.filter(result => {
       switch (result.kind) {
         case 'not-text-editor':

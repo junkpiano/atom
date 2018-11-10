@@ -2,6 +2,7 @@
   "_args": [
     [
       {
+<<<<<<< HEAD
         "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
         "scope": null,
         "escapedName": null,
@@ -14,27 +15,58 @@
     ]
   ],
   "_from": "../d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
+=======
+        "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+        "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-118728-7026-1aodfwf.8ek0nklnmi"
+    ]
+  ],
+  "_from": "../d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+>>>>>>> Update
   "_id": "go-plus@5.8.6",
   "_inCache": true,
   "_location": "/go-plus",
   "_phantomChildren": {},
   "_requested": {
+<<<<<<< HEAD
     "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
     "rawSpec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
     "spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
+=======
+    "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+    "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+>>>>>>> Update
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
+<<<<<<< HEAD
   "_resolved": "file:../d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
   "_shasum": "0a6663cf0302ec115149af505ff332d2da6d1834",
   "_shrinkwrap": null,
   "_spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-11883-20038-1dfw9ei.7s7f6o5hfr/package.tgz",
   "_where": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/apm-install-dir-11883-20038-1p5e5d0.q1z8o4unmi",
+=======
+  "_resolved": "file:../d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+  "_shasum": "0a6663cf0302ec115149af505ff332d2da6d1834",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118728-7026-10799iv.cfg61rlik9/package.tgz",
+  "_where": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-118728-7026-1aodfwf.8ek0nklnmi",
+>>>>>>> Update
   "activationCommands": {
     "atom-workspace": [
       "golang:get-package",

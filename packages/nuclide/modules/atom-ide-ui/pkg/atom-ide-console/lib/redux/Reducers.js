@@ -193,8 +193,12 @@ function accumulateState(state, action) {
     case Actions().CLEAR_RECORDS:
       {
         return Object.assign({}, state, {
+<<<<<<< HEAD
           records: (0, _immutable().List)(),
           incompleteRecords: (0, _immutable().List)()
+=======
+          records: (0, _immutable().List)()
+>>>>>>> Update
         });
       }
 
@@ -250,8 +254,14 @@ function accumulateState(state, action) {
     case Actions().EXECUTE:
       {
         const command = action.payload.code;
+<<<<<<< HEAD
         return Object.assign({}, state, {
           history: state.history.concat(command).slice(-1000)
+=======
+        const newHistory = state.history[state.history.length - 1] === command ? state.history : state.history.concat(command);
+        return Object.assign({}, state, {
+          history: newHistory.slice(-1000)
+>>>>>>> Update
         });
       }
 

@@ -97,6 +97,19 @@ function _featureConfig() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _DebuggerAddTargetButton() {
+  const data = require("./DebuggerAddTargetButton");
+
+  _DebuggerAddTargetButton = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -218,7 +231,11 @@ class DebuggerProcessComponent extends React.PureComponent {
       tooltip: {
         title: 'Clear thread filters'
       }
+<<<<<<< HEAD
     }))), React.createElement(_Tree().TreeList, {
+=======
+    })), (0, _DebuggerAddTargetButton().AddTargetButton)('debugger-stepping-buttongroup')), React.createElement(_Tree().TreeList, {
+>>>>>>> Update
       showArrows: true
     }, processElements));
   }

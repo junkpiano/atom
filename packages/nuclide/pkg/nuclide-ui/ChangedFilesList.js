@@ -159,11 +159,19 @@ class ChangedFilesList extends React.Component {
       onFileChosen,
       onForgetFile,
       onMarkFileResolved,
+<<<<<<< HEAD
+=======
+      onFileOpen,
+>>>>>>> Update
       onOpenFileInDiffView,
       onRevertFile,
       rootPath,
       selectedFile
     } = this.props;
+<<<<<<< HEAD
+=======
+    onFileOpen;
+>>>>>>> Update
     const filesToShow = FILE_CHANGES_INITIAL_PAGE_SIZE * this.state.visiblePagesCount;
     const filePaths = Array.from(fileStatuses.keys()).slice(0, filesToShow);
     const displayPaths = computeDisplayPaths(filePaths);
@@ -233,6 +241,10 @@ class ChangedFilesList extends React.Component {
         isChecked: checkedFiles == null ? null : checkedFiles.has(filePath),
         isSelected: selectedFile === filePath,
         key: filePath,
+<<<<<<< HEAD
+=======
+        onFileOpen: onFileOpen,
+>>>>>>> Update
         onAddFile: onAddFile,
         onDeleteFile: onDeleteFile,
         onFileChecked: onFileChecked,

@@ -29,7 +29,11 @@ function Actions() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -62,7 +66,11 @@ function _nuclideRemoteConnection() {
 }
 
 function _passesGK() {
+<<<<<<< HEAD
   const data = _interopRequireDefault(require("../../../commons-node/passesGK"));
+=======
+  const data = _interopRequireDefault(require("../../../../modules/nuclide-commons/passesGK"));
+>>>>>>> Update
 
   _passesGK = function () {
     return data;
@@ -120,9 +128,15 @@ function subscribeToTunnelEpic(actions, store) {
     return Actions().requestTunnel(subscription.description, tunnel, onOpen, subscription.onTunnelClose);
   }).mergeMap(action => {
     if (action == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     } else {
       return _RxMin.Observable.of(action);
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    } else {
+      return _rxjsCompatUmdMin.Observable.of(action);
+>>>>>>> Update
     }
   });
 }
@@ -170,9 +184,15 @@ function unsubscribeFromTunnelEpic(actions, store) {
     return Actions().closeTunnel(tunnel, null);
   }).mergeMap(action => {
     if (action == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     } else {
       return _RxMin.Observable.of(action);
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    } else {
+      return _rxjsCompatUmdMin.Observable.of(action);
+>>>>>>> Update
     }
   });
 }
@@ -288,9 +308,15 @@ function requestTunnelEpic(actions, store) {
     return Actions().openTunnel(tunnel, open, close);
   }).mergeMap(action => {
     if (action == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
     } else {
       return _RxMin.Observable.of(action);
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+    } else {
+      return _rxjsCompatUmdMin.Observable.of(action);
+>>>>>>> Update
     }
   });
 }

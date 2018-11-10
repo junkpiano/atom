@@ -13,7 +13,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _analytics() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/analytics"));
@@ -93,7 +97,11 @@ async function resultFunction(provider, editor) {
 
 class Activation {
   constructor(state) {
+<<<<<<< HEAD
     this._toggleEvents = new _RxMin.Subject();
+=======
+    this._toggleEvents = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._shouldRenderDiagnostics = this._toggleEvents.scan(prev => !prev, false);
     this._disposables = new (_UniversalDisposable().default)();
     this._activeEditorRegistry = new (_ActiveEditorRegistry().default)(resultFunction);
@@ -108,7 +116,13 @@ class Activation {
   }
 
   consumeStatusBar(statusBar) {
+<<<<<<< HEAD
     const item = document.createElement('span');
+=======
+    const item = document.createElement('div');
+    item.classList.add('inline-block');
+    item.style.height = '100%';
+>>>>>>> Update
     const statusBarTile = statusBar.addLeftTile({
       item,
       priority: STATUS_BAR_PRIORITY

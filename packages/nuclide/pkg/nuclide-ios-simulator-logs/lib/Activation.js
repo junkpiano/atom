@@ -55,7 +55,11 @@ function _createProcessStream() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73,7 +77,11 @@ class Activation {
   constructor(state) {
     this._iosLogTailer = new (_LogTailer().LogTailer)({
       name: 'iOS Simulator Logs',
+<<<<<<< HEAD
       messages: _RxMin.Observable.defer(() => (0, _createMessageStream().createMessageStream)((0, _createProcessStream().createProcessStream)())),
+=======
+      messages: _rxjsCompatUmdMin.Observable.defer(() => (0, _createMessageStream().createMessageStream)((0, _createProcessStream().createProcessStream)())),
+>>>>>>> Update
 
       handleError(err) {
         if (err.code === 'ENOENT') {
@@ -107,6 +115,7 @@ class Activation {
     }));
   }
 
+<<<<<<< HEAD
   consumeOutputService(api) {
     this._disposables.add(api.registerOutputProvider({
       id: 'iOS Simulator Logs',
@@ -119,6 +128,27 @@ class Activation {
         this._iosLogTailer.stop();
       }
     }));
+=======
+  consumeConsole(consoleService) {
+    let consoleApi = consoleService({
+      id: 'iOS Simulator Logs',
+      name: 'iOS Simulator Logs',
+      start: () => this._iosLogTailer.start(),
+      stop: () => this._iosLogTailer.stop()
+    });
+    const disposable = new (_UniversalDisposable().default)(() => {
+      consoleApi != null && consoleApi.dispose();
+      consoleApi = null;
+    }, this._iosLogTailer.getMessages().subscribe(message => consoleApi != null && consoleApi.append(message)), this._iosLogTailer.observeStatus(status => {
+      if (consoleApi != null) {
+        consoleApi.setStatus(status);
+      }
+    }));
+
+    this._disposables.add(disposable);
+
+    return disposable;
+>>>>>>> Update
   }
 
   dispose() {

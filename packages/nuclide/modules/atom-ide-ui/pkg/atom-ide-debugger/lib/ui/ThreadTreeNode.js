@@ -67,7 +67,11 @@ function _observable() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _constants() {
   const data = require("../constants");
@@ -111,6 +115,19 @@ function _classnames() {
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
+=======
+function _Icon() {
+  const data = require("../../../../../nuclide-commons-ui/Icon");
+
+  _Icon = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -146,7 +163,11 @@ class ThreadTreeNode extends React.Component {
       this.props.service.viewModel.setFocusedStackFrame(clickedRow.frame, true);
     };
 
+<<<<<<< HEAD
     this._expandedSubject = new _RxMin.Subject();
+=======
+    this._expandedSubject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this.state = {
       isCollapsed: true,
       stackFrames: _expected().Expect.pending(),
@@ -187,7 +208,11 @@ class ThreadTreeNode extends React.Component {
 
     const additionalFocusedCheck = this._threadIsFocused() ? changedCallStack.startWith(null) : changedCallStack;
 
+<<<<<<< HEAD
     this._disposables.add(_RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel))).subscribe(() => {
+=======
+    this._disposables.add(_rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(viewModel.onDidChangeDebuggerFocus.bind(viewModel))).subscribe(() => {
+>>>>>>> Update
       const {
         isCollapsed
       } = this.state;
@@ -219,7 +244,11 @@ class ThreadTreeNode extends React.Component {
       // frame to display the stop location (if any). Otherwise, we need
       // to fetch the call stack.
 
+<<<<<<< HEAD
       return this._getFrames(newIsCollapsed ? 1 : this.state.callStackLevels).switchMap(frames => _RxMin.Observable.of({
+=======
+      return this._getFrames(newIsCollapsed ? 1 : this.state.callStackLevels).switchMap(frames => _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         frames,
         newIsCollapsed
       }));
@@ -315,11 +344,27 @@ class ThreadTreeNode extends React.Component {
       event.stopPropagation();
     };
 
+<<<<<<< HEAD
+=======
+    const canTerminateThread = Boolean(thread.process.session.capabilities.supportsTerminateThreadsRequest) && thread.threadId > 0 && thread.stopped;
+    const terminateThread = canTerminateThread ? React.createElement(_Icon().Icon, {
+      className: "debugger-terminate-thread-control",
+      icon: "x",
+      title: "Terminate thread",
+      onClick: () => {
+        service.terminateThreads([this.props.thread.threadId]);
+      }
+    }) : null;
+>>>>>>> Update
     const formattedTitle = React.createElement("span", {
       onClick: handleTitleClick,
       className: isFocused ? (0, _classnames().default)('debugger-tree-process-thread-selected') : '',
       title: 'Thread ID: ' + thread.threadId + ', Name: ' + thread.name
+<<<<<<< HEAD
     }, this.props.threadTitle);
+=======
+    }, this.props.threadTitle, " ", terminateThread);
+>>>>>>> Update
 
     if (!thread.stopped || !stackFrames.isPending && !stackFrames.isError && stackFrames.value.length === 0) {
       return React.createElement(_Tree().TreeItem, {

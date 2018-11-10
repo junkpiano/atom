@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.getNuclideConsoleMessages = getNuclideConsoleMessages;
 exports.configure = exports.appender = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -22,7 +26,11 @@ let sub = null;
 
 function getSubject() {
   if (sub == null) {
+<<<<<<< HEAD
     sub = new _RxMin.Subject();
+=======
+    sub = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   return sub;

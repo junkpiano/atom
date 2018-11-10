@@ -12,7 +12,11 @@ function _simpleTextBuffer() {
 
 var _fs = _interopRequireDefault(require("fs"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _waits_for() {
   const data = _interopRequireDefault(require("../../../jest/waits_for"));
@@ -223,7 +227,11 @@ describe('ClangServer', () => {
     await (0, _waits_for().default)(() => server.getStatus() === 'ready', 'ready');
   });
   it('listens to flag changes', async () => {
+<<<<<<< HEAD
     const subject = new _RxMin.Subject();
+=======
+    const subject = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     jest.spyOn(FileWatcherService(), 'watchWithNode').mockReturnValue(subject.publish());
     const serverArgs = (0, _findClangServerArgs().default)();
     const server = new (_ClangServer().default)(TEST_FILE, '', serverArgs, Promise.resolve({

@@ -46,7 +46,10 @@ exports.SHOW_TYPE_COVERAGE_CONFIG_PATH = SHOW_TYPE_COVERAGE_CONFIG_PATH;
 function getConfig() {
   return _featureConfig().default.getWithDefaults(HACK_CONFIG_PATH, {
     hhClientPath: '',
+<<<<<<< HEAD
     legacyHackIde: false,
+=======
+>>>>>>> Update
     logLevel: 'INFO'
   });
 }

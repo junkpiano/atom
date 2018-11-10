@@ -54,4 +54,8 @@ if opts.wait:
 DONT_DEBUG.append(os.path.normcase(__file__))
 
 sys.argv = script_argv
+<<<<<<< HEAD
 exec_file(script_argv[0], {'__name__': '__main__'})
+=======
+exec_file(script_argv[0], {'__name__': '__main__'})
+>>>>>>> Update

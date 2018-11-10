@@ -16,7 +16,11 @@ function _openInDiffView() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../nuclide-analytics");
+=======
+  const data = require("../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -47,6 +51,7 @@ function _Tree() {
   return data;
 }
 
+<<<<<<< HEAD
 function _immutable() {
   const data = _interopRequireDefault(require("immutable"));
 
@@ -57,6 +62,8 @@ function _immutable() {
   return data;
 }
 
+=======
+>>>>>>> Update
 function _classnames() {
   const data = _interopRequireDefault(require("classnames"));
 
@@ -156,6 +163,10 @@ class MultiRootChangedFilesView extends React.PureComponent {
       hideEmptyFolders,
       onFileChecked,
       onFileChosen,
+<<<<<<< HEAD
+=======
+      onFileOpen,
+>>>>>>> Update
       onMarkFileResolved,
       openInDiffViewOption,
       selectedFile
@@ -177,6 +188,7 @@ class MultiRootChangedFilesView extends React.PureComponent {
       }
 
       const checkedFiles = checkedFilesByRoot == null ? null : checkedFilesByRoot.get(root);
+<<<<<<< HEAD
       return (// $FlowFixMe(>=0.53.0) Flow suppress
         React.createElement(_ChangedFilesList().default, {
           checkedFiles: checkedFiles,
@@ -196,6 +208,26 @@ class MultiRootChangedFilesView extends React.PureComponent {
           shouldShowFolderName: shouldShowFolderName
         })
       );
+=======
+      return React.createElement(_ChangedFilesList().default, {
+        checkedFiles: checkedFiles,
+        fileStatuses: fileStatuses,
+        generatedTypes: this.props.generatedTypes,
+        key: root,
+        onAddFile: this._handleAddFile,
+        onDeleteFile: this._handleDeleteFile,
+        onFileChecked: onFileChecked,
+        onFileChosen: onFileChosen,
+        onFileOpen: onFileOpen,
+        onForgetFile: this._handleForgetFile,
+        onMarkFileResolved: onMarkFileResolved,
+        onOpenFileInDiffView: openInDiffViewOption ? this._handleOpenFileInDiffView : null,
+        onRevertFile: this._handleRevertFile,
+        rootPath: root,
+        selectedFile: selectedFile,
+        shouldShowFolderName: shouldShowFolderName
+      });
+>>>>>>> Update
     }));
   }
 

@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.StatusProvider = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _nuclideRemoteConnection() {
   const data = require("../../nuclide-remote-connection");
@@ -18,7 +22,11 @@ function _nuclideRemoteConnection() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -65,9 +73,15 @@ class StatusProvider {
   }
 
   observeStatus(editor) {
+<<<<<<< HEAD
     return _RxMin.Observable.fromPromise(Promise.all([this._connectionToLanguageService.getForUri(editor.getPath()), (0, _nuclideOpenFiles().getFileVersionOfEditor)(editor)])).flatMap(([languageService, fileVersion]) => {
       if (languageService == null || fileVersion == null) {
         return _RxMin.Observable.of({
+=======
+    return _rxjsCompatUmdMin.Observable.fromPromise(Promise.all([this._connectionToLanguageService.getForUri(editor.getPath()), (0, _nuclideOpenFiles().getFileVersionOfEditor)(editor)])).flatMap(([languageService, fileVersion]) => {
+      if (languageService == null || fileVersion == null) {
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           kind: 'null'
         });
       }

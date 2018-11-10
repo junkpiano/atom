@@ -35,7 +35,11 @@ function _event() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -201,11 +205,19 @@ class SyntacticSelectionManager {
 
     let changingNow = false; // There are multiple events that cover selection change.
 
+<<<<<<< HEAD
     const selectionChangeSignals = _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(editor.observeSelections.bind(editor)), (0, _event().observableFromSubscribeFunction)(editor.onDidChangeSelectionRange.bind(editor))); // We want to stop listening (managing) an editor instance when it is
     // either closed or if its selection was manually changed by the user
 
 
     const stopMonitorSignal = _RxMin.Observable.merge((0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor)), selectionChangeSignals.filter(() => {
+=======
+    const selectionChangeSignals = _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(editor.observeSelections.bind(editor)), (0, _event().observableFromSubscribeFunction)(editor.onDidChangeSelectionRange.bind(editor))); // We want to stop listening (managing) an editor instance when it is
+    // either closed or if its selection was manually changed by the user
+
+
+    const stopMonitorSignal = _rxjsCompatUmdMin.Observable.merge((0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor)), selectionChangeSignals.filter(() => {
+>>>>>>> Update
       if (changingNow) {
         return false;
       }
@@ -221,7 +233,11 @@ class SyntacticSelectionManager {
     })); // Helps take care of racing requests
 
 
+<<<<<<< HEAD
     const runningRangeRequests = new _RxMin.Subject();
+=======
+    const runningRangeRequests = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     const monitor = {
       editor,
       doExpand: () => runningRangeRequests.next(this._expandRange(editor)),

@@ -9,6 +9,10 @@ exports.fetchCommonAncestorOfHeadAndRevision = fetchCommonAncestorOfHeadAndRevis
 exports.fetchRevisionsInfo = fetchRevisionsInfo;
 exports.fetchRevisionInfoBetweenRevisions = fetchRevisionInfoBetweenRevisions;
 exports.fetchRevisionInfo = fetchRevisionInfo;
+<<<<<<< HEAD
+=======
+exports.fetchHeadRevisionInfo = fetchHeadRevisionInfo;
+>>>>>>> Update
 exports.fetchSmartlogRevisions = fetchSmartlogRevisions;
 exports.parseRevisionInfoOutput = parseRevisionInfoOutput;
 exports.parseSuccessorData = parseSuccessorData;
@@ -45,7 +49,11 @@ function _log4js() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -207,10 +215,21 @@ async function fetchRevisionInfo(revisionExpression, workingDirectory) {
   return revisionInfo;
 }
 
+<<<<<<< HEAD
 function fetchSmartlogRevisions(workingDirectory) {
   // This will get the `smartlog()` expression revisions
   // and the head revision commits to the nearest public commit parent.
   const revisionExpression = 'smartlog() + parents(smartlog())';
+=======
+function fetchHeadRevisionInfo(workingDirectory) {
+  return fetchRevisionsInfo(`predecessors(${_hgConstants().HEAD_REVISION_EXPRESSION})`, workingDirectory, {
+    hidden: true
+  }).publish();
+}
+
+function fetchSmartlogRevisions(workingDirectory) {
+  const revisionExpression = 'smartlog()';
+>>>>>>> Update
   return fetchRevisionsInfo(revisionExpression, workingDirectory, {
     shouldLimit: false
   }).publish();

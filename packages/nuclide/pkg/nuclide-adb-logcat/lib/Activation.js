@@ -45,7 +45,11 @@ function _LogTailer() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -71,7 +75,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 class Activation {
   constructor(state) {
+<<<<<<< HEAD
     const message$ = _RxMin.Observable.defer(() => (0, _createMessageStream().default)((0, _createProcessStream().createProcessStream)() // Retry 3 times (unless we get a ENOENT)
+=======
+    const messages = _rxjsCompatUmdMin.Observable.defer(() => (0, _createMessageStream().default)((0, _createProcessStream().createProcessStream)() // Retry 3 times (unless we get a ENOENT)
+>>>>>>> Update
     .retryWhen(errors => errors.scan((errCount, err) => {
       if (isNoEntError(err) || errCount >= 2) {
         throw err;
@@ -82,7 +90,11 @@ class Activation {
 
     this._logTailer = new (_LogTailer().LogTailer)({
       name: 'adb Logcat',
+<<<<<<< HEAD
       messages: message$,
+=======
+      messages,
+>>>>>>> Update
       trackingEvents: {
         start: 'adb-logcat:start',
         stop: 'adb-logcat:stop',
@@ -116,6 +128,7 @@ class Activation {
     }));
   }
 
+<<<<<<< HEAD
   consumeOutputService(api) {
     this._disposables.add(api.registerOutputProvider({
       id: 'adb logcat',
@@ -128,6 +141,27 @@ class Activation {
         this._logTailer.stop();
       }
     }));
+=======
+  consumeConsole(consoleService) {
+    let consoleApi = consoleService({
+      id: 'adb logcat',
+      name: 'adb logcat',
+      start: () => this._logTailer.start(),
+      stop: () => this._logTailer.stop()
+    });
+    const disposable = new (_UniversalDisposable().default)(() => {
+      consoleApi != null && consoleApi.dispose();
+      consoleApi = null;
+    }, this._logTailer.getMessages().subscribe(message => consoleApi != null && consoleApi.append(message)), this._logTailer.observeStatus(status => {
+      if (consoleApi != null) {
+        consoleApi.setStatus(status);
+      }
+    }));
+
+    this._disposables.add(disposable);
+
+    return disposable;
+>>>>>>> Update
   }
 
   dispose() {

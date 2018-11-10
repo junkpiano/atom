@@ -37,7 +37,11 @@ function _observePaneItemVisibility() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _SettingsCategory() {
   const data = _interopRequireDefault(require("./SettingsCategory"));
@@ -211,11 +215,19 @@ class SettingsPaneItem extends React.Component {
     const settingsKeyPaths = this._getSettingsKeyPaths();
 
     const changedSettings = settingsKeyPaths.map(keyPath => _featureConfig().default.observeAsStream(keyPath));
+<<<<<<< HEAD
     this._disposables = new (_UniversalDisposable().default)((0, _observePaneItemVisibility().default)(this).filter(Boolean).delay(0, _RxMin.Scheduler.animationFrame).subscribe(() => {
       if (this._filterInput != null) {
         this._filterInput.focus();
       }
     }), _RxMin.Observable.merge(...changedSettings) // throttle to prevent rerendering for each change if changes occur in
+=======
+    this._disposables = new (_UniversalDisposable().default)((0, _observePaneItemVisibility().default)(this).filter(Boolean).delay(0, _rxjsCompatUmdMin.Scheduler.animationFrame).subscribe(() => {
+      if (this._filterInput != null) {
+        this._filterInput.focus();
+      }
+    }), _rxjsCompatUmdMin.Observable.merge(...changedSettings) // throttle to prevent rerendering for each change if changes occur in
+>>>>>>> Update
     // rapid succession
     .throttleTime(50).subscribe(() => {
       this.setState(this._getConfigData());

@@ -41,6 +41,10 @@ class Breakpoint {
   // verified tracks if the breakpoint was successfully set by the adapter.
   // it may not be if the referenced code was not yet loaded
   // state: enabled, once, or disabled
+<<<<<<< HEAD
+=======
+  // condition: if the breakpoint is conditional, the condition expression
+>>>>>>> Update
   // The source file of the breakpoint (which may be undefined if we have an
   // unresolved function breakpoint.)
   // The line number of the breakpoint (which may be undefined if we have an
@@ -109,6 +113,17 @@ class Breakpoint {
     return this._state;
   }
 
+<<<<<<< HEAD
+=======
+  condition() {
+    return this._condition;
+  }
+
+  setCondition(cond) {
+    this._condition = cond;
+  }
+
+>>>>>>> Update
   isEnabled() {
     return this._state !== BreakpointState.DISABLED;
   }

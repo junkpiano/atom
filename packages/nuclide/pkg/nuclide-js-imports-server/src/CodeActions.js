@@ -15,6 +15,19 @@ function _vscodeLanguageserver() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _constants() {
+  const data = require("./constants");
+
+  _constants = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _AutoImportsManager() {
   const data = require("./lib/AutoImportsManager");
 
@@ -142,7 +155,11 @@ function diagnosticToCommands(autoImportsManager, importFormatter, diagnostic, f
 
       return {
         title: `${verb} from ${importPath}`,
+<<<<<<< HEAD
         command: 'addImport',
+=======
+        command: _constants().ADD_IMPORT_COMMAND_ID,
+>>>>>>> Update
         arguments: addImportArgs
       };
     });

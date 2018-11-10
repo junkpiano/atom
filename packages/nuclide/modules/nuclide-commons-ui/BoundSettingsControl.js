@@ -17,6 +17,19 @@ function _SettingsControl() {
 
 var React = _interopRequireWildcard(require("react"));
 
+<<<<<<< HEAD
+=======
+function _analytics() {
+  const data = require("../nuclide-commons/analytics");
+
+  _analytics = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -37,6 +50,18 @@ class BoundSettingsControl extends React.Component {
     super(props);
 
     this._onChange = value => {
+<<<<<<< HEAD
+=======
+      (0, _analytics().track)('bound-settings-control-change', {
+        keyPath: this.props.keyPath,
+        value
+      });
+
+      if (this.props.onChangeCallback != null) {
+        this.props.onChangeCallback();
+      }
+
+>>>>>>> Update
       atom.config.set(this.props.keyPath, value);
     };
 

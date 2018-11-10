@@ -6,6 +6,19 @@ Object.defineProperty(exports, "__esModule", {
 exports.getSimulatorPlatform = getSimulatorPlatform;
 exports.getDevicePlatform = getDevicePlatform;
 
+<<<<<<< HEAD
+=======
+function _nullthrows() {
+  const data = _interopRequireDefault(require("nullthrows"));
+
+  _nullthrows = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _Tasks() {
   const data = require("./Tasks");
 
@@ -16,7 +29,11 @@ function _Tasks() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function fbsimctl() {
   const data = _interopRequireWildcard(require("../../nuclide-fbsimctl"));
@@ -30,6 +47,11 @@ function fbsimctl() {
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
+<<<<<<< HEAD
+=======
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -45,6 +67,7 @@ function getSimulatorPlatform(buckRoot, ruleType, debuggerCallback) {
     // TODO: Come up with a way to surface the error in UI
     const simulators = expected.getOrDefault([]).filter(device => device.type === 'simulator');
     let deviceGroups;
+<<<<<<< HEAD
 
     if (simulators.length === 0) {
       deviceGroups = BUILD_ONLY_SIMULATOR_GROUPS;
@@ -59,13 +82,29 @@ function getSimulatorPlatform(buckRoot, ruleType, debuggerCallback) {
           type: 'simulator'
         }))
       }));
+=======
+    let devicesForIdentifiers;
+
+    if (simulators.length === 0) {
+      // No simulators installed, at least give user a chance to build.
+      deviceGroups = [BUILD_ONLY_SIMULATORS.deviceGroup];
+      devicesForIdentifiers = BUILD_ONLY_SIMULATORS.devicesForIdentifiers;
+    } else {
+      deviceGroups = groupByOs(simulators);
+      devicesForIdentifiers = new Map(simulators.map(s => [s.udid, s]));
+>>>>>>> Update
     }
 
     return {
       isMobile: true,
       name: 'Simulator',
+<<<<<<< HEAD
       tasksForDevice: device => (0, _Tasks().getTasks)(buckRoot, ruleType, device, debuggerCallback != null),
       runTask: (builder, taskType, target, settings, device) => (0, _Tasks().runTask)(builder, taskType, ruleType, target, settings, device, buckRoot, debuggerCallback),
+=======
+      tasksForDevice: device => (0, _Tasks().getTasks)(buckRoot, ruleType, BUILD_ONLY_SIMULATORS.devicesForIdentifiers.has((0, _nullthrows().default)(device).identifier), debuggerCallback != null),
+      runTask: (builder, taskType, target, settings, device) => (0, _Tasks().runTask)(builder, taskType, ruleType, target, settings, (0, _nullthrows().default)(devicesForIdentifiers.get((0, _nullthrows().default)(device).identifier)), buckRoot, debuggerCallback),
+>>>>>>> Update
       deviceGroups
     };
   });
@@ -76,6 +115,7 @@ function getDevicePlatform(buckRoot, ruleType, debuggerCallback) {
     let deviceGroups = [];
     const devices = expected.getOrDefault([]);
     const physicalDevices = devices.filter(device => device.type === 'physical_device');
+<<<<<<< HEAD
 
     if (physicalDevices.length > 0) {
       deviceGroups = Array.from(groupByOs(physicalDevices).entries()).map(([os, devicesForOs]) => ({
@@ -96,6 +136,29 @@ function getDevicePlatform(buckRoot, ruleType, debuggerCallback) {
       name: 'Device',
       tasksForDevice: device => (0, _Tasks().getTasks)(buckRoot, ruleType, device, debuggerCallback != null),
       runTask: (builder, taskType, target, settings, device) => (0, _Tasks().runTask)(builder, taskType, ruleType, target, settings, device, buckRoot, debuggerCallback),
+=======
+    const devicesForIdentifiers = new Map();
+
+    if (physicalDevices.length > 0) {
+      physicalDevices.forEach(d => {
+        devicesForIdentifiers.set(d.udid, d);
+      });
+      deviceGroups = groupByOs(physicalDevices);
+    } // Always give user a chance to build for all architectures.
+
+
+    deviceGroups.push(BUILD_ONLY_DEVICES.deviceGroup);
+    BUILD_ONLY_DEVICES.devicesForIdentifiers.forEach(d => {
+      devicesForIdentifiers.set(d.udid, d);
+    });
+    return {
+      isMobile: true,
+      name: 'Device',
+      tasksForDevice: device => (0, _Tasks().getTasks)(buckRoot, ruleType, BUILD_ONLY_DEVICES.devicesForIdentifiers.has((0, _nullthrows().default)(device).identifier), debuggerCallback != null),
+      runTask: (builder, taskType, target, settings, device) => {
+        return (0, _Tasks().runTask)(builder, taskType, ruleType, target, settings, (0, _nullthrows().default)(devicesForIdentifiers.get((0, _nullthrows().default)(device).identifier)), buckRoot, debuggerCallback);
+      },
+>>>>>>> Update
       deviceGroups
     };
   });
@@ -110,7 +173,14 @@ function groupByOs(devices) {
       memo.set(device.os, devicesForOs);
     }
 
+<<<<<<< HEAD
     devicesForOs.push(device);
+=======
+    devicesForOs.push({
+      identifier: device.udid,
+      name: device.name
+    });
+>>>>>>> Update
     return memo;
   }, new Map());
 
@@ -120,6 +190,7 @@ function groupByOs(devices) {
     });
   }
 
+<<<<<<< HEAD
   return devicesByOs;
 }
 
@@ -158,4 +229,65 @@ const BUILD_ONLY_DEVICES_GROUP = {
     type: 'device',
     buildOnly: true
   }]
+=======
+  return Array.from(devicesByOs.entries()).map(([os, devicesForOs]) => ({
+    name: os,
+    devices: devicesForOs
+  }));
+}
+
+const BUILD_ONLY_SIMULATORS = {
+  deviceGroup: {
+    name: 'Generic',
+    devices: [{
+      identifier: 'build-only-x86_64',
+      name: '64-bit'
+    }, {
+      identifier: 'build-only-i386',
+      name: '32-bit'
+    }]
+  },
+  devicesForIdentifiers: new Map([['build-only-x86_64', {
+    name: '64-bit',
+    udid: 'build-only-x86_64',
+    arch: 'x86_64',
+    type: 'simulator',
+    os: '',
+    state: 'Booted'
+  }], ['build-only-i386', {
+    name: '32-bit',
+    udid: 'build-only-i386',
+    arch: 'i386',
+    type: 'simulator',
+    os: '',
+    state: 'Booted'
+  }]])
+};
+const BUILD_ONLY_DEVICES = {
+  deviceGroup: {
+    name: 'Generic',
+    devices: [{
+      identifier: 'build-only-arm64',
+      name: '64-bit'
+    }, {
+      identifier: 'build-only-armv7',
+      name: '32-bit'
+    }]
+  },
+  devicesForIdentifiers: new Map([['build-only-arm64', {
+    name: '64-bit',
+    udid: 'build-only-arm64',
+    arch: 'arm64',
+    type: 'physical_device',
+    os: '',
+    state: 'Booted'
+  }], ['build-only-armv7', {
+    name: '32-bit',
+    udid: 'build-only-armv7',
+    arch: 'armv7',
+    type: 'physical_device',
+    os: '',
+    state: 'Booted'
+  }]])
+>>>>>>> Update
 };

@@ -25,7 +25,11 @@ function _classnames() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../../modules/nuclide-commons/UniversalDisposable"));
@@ -93,7 +97,11 @@ class StatusComponent extends React.Component {
     super(); // $FlowFixMe: debounce() is not in flow types for rxjs
 
     this._tooltipRefs = new Map();
+<<<<<<< HEAD
     this._hoveredProviderName = new _RxMin.BehaviorSubject(null);
+=======
+    this._hoveredProviderName = new _rxjsCompatUmdMin.BehaviorSubject(null);
+>>>>>>> Update
     this._disposables = new (_UniversalDisposable().default)();
     this._providersCache = [];
     this.state = {
@@ -169,7 +177,11 @@ class StatusComponent extends React.Component {
 
     const hoveredProviderNameDebounced = this._hoveredProviderName.debounce(hoveredProviderName => {
       // No debounce when hovering on to, 250ms debounce when hovering off of
+<<<<<<< HEAD
       return _RxMin.Observable.empty().delay(hoveredProviderName != null ? 0 : 250);
+=======
+      return _rxjsCompatUmdMin.Observable.empty().delay(hoveredProviderName != null ? 0 : 250);
+>>>>>>> Update
     });
 
     this._disposables.add(hoveredProviderNameDebounced.subscribe(hoveredProviderName => {

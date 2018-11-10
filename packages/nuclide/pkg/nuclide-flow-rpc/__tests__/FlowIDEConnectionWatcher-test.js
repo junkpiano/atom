@@ -10,7 +10,11 @@ function _FlowIDEConnectionWatcher() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _waits_for() {
   const data = _interopRequireDefault(require("../../../jest/waits_for"));
@@ -85,7 +89,11 @@ describe('FlowIDEConnectionWatcher', () => {
       };
     };
 
+<<<<<<< HEAD
     processFactory = _RxMin.Observable.defer(() => _RxMin.Observable.of(processFactoryReturn)); // We can use a stub value here because it's just passed through to the ideConnectionFactory
+=======
+    processFactory = _rxjsCompatUmdMin.Observable.defer(() => _rxjsCompatUmdMin.Observable.of(processFactoryReturn)); // We can use a stub value here because it's just passed through to the ideConnectionFactory
+>>>>>>> Update
 
     processFactoryReturn = {};
     ideConnectionCallback = jest.fn();
@@ -96,7 +104,11 @@ describe('FlowIDEConnectionWatcher', () => {
     currentFakeIDEConnection = null;
     watcher = new (_FlowIDEConnectionWatcher().FlowIDEConnectionWatcher)( // Additional indirection so the callbacks can be reassigned in tests after the creation of
     // this object
+<<<<<<< HEAD
     _RxMin.Observable.defer(() => processFactory), null,
+=======
+    _rxjsCompatUmdMin.Observable.defer(() => processFactory), null,
+>>>>>>> Update
     /* File Cache */
     (...args) => ideConnectionCallback(...args), (...args) => ideConnectionFactory(...args));
     currentTime = 42;
@@ -133,7 +145,11 @@ describe('FlowIDEConnectionWatcher', () => {
     // Obviously, this will have to be updated if the number of retries is changed
     const processFactoryReturns = [null, null, {}];
     let currentCall = 0;
+<<<<<<< HEAD
     processFactory = _RxMin.Observable.defer(() => {
+=======
+    processFactory = _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       if (!(currentCall < processFactoryReturns.length)) {
         throw new Error("Invariant violation: \"currentCall < processFactoryReturns.length\"");
       }
@@ -141,7 +157,11 @@ describe('FlowIDEConnectionWatcher', () => {
       const result = processFactoryReturns[currentCall];
       currentCall++;
       tick(7 * 60 * 1000);
+<<<<<<< HEAD
       return _RxMin.Observable.of(result);
+=======
+      return _rxjsCompatUmdMin.Observable.of(result);
+>>>>>>> Update
     });
     jest.spyOn(processFactory, 'subscribe');
     await watcher.start();
@@ -155,7 +175,11 @@ describe('FlowIDEConnectionWatcher', () => {
     // Obviously, this will have to be updated if the number of retries is changed
     const processFactoryReturns = [null, null, null, {}];
     let currentCall = 0;
+<<<<<<< HEAD
     processFactory = _RxMin.Observable.defer(() => {
+=======
+    processFactory = _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       if (!(currentCall < processFactoryReturns.length)) {
         throw new Error("Invariant violation: \"currentCall < processFactoryReturns.length\"");
       }
@@ -163,7 +187,11 @@ describe('FlowIDEConnectionWatcher', () => {
       const result = processFactoryReturns[currentCall];
       currentCall++;
       tick(7 * 60 * 1000);
+<<<<<<< HEAD
       return _RxMin.Observable.of(result);
+=======
+      return _rxjsCompatUmdMin.Observable.of(result);
+>>>>>>> Update
     });
     jest.spyOn(processFactory, 'subscribe');
     await watcher.start();
@@ -173,7 +201,11 @@ describe('FlowIDEConnectionWatcher', () => {
     watcher.dispose();
   });
   it('should throttle attempts to start the IDE process', async () => {
+<<<<<<< HEAD
     processFactory = _RxMin.Observable.defer(() => Promise.resolve(null));
+=======
+    processFactory = _rxjsCompatUmdMin.Observable.defer(() => Promise.resolve(null));
+>>>>>>> Update
     jest.spyOn(processFactory, 'subscribe');
     watcher.start();
     await new Promise(resolve => setImmediate(resolve));

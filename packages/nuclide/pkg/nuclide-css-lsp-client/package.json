@@ -28,6 +28,7 @@
   },
   "nuclide": {
     "packageType": "AtomPackage"
+<<<<<<< HEAD
   },
   "providedServices": {
     "nuclide-project-symbol-search-service": {
@@ -35,5 +36,7 @@
         "0.0.0": "provideProjectSymbolSearch"
       }
     }
+=======
+>>>>>>> Update
   }
 }

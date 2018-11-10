@@ -2,6 +2,7 @@
   "_args": [
     [
       {
+<<<<<<< HEAD
         "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
         "scope": null,
         "escapedName": null,
@@ -14,27 +15,58 @@
     ]
   ],
   "_from": "../d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
+=======
+        "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+        "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-118725-1552-xrzamm.6ihfjvpldi"
+    ]
+  ],
+  "_from": "../d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+>>>>>>> Update
   "_id": "atom-typescript@12.6.3",
   "_inCache": true,
   "_location": "/atom-typescript",
   "_phantomChildren": {},
   "_requested": {
+<<<<<<< HEAD
     "raw": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
     "rawSpec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
     "spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
+=======
+    "raw": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+    "spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+>>>>>>> Update
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
+<<<<<<< HEAD
   "_resolved": "file:../d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
   "_shasum": "926a50865561e7ebba2ad554ce943f7ff81ad533",
   "_shrinkwrap": null,
   "_spec": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/d-118726-4269-1cdhc1e.1e7ddvx6r/package.tgz",
   "_where": "/private/var/folders/xb/kc3yf2d90fz_z_xr5ydzlrbh0000gn/T/apm-install-dir-118726-4269-oco4a6.bpqogycik9",
+=======
+  "_resolved": "file:../d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+  "_shasum": "926a50865561e7ebba2ad554ce943f7ff81ad533",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/d-118725-1552-1inhnf7.0m1ymygb9/package.tgz",
+  "_where": "/private/var/folders/fk/jblnrhb17ql05j6y_kfnk0gst_5ffq/T/apm-install-dir-118725-1552-xrzamm.6ihfjvpldi",
+>>>>>>> Update
   "activationCommands": {
     "atom-workspace": [
       "typescript:initialize-config"

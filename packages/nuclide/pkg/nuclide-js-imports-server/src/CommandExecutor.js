@@ -26,6 +26,19 @@ function _vscodeLanguageserver() {
   return data;
 }
 
+<<<<<<< HEAD
+=======
+function _constants() {
+  const data = require("./constants");
+
+  _constants = function () {
+    return data;
+  };
+
+  return data;
+}
+
+>>>>>>> Update
 function _ImportFormatter() {
   const data = require("./lib/ImportFormatter");
 
@@ -108,14 +121,21 @@ class CommandExecutor {
 
   executeCommand(command, args) {
     switch (command) {
+<<<<<<< HEAD
       case 'addImport':
+=======
+      case _constants().ADD_IMPORT_COMMAND_ID:
+>>>>>>> Update
         return this._addImport(args);
 
       case 'getAllImports':
         return this._getAllImports(args[0]);
 
       default:
+<<<<<<< HEAD
         command;
+=======
+>>>>>>> Update
         throw new Error(`Unexpected command ${command}`);
     }
   }
@@ -204,7 +224,11 @@ class CommandExecutor {
 
 exports.CommandExecutor = CommandExecutor;
 CommandExecutor.COMMANDS = {
+<<<<<<< HEAD
   addImport: true
+=======
+  [_constants().ADD_IMPORT_COMMAND_ID]: true
+>>>>>>> Update
 };
 
 function getEditsForImport(importFormatter, fileMissingImport, missingImport, programBody) {

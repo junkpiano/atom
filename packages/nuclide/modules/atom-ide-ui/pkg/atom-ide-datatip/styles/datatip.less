@@ -6,7 +6,11 @@
   box-shadow: 0px 1px 4px 0px rgba(0,0,0,1);
   color: @syntax-text-color;
   font-family: Menlo, Monaco, Consolas, monospace;
+<<<<<<< HEAD
   font-size: @font-size;
+=======
+  font-size: 80%;
+>>>>>>> Update
   margin-top: -2px; // Compensate for shadow
   position: relative;
   white-space: nowrap;
@@ -82,7 +86,14 @@
 atom-text-editor {
 
   .datatip-highlight-region > .region {
+<<<<<<< HEAD
     background: @syntax-selection-color;
+=======
+    // Use a faded version of the cursor color so as to have a distinction when
+    // overlapping with a selection (`@syntax-selection-color`). This element is
+    // on top of the selection element, so that will show through.
+    background: fade(@syntax-cursor-color, 10%);
+>>>>>>> Update
   }
 
   .datatip-highlight-region-active > .region {

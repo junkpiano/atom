@@ -85,7 +85,11 @@ function _UniversalDisposable() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _getSignatureDatatip() {
   const data = _interopRequireDefault(require("./getSignatureDatatip"));
@@ -117,7 +121,11 @@ const SIGNATURE_TIMEOUT = 2500;
 
 class SignatureHelpManager {
   constructor() {
+<<<<<<< HEAD
     this._commands = new _RxMin.Subject();
+=======
+    this._commands = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._providerRegistry = new (_ProviderRegistry().default)();
     this._disposables = new (_UniversalDisposable().default)(this._subscribeToEditors(), // Share the command subscription between all editors.
     atom.commands.add('atom-text-editor', 'signature-help:show', () => {
@@ -150,7 +158,11 @@ class SignatureHelpManager {
   _subscribeToEditors() {
     return (0, _debounced().observeActiveEditorsDebounced)(0).switchMap(editor => {
       if (editor == null) {
+<<<<<<< HEAD
         return _RxMin.Observable.of({
+=======
+        return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
           editor,
           signatureHelp: null
         });
@@ -160,7 +172,11 @@ class SignatureHelpManager {
         scope: editor.getRootScopeDescriptor()
       }).switchMap(enabled => {
         if (enabled === false) {
+<<<<<<< HEAD
           return _RxMin.Observable.empty();
+=======
+          return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
         }
 
         return this._signatureHelpTriggers(editor).exhaustMap(() => this._getSignatureStream(editor)).takeUntil((0, _event().observableFromSubscribeFunction)(editor.onDidDestroy.bind(editor))).map(signatureHelp => ({
@@ -176,7 +192,11 @@ class SignatureHelpManager {
         return this._showSignatureDatatip(editor, signatureHelp);
       }
 
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }).subscribe();
   }
   /**
@@ -185,7 +205,11 @@ class SignatureHelpManager {
 
 
   _signatureHelpTriggers(editor) {
+<<<<<<< HEAD
     return _RxMin.Observable.merge( // 1) Any keypresses that match a triggerCharacter.
+=======
+    return _rxjsCompatUmdMin.Observable.merge( // 1) Any keypresses that match a triggerCharacter.
+>>>>>>> Update
     (0, _event().observableFromSubscribeFunction)(cb => editor.getBuffer().onDidChangeText(cb)) // The change events and cursor changes are often sequential.
     // We need to make sure we use the final cursor position.
     .let((0, _observable().fastDebounce)(0)).filter(edit => {
@@ -225,6 +249,7 @@ class SignatureHelpManager {
 
 
   _getSignatureStream(editor) {
+<<<<<<< HEAD
     return _RxMin.Observable.concat( // Start with a null signature to clear out any prior signatures.
     _RxMin.Observable.of(null), // Immediately start fetching signatures for the current position.
     _RxMin.Observable.concat(_RxMin.Observable.defer(() => _RxMin.Observable.of(editor.getCursorBufferPosition())), // Further cursor changes will be debounced.
@@ -233,6 +258,16 @@ class SignatureHelpManager {
     // NOTE: we can't use core:cancel because plugins like vim-mode-plus override it.
     .takeUntil(_RxMin.Observable.fromEvent(editor.getElement(), 'keydown').filter(evt => evt.keyCode === 27)), // Terminate with a null signature to clear any visible signatures.
     _RxMin.Observable.of(null));
+=======
+    return _rxjsCompatUmdMin.Observable.concat( // Start with a null signature to clear out any prior signatures.
+    _rxjsCompatUmdMin.Observable.of(null), // Immediately start fetching signatures for the current position.
+    _rxjsCompatUmdMin.Observable.concat(_rxjsCompatUmdMin.Observable.defer(() => _rxjsCompatUmdMin.Observable.of(editor.getCursorBufferPosition())), // Further cursor changes will be debounced.
+    (0, _textEditor().getCursorPositions)(editor).let((0, _observable().fastDebounce)(CURSOR_DEBOUNCE_TIME))).distinctUntilChanged((a, b) => a.isEqual(b)).switchMap(point => this._getSignatures(editor, point)) // Stop once we get a null result.
+    .takeWhile(Boolean) // Stop once the escape key is pressed.
+    // NOTE: we can't use core:cancel because plugins like vim-mode-plus override it.
+    .takeUntil(_rxjsCompatUmdMin.Observable.fromEvent(editor.getElement(), 'keydown').filter(evt => evt.keyCode === 27)), // Terminate with a null signature to clear any visible signatures.
+    _rxjsCompatUmdMin.Observable.of(null));
+>>>>>>> Update
   }
   /**
    * Retrieve a signature from all providers for an editor + point.
@@ -242,13 +277,21 @@ class SignatureHelpManager {
 
   _getSignatures(editor, point) {
     // Take the highest-priority non-empty result.
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => _RxMin.Observable.from(this._providerRegistry.getAllProvidersForEditor(editor))).concatMap(provider => {
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => _rxjsCompatUmdMin.Observable.from(this._providerRegistry.getAllProvidersForEditor(editor))).concatMap(provider => {
+>>>>>>> Update
       return provider.getSignatureHelp(editor, point).catch(err => {
         const editorPath = editor.getPath() || '<untitled editor>';
         (0, _log4js().getLogger)('atom-ide-signature-help').error(`Caught error from signature help provider for ${editorPath}`, err);
         return null;
       });
+<<<<<<< HEAD
     }).filter(x => x != null && x.signatures.length > 0).timeoutWith(SIGNATURE_TIMEOUT, _RxMin.Observable.of(null)).take(1).defaultIfEmpty(null);
+=======
+    }).filter(x => x != null && x.signatures.length > 0).timeoutWith(SIGNATURE_TIMEOUT, _rxjsCompatUmdMin.Observable.of(null)).take(1).defaultIfEmpty(null);
+>>>>>>> Update
   }
   /**
    * Displays the signature datatip and wraps its lifetime in an Observable.
@@ -256,18 +299,30 @@ class SignatureHelpManager {
 
 
   _showSignatureDatatip(editor, signatureHelp) {
+<<<<<<< HEAD
     return _RxMin.Observable.defer(() => {
       const datatipService = this._datatipService;
 
       if (datatipService == null || signatureHelp.signatures.length === 0) {
         return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.defer(() => {
+      const datatipService = this._datatipService;
+
+      if (datatipService == null || signatureHelp.signatures.length === 0) {
+        return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
       }
 
       const currentPosition = editor.getCursorBufferPosition(); // Make sure the datatip follows the cursor position.
 
       return (0, _textEditor().getCursorPositions)(editor) // But don't go too far.
       .takeWhile(position => Math.abs(currentPosition.row - position.row) + Math.abs(currentPosition.column - position.column) <= 2).let((0, _observable().completingSwitchMap)(point => {
+<<<<<<< HEAD
         return _RxMin.Observable.create(() => {
+=======
+        return _rxjsCompatUmdMin.Observable.create(() => {
+>>>>>>> Update
           const disposable = datatipService.createPinnedDataTip((0, _getSignatureDatatip().default)(signatureHelp, point), editor, {
             position: 'above-range',
             showRangeHighlight: false

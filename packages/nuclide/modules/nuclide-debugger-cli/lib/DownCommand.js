@@ -5,6 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+<<<<<<< HEAD
+=======
+function _TokenizedLine() {
+  const data = _interopRequireDefault(require("./TokenizedLine"));
+
+  _TokenizedLine = function () {
+    return data;
+  };
+
+  return data;
+}
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+>>>>>>> Update
 /**
  * Copyright (c) 2017-present, Facebook, Inc.
  * All rights reserved.
@@ -16,7 +31,11 @@ exports.default = void 0;
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
 class UpCommand {
+=======
+class DownCommand {
+>>>>>>> Update
   constructor(con, debug) {
     this.name = 'down';
     this.helpText = 'Move to the next lower stack frame.';
@@ -39,7 +58,11 @@ will use the selected frame for context; for example:
     this._debugger = debug;
   }
 
+<<<<<<< HEAD
   async execute(args) {
+=======
+  async execute(line) {
+>>>>>>> Update
     const activeThread = this._debugger.getActiveThread();
 
     if (activeThread.selectedStackFrame() === 0) {
@@ -51,4 +74,8 @@ will use the selected frame for context; for example:
 
 }
 
+<<<<<<< HEAD
 exports.default = UpCommand;
+=======
+exports.default = DownCommand;
+>>>>>>> Update

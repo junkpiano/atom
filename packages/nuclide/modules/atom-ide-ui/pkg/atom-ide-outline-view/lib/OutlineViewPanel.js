@@ -47,7 +47,11 @@ function _OutlineView() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -96,7 +100,11 @@ class OutlineViewPanelState {
 
   getElement() {
     const BoundOutlineView = (0, _bindObservableAsProps().bindObservableAsProps)((0, _observePaneItemVisibility().default)(this).switchMap(visible => {
+<<<<<<< HEAD
       const outlines = visible ? this._outlines : _RxMin.Observable.of({
+=======
+      const outlines = visible ? this._outlines : _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
         kind: 'empty'
       });
       return outlines.map(outline => ({
@@ -104,7 +112,11 @@ class OutlineViewPanelState {
         visible
       }));
     }), _OutlineView().OutlineView);
+<<<<<<< HEAD
     return (0, _renderReactRoot().renderReactRoot)(React.createElement(BoundOutlineView, null));
+=======
+    return (0, _renderReactRoot().renderReactRoot)(React.createElement(BoundOutlineView, null), 'OutlineViewRoot');
+>>>>>>> Update
   }
 
   serialize() {

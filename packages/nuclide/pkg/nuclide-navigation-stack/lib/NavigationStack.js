@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NavigationStack = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -47,7 +51,11 @@ class NavigationStack {
   constructor() {
     this._elements = [];
     this._index = -1;
+<<<<<<< HEAD
     this._changes = new _RxMin.Subject();
+=======
+    this._changes = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
   }
 
   observeChanges() {

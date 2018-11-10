@@ -40,7 +40,11 @@ function _collection() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function Actions() {
   const data = _interopRequireWildcard(require("./Actions"));
@@ -87,7 +91,11 @@ function addProvider(actions) {
     const updateActions = provider.updates.map(update => Actions().updateMessages(provider, update));
     const invalidationActions = provider.invalidations.map(invalidation => Actions().invalidateMessages(provider, invalidation));
     const removed = actions.filter(a => a.type === Actions().REMOVE_PROVIDER && a.payload.provider === provider).take(1);
+<<<<<<< HEAD
     return _RxMin.Observable.merge(updateActions, invalidationActions).takeUntil(removed);
+=======
+    return _rxjsCompatUmdMin.Observable.merge(updateActions, invalidationActions).takeUntil(removed);
+>>>>>>> Update
   });
 }
 /**
@@ -101,7 +109,11 @@ function applyFix(actions, store, extras) {
   } = extras; // Map both type of "apply fix" actions to the same shape. This probably indicates that we don't
   // actually need two different action types.
 
+<<<<<<< HEAD
   const messagesStream = _RxMin.Observable.merge(actions.ofType(Actions().APPLY_FIX).map(action => {
+=======
+  const messagesStream = _rxjsCompatUmdMin.Observable.merge(actions.ofType(Actions().APPLY_FIX).map(action => {
+>>>>>>> Update
     if (!(action.type === Actions().APPLY_FIX)) {
       throw new Error("Invariant violation: \"action.type === Actions.APPLY_FIX\"");
     }
@@ -167,7 +179,11 @@ function notifyOfFixFailures(actions) {
 
 function forkJoinArray(sources) {
   // $FlowFixMe: Needs a specialization for arrays
+<<<<<<< HEAD
   return _RxMin.Observable.forkJoin(...sources);
+=======
+  return _rxjsCompatUmdMin.Observable.forkJoin(...sources);
+>>>>>>> Update
 }
 
 function fetchCodeActions(actions, store) {
@@ -192,14 +208,22 @@ function fetchCodeActions(actions, store) {
     } = store.getState();
 
     if (codeActionFetcher == null) {
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }
 
     const {
       messages,
       editor
     } = action.payload;
+<<<<<<< HEAD
     return forkJoinArray(messages.map(message => _RxMin.Observable.defer(() => {
+=======
+    return forkJoinArray(messages.map(message => _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       // Skip fetching code actions if the diagnostic already includes them.
       if (message.actions != null && message.actions.length > 0) {
         return Promise.resolve([]);
@@ -208,11 +232,19 @@ function fetchCodeActions(actions, store) {
       }
     }).switchMap(codeActions => {
       return codeActions.length === 0 ? // forkJoin emits nothing for empty arrays.
+<<<<<<< HEAD
       _RxMin.Observable.of([]) : forkJoinArray( // Eagerly fetch the titles so that they're immediately usable in a UI.
       codeActions.map(async codeAction => [await codeAction.getTitle(), codeAction]));
     }).map(codeActions => [message, new Map(codeActions)]))).map(codeActionsForMessage => Actions().setCodeActions(new Map(codeActionsForMessage))).catch(err => {
       (0, _log4js().getLogger)('atom-ide-diagnostics').error(`Error fetching code actions for ${messages[0].filePath}`, err);
       return _RxMin.Observable.empty();
+=======
+      _rxjsCompatUmdMin.Observable.of([]) : forkJoinArray( // Eagerly fetch the titles so that they're immediately usable in a UI.
+      codeActions.map(async codeAction => [await codeAction.getTitle(), codeAction]));
+    }).map(codeActions => [message, new Map(codeActions)]))).map(codeActionsForMessage => Actions().setCodeActions(new Map(codeActionsForMessage))).catch(err => {
+      (0, _log4js().getLogger)('atom-ide-diagnostics').error(`Error fetching code actions for ${messages[0].filePath}`, err);
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     });
   });
 }
@@ -227,7 +259,11 @@ function fetchDescriptions(actions, store) {
       messages
     } = action.payload;
     const existingDescriptions = store.getState().descriptions;
+<<<<<<< HEAD
     return forkJoinArray(messages.map(message => _RxMin.Observable.defer(() => {
+=======
+    return forkJoinArray(messages.map(message => _rxjsCompatUmdMin.Observable.defer(() => {
+>>>>>>> Update
       if (existingDescriptions.has(message)) {
         return Promise.resolve(existingDescriptions.get(message));
       } else if (typeof message.description === 'function') {
@@ -237,7 +273,11 @@ function fetchDescriptions(actions, store) {
       }
     }).map(description => [message, description || '']).catch(err => {
       (0, _log4js().getLogger)('atom-ide-diagnostics').error(`Error fetching description for ${message.filePath}`, err);
+<<<<<<< HEAD
       return _RxMin.Observable.empty();
+=======
+      return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
     }))).map(descriptions => // keep updates to the store minimal to reduce re-renders of the diagnostics table.
     Actions().setDescriptions(new Map(descriptions), true));
   });

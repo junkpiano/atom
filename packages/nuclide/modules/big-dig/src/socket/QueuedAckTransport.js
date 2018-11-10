@@ -18,7 +18,11 @@ function _doubleEndedQueue() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _log4js() {
   const data = require("log4js");
@@ -85,7 +89,11 @@ class QueuedAckTransport {
     this._transport = null;
     this._pendingSends = new (_doubleEndedQueue().default)();
     this._pendingReceives = new Map();
+<<<<<<< HEAD
     this._messageProcessor = new _RxMin.Subject();
+=======
+    this._messageProcessor = new _rxjsCompatUmdMin.Subject();
+>>>>>>> Update
     this._emitter = new (_eventKit().Emitter)();
     this._protocolLogger = protocolLogger;
 
@@ -119,7 +127,12 @@ class QueuedAckTransport {
       throw new Error('connect with existing this._transport');
     }
 
+<<<<<<< HEAD
     this._transport = transport;
+=======
+    this._transport = transport; // eslint-disable-next-line nuclide-internal/unused-subscription
+
+>>>>>>> Update
     transport.onMessage().subscribe(this._handleMessage.bind(this));
     transport.onClose(() => this._handleTransportClose(transport));
   }

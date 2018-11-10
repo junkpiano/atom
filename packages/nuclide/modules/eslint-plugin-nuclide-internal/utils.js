@@ -18,7 +18,11 @@ const path = require('path');
 
 const ATOM_BUILTIN_PACKAGES = new Set(['atom', 'electron', 'remote']);
 
+<<<<<<< HEAD
 function getPackage(startPath) {
+=======
+function getPackage(startPath, getPath = false) {
+>>>>>>> Update
   let current = path.resolve(startPath);
   while (true) {
     const filename = path.join(current, 'package.json');
@@ -27,7 +31,11 @@ function getPackage(startPath) {
       const json = JSON.parse(source);
       json.__filename = filename;
       json.__dirname = current;
+<<<<<<< HEAD
       return json;
+=======
+      return getPath ? {configPath: filename, json} : json;
+>>>>>>> Update
     } catch (err) {
       if (err.code === 'ENOENT' || err.code === 'ENOTDIR') {
         const next = path.join(current, '..');
@@ -68,9 +76,24 @@ function isRequireResolve(node) {
   );
 }
 
+<<<<<<< HEAD
+=======
+function isFbOnlyFile(filePath) {
+  return (
+    filePath
+      .split(path.sep)
+      .find(part => part.startsWith('fb-') || part === 'fb') != null
+  );
+}
+
+>>>>>>> Update
 module.exports = {
   ATOM_BUILTIN_PACKAGES,
   getPackage,
   isRequire,
   isRequireResolve,
+<<<<<<< HEAD
+=======
+  isFbOnlyFile,
+>>>>>>> Update
 };

@@ -45,7 +45,11 @@ function _constants() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _VSPOptionsParser() {
   const data = _interopRequireDefault(require("../VSPOptionsParser"));
@@ -109,12 +113,26 @@ class NativeGdbDebugAdapter {
     return args || {};
   }
 
+<<<<<<< HEAD
   async canDebugFile(file) {
     return new Promise((resolve, reject) => {
       try {
         (0, _process().runCommand)('file', ['-b', '--mime-type', file], {
           dontLogInNuclide: true
         }).catch(_ => _RxMin.Observable.of('')).map(stdout => stdout.split(/\n/).filter(line => line.startsWith('application/')).length > 0).subscribe(value => resolve(value));
+=======
+  transformExpression(exp, isCodeBlock) {
+    return exp;
+  }
+
+  async canDebugFile(file) {
+    return new Promise((resolve, reject) => {
+      try {
+        // eslint-disable-next-line nuclide-internal/unused-subscription
+        (0, _process().runCommand)('file', ['-b', '--mime-type', file], {
+          dontLogInNuclide: true
+        }).catch(_ => _rxjsCompatUmdMin.Observable.of('')).map(stdout => stdout.split(/\n/).filter(line => line.startsWith('application/')).length > 0).subscribe(value => resolve(value));
+>>>>>>> Update
       } catch (ex) {
         reject(ex);
       }

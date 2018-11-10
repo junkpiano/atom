@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NullLanguageService = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -25,7 +29,11 @@ class NullLanguageService {
   }
 
   observeDiagnostics() {
+<<<<<<< HEAD
     return _RxMin.Observable.empty().publish();
+=======
+    return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
   }
 
   getAutocompleteSuggestions(fileVersion, position, request) {
@@ -45,11 +53,19 @@ class NullLanguageService {
   }
 
   findReferences(fileVersion, position) {
+<<<<<<< HEAD
     return _RxMin.Observable.of(null).publish();
   }
 
   rename(fileVersion, position, newName) {
     return _RxMin.Observable.of(null).publish();
+=======
+    return _rxjsCompatUmdMin.Observable.of(null).publish();
+  }
+
+  rename(fileVersion, position, newName) {
+    return _rxjsCompatUmdMin.Observable.of(null).publish();
+>>>>>>> Update
   }
 
   getCoverage(filePath) {
@@ -125,7 +141,11 @@ class NullLanguageService {
   }
 
   observeStatus(fileVersion) {
+<<<<<<< HEAD
     return _RxMin.Observable.of({
+=======
+    return _rxjsCompatUmdMin.Observable.of({
+>>>>>>> Update
       kind: 'null'
     }).publish();
   }
@@ -133,7 +153,11 @@ class NullLanguageService {
   async clickStatus(fileVersion, id, button) {}
 
   onWillSave(fileVersion) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty().publish();
+=======
+    return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
   }
 
   async sendLspRequest(filePath, method, params) {}
@@ -141,7 +165,11 @@ class NullLanguageService {
   async sendLspNotification(method, params) {}
 
   observeLspNotifications(notificationMethod) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty().publish();
+=======
+    return _rxjsCompatUmdMin.Observable.empty().publish();
+>>>>>>> Update
   }
 
   dispose() {}

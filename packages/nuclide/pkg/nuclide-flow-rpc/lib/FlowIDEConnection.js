@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FlowIDEConnection = void 0;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function rpc() {
   const data = _interopRequireWildcard(require("vscode-jsonrpc"));
@@ -48,7 +52,11 @@ function _SafeStreamMessageReader() {
 }
 
 function _nuclideAnalytics() {
+<<<<<<< HEAD
   const data = require("../../nuclide-analytics");
+=======
+  const data = require("../../../modules/nuclide-analytics");
+>>>>>>> Update
 
   _nuclideAnalytics = function () {
     return data;
@@ -122,14 +130,22 @@ class FlowIDEConnection {
 
     this._ideProcess.on('close', () => this.dispose());
 
+<<<<<<< HEAD
     const diagnostics = _RxMin.Observable.fromEventPattern(handler => {
+=======
+    const diagnostics = _rxjsCompatUmdMin.Observable.fromEventPattern(handler => {
+>>>>>>> Update
       this._connection.onNotification(NOTIFICATION_METHOD_NAME, errors => {
         handler(errors);
       });
     }, // no-op: vscode-jsonrpc offers no way to unsubscribe
     () => {});
 
+<<<<<<< HEAD
     this._diagnostics = _RxMin.Observable.using(() => {
+=======
+    this._diagnostics = _rxjsCompatUmdMin.Observable.using(() => {
+>>>>>>> Update
       const fileEventsObservable = this._fileCache.observeFileEvents().bufferTime(100
       /* ms */
       ).filter(fileEvents => fileEvents.length !== 0);
@@ -177,7 +193,11 @@ class FlowIDEConnection {
 
     this._disposables.add(this._diagnostics.connect());
 
+<<<<<<< HEAD
     this._recheckBookends = _RxMin.Observable.fromEventPattern(handler => {
+=======
+    this._recheckBookends = _rxjsCompatUmdMin.Observable.fromEventPattern(handler => {
+>>>>>>> Update
       this._connection.onNotification('startRecheck', () => {
         handler({
           kind: 'start-recheck'
@@ -220,15 +240,24 @@ class FlowIDEConnection {
       this._connection.sendNotification(SUBSCRIBE_METHOD_NAME);
     };
 
+<<<<<<< HEAD
     const retrySubscription = _RxMin.Observable.interval(SUBSCRIBE_RETRY_INTERVAL).take(SUBSCRIBE_RETRIES).takeUntil(this._diagnostics).subscribe(() => {
+=======
+    const retrySubscription = _rxjsCompatUmdMin.Observable.interval(SUBSCRIBE_RETRY_INTERVAL).take(SUBSCRIBE_RETRIES).takeUntil(this._diagnostics).subscribe(() => {
+>>>>>>> Update
       (0, _log4js().getLogger)('nuclide-flow-rpc').error('Did not receive diagnostics after subscribe request -- retrying...');
       (0, _nuclideAnalytics().track)('nuclide-flow.missing-push-diagnostics');
       subscribe();
     });
 
     subscribe();
+<<<<<<< HEAD
     return _RxMin.Observable.using(() => retrySubscription, () => {
       return _RxMin.Observable.merge(this._diagnostics.map(errors => ({
+=======
+    return _rxjsCompatUmdMin.Observable.using(() => retrySubscription, () => {
+      return _rxjsCompatUmdMin.Observable.merge(this._diagnostics.map(errors => ({
+>>>>>>> Update
         kind: 'errors',
         errors
       })), this._recheckBookends);

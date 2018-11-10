@@ -49,7 +49,11 @@ var React = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _UniversalDisposable() {
   const data = _interopRequireDefault(require("../../modules/nuclide-commons/UniversalDisposable"));
@@ -222,7 +226,11 @@ class DropdownResults extends React.Component {
     const editor = this.props.atomInput.getTextEditor();
     this._disposables = new (_UniversalDisposable().default)(() => {
       this._optionsElement.remove();
+<<<<<<< HEAD
     }, _RxMin.Observable.fromEvent(window, 'resize').let((0, _observable().fastDebounce)(200)).subscribe(this._recalculateRect), _RxMin.Observable.fromEvent(editorElement, 'focus').subscribe(this._handleInputFocus), _RxMin.Observable.fromEvent(editorElement, 'blur').subscribe(this._handleInputBlur), atom.commands.add(editorElement, 'core:move-up', () => this._handleMove(UP)), atom.commands.add(editorElement, 'core:move-down', () => this._handleMove(DOWN)), _RxMin.Observable.fromEvent(editorElement, 'keydown').subscribe(this._handleConfirm), (0, _event().observableFromSubscribeFunction)(editor.onDidChange.bind(editor)).subscribe(this._handleInputChange));
+=======
+    }, _rxjsCompatUmdMin.Observable.fromEvent(window, 'resize').let((0, _observable().fastDebounce)(200)).subscribe(this._recalculateRect), _rxjsCompatUmdMin.Observable.fromEvent(editorElement, 'focus').subscribe(this._handleInputFocus), _rxjsCompatUmdMin.Observable.fromEvent(editorElement, 'blur').subscribe(this._handleInputBlur), atom.commands.add(editorElement, 'core:move-up', () => this._handleMove(UP)), atom.commands.add(editorElement, 'core:move-down', () => this._handleMove(DOWN)), _rxjsCompatUmdMin.Observable.fromEvent(editorElement, 'keydown').subscribe(this._handleConfirm), (0, _event().observableFromSubscribeFunction)(editor.onDidChange.bind(editor)).subscribe(this._handleInputChange));
+>>>>>>> Update
 
     this._recalculateRect();
   }

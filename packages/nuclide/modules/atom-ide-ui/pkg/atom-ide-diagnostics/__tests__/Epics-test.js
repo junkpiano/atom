@@ -1,6 +1,10 @@
 "use strict";
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _reduxObservable() {
   const data = require("../../../../nuclide-commons/redux-observable");
@@ -83,7 +87,11 @@ describe('Epics', () => {
         }
 
       }));
+<<<<<<< HEAD
       expect((await (0, _Epics().fetchCodeActions)(new (_reduxObservable().ActionsObservable)(_RxMin.Observable.of(Actions().fetchCodeActions(fakeEditor, fakeMessages), // Identical requests should be de-deped.
+=======
+      expect((await (0, _Epics().fetchCodeActions)(new (_reduxObservable().ActionsObservable)(_rxjsCompatUmdMin.Observable.of(Actions().fetchCodeActions(fakeEditor, fakeMessages), // Identical requests should be de-deped.
+>>>>>>> Update
       Actions().fetchCodeActions(fakeEditor, [...fakeMessages]))), store).toArray().toPromise())).toEqual([Actions().setCodeActions(new Map([[fakeMessages[0], new Map([['test', TEST_ACTION]])], [fakeMessages[1], new Map()]]))]);
     });
   });

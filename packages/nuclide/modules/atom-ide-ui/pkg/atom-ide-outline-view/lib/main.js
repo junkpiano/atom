@@ -90,7 +90,11 @@ function _createOutlines() {
   return data;
 }
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -157,6 +161,7 @@ function getActiveEditorRegistryEventSources() {
   return {
     activeEditors: (0, _debounced().observeActivePaneItemDebounced)().switchMap(item => {
       if ((0, _textEditor().isValidTextEditor)(item)) {
+<<<<<<< HEAD
         return _RxMin.Observable.of(item);
       } else if (item instanceof _OutlineViewPanel().OutlineViewPanelState) {
         // Ignore switching to the outline view.
@@ -164,6 +169,15 @@ function getActiveEditorRegistryEventSources() {
       }
 
       return _RxMin.Observable.of(null);
+=======
+        return _rxjsCompatUmdMin.Observable.of(item);
+      } else if (item instanceof _OutlineViewPanel().OutlineViewPanelState) {
+        // Ignore switching to the outline view.
+        return _rxjsCompatUmdMin.Observable.empty();
+      }
+
+      return _rxjsCompatUmdMin.Observable.of(null);
+>>>>>>> Update
     }).distinctUntilChanged()
   };
 }

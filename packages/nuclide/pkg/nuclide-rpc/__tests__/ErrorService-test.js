@@ -75,7 +75,12 @@ describe('ErrorServer', () => {
       expect(false).toBe(true);
     } catch (e) {
       expect(e instanceof Error).toBe(true);
+<<<<<<< HEAD
       expect(e.message.startsWith('Remote Error: msg processing message {"protocol":"error_protocol","type":' + '"call","method":"ErrorService/promiseError","id":1,"args":{"message":"msg"}}')).toBe(true);
+=======
+      expect(e.message).toEqual('msg');
+      expect(e.rpcMessage).toEqual('{"protocol":"error_protocol","type":"call","method":"ErrorService/promiseError","id":1,"args":{"message":"msg"}}');
+>>>>>>> Update
     }
   });
   it('ErrorService - error string', async () => {
@@ -125,7 +130,12 @@ describe('ErrorServer', () => {
     o.subscribe(() => {
       expect(true).toBe(false);
     }, e => {
+<<<<<<< HEAD
       expect(e.message.startsWith('Remote Error: msg processing message {"protocol":"error_protocol","type":' + '"call","method":"ErrorService/observableError","id":1,"args":{"message":"msg"}}')).toBe(true);
+=======
+      expect(e.message).toEqual('msg');
+      expect(e.rpcMessage).toEqual('{"protocol":"error_protocol","type":"call","method":"ErrorService/observableError","id":1,"args":{"message":"msg"}}');
+>>>>>>> Update
       completed = true;
     }, () => {
       expect(true).toBe(false);

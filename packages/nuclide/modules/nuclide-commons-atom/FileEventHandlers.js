@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.registerOnWillSave = registerOnWillSave;
 exports.observeTextEditors = observeTextEditors;
 
+<<<<<<< HEAD
 var _RxMin = require("rxjs/bundles/Rx.min.js");
+=======
+var _rxjsCompatUmdMin = require("rxjs-compat/bundles/rxjs-compat.umd.min.js");
+>>>>>>> Update
 
 function _analytics() {
   const data = require("../nuclide-commons/analytics");
@@ -68,13 +72,21 @@ const onWillSaveProviders = new (_ProviderRegistry().default)(); // Returns an o
 
 function onWillSave(editor) {
   if (editor.getPath() == null) {
+<<<<<<< HEAD
     return _RxMin.Observable.empty();
+=======
+    return _rxjsCompatUmdMin.Observable.empty();
+>>>>>>> Update
   }
 
   const providers = Array.from(onWillSaveProviders.getAllProvidersForEditor(editor)); // NOTE: concat() is used here to subscribe to providers sequentially and
   // apply their text edits in order.
 
+<<<<<<< HEAD
   return _RxMin.Observable.concat(...providers.map(provider => provider.callback(editor).toArray().race(_RxMin.Observable.of([]).delay(provider.timeout)).map(edits => {
+=======
+  return _rxjsCompatUmdMin.Observable.concat(...providers.map(provider => provider.callback(editor).toArray().race(_rxjsCompatUmdMin.Observable.of([]).delay(provider.timeout)).map(edits => {
+>>>>>>> Update
     const success = (0, _textEdit().applyTextEditsToBuffer)(editor.getBuffer(), edits);
     return success;
   })));
@@ -102,7 +114,10 @@ function patchEditorSave(editor) {
         providers
       });
     } finally {
+<<<<<<< HEAD
       await editor_.getBuffer().save();
+=======
+>>>>>>> Update
       await realSave.call(editor);
     }
   };

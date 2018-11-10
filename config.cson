@@ -13,12 +13,17 @@
         "BUCK"
       ]
     disabledPackages: [
+<<<<<<< HEAD
+=======
+      "atom-ide-ui"
+>>>>>>> Update
       "tree-view"
       "image-view"
       "linter"
     ]
     telemetryConsent: "no"
   editor:
+<<<<<<< HEAD
     fontSize: 15
     softWrap: true
     tabLength: 4
@@ -27,5 +32,21 @@
     userId: "6010bc0c-acda-4d8d-8bb4-ea7c14a29dd1"
   "markdown-preview":
     useGitHubStyle: true
+=======
+    softWrap: true
+    tabType: "soft"
+  "exception-reporting":
+    userId: "126af0bd-e348-4a34-aa29-9f2622f19370"
+  "markdown-preview":
+    useGitHubStyle: true
+  nuclide:
+    "nuclide-flow":
+      warnOnNotInstalled: false
+  "spell-check":
+    locales: [
+      "en-US"
+    ]
+  "tree-view": {}
+>>>>>>> Update
   welcome:
     showOnStartup: false

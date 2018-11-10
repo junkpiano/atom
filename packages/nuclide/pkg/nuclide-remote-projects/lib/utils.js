@@ -37,7 +37,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  *  strict-local
  * @format
  */
+<<<<<<< HEAD
 function* getOpenFileEditorForRemoteProject(connectionConfig) {
+=======
+function* getOpenFileEditorForRemoteProject() {
+>>>>>>> Update
   for (const pane of atom.workspace.getPanes()) {
     const paneItems = pane.getItems();
 
@@ -47,6 +51,7 @@ function* getOpenFileEditorForRemoteProject(connectionConfig) {
       }
 
       const uri = paneItem.getPath();
+<<<<<<< HEAD
 
       const {
         hostname: fileHostname,
@@ -66,6 +71,21 @@ function* getOpenFileEditorForRemoteProject(connectionConfig) {
           filePath
         };
       }
+=======
+      const repositoryDescription = paneItem.getRepositoryDescription();
+
+      const {
+        path: filePath
+      } = _nuclideUri().default.parse(uri);
+
+      yield {
+        pane,
+        editor: paneItem,
+        uri,
+        filePath,
+        repositoryDescription
+      };
+>>>>>>> Update
     }
   }
 }
