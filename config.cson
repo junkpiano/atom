@@ -13,7 +13,6 @@
         "BUCK"
       ]
     disabledPackages: [
-      "tree-view"
       "image-view"
       "linter"
     ]
@@ -23,7 +22,6 @@
       "base16-tomorrow-dark-theme"
     ]
   editor:
-    fontSize: 15
     softWrap: true
     tabType: "soft"
   "exception-reporting":

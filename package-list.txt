@@ -1,5 +1,6 @@
+atom-ide-ui@0.13.0
 dash@1.7.1
-nuclide@0.366.0
+ide-java@0.8.3
 spring-boot@1.1.0
 teletype@0.13.3
 
